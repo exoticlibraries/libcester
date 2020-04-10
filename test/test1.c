@@ -12,5 +12,7 @@ CESTER_AFTER_ALL(test_instance) {
 }
 
 int main(int argc, char **argv) {
-    CESTER_RUN_ALL_TESTS(argc, argv);
+    CESTER_REGISTER_BEFORE_ALL;
+    CESTER_REGISTER_AFTER_ALL;
+    return CESTER_RUN_ALL_TESTS(argc, argv);
 }

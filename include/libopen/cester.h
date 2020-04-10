@@ -26,6 +26,27 @@ extern "C" {
 #include <stdlib.h>
 
 /**
+    This structure manages the _BEFORE_ and _AFTER_ functions 
+    for the test main ::test_instance. And also accounts for all the 
+    registered test cases. This is for Cester internal use only.
+*/
+typedef struct super_test_instance {
+    int has_before_all;         ///< if 1 the test instance has the CESTER_BEFORE_ALL function. For internal use only.
+    int has_after_all;          ///< if 1 the test instance has the CESTER_AFTER_ALL function. For internal use only.
+    int has_before;             ///< if 1 the test instance has the CESTER_BEFORE function. For internal use only.
+    int has_after;              ///< if 1 the test instance has the CESTER_AFTER function. For internal use only.
+    void **tests;               ///< all the tests in the instance. For internal use only.
+} SuperTestInstance;
+
+SuperTestInstance superTestInstance = { 
+    0,
+    0,
+    0,
+    0,
+    NULL
+};
+
+/**
     The test instance that contains the command line argument 
     length and values, with void* pointer that can be used to 
     share data between unit tests.
@@ -33,32 +54,60 @@ extern "C" {
 typedef struct test_instance {
     int argc;                   ///< the length of the command line arg
     char **argv;                ///< the command line arguments 
-    void* arg;                  ///< pointer to an object that can be passed between unit tests
+    void *arg;                  ///< pointer to an object that can be passed between unit tests
 } TestInstance;
 
 /**
+    The function signature for each test case. It accepts the ::test_instance 
+    as it only argument. 
+*/
+typedef void (*cester_test)(TestInstance*);
+
+/**
     The function that would be invoked once before running 
-    any test in the test file.
+    any test in the test file. You can only have one of this function 
+    in a test file.
 */
 #define CESTER_BEFORE_ALL(x) void CESTER_before_all_test(TestInstance* x)
 
 /**
-    The function that would be invoked before each test.
+    Notify cester of the before all function. This is important as 
+    cester does not magically know when CESTER_BEFORE_ALL function is 
+    decalared. This should be in the main function before CESTER_RUN_ALL_TESTS.
 */
-#define CESTER_BEFORE(x,y) void CESTER_before_test(TestInstance* x, char* y)
+#define CESTER_REGISTER_BEFORE_ALL superTestInstance.has_before_all = 1;
+
+/**
+    The function that would be invoked before each test. You can only 
+    have one of this function in a test file.
+*/
+#define CESTER_BEFORE_EACH(x,y) void CESTER_before_each_test(TestInstance* x, char* y)
 
 /**
     The function that would be invoked once after running 
-    all the tests in the test file.
+    all the tests in the test file. You can only have one of this function 
+    in a test file.
 */
 #define CESTER_AFTER_ALL(x) void CESTER_after_all_test(TestInstance* x)
 
 /**
-    The functions that would be invoked after each test is 
-    ran.
+    Notify cester of the before all function. This is important as 
+    cester does not magically know when CESTER_BEFORE_ALL function is 
+    decalared. This should be in the main function before CESTER_RUN_ALL_TESTS.
 */
-#define CESTER_AFTER(x,y) void CESTER_after_test(TestInstance* x, char* y)
+#define CESTER_REGISTER_AFTER_ALL superTestInstance.has_after_all = 1;
 
+/**
+    The functions that would be invoked after each test is 
+    ran. You can only have one of this function in a test file.
+*/
+#define CESTER_AFTER_EACH(x,y) void CESTER_after_each_test(TestInstance* x, char* y)
+
+
+/**
+
+*/
+#define CESTER_TEST(x,y) void x(TestInstance* y)
 
 /**
     Run all the test registered in cester, the TestInstance* pointer 
@@ -69,23 +118,32 @@ typedef struct test_instance {
 */
 #define CESTER_RUN_ALL_TESTS(x,y) cester_run_all_test(x,y)
 
-
 void CESTER_before_all_test(TestInstance* x);
 
 void CESTER_after_all_test(TestInstance* x);
 
-void CESTER_before_test(TestInstance* x, char* y);
+void CESTER_before_each_test(TestInstance* x, char* y);
 
-void CESTER_after_test(TestInstance* x, char* y);
+void CESTER_after_each_test(TestInstance* x, char* y);
 
-static inline void cester_run_all_test(int argc, char **argv) {
+#include <stdio.h>
+static inline int cester_run_all_test(int argc, char **argv) {
     TestInstance* test_instance = malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
-    CESTER_before_all_test(test_instance);
-    //CESTER_before_test(test_instance, "test1");
-    //CESTER_after_test(test_instance, "test1");
-    CESTER_after_all_test(test_instance);
+    if (superTestInstance.has_before_all == 1) {
+        CESTER_before_all_test(test_instance);
+    }
+    //for each test
+    /*;
+    if (1==0) {
+        CESTER_before_test(test_instance, "test1");
+        CESTER_after_test(test_instance, "test1");
+    }*/
+    if (superTestInstance.has_after_all == 1) {
+        CESTER_after_all_test(test_instance);
+    }
+    return 0;
 }
 
 #ifdef __cplusplus

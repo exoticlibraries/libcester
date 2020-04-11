@@ -105,15 +105,17 @@ typedef struct test_case {
     registered test cases. This is for Cester internal use only.
 */
 typedef struct super_test_instance {
-    size_t test_function_count;      ///< the number of tests i the instance. For internal use only.
-    size_t no_color;                 ///< Do not print to the console with color if one. For internal use only.
-    size_t total_tests_count;        ///< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT
-    size_t total_failed_tests_count; ///< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT
-    size_t verbose;                  ///< prints as much info as possible into the output stream
-    size_t minimal;                  ///< prints minimal output into the output stream
-    char* current_test_case_name;    ///< the current test case that is beein run. For internal use only.
-    TestCase **test_cases;           ///< all the test cases in the instance. For internal use only.
-    void *output_stream;             ///< Output stream to write message to, stdout by default. For internal use only.
+    size_t test_function_count;               ///< the number of tests i the instance. For internal use only.
+    size_t no_color;                          ///< Do not print to the console with color if one. For internal use only.
+    size_t total_tests_count;                 ///< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT
+    size_t total_failed_tests_count;          ///< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT
+    size_t verbose;                           ///< prints as much info as possible into the output stream
+    size_t minimal;                           ///< prints minimal output into the output stream
+    size_t selected_test_cases_size;          ///< the number of selected test casses from command line. For internal use only.
+    char* current_test_case_name;             ///< the current test case that is beein run. For internal use only.
+    void* output_stream;                      ///< Output stream to write message to, stdout by default. For internal use only.
+    char** selected_test_cases_names;         ///< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1
+    TestCase** test_cases;                    ///< all the test cases in the instance. For internal use only.
 } SuperTestInstance;
 
 SuperTestInstance superTestInstance = { 
@@ -123,6 +125,8 @@ SuperTestInstance superTestInstance = {
     0,
     0,
     0,
+    0,
+    NULL,
     NULL,
     NULL,
     NULL
@@ -406,7 +410,15 @@ static inline int extract_cester_arg(char* arg, char** out) {
     char* cester = "--cester-";
     *out = malloc (sizeof (char) * 20);
     
-    while (arg[i] != '\0') {
+    while (1) {
+        if (arg[i] == '\0') {
+            if (i < 9) {
+                free(*out);
+                return 0;
+            } else {
+                break;
+            }
+        }
         if (arg[i] != cester[i] && i < 9) {
             free(*out);
             return 0;
@@ -416,13 +428,16 @@ static inline int extract_cester_arg(char* arg, char** out) {
         }
         ++i;
     }
-    (*out)[i-9+1] = '\n';
+    (*out)[i-9] = '\0';
     return 1;
 }
 
-static inline int cerster_string_equals(char* arg, char* arg1) {
+static inline int cester_string_equals(char* arg, char* arg1) {
     int i = 0;
-    while (arg[i] != '\0' && arg1[i] != '\0') {
+    while (1) {
+        if (arg[i] == '\0' && arg1[i] == '\0') {
+            break;
+        }
         if (arg[i] != arg1[i]) {
             return 0;
         }
@@ -431,9 +446,66 @@ static inline int cerster_string_equals(char* arg, char* arg1) {
     return 1;
 }
 
+static inline int cester_string_starts_with(char* arg, char* arg1) {
+    int i = 0;
+    while (1) {
+        if (arg[i] == '\0' && arg1[i] == '\0') {
+            break;
+        }
+        if (arg[i] != arg1[i]) {
+            if (arg1[i] == '\0') {
+                break;
+            } else {
+                return 0;
+            }
+        }
+        ++i;
+    }
+    return 1;
+}
+
+static inline void unpack_selected_test(char *arg) {
+    int i = 0;
+    int size = 0, current_index = 0;
+    char* prefix = "test=";
+    superTestInstance.selected_test_cases_names = malloc(sizeof(char**));
+    
+    superTestInstance.selected_test_cases_names[size] = malloc(sizeof(char*));
+    while (1) {
+        if (arg[i] == '\0') {
+            ++size;
+            break;
+        }
+        if (arg[i] != prefix[i] && i < 5) {
+            break;
+        }
+        if (arg[i] == ',') {
+            current_index = 0;
+            ++size;
+            superTestInstance.selected_test_cases_names[size] = malloc(sizeof(char*));
+            goto continue_loop;
+        }
+        if (i >= 5) {
+            superTestInstance.selected_test_cases_names[size][current_index] = arg[i];
+            ++current_index;
+        }
+        continue_loop:
+                      ++i;
+    }
+    superTestInstance.selected_test_cases_size = size;
+}
+
+static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
+    superTestInstance.current_test_case_name = a_test_case->name;
+    cester_before_each_test(test_instance, a_test_case->name, index);
+    ((cester_test)a_test_case->function)(test_instance);
+    cester_after_each_test(test_instance, a_test_case->name, index);
+}
+
 static inline int cester_run_all_test(int argc, char **argv) {
     int i = 0; 
     int j = 0; 
+    char* selected_test_case_name;
     #ifdef _WIN32
         CONSOLE_SCREEN_BUFFER_INFO info;
         if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
@@ -449,20 +521,23 @@ static inline int cester_run_all_test(int argc, char **argv) {
     // resolve command line options
     for (;j < argc; ++j) {
         char* arg = argv[j];
-        char* cerster_option;
-        if (extract_cester_arg(arg, &cerster_option) == 1) {
-            if (cerster_string_equals(cerster_option, "minimal") == 1) {
+        char* cester_option;
+        if (extract_cester_arg(arg, &cester_option) == 1) {
+            if (cester_string_equals(cester_option, "minimal") == 1) {
                 superTestInstance.minimal = 1;
                 
-            } else if (cerster_string_equals(cerster_option, "verbose") == 1) {
+            } else if (cester_string_equals(cester_option, "verbose") == 1) {
                 superTestInstance.verbose = 1;
                 
-            } else if (cerster_string_equals(cerster_option, "nocolor") == 1) {
+            } else if (cester_string_equals(cester_option, "nocolor") == 1) {
                 superTestInstance.no_color = 1;
+                
+            } else if (cester_string_starts_with(cester_option, "test=") == 1) {
+                unpack_selected_test(cester_option);
                 
             } else {
                 CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
-                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), cerster_option);
+                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), cester_option);
                 CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "\n");
                 CESTER_RESET_TERMINAL_ATTR()
                 return EXIT_FAILURE;
@@ -478,10 +553,18 @@ static inline int cester_run_all_test(int argc, char **argv) {
     clock_t tic = clock();
     for (; i < superTestInstance.test_function_count; ++i) {
         TestCase *a_test_case = superTestInstance.test_cases[i];
-        superTestInstance.current_test_case_name = a_test_case->name;
-        cester_before_each_test(test_instance, a_test_case->name, i);
-        ((cester_test)a_test_case->function)(test_instance);
-        cester_after_each_test(test_instance, a_test_case->name, i);
+        if (superTestInstance.selected_test_cases_names != NULL) {
+            for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
+                selected_test_case_name = superTestInstance.selected_test_cases_names[j];
+                if (cester_string_equals(a_test_case->name, selected_test_case_name) == 1) {
+                    cester_run_test(test_instance, a_test_case, i);
+                    continue;
+                }
+                
+            }
+            continue;
+        }
+        cester_run_test(test_instance, a_test_case, i);
         free(a_test_case);
     }
     clock_t tok = clock();

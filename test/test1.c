@@ -3,6 +3,9 @@
 #include <libopen/cester.h>
 #include <stdio.h>
 
+CESTER_NO_AFTER_EACH;
+CESTER_NO_BEFORE_EACH;
+
 CESTER_BEFORE_ALL(test_instance) {
     printf("Before All test, Arg Size %d\n", test_instance->argc);
 }

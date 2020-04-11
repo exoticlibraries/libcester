@@ -1,6 +1,6 @@
 //!gcc {0} -I../include/ -o test3; ./test3
 
-#include <libopen/cester.h>
+#include <exotic/cester.h>
 #include <stdio.h>
 
 CESTER_BEFORE_ALL(test_instance) {

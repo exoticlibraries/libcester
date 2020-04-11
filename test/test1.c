@@ -1,6 +1,6 @@
 //!gcc {0} -I../include/ -o test1; ./test1
 
-#include <libopen/cester.h>
+#include <exotic/cester.h>
 #include <stdio.h>
 
 CESTER_NO_AFTER_EACH;

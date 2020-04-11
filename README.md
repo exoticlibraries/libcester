@@ -10,6 +10,9 @@ A header only unit testing framework for C.
  - [x] --cester-minimal to not print expression in result
  - [x] --cester-nocolor to not print info in the stream with color
  - [x] --cester-test=Test,.. to select the test cases to run e.g --cester-test=Test1,Test2 to run only Test1 or Test2
+ - [x] prints out name of each test case before running
+ - [x] --cester-version to see cester version only
+ - [ ] --cester-help to view cester help messsage
  
 Any command line option starting with `--cester-*` will be parsed as 
 cester option.

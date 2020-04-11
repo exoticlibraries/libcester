@@ -50,45 +50,47 @@ extern "C" {
 
 #ifdef _WIN32
 
-#define CESTER_RESET_TERMINAL      15   ///< reset the terminal color //Nothing
-#define CESTER_BOLD                15   ///< bold text                //Nothing
-#define CESTER_FOREGROUND_BLACK    8    ///< gray terminal foreground color
-#define CESTER_FOREGROUND_RED      4    ///< red terminal foreground color
-#define CESTER_FOREGROUND_GREEN    2    ///< green foreground color
-#define CESTER_FOREGROUND_YELLOW   6    ///< yellow terminal foreground color
-#define CESTER_FOREGROUND_BLUE     3    ///< blue terminal foreground color
-#define CESTER_FOREGROUND_MAGENTA  5    ///< magenta terminal foreground color
-#define CESTER_FOREGROUND_CYAN     11   ///< cyan terminal foreground color
-#define CESTER_FOREGROUND_WHITE    15   ///< white terminal foreground color
-#define CESTER_BACKGROUND_BLACK    0    ///< black terminal background color
-#define CESTER_BACKGROUND_RED      64   ///< red terminal background color
-#define CESTER_BACKGROUND_GREEN    39   ///< green terminal background color
-#define CESTER_BACKGROUND_YELLOW   96   ///< yellow terminal background color
-#define CESTER_BACKGROUND_BLUE     48   ///< blue terminal background color
-#define CESTER_BACKGROUND_MAGENTA  87   ///< magenta terminal background color
-#define CESTER_BACKGROUND_CYAN     176  ///< cyan terminal background color
-#define CESTER_BACKGROUND_GRAY     0    ///< gray terminal background color
+#define CESTER_RESET_TERMINAL           15                                                ///< reset the terminal color //Nothing
+#define CESTER_BOLD                     15                                                ///< bold text                //Nothing
+#define CESTER_FOREGROUND_BLACK         8                                                 ///< gray terminal foreground color
+#define CESTER_FOREGROUND_RED           4                                                 ///< red terminal foreground color
+#define CESTER_FOREGROUND_GREEN         2                                                 ///< green foreground color
+#define CESTER_FOREGROUND_YELLOW        6                                                 ///< yellow terminal foreground color
+#define CESTER_FOREGROUND_BLUE          3                                                 ///< blue terminal foreground color
+#define CESTER_FOREGROUND_MAGENTA       5                                                 ///< magenta terminal foreground color
+#define CESTER_FOREGROUND_CYAN          11                                                ///< cyan terminal foreground color
+#define CESTER_FOREGROUND_WHITE         15                                                ///< white terminal foreground color
+#define CESTER_BACKGROUND_BLACK         0                                                 ///< black terminal background color
+#define CESTER_BACKGROUND_RED           64                                                ///< red terminal background color
+#define CESTER_BACKGROUND_GREEN         39                                                ///< green terminal background color
+#define CESTER_BACKGROUND_YELLOW        96                                                ///< yellow terminal background color
+#define CESTER_BACKGROUND_BLUE          48                                                ///< blue terminal background color
+#define CESTER_BACKGROUND_MAGENTA       87                                                ///< magenta terminal background color
+#define CESTER_BACKGROUND_CYAN          176                                               ///< cyan terminal background color
+#define CESTER_BACKGROUND_GRAY          0                                                 ///< gray terminal background color
+#define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(hConsole, default_color); ///< reset the terminal color
 
 #else
     
-#define CESTER_RESET_TERMINAL      "\x1B[0m"     ///< reset the terminal color
-#define CESTER_BOLD                "\x1B[1m"     ///< bold text 
-#define CESTER_FOREGROUND_BLACK    "\x1B[30m"    ///< gray terminal foreground color
-#define CESTER_FOREGROUND_RED      "\x1B[31m"    ///< red terminal foreground color
-#define CESTER_FOREGROUND_GREEN    "\x1B[32m"    ///< green foreground color
-#define CESTER_FOREGROUND_YELLOW   "\x1B[33m"    ///< yellow terminal foreground color
-#define CESTER_FOREGROUND_BLUE     "\x1B[34m"    ///< blue terminal foreground color
-#define CESTER_FOREGROUND_MAGENTA  "\x1B[35m"    ///< magenta terminal foreground color
-#define CESTER_FOREGROUND_CYAN     "\x1B[36m"    ///< cyan terminal foreground color
-#define CESTER_FOREGROUND_WHITE    "\x1B[37m"    ///< white terminal foreground color
-#define CESTER_BACKGROUND_BLACK    "\x1B[40m"    ///< black terminal background color
-#define CESTER_BACKGROUND_RED      "\x1B[41m"    ///< red terminal background color
-#define CESTER_BACKGROUND_GREEN    "\x1B[42m"    ///< green terminal background color
-#define CESTER_BACKGROUND_YELLOW   "\x1B[43m"    ///< yellow terminal background color
-#define CESTER_BACKGROUND_BLUE     "\x1B[44m"    ///< blue terminal background color
-#define CESTER_BACKGROUND_MAGENTA  "\x1B[45m"    ///< magenta terminal background color
-#define CESTER_BACKGROUND_CYAN     "\x1B[46m"    ///< cyan terminal background color
-#define CESTER_BACKGROUND_WHITE    "\x1B[47m"    ///< gray terminal background color
+#define CESTER_RESET_TERMINAL           "\x1B[0m"     ///< reset the terminal color
+#define CESTER_BOLD                     "\x1B[1m"     ///< bold text 
+#define CESTER_FOREGROUND_BLACK         "\x1B[30m"    ///< gray terminal foreground color
+#define CESTER_FOREGROUND_RED           "\x1B[31m"    ///< red terminal foreground color
+#define CESTER_FOREGROUND_GREEN         "\x1B[32m"    ///< green foreground color
+#define CESTER_FOREGROUND_YELLOW        "\x1B[33m"    ///< yellow terminal foreground color
+#define CESTER_FOREGROUND_BLUE          "\x1B[34m"    ///< blue terminal foreground color
+#define CESTER_FOREGROUND_MAGENTA       "\x1B[35m"    ///< magenta terminal foreground color
+#define CESTER_FOREGROUND_CYAN          "\x1B[36m"    ///< cyan terminal foreground color
+#define CESTER_FOREGROUND_WHITE         "\x1B[37m"    ///< white terminal foreground color
+#define CESTER_BACKGROUND_BLACK         "\x1B[40m"    ///< black terminal background color
+#define CESTER_BACKGROUND_RED           "\x1B[41m"    ///< red terminal background color
+#define CESTER_BACKGROUND_GREEN         "\x1B[42m"    ///< green terminal background color
+#define CESTER_BACKGROUND_YELLOW        "\x1B[43m"    ///< yellow terminal background color
+#define CESTER_BACKGROUND_BLUE          "\x1B[44m"    ///< blue terminal background color
+#define CESTER_BACKGROUND_MAGENTA       "\x1B[45m"    ///< magenta terminal background color
+#define CESTER_BACKGROUND_CYAN          "\x1B[46m"    ///< cyan terminal background color
+#define CESTER_BACKGROUND_WHITE         "\x1B[47m"    ///< gray terminal background color
+#define CESTER_RESET_TERMINAL_ATTR()    ;             ///< reset the terminal color
 
 #endif
 
@@ -107,7 +109,9 @@ typedef struct super_test_instance {
     size_t no_color;                 ///< Do not print to the console with color if one. For internal use only.
     size_t total_tests_count;        ///< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT
     size_t total_failed_tests_count; ///< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT
+    size_t verbose;                  ///< prints as much info as possible into the output stream
     size_t minimal;                  ///< prints minimal output into the output stream
+    char* current_test_case_name;    ///< the current test case that is beein run. For internal use only.
     TestCase **test_cases;           ///< all the test cases in the instance. For internal use only.
     void *output_stream;             ///< Output stream to write message to, stdout by default. For internal use only.
 } SuperTestInstance;
@@ -117,6 +121,9 @@ SuperTestInstance superTestInstance = {
     0,
     0,
     0,
+    0,
+    0,
+    NULL,
     NULL,
     NULL
 };
@@ -138,6 +145,45 @@ typedef struct test_instance {
 */
 typedef void (*cester_test)(TestInstance*);
 
+// cester options
+
+/**
+    Change the output stream used by cester to write data. The default is `stdout`. 
+    E.g to change the output stream to a file. 
+    
+    \code CESTER_CHANGE_STREAM(fopen("./test.txt", "w+"));
+    
+    The code above changes the stream to a file test.txt, all the output from 
+    the test will be written in the file.
+**/
+#define CESTER_CHANGE_STREAM(x) (superTestInstance.output_stream = x)
+
+/**
+    Do not print to the output stream with color. This should be 
+    used to prevent writing the color bytes into a file stream (in case).
+    
+    This option can also be set from the command line with `--cester-nocolor`
+*/
+#define CESTER_NOCOLOR() (superTestInstance.no_color = 1)
+
+/**
+    Print minimal info into the output stream. With this option set the 
+    expression evaluated will not be printed in the result output. 
+    
+    This option can also be set from the command line with `--cester-minimal`
+*/
+#define CESTER_MINIMAL() (superTestInstance.minimal = 1)
+
+/**
+    Print as much info as possible into the output stream. With this option set  
+    both passed and failed expression evaluated will be printed in the result. 
+    
+    This option can also be set from the command line with `--cester-verbose`
+*/
+#define CESTER_VERBOSE() (superTestInstance.verbose = 1)
+
+// test counts
+
 /**
     The total number of tests that will be run.
 */
@@ -153,23 +199,7 @@ typedef void (*cester_test)(TestInstance*);
 */
 #define CESTER_TOTAL_PASSED_TESTS_COUNT (superTestInstance.total_tests_count - superTestInstance.total_failed_tests_count)
 
-/**
-    Change the output stream used by cester to write data. The default is `stdout`. 
-    E.g to change the output stream to a file. 
-    
-    \code CESTER_CHANGE_STREAM(fopen("./test.txt", "w+"));
-    
-    The code above changes the stream to a file test.txt, all the output from 
-    the test will be written in the file.
-**/
-#define CESTER_CHANGE_STREAM(x) (superTestInstance.output_stream = x)
-
-
-/**
-    Do not print to the output stream with color. This should be 
-    used to prevent writing the color bytes into a file stream (in case).
-*/
-#define CESTER_NOCOLOR() (superTestInstance.no_color = 1)
+// before after test case
 
 /**
     The function that would be invoked once before running 
@@ -302,11 +332,17 @@ static inline char *cester_extract_name(char const* const file_path) {
             file_name_only[j] = file_path[i];
             j++;
         }
-        i++;
+        ++i;
     }
     file_name_only[j] = '\0';
     return file_name_only;
 }
+
+#define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? default_color : x)
+
+#define GET_RESULT_AGGR (superTestInstance.total_failed_tests_count == 0 ? "SUCCESS" : "FAILURE")
+
+#define GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN) : CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED))
 
 #ifdef _WIN32
 #define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, x); fprintf(superTestInstance.output_stream, "%s", y)
@@ -318,23 +354,19 @@ static inline char *cester_extract_name(char const* const file_path) {
 #define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", x, y, CESTER_RESET_TERMINAL) 
 #endif
 
-static inline void cester_print_failed_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
+static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
     char* file_name = cester_extract_name(file_path);
-    if (superTestInstance.no_color == 1) {
-        fprintf(superTestInstance.output_stream, ":");
-    } else {
-        //test4.c:95426: assertion in 'TestName' => (1 == 3) FAILED
-        CESTER_DELEGATE_FPRINT_STR(default_color, file_name);
-        CESTER_DELEGATE_FPRINT_STR(default_color, ":");
-        CESTER_DELEGATE_FPRINT_INT(CESTER_FOREGROUND_YELLOW, line_num);
-        CESTER_DELEGATE_FPRINT_STR(default_color, ":");
-        CESTER_DELEGATE_FPRINT_STR(default_color, " assertion in '");
-        CESTER_DELEGATE_FPRINT_STR(CESTER_FOREGROUND_CYAN, "TestName");
-        if (superTestInstance.minimal == 0) {
-            CESTER_DELEGATE_FPRINT_STR(default_color, " => ");
-            CESTER_DELEGATE_FPRINT_STR(CESTER_FOREGROUND_CYAN, expression);
-        }
-        //CESTER_DELEGATE_FPRINT_STR(default_color, "'\n");
+    CESTER_DELEGATE_FPRINT_STR(default_color, file_name);
+    CESTER_DELEGATE_FPRINT_STR(default_color, ":");
+    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), line_num);
+    CESTER_DELEGATE_FPRINT_STR(default_color, ":");
+    CESTER_DELEGATE_FPRINT_STR(default_color, " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
+    CESTER_DELEGATE_FPRINT_STR(default_color, "'");
+    if (superTestInstance.minimal == 0) {
+        CESTER_DELEGATE_FPRINT_STR(default_color, " with expr: '");
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), expression);
+        CESTER_DELEGATE_FPRINT_STR(default_color, "'");
     }
 }
 
@@ -344,17 +376,64 @@ static inline void print_test_result(double time_spent) {
     CESTER_DELEGATE_FPRINT_STR(default_color, " test(s) in ");
     CESTER_DELEGATE_FPRINT_DOUBLE(default_color, (time_spent > 60 ? (time_spent / 60) : time_spent) );
     CESTER_DELEGATE_FPRINT_STR(default_color, (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
+    
+    CESTER_DELEGATE_FPRINT_STR(default_color, "Results: ");
+    CESTER_DELEGATE_FPRINT_STR(GET_RESULT_AGGR_COLOR, GET_RESULT_AGGR);
+    CESTER_DELEGATE_FPRINT_STR(default_color, " (");
+    CESTER_DELEGATE_FPRINT_INT(default_color, CESTER_TOTAL_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR(default_color, " tests, ");
+    CESTER_DELEGATE_FPRINT_INT(default_color, CESTER_TOTAL_PASSED_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR(default_color, " passed, ");
+    CESTER_DELEGATE_FPRINT_INT(default_color, CESTER_TOTAL_FAILED_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR(default_color, " failed");
+    CESTER_DELEGATE_FPRINT_STR(default_color, ")\n");
 }
 
 static inline void cester_evaluate_expression(int eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     ++superTestInstance.total_tests_count;
     if (eval_result == 0) {
         ++superTestInstance.total_failed_tests_count;
-        cester_print_failed_assertion(expression, file_path, line_num);
+        cester_print_assertion(expression, file_path, line_num);
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), " FAILED\n");
+    } else if (superTestInstance.verbose == 1) {
+        cester_print_assertion(expression, file_path, line_num);
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN), " PASSED\n");
     }
 }
 
+static inline int extract_cester_arg(char* arg, char** out) {
+    int i = 0;
+    char* cester = "--cester-";
+    *out = malloc (sizeof (char) * 20);
+    
+    while (arg[i] != '\0') {
+        if (arg[i] != cester[i] && i < 9) {
+            free(*out);
+            return 0;
+        }
+        if (i >= 9) {
+            (*out)[i-9] = arg[i];
+        }
+        ++i;
+    }
+    (*out)[i-9+1] = '\n';
+    return 1;
+}
+
+static inline int cerster_string_equals(char* arg, char* arg1) {
+    int i = 0;
+    while (arg[i] != '\0' && arg1[i] != '\0') {
+        if (arg[i] != arg1[i]) {
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+
 static inline int cester_run_all_test(int argc, char **argv) {
+    int i = 0; 
+    int j = 0; 
     #ifdef _WIN32
         CONSOLE_SCREEN_BUFFER_INFO info;
         if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
@@ -366,15 +445,40 @@ static inline int cester_run_all_test(int argc, char **argv) {
     if (superTestInstance.output_stream==NULL) {
         superTestInstance.output_stream = stdout;
     }
+    
+    // resolve command line options
+    for (;j < argc; ++j) {
+        char* arg = argv[j];
+        char* cerster_option;
+        if (extract_cester_arg(arg, &cerster_option) == 1) {
+            if (cerster_string_equals(cerster_option, "minimal") == 1) {
+                superTestInstance.minimal = 1;
+                
+            } else if (cerster_string_equals(cerster_option, "verbose") == 1) {
+                superTestInstance.verbose = 1;
+                
+            } else if (cerster_string_equals(cerster_option, "nocolor") == 1) {
+                superTestInstance.no_color = 1;
+                
+            } else {
+                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
+                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), cerster_option);
+                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "\n");
+                CESTER_RESET_TERMINAL_ATTR()
+                return EXIT_FAILURE;
+            }
+        }
+    }
+    
     TestInstance *test_instance = malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
     cester_before_all_test(test_instance);
     
-    int i = 0; 
     clock_t tic = clock();
-    for (; i < superTestInstance.test_function_count; i++) {
+    for (; i < superTestInstance.test_function_count; ++i) {
         TestCase *a_test_case = superTestInstance.test_cases[i];
+        superTestInstance.current_test_case_name = a_test_case->name;
         cester_before_each_test(test_instance, a_test_case->name, i);
         ((cester_test)a_test_case->function)(test_instance);
         cester_after_each_test(test_instance, a_test_case->name, i);
@@ -386,9 +490,7 @@ static inline int cester_run_all_test(int argc, char **argv) {
     cester_after_all_test(test_instance);
     print_test_result(time_spent);
     
-    #ifdef _WIN32
-        SetConsoleTextAttribute(hConsole, default_color);
-    #endif
+    CESTER_RESET_TERMINAL_ATTR();
     return EXIT_SUCCESS;
 }
 

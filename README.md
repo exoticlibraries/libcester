@@ -46,11 +46,33 @@ The project is designed for C, but also works with C++ but be ready for waves of
 
 ## Installation
 
+If you install the library file `cester.h` using the command below, it can be included in your test like `<exotic/cester.h>`.
+
 ### Windows
+
+Install the library using powershell. It auto detect your C compiler include directory and install libcester into the include folder. Execute the command in powershell.
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://exoticlibraries.github.io/dl/cester/cester.ps1'))
+```
 
 ### Linux
 
+Use apt package manager to install libcester 
+
+```bash
+apt install libcester
+```
+
+Use the remote installation script to install libcester with bash. Before running this command ensure you are root `su` so it can move cester.h to the /usr/include/ folder. 
+
+```bash
+bash <(curl -s https://exoticlibraries.github.io/dl/cester/cester.sh)
+```
+
 ### Download and include
+
+You can simply download the header file `cester.h` from the repo in your project source folder and include it in your project. Download the file from [here](https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h). The you can include it in your test relatively like `#include "cester.h"`.
 
 ## How it works
 

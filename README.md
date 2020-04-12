@@ -2,9 +2,9 @@
 A header only unit testing framework for C.
 
 
- - [ ] can select test from command line arg
+ - [x] can select test from command line arg
  - [x] enable disable output coloring
- - [ ] print cester version 
+ - [x] print cester version 
  - [x] set super instance attr from command line
  - [x] --cester-verbose option to print test line by line and show if passed or failed
  - [x] --cester-minimal to not print expression in result
@@ -12,7 +12,8 @@ A header only unit testing framework for C.
  - [x] --cester-test=Test,.. to select the test cases to run e.g --cester-test=Test1,Test2 to run only Test1 or Test2
  - [x] prints out name of each test case before running
  - [x] --cester-version to see cester version only
- - [ ] --cester-help to view cester help messsage
+ - [x] --cester-help to view cester help messsage
+ - [x] --cester-printversion to display cester version before running test
  
 Any command line option starting with `--cester-*` will be parsed as 
 cester option.

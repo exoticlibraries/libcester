@@ -25,6 +25,7 @@ extern "C" {
 
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -266,17 +267,6 @@ typedef void (*cester_test)(TestInstance*);
 #define CESTER_NO_AFTER_EACH void cester_after_each_test(TestInstance* x, char * const y, int z) {}
 
 /**
-    Create a test case, this uses the first arguments as the test 
-    case name and identifier. But you still need to call CESTER_REGISTER 
-    with the name to make cester aware of the test case. 
-    
-    The second argument is the test instance object that is shared between 
-    the test cases.
-*/
-#define CESTER_TEST(x,y) char * const Cester_Test_##x = #x ; \
-                         void x(TestInstance* y)
-
-/**
     Register a test to make cester aware of the test case. 
     In the future this should not be required.
 */
@@ -321,7 +311,7 @@ void cester_after_all_test(TestInstance* x);
 void cester_before_each_test(TestInstance* x, char * const y, int z);
 void cester_after_each_test(TestInstance* x, char * const y, int z);
 
-#include <stdio.h>
+
 static inline void cester_register_test(cester_test ctest, char * const test_name) {
     if (superTestInstance.test_cases==NULL) {
         superTestInstance.test_cases = malloc(sizeof(TestCase **));
@@ -369,58 +359,58 @@ static inline char *cester_extract_name(char const* const file_path) {
 #endif
 
 static inline void cester_print_version() {
-    CESTER_DELEGATE_FPRINT_STR(default_color, "CESTER v");
-    CESTER_DELEGATE_FPRINT_STR(default_color, CESTER_VERSION);
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, CESTER_LICENSE);
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "CESTER v");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), CESTER_VERSION);
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_print_help() {
-    CESTER_DELEGATE_FPRINT_STR(default_color, "Usage: ./testfile [-options] [args...]\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\nwhere options include:\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-minimal         print minimal info into the output stream\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-verbose         print as much info as possible into the output stream\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-nocolor         do not print info with coloring\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-version         display cester version and exit\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "    --cester-help            display this help info version and exit\n");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "See http://www.oracle.com/technetwork/java/javase/documentation/index.html for more details");
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "Usage: ./testfile [-options] [args...]\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-help            display this help info version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "See http://www.oracle.com/technetwork/java/javase/documentation/index.html for more details");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
     char* file_name = cester_extract_name(file_path);
-    CESTER_DELEGATE_FPRINT_STR(default_color, file_name);
-    CESTER_DELEGATE_FPRINT_STR(default_color, ":");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), file_name);
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), line_num);
-    CESTER_DELEGATE_FPRINT_STR(default_color, ":");
-    CESTER_DELEGATE_FPRINT_STR(default_color, " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " assertion in '");
     CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
-    CESTER_DELEGATE_FPRINT_STR(default_color, "'");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "'");
     if (superTestInstance.minimal == 0) {
-        CESTER_DELEGATE_FPRINT_STR(default_color, " with expr: '");
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " with expr: '");
         CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), expression);
-        CESTER_DELEGATE_FPRINT_STR(default_color, "'");
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "'");
     }
 }
 
 static inline void print_test_result(double time_spent) {
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\nRan ");
-    CESTER_DELEGATE_FPRINT_INT(default_color, superTestInstance.total_tests_count);
-    CESTER_DELEGATE_FPRINT_STR(default_color, " test(s) in ");
-    CESTER_DELEGATE_FPRINT_DOUBLE(default_color, (time_spent > 60 ? (time_spent / 60) : time_spent) );
-    CESTER_DELEGATE_FPRINT_STR(default_color, (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\nRan ");
+    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), superTestInstance.total_tests_count);
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " test(s) in ");
+    CESTER_DELEGATE_FPRINT_DOUBLE(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (time_spent > 60 ? (time_spent / 60) : time_spent) );
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
     
-    CESTER_DELEGATE_FPRINT_STR(default_color, "Synthesis: ");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "Synthesis: ");
     CESTER_DELEGATE_FPRINT_STR(CESTER_GET_RESULT_AGGR_COLOR, CESTER_GET_RESULT_AGGR);
-    CESTER_DELEGATE_FPRINT_STR(default_color, " Tested: ");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " Tested: ");
     CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), CESTER_TOTAL_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(default_color, " | Passing: ");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " | Passing: ");
     CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN), CESTER_TOTAL_PASSED_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(default_color, " | Failing: ");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " | Failing: ");
     CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), CESTER_TOTAL_FAILED_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(default_color, "\n");
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_evaluate_expression(int eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
@@ -527,14 +517,39 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     superTestInstance.current_test_case_name = a_test_case->name;
-    cester_before_each_test(test_instance, a_test_case->name, index);
+    //cester_before_each_test(test_instance, a_test_case->name, index);
     ((cester_test)a_test_case->function)(test_instance);
-    cester_after_each_test(test_instance, a_test_case->name, index);
+    //cester_after_each_test(test_instance, a_test_case->name, index);
 }
+
+/**
+    Create a test case, this uses the first arguments as the test 
+    case name and identifier and the body of the test. 
+*/
+#define CESTER_TEST(x,y,z) static void Cester_Test_##x(TestInstance* y);
+
+#include __BASE_FILE__
+
+#undef CESTER_TEST
+
+#define CESTER_TEST(x,y,z) { (Cester_Test_##x), #x },
+
+static TestCase const cester_test_cases[] = {
+#include __BASE_FILE__
+{ NULL, NULL }
+};
+
+#undef CESTER_TEST
+
+#define CESTER_TEST(x,y,z) static void Cester_Test_##x(TestInstance* y) \
+                           { \
+                            z  \
+                           }
 
 static inline int cester_run_all_test(int argc, char **argv) {
     int i = 0; 
     int j = 0; 
+    int found_test = 0;
     char* selected_test_case_name;
     #ifdef _WIN32
         CONSOLE_SCREEN_BUFFER_INFO info;
@@ -563,10 +578,12 @@ static inline int cester_run_all_test(int argc, char **argv) {
                 superTestInstance.no_color = 1;
                 
             } else if (cester_string_equals(cester_option, "version") == 1) {
+                CESTER_NOCOLOR();
                 cester_print_version();
                 return EXIT_SUCCESS;
                 
             } else if (cester_string_equals(cester_option, "help") == 1) {
+                CESTER_NOCOLOR();
                 cester_print_version();
                 cester_print_help();
                 return EXIT_SUCCESS;
@@ -591,54 +608,56 @@ static inline int cester_run_all_test(int argc, char **argv) {
     TestInstance *test_instance = malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
-    cester_before_all_test(test_instance);
+    //cester_before_all_test(test_instance);
     
     clock_t tic = clock();
-    for (; i < superTestInstance.test_function_count; ++i) {
-        TestCase *a_test_case = superTestInstance.test_cases[i];
-        if (superTestInstance.selected_test_cases_names != NULL) {
-            for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
-                selected_test_case_name = superTestInstance.selected_test_cases_names[j];
-                if (cester_string_equals(a_test_case->name, selected_test_case_name) == 1) {
-                    free(superTestInstance.selected_test_cases_names[j]);
-                    superTestInstance.selected_test_cases_names[j] = NULL;
-                    goto do_run_test_case;
-                }
-                
-            }
-            continue;
+    if (superTestInstance.selected_test_cases_names == NULL) {
+        for (;cester_test_cases[i].function != NULL;++i) {
+            TestCase a_test_case = cester_test_cases[i];
+            cester_run_test(test_instance, &a_test_case, i);
         }
-        do_run_test_case:
-                         if (superTestInstance.verbose == 1) {
-                            CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
-                            CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), a_test_case->name);
-                            CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "'\n");
-                         }
-                         cester_run_test(test_instance, a_test_case, i);
-                         free(a_test_case);
+        
+    } else {
+        for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
+            selected_test_case_name = superTestInstance.selected_test_cases_names[j];
+            found_test = 0;
+            for (i=0;cester_test_cases[i].function != NULL;++i) {
+                if (cester_string_equals(cester_test_cases[i].name, selected_test_case_name) == 1) {
+                    found_test = 1;
+                    free(superTestInstance.selected_test_cases_names[j]);
+                    TestCase a_test_case = cester_test_cases[i];
+                    cester_run_test(test_instance, &a_test_case, i);
+                }
+            }
+            if (found_test == 0) {
+                if (superTestInstance.minimal == 0) {
+                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), "Warning: the test case '");
+                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
+                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), "' was not found! \n");
+                }
+            }
+        }
+        
     }
+    free(selected_test_case_name);
     clock_t tok = clock();
     double time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
     
-    if (superTestInstance.selected_test_cases_names != NULL) {
-        for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
-            if (superTestInstance.selected_test_cases_names[j] != NULL) {
-                if (superTestInstance.minimal == 0) {
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "Warning: the test case '");
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), superTestInstance.selected_test_cases_names[j]);
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "' was not found! \n");
-                }
-            }
-        }
-        free(selected_test_case_name);
-    }
-    
-    cester_after_all_test(test_instance);
+    //cester_after_all_test(test_instance);
     print_test_result(time_spent);
     
     CESTER_RESET_TERMINAL_ATTR();
+    if (CESTER_TOTAL_FAILED_TESTS_COUNT != 0) {
+        return EXIT_FAILURE;
+    }
     return EXIT_SUCCESS;
 }
+
+#ifndef CESTER_NO_MAIN
+int main(int argc, char **argv) {
+    return CESTER_RUN_ALL_TESTS(argc, argv);
+}
+#endif
 
 #ifdef __cplusplus
 }

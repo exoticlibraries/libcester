@@ -112,8 +112,10 @@ typedef enum cester_test_type {
     NORMAL_TEST,             ///< normal test in global or test suite. For internal use only.
     BEFORE_ALL_TEST,         ///< test to run before all normal tests in global or test suite. For internal use only.
     BEFORE_EACH_TEST,        ///< test to run before each normal tests in global or test suite. For internal use only.
-    AFTER_ALL_TEST,         ///< test to run after all normal tests in global or test suite. For internal use only.
-    AFTER_EACH_TEST,        ///< test to run after each normal tests in global or test suite. For internal use only.
+    AFTER_ALL_TEST,          ///< test to run after all normal tests in global or test suite. For internal use only.
+    AFTER_EACH_TEST,         ///< test to run after each normal tests in global or test suite. For internal use only.
+    CESTER_OPTION_FUNCTION,  ///< the cester function for test, this wil be excuted before running the tests. For internal use only.
+    TESTS_TERMINATOR         ///< the last value in the test cases to terminates the tests. For internal use only.
 } TestType;
 
 typedef struct test_case {
@@ -173,6 +175,8 @@ typedef struct test_instance {
 typedef void (*cester_test)(TestInstance*);
 
 typedef void (*cester_before_after_each)(TestInstance*, char * const, int);
+
+typedef void (*cester_void)();
 
 // cester options
 
@@ -498,6 +502,12 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 */
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y);
 
+/**
+    Set the options for cester, anything in this macro will be executed before 
+    the tests starts running.
+*/
+#define CESTER_OPTIONS(x) void cester_options_before_main();
+
 #include __BASE_FILE__
 
 #undef CESTER_TEST
@@ -505,16 +515,18 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 #undef CESTER_BEFORE_EACH
 #undef CESTER_AFTER_ALL
 #undef CESTER_AFTER_EACH
+#undef CESTER_OPTIONS
 
 #define CESTER_TEST(x,y,z) { (cester_test_##x), #x, NORMAL_TEST },
 #define CESTER_BEFORE_ALL(x,y) { (cester_before_all_test), "cester_before_all_test", BEFORE_ALL_TEST },
 #define CESTER_BEFORE_EACH(w,x,y,z) { (cester_before_each_test), "cester_before_each_test", BEFORE_EACH_TEST },
 #define CESTER_AFTER_ALL(x,y) { (cester_after_all_test), "cester_after_all_test", AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,z) { (cester_after_each_test), "cester_after_each_test", AFTER_EACH_TEST },
+#define CESTER_OPTIONS(x) { (cester_options_before_main), "cester_options_before_main", CESTER_OPTION_FUNCTION },
 
 static TestCase const cester_test_cases[] = {
 #include __BASE_FILE__
-{ NULL, NULL }
+{ NULL, NULL,  }
 };
 
 #undef CESTER_TEST
@@ -522,16 +534,18 @@ static TestCase const cester_test_cases[] = {
 #undef CESTER_BEFORE_EACH
 #undef CESTER_AFTER_ALL
 #undef CESTER_AFTER_EACH
+#undef CESTER_OPTIONS
 
 #define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z  } 
 #define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y } 
 #define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, int y) { z }
 #define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y } 
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y) { z }
+#define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     int i;
-    if (superTestInstance.verbose == 1) {
+    if (superTestInstance.verbose == 1 && superTestInstance.minimal == 0) {
         CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
         CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), a_test_case->name);
         CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "'\n");
@@ -670,6 +684,11 @@ static inline int cester_run_all_test(int argc, char **argv) {
 
 #ifndef CESTER_NO_MAIN
 int main(int argc, char **argv) {
+    for (int i=0;cester_test_cases[i].test_type != TESTS_TERMINATOR;++i) {
+        if (cester_test_cases[i].test_type == CESTER_OPTION_FUNCTION) {
+            ((cester_void)cester_test_cases[i].function)();
+        }
+    }
     return CESTER_RUN_ALL_TESTS(argc, argv);
 }
 #endif

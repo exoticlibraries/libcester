@@ -12,8 +12,3 @@ CESTER_TEST(assert_true, test_instance,
     cester_assert_true(1 == 1);
     cester_assert_true(2 == 2);
 )
-
-CESTER_OPTIONS(
-    CESTER_VERBOSE();
-    CESTER_MINIMAL();
-)

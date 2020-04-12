@@ -269,8 +269,8 @@ typedef void (*cester_void)();
 #define cester_assert_false(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
 #define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
 #define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
-#define cester_assert_equal(x,y) cester_evaluate_expression(x == y, "(" #x " == " #y ")", __FILE__, __LINE__)
-#define cester_assert_not_equal(x,y) cester_evaluate_expression(x != y, "(" #x " != " #y ")", __FILE__, __LINE__)
+#define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
+#define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
 #ifdef _WIN32
     int default_color = CESTER_RESET_TERMINAL;
@@ -311,74 +311,92 @@ static inline char *cester_extract_name(char const* const file_path) {
 }
 
 #define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? default_color : x)
-
 #define CESTER_GET_RESULT_AGGR (superTestInstance.total_failed_tests_count == 0 ? "SUCCESS" : "FAILURE")
-
-#define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN) : CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED))
+#define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? (CESTER_FOREGROUND_GREEN) : (CESTER_FOREGROUND_RED))
 
 #ifdef _WIN32
-#define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, x); fprintf(superTestInstance.output_stream, "%s", y)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, x); fprintf(superTestInstance.output_stream, "%d", y)
-#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(hConsole, x); fprintf(superTestInstance.output_stream, "%f", y)
+#define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
+#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%d", y)
+#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%f", y)
 #else
-#define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", x, y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%d%s", x, y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", x, y, CESTER_RESET_TERMINAL) 
+#define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
+#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%d%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
+#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
 #endif
 
 static inline void cester_print_version() {
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "CESTER v");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), CESTER_VERSION);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "CESTER v");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_VERSION);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_print_help() {
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "Usage: ./testfile [-options] [args...]\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "    --cester-help            display this help info version and exit\n");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "See https://exoticlibraries.github.io/libcester/cmdlineargs.html for more details");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Usage: ./testfile [-options] [args...]\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-help            display this help info version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "See https://exoticlibraries.github.io/libcester/cmdlineargs.html for more details");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), line_num);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " assertion in '");
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "'");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
     if (superTestInstance.verbose == 1) {
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " with expr: '");
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), expression);
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "'");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " with expr: '");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expression);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
+    }
+}
+
+static inline void cester_print_expect_actual(int expecting, char const* const expect, char const* const found, char const* const file_path, size_t const line_num) {
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
+    if (superTestInstance.verbose == 1) {
+        if (expecting == 0) {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " not expecting ");
+        } else {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " expected ");
+        }
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", found ");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), found);
     }
 }
 
 static inline void print_test_result(double time_spent) {
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\nRan ");
-    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), superTestInstance.total_tests_count);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " test(s) in ");
-    CESTER_DELEGATE_FPRINT_DOUBLE(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (time_spent > 60 ? (time_spent / 60) : time_spent) );
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nRan ");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), superTestInstance.total_tests_count);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test(s) in ");
+    CESTER_DELEGATE_FPRINT_DOUBLE((CESTER_FOREGROUND_WHITE), (time_spent > 60 ? (time_spent / 60) : time_spent) );
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
     
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "Synthesis: ");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Synthesis: ");
     CESTER_DELEGATE_FPRINT_STR(CESTER_GET_RESULT_AGGR_COLOR, CESTER_GET_RESULT_AGGR);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " Tested: ");
-    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), CESTER_TOTAL_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " | Passing: ");
-    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN), CESTER_TOTAL_PASSED_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), " | Failing: ");
-    CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), CESTER_TOTAL_FAILED_TESTS_COUNT);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " Tested: ");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), CESTER_TOTAL_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " | Passing: ");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GREEN), CESTER_TOTAL_PASSED_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " | Failing: ");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_RED), CESTER_TOTAL_FAILED_TESTS_COUNT);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
 }
 
 static inline void cester_evaluate_expression(int eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
@@ -386,9 +404,22 @@ static inline void cester_evaluate_expression(int eval_result, char const* const
     cester_print_assertion(expression, file_path, line_num);
     if (eval_result == 0) {
         ++superTestInstance.total_failed_tests_count;
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), " FAILED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " FAILED\n");
     } else {
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN), " PASSED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), " PASSED\n");
+    }
+    CESTER_RESET_TERMINAL_ATTR();
+}
+
+static inline void cester_evaluate_expect_actual(int eval_result, int expecting, void* expect, void* found, 
+                                                char const* const file_path, size_t const line_num) {
+    ++superTestInstance.total_tests_count;
+    cester_print_expect_actual(expecting, expect, found, file_path, line_num);
+    if (eval_result == 0) {
+        ++superTestInstance.total_failed_tests_count;
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " FAILED\n");
+    } else {
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), " PASSED\n");
     }
     CESTER_RESET_TERMINAL_ATTR();
 }
@@ -559,9 +590,9 @@ static TestCase const cester_test_cases[] = {
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     int i;
     if (superTestInstance.verbose == 1 && superTestInstance.minimal == 0) {
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), a_test_case->name);
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "'\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), a_test_case->name);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "'\n");
         CESTER_RESET_TERMINAL_ATTR();
     }
     superTestInstance.current_test_case_name = a_test_case->name;
@@ -628,9 +659,9 @@ static inline int cester_run_all_test(int argc, char **argv) {
                 unpack_selected_extra_args(cester_option, &superTestInstance.selected_test_cases_names, &superTestInstance.selected_test_cases_size);
                 
             } else {
-                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
-                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), cester_option);
-                CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_RED), "\n");
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), cester_option);
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
                 CESTER_RESET_TERMINAL_ATTR()
                 return EXIT_FAILURE;
             }
@@ -639,7 +670,7 @@ static inline int cester_run_all_test(int argc, char **argv) {
     
     if (superTestInstance.print_version == 1) {
         cester_print_version();
-        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), "\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
         CESTER_RESET_TERMINAL_ATTR();
     }
     
@@ -676,9 +707,9 @@ static inline int cester_run_all_test(int argc, char **argv) {
             }
             if (found_test == 0) {
                 if (superTestInstance.minimal == 0) {
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), "Warning: the test case '");
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
-                    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), "' was not found! \n");
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the test case '");
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' was not found! \n");
                 }
             }
         }

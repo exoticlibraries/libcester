@@ -267,6 +267,10 @@ typedef void (*cester_void)();
 */
 #define cester_assert_true(x) cester_evaluate_expression(x, "(" #x ")", __FILE__, __LINE__)
 #define cester_assert_false(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
+#define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
+#define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
+#define cester_assert_equal(x,y) cester_evaluate_expression(x == y, "(" #x " == " #y ")", __FILE__, __LINE__)
+#define cester_assert_not_equal(x,y) cester_evaluate_expression(x != y, "(" #x " != " #y ")", __FILE__, __LINE__)
 
 #ifdef _WIN32
     int default_color = CESTER_RESET_TERMINAL;

@@ -105,9 +105,21 @@ extern "C" {
 */
 #define CESTER_LICENSE "GNU General Public License v3.0"
 
+/**
+    The type of test
+*/
+typedef enum cester_test_type {
+    NORMAL_TEST,             ///< normal test in global or test suite. For internal use only.
+    BEFORE_ALL_TEST,         ///< test to run before all normal tests in global or test suite. For internal use only.
+    BEFORE_EACH_TEST,        ///< test to run before each normal tests in global or test suite. For internal use only.
+    AFTER_ALL_TEST,         ///< test to run after all normal tests in global or test suite. For internal use only.
+    AFTER_EACH_TEST,        ///< test to run after each normal tests in global or test suite. For internal use only.
+} TestType;
+
 typedef struct test_case {
     void *function;        ///< the function that enclosed the tests. For internal use only.
     char *name;            ///< the test function name. For internal use only.
+    TestType test_type;    ///< the type of the test function
 } TestCase;
 
 /**
@@ -159,6 +171,8 @@ typedef struct test_instance {
     as it only argument. 
 */
 typedef void (*cester_test)(TestInstance*);
+
+typedef void (*cester_before_after_each)(TestInstance*, char * const, int);
 
 // cester options
 
@@ -214,64 +228,6 @@ typedef void (*cester_test)(TestInstance*);
 */
 #define CESTER_TOTAL_PASSED_TESTS_COUNT (superTestInstance.total_tests_count - superTestInstance.total_failed_tests_count)
 
-// before after test case
-
-/**
-    The function that would be invoked once before running 
-    any test in the test file. You can only have one of this function 
-    in a test file.
-*/
-#define CESTER_BEFORE_ALL(x) void cester_before_all_test(TestInstance* x)
-
-/**
-    Notify cester that there is no function to execute before running 
-    all the tests.
-*/
-#define  CESTER_NO_BEFORE_ALL void cester_before_all_test(TestInstance* x) {}
-
-/**
-    The function that would be invoked before each test. You can only 
-    have one of this function in a test file.
-*/
-#define CESTER_BEFORE_EACH(x,y,z) void cester_before_each_test(TestInstance* x, char * const y, int z)
-
-/**
-    Notify cester that there is no function to run before each of the 
-    tests.
-*/
-#define CESTER_NO_BEFORE_EACH void cester_before_each_test(TestInstance* x, char * const y, int z) {}
-
-/**
-    The function that would be invoked once after running 
-    all the tests in the test file. You can only have one of this function 
-    in a test file.
-*/
-#define CESTER_AFTER_ALL(x) void cester_after_all_test(TestInstance* x)
-
-/**
-    Notify cester that there is no function to execute after running 
-    all the tests.
-*/
-#define CESTER_NO_AFTER_ALL void cester_after_all_test(TestInstance* x) {}
-
-/**
-    The functions that would be invoked after each test is 
-    ran. You can only have one of this function in a test file.
-*/
-#define CESTER_AFTER_EACH(x,y,z) void cester_after_each_test(TestInstance* x, char * const y, int z)
-
-/**
-    Notify cester that there is no function to run after each of the 
-    tests.
-*/
-#define CESTER_NO_AFTER_EACH void cester_after_each_test(TestInstance* x, char * const y, int z) {}
-
-/**
-    Register a test to make cester aware of the test case. 
-    In the future this should not be required.
-*/
-#define CESTER_REGISTER(x) cester_register_test(x, Cester_Test_##x)
-
 /**
     Run all the test registered in cester, the TestInstance* pointer 
     will be initalized with the pointer to the string arguments from 
@@ -297,7 +253,7 @@ typedef void (*cester_test)(TestInstance*);
 
 */
 #define cester_assert(x) cester_evaluate_expression(x, "(" #x ")", __FILE__, __LINE__)
-#define cester_assert_not(x) cester_evaluate_expression(x, "!(" #x ")")
+#define cester_assert_not(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
 
 #ifdef _WIN32
     int default_color = CESTER_RESET_TERMINAL;
@@ -305,11 +261,6 @@ typedef void (*cester_test)(TestInstance*);
 #else
     void* default_color = CESTER_RESET_TERMINAL;
 #endif
-            
-void cester_before_all_test(TestInstance* x);
-void cester_after_all_test(TestInstance* x);
-void cester_before_each_test(TestInstance* x, char * const y, int z);
-void cester_after_each_test(TestInstance* x, char * const y, int z);
 
 
 static inline void cester_register_test(cester_test ctest, char * const test_name) {
@@ -380,8 +331,7 @@ static inline void cester_print_help() {
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
-    char* file_name = cester_extract_name(file_path);
-    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), file_name);
+    CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
     CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT(CESTER_SELECTCOLOR(CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_WHITE), ":");
@@ -423,12 +373,13 @@ static inline void cester_evaluate_expression(int eval_result, char const* const
         cester_print_assertion(expression, file_path, line_num);
         CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_GREEN), " PASSED\n");
     }
+    CESTER_RESET_TERMINAL_ATTR();
 }
 
 static inline int extract_cester_arg(char* arg, char** out) {
     int i = 0;
     char* cester = "--cester-";
-    *out = malloc (sizeof (char) * 20);
+    *out = malloc (sizeof (char) * 200);
     
     while (1) {
         if (arg[i] == '\0') {
@@ -515,24 +466,51 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
     *out_size = size;
 }
 
-static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
-    superTestInstance.current_test_case_name = a_test_case->name;
-    //cester_before_each_test(test_instance, a_test_case->name, index);
-    ((cester_test)a_test_case->function)(test_instance);
-    //cester_after_each_test(test_instance, a_test_case->name, index);
-}
-
 /**
     Create a test case, this uses the first arguments as the test 
     case name and identifier and the body of the test. 
 */
-#define CESTER_TEST(x,y,z) static void Cester_Test_##x(TestInstance* y);
+#define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y);
+
+/**
+    The function that would be invoked once before running 
+    any test in the test file. You can only have one of this function 
+    in a test file.
+*/
+#define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x);
+
+/**
+    The function that would be invoked before each test. You can only 
+    have one of this function in a test file.
+*/
+#define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, int y);
+
+/**
+    The function that would be invoked once after running 
+    all the tests in the test file. You can only have one of this function 
+    in a test file.
+*/
+#define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x);
+
+/**
+    The functions that would be invoked after each test is 
+    ran. You can only have one of this function in a test file.
+*/
+#define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y);
 
 #include __BASE_FILE__
 
 #undef CESTER_TEST
+#undef CESTER_BEFORE_ALL
+#undef CESTER_BEFORE_EACH
+#undef CESTER_AFTER_ALL
+#undef CESTER_AFTER_EACH
 
-#define CESTER_TEST(x,y,z) { (Cester_Test_##x), #x },
+#define CESTER_TEST(x,y,z) { (cester_test_##x), #x, NORMAL_TEST },
+#define CESTER_BEFORE_ALL(x,y) { (cester_before_all_test), "cester_before_all_test", BEFORE_ALL_TEST },
+#define CESTER_BEFORE_EACH(w,x,y,z) { (cester_before_each_test), "cester_before_each_test", BEFORE_EACH_TEST },
+#define CESTER_AFTER_ALL(x,y) { (cester_after_all_test), "cester_after_all_test", AFTER_ALL_TEST },
+#define CESTER_AFTER_EACH(w,x,y,z) { (cester_after_each_test), "cester_after_each_test", AFTER_EACH_TEST },
 
 static TestCase const cester_test_cases[] = {
 #include __BASE_FILE__
@@ -540,11 +518,39 @@ static TestCase const cester_test_cases[] = {
 };
 
 #undef CESTER_TEST
+#undef CESTER_BEFORE_ALL
+#undef CESTER_BEFORE_EACH
+#undef CESTER_AFTER_ALL
+#undef CESTER_AFTER_EACH
 
-#define CESTER_TEST(x,y,z) static void Cester_Test_##x(TestInstance* y) \
-                           { \
-                            z  \
-                           }
+#define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z  } 
+#define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y } 
+#define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, int y) { z }
+#define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y } 
+#define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y) { z }
+
+static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
+    int i;
+    if (superTestInstance.verbose == 1) {
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), a_test_case->name);
+        CESTER_DELEGATE_FPRINT_STR(CESTER_SELECTCOLOR(CESTER_FOREGROUND_CYAN), "'\n");
+        CESTER_RESET_TERMINAL_ATTR();
+    }
+    superTestInstance.current_test_case_name = a_test_case->name;
+    for (i=0;cester_test_cases[i].function != NULL;++i) {
+        if (cester_test_cases[i].test_type == BEFORE_EACH_TEST) {
+            ((cester_before_after_each)cester_test_cases[i].function)(test_instance, a_test_case->name, index);
+        }
+    }
+    ((cester_test)a_test_case->function)(test_instance);
+    for (i=0;cester_test_cases[i].function != NULL;++i) {
+        if (cester_test_cases[i].test_type == AFTER_EACH_TEST) {
+            ((cester_before_after_each)cester_test_cases[i].function)(test_instance, a_test_case->name, index);
+        }
+    }
+    
+}
 
 static inline int cester_run_all_test(int argc, char **argv) {
     int i = 0; 
@@ -603,18 +609,25 @@ static inline int cester_run_all_test(int argc, char **argv) {
     
     if (superTestInstance.verbose == 1) {
         cester_print_version();
+        CESTER_RESET_TERMINAL_ATTR();
     }
     
     TestInstance *test_instance = malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
-    //cester_before_all_test(test_instance);
     
+    for (i=0;cester_test_cases[i].function != NULL;++i) {
+        if (cester_test_cases[i].test_type == BEFORE_ALL_TEST) {
+            ((cester_test)cester_test_cases[i].function)(test_instance);
+        }
+    }
     clock_t tic = clock();
     if (superTestInstance.selected_test_cases_names == NULL) {
-        for (;cester_test_cases[i].function != NULL;++i) {
-            TestCase a_test_case = cester_test_cases[i];
-            cester_run_test(test_instance, &a_test_case, i);
+        for (i=0;cester_test_cases[i].function != NULL;++i) {
+            if (cester_test_cases[i].test_type == NORMAL_TEST) {
+                TestCase a_test_case = cester_test_cases[i];
+                cester_run_test(test_instance, &a_test_case, i);
+            }
         }
         
     } else {
@@ -622,11 +635,12 @@ static inline int cester_run_all_test(int argc, char **argv) {
             selected_test_case_name = superTestInstance.selected_test_cases_names[j];
             found_test = 0;
             for (i=0;cester_test_cases[i].function != NULL;++i) {
-                if (cester_string_equals(cester_test_cases[i].name, selected_test_case_name) == 1) {
-                    found_test = 1;
-                    free(superTestInstance.selected_test_cases_names[j]);
-                    TestCase a_test_case = cester_test_cases[i];
-                    cester_run_test(test_instance, &a_test_case, i);
+                if (cester_test_cases[i].test_type == NORMAL_TEST) {
+                    if (cester_string_equals(cester_test_cases[i].name, selected_test_case_name) == 1) {
+                        found_test = 1;
+                        TestCase a_test_case = cester_test_cases[i];
+                        cester_run_test(test_instance, &a_test_case, i);
+                    }
                 }
             }
             if (found_test == 0) {
@@ -637,13 +651,14 @@ static inline int cester_run_all_test(int argc, char **argv) {
                 }
             }
         }
-        
     }
-    free(selected_test_case_name);
     clock_t tok = clock();
     double time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
-    
-    //cester_after_all_test(test_instance);
+    for (i=0;cester_test_cases[i].function != NULL;++i) {
+        if (cester_test_cases[i].test_type == AFTER_ALL_TEST) {
+            ((cester_test)cester_test_cases[i].function)(test_instance);
+        }
+    }
     print_test_result(time_spent);
     
     CESTER_RESET_TERMINAL_ATTR();

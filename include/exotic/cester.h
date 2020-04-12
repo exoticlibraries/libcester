@@ -27,6 +27,10 @@ extern "C" {
 #include <time.h>
 #include <stdio.h>
 
+#ifndef __BASE_FILE__
+#deinfe __BASE_FILE__ __FILE__
+#endif
+
 #ifdef _WIN32
 #include <windows.h>
 /*

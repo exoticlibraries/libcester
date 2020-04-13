@@ -30,9 +30,13 @@ ___
 	- [Install](#install)
 		- [Windows](#windows)
 		- [Linux](#linux)
-		- [Download and include](#download-and-include)
-	- [Uninstall](#uninstall)
+		- [Other platforms](#other-platforms)
+- [Documentation](#documentation)
+- [Mocking](#mocking)
 - [Usage](#usage)
+    - [Writing and Running test](#writing-test)
+    - [Cester options](#cester-options)
+- [Macros](#macros)
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [Useful Links](#useful-links)
@@ -40,13 +44,13 @@ ___
 
 ## Portability
 
-cester follows the original C language specification, ISO/IEC 9899:1990, and the first POSIX specification, IEEE Std 1003.1-1988, to the letter. The project includes only `stdlib.h`, `time.h`, `stdio.h` and `windows.h` on WIndows to colorful output. Some function are manually implemented in the library to ensure it works in embedded system and even in the most isolated system. 
+cester follows the original C language specification, ISO/IEC 9899:1990, and the first POSIX specification, IEEE Std 1003.1-1988, to the letter. cester avoids newer features of C compilers. The project includes only `stdlib.h`, `time.h`, `stdio.h` and `windows.h` on WIndows to color output. Some function are manually implemented in the library to ensure it works in embedded system and even in the most isolated system. 
 
 The project is designed for C, but also works with C++ but be ready for waves of warnings.
 
 ## Installation
 
-If you install the library file `cester.h` using the command below, it can be included in your test like `<exotic/cester.h>`.
+If you install the library file `cester.h` using any of the commands below, it can be included in your test like `<exotic/cester.h>`.
 
 ### Windows
 
@@ -70,9 +74,21 @@ Use the remote installation script to install libcester with bash. Before runnin
 bash <(curl -s https://exoticlibraries.github.io/dl/cester/cester.sh)
 ```
 
-### Download and include
+### Other platforms
 
 You can simply download the header file `cester.h` from the repo in your project source folder and include it in your project. Download the file from [here](https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h). The you can include it in your test relatively like `#include "cester.h"`.
+
+## Documentation
+
+## Mocking
+
+## Usage
+
+### Writing and Running test
+
+### Macros
+
+### Cester options
 
 ## How it works
 

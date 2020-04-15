@@ -109,6 +109,9 @@ extern "C" {
 */
 #define CESTER_LICENSE "GNU General Public License v3.0"
 
+#define CESTER_HASH_SIGN #
+#define CESTER_CONCAT(x, y) x y
+
 /**
     The type of test
 */
@@ -556,6 +559,25 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 */
 #define CESTER_OPTIONS(x) void cester_options_before_main();
 
+/**
+    Absorb the statements and logic in a test file before re including 
+    the __BASE_FILE__. This way code can be written in the global space of the 
+    test file. 
+    
+    \note do not put other CESTER_ macros inside this one, this should contain 
+    only your C or C++ code.
+*/
+#define CESTER_BODY(x)
+
+/**
+    Mock a field, simply create a field that returns void
+*/
+#define CESTER_MOCK_FIELD(x,y) void* cester_mock_##x = y;
+
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)  __attribute__((weak)) y x(); y __real_##x();
+
+#define CESTER_MOCK_FUNCTION(x,y,z) extern y x; extern y __real_##x;
+
 #include __BASE_FILE__
 
 #undef CESTER_TEST
@@ -564,6 +586,11 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 #undef CESTER_AFTER_ALL
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
+#undef CESTER_BODY
+#undef CESTER_MOCK_FIELD
+#undef CESTER_MOCK_SIMPLE_FUNCTION
+#undef CESTER_MOCK_FUNCTION
+
 
 #define CESTER_TEST(x,y,z) { (cester_test_##x), #x, NORMAL_TEST },
 #define CESTER_BEFORE_ALL(x,y) { (cester_before_all_test), "cester_before_all_test", BEFORE_ALL_TEST },
@@ -571,6 +598,10 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 #define CESTER_AFTER_ALL(x,y) { (cester_after_all_test), "cester_after_all_test", AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,z) { (cester_after_each_test), "cester_after_each_test", AFTER_EACH_TEST },
 #define CESTER_OPTIONS(x) { (cester_options_before_main), "cester_options_before_main", CESTER_OPTION_FUNCTION },
+#define CESTER_BODY(x)
+#define CESTER_MOCK_FIELD(x,y)
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
+#define CESTER_MOCK_FUNCTION(x,y,z)
 
 static TestCase const cester_test_cases[] = {
 #include __BASE_FILE__
@@ -583,6 +614,10 @@ static TestCase const cester_test_cases[] = {
 #undef CESTER_AFTER_ALL
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
+#undef CESTER_BODY
+#undef CESTER_MOCK_FIELD
+#undef CESTER_MOCK_SIMPLE_FUNCTION
+#undef CESTER_MOCK_FUNCTION
 
 #define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z  } 
 #define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y } 
@@ -590,6 +625,10 @@ static TestCase const cester_test_cases[] = {
 #define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y } 
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y) { z }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
+#define CESTER_BODY(x) x;
+#define CESTER_MOCK_FIELD(x,y)
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)  y __wrap_##x() { return z; }
+#define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
 
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     int i;
@@ -629,6 +668,13 @@ static inline int cester_run_all_test(int argc, char **argv) {
     
     if (superTestInstance.output_stream==NULL) {
         superTestInstance.output_stream = stdout;
+    }
+    
+    // execute options
+    for (int i=0;cester_test_cases[i].test_type != TESTS_TERMINATOR;++i) {
+        if (cester_test_cases[i].test_type == CESTER_OPTION_FUNCTION) {
+            ((cester_void)cester_test_cases[i].function)();
+        }
     }
     
     // resolve command line options
@@ -736,11 +782,6 @@ static inline int cester_run_all_test(int argc, char **argv) {
 
 #ifndef CESTER_NO_MAIN
 int main(int argc, char **argv) {
-    for (int i=0;cester_test_cases[i].test_type != TESTS_TERMINATOR;++i) {
-        if (cester_test_cases[i].test_type == CESTER_OPTION_FUNCTION) {
-            ((cester_void)cester_test_cases[i].function)();
-        }
-    }
     return CESTER_RUN_ALL_TESTS(argc, argv);
 }
 #endif

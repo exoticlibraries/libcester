@@ -1,10 +1,20 @@
 
 .. toctree::
    :hidden:
+   :maxdepth: 1
+   :caption: Main
+   :name: main-nav
+
+   /download
+   /how_it_works
+
+
+.. toctree::
+   :hidden:
    :glob:
    :maxdepth: 1
    :caption: Documentation
-   :name: main-nav
+   :name: docs-nav
 
    /docs/*
    

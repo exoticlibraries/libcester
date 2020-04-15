@@ -8,3 +8,5 @@ Documentation
    :maxdepth: 3
 
    options
+   macros
+   mocking

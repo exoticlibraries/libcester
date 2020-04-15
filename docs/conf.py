@@ -14,8 +14,8 @@ html_theme_options = {
     'collapsible_sidebar': True,
     'collapsible_sidebar_display': 'block',
     'navbar_links': [
-        ('Download', './download.html'),
-        ('Documentation', './docs/'),
+        ('Download', '/download.html'),
+        ('Documentation', '/docs/index.html'),
         ('Contribute on Github', 'https://github.com/Thecarisma/themata/')
     ],
     'has_left_sidebar': True,

@@ -11,8 +11,11 @@ All macros in the library starts with `CESTER_`.
 CESTER_NO_MOCK
 ---------------
 
-CESTER_MOCK_FIELD
-------------------
+CESTER_MOCK_SIMPLE_FUNCTION
+----------------------------
+
+CESTER_MOCK_FUNCTION
+--------------------
 
 CESTER_BODY
 ---------------

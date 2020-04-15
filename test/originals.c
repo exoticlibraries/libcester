@@ -3,7 +3,7 @@
 #define ORIGINALS
 #include "originals.h"
 
-char *the_original_field = "Adewale Azee";
+char *the_original_field = "Adewale Azeez";
 
 int multiply_by() {
     return 2;
@@ -11,6 +11,10 @@ int multiply_by() {
 
 int multiply_a_number(int a) {
     return a * multiply_by() ;
+}
+
+int power_of(int* num1, int num2) {
+    return *num1 * num2;
 }
 
 #endif

@@ -16,13 +16,13 @@ html_theme_options = {
     'navbar_links': [
         ('Download', '/download.html'),
         ('Documentation', '/docs/index.html'),
-        ('Contribute on Github', 'https://github.com/Thecarisma/themata/')
+        ('Contribute on Github', 'https://github.com/exoticlibraries/libcester/')
     ],
     'has_left_sidebar': True,
     'has_right_sidebar': True,
     'show_navigators': True,
     'social_icons': [
-        ('fab fa-twitter', 'https://twitter.com/iamthecarisma'),
+        ('fab fa-twitter', 'https://twitter.com/exoticlibs'),
         ('fab fa-github', 'https://github.com/exoticlibraries/libcester/')
     ],
     'no_sidebar': [

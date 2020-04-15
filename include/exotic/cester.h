@@ -569,14 +569,34 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 */
 #define CESTER_BODY(x)
 
+#ifndef CESTER_NO_MACRO
+
 /**
-    Mock a field, simply create a field that returns void
+    Mock a function to just return a value. the first argument is the name 
+    of the function to mock, the second argument is the return type of the 
+    function, the third parameter is the value that is returned when the 
+    function is called. 
+    
+    This still requires using the -Wl,--wrap option to wrap the parameter 
+    to override the initial function. E.g. if the function `multiply_by` 
+    is mocked the option `-Wl,--wrap=multiply_by` should be added during 
+    compilation. 
+    
+    Th mocking features only works on GCC for now.
 */
-#define CESTER_MOCK_FIELD(x,y) void* cester_mock_##x = y;
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)  __attribute__((weak)) y x; y __real_##x;
 
-#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)  __attribute__((weak)) y x(); y __real_##x();
+/**
 
-#define CESTER_MOCK_FUNCTION(x,y,z) extern y x; extern y __real_##x;
+*/
+#define CESTER_MOCK_FUNCTION(x,y,z) __attribute__((weak)) y x; extern y __real_##x;
+
+#else 
+
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)
+#define CESTER_MOCK_FUNCTION(x,y,z)
+    
+#endif
 
 #include __BASE_FILE__
 
@@ -587,7 +607,6 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
 #undef CESTER_BODY
-#undef CESTER_MOCK_FIELD
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
@@ -599,7 +618,6 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 #define CESTER_AFTER_EACH(w,x,y,z) { (cester_after_each_test), "cester_after_each_test", AFTER_EACH_TEST },
 #define CESTER_OPTIONS(x) { (cester_options_before_main), "cester_options_before_main", CESTER_OPTION_FUNCTION },
 #define CESTER_BODY(x)
-#define CESTER_MOCK_FIELD(x,y)
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
 #define CESTER_MOCK_FUNCTION(x,y,z)
 
@@ -615,7 +633,6 @@ static TestCase const cester_test_cases[] = {
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
 #undef CESTER_BODY
-#undef CESTER_MOCK_FIELD
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
@@ -626,9 +643,13 @@ static TestCase const cester_test_cases[] = {
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y) { z }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 #define CESTER_BODY(x) x;
-#define CESTER_MOCK_FIELD(x,y)
-#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z)  y __wrap_##x() { return z; }
+#ifndef CESTER_NO_MACRO
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) y __wrap_##x { return z; }
 #define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
+#else
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
+#define CESTER_MOCK_FUNCTION(x,y,z) 
+#endif
 
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     int i;

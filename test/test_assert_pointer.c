@@ -10,6 +10,9 @@ CESTER_TEST(test_pointer_address, test_instance,
     
     cester_assert_str_equal(addr1, addr1);
     cester_assert_str_not_equal(null_addr, addr1);
+    
+    free(addr1);
+    free(null_addr);
 )
 
 

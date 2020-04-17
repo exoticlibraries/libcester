@@ -30,6 +30,9 @@ foreach(filepath ${files})
         set(mock_arg "-Wl,--wrap=multiply_by" "-Wl,--wrap=power_of")
         set(echo_var "echo")
     endif()
+    if("${filenameonly}" MATCHES "segfault" OR "${filenameonly}" MATCHES "stream_" OR "${filenameonly}" MATCHES "should_fail" OR "${filenameonly}" MATCHES "mem_leak_detection")
+        set(address_sanitizer "")
+    endif()
     
     add_custom_target(${filenameonly}__
         
@@ -47,11 +50,11 @@ foreach(filepath ${files})
     
         # gcc
         COMMAND gcc -I. ${address_sanitizer} ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
-        COMMAND gcc -ansi -pedantic-errors -${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
-        COMMAND ${echo_var} g++ -${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
-        COMMAND gcc -m32 -${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_32${FILE_EXT}
-        COMMAND gcc -m32 -ansi -pedantic-errors -${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi_32${FILE_EXT}
-        COMMAND ${echo_var} g++ -m32 -${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
+        COMMAND gcc -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
+        COMMAND ${echo_var} g++ ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
+        COMMAND gcc -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_32${FILE_EXT}
+        COMMAND gcc -m32 -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi_32${FILE_EXT}
+        COMMAND ${echo_var} g++ -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
     )
     
     add_custom_command(TARGET cester_test

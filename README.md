@@ -23,7 +23,7 @@ CESTER_TEST(check_shared_arg, test_instance,
 )
 ```
 
-The test results can be outputed as JUnit XML format by adding the option `--cester-junitxml` to your test or using the macro `CESTER_JUNITXML()` in the test source.
+The test results can be outputed as JUnit XML format by specifying the cli option `--cester-junitxml` or using the macro `CESTER_JUNITXML()` in the test source.
 ___
 
 ## Table of content

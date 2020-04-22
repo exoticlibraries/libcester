@@ -154,12 +154,55 @@ The result of the test will be written into the file 'result.txt'. The ouput str
 at which point the macro is used, hence output written before changing the stream will 
 remain and the new output will be written to the new stream.
 
+CESTER_NOCOLOR
+--------------
+
+.. code:: c
+
+    CESTER_NO_COLOR()
+
+Prevent displaying the output with colors. This option can prevent writing extra bytes into 
+an output file in place of the color values. The option can also be set from the cli using 
+`--cester-nocolor`. 
+
+CESTER_MINIMAL
+---------------
+
+.. code:: c
+
+    CESTER_MINIMAL()
+
+Print minimal info into the output stream. With this option set the expression evaluated 
+will not be printed in the result output. The option can also be set from the cli using 
+`--cester-minimal`.
+
+CESTER_VERBOSE
+---------------
+
+.. code:: c
+
+    CESTER_VERBOSE()
+
+Print as much info as possible into the output stream. With this option set both passed 
+and failed expression evaluated will be printed in the result. The option can also be set 
+from the cli using `--cester-verbose`. 
+
+CESTER_PRINT_VERSION
+---------------------
+
+.. code:: c
+
+    CESTER_PRINT_VERSION()
+
+Print cester version before running any test. The option can also be set from the cli 
+using `--cester-printversion`.
+
 CESTER_VERSION
------------------------
+---------------
 
 Current cester version 
 
 CESTER_LICENSE
------------------------
+---------------
 
 cester licence **GNU General Public License v3.0**

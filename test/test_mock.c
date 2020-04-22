@@ -1,4 +1,4 @@
-//!gcc test_mock.c -I. -I../include/ -Wl,--wrap=the_original_field -o test_mock; ./test_mock
+//!gcc {0} -I. -I../include/ '-Wl,--wrap=multiply_by' '-Wl,--wrap=power_of' -o test_mock; ./test_mock
 
 #include <exotic/cester.h>
 #include "originals.c"

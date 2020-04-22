@@ -11,7 +11,7 @@ might not be available in other compilers.
 
 The following macros are use for mocking
 
-- `CESTER_NO_MOCK <./macros.html#cester-no-mock>`_
+- `CESTER_NO_MOCK <./macros.html#define-cester-no-mock>`_
 - `CESTER_MOCK_SIMPLE_FUNCTION <./macros.html#cester-mock-simple-function>`_
 - `CESTER_MOCK_FUNCTION <./macros.html#cester-mock-function>`_
 

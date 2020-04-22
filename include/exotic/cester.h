@@ -48,9 +48,9 @@ extern "C" {
 #define LIBOTYPES_WINDLLEXPORT 0
 #endif
 #if LIBOTYPES_WINDLLEXPORT
-#define LIBOPEN_API __declspec(dllexport)
+#define LIBEXOTIC_API __declspec(dllexport)
 #else
-#define LIBOPEN_API extern
+#define LIBEXOTIC_API extern
 #endif
 
 #ifdef _WIN32
@@ -569,7 +569,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
 */
 #define CESTER_BODY(x)
 
-#ifndef CESTER_NO_MACRO
+#ifndef CESTER_NO_MOCK
 
 /**
     Mock a function to just return a value. the first argument is the name 
@@ -643,7 +643,7 @@ static TestCase const cester_test_cases[] = {
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, int y) { z }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 #define CESTER_BODY(x) x;
-#ifndef CESTER_NO_MACRO
+#ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) y __wrap_##x { return z; }
 #define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
 #else

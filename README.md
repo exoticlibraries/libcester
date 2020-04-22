@@ -7,7 +7,7 @@ A header only unit testing framework for C.
 
 ___
 
-cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. cester allows shared instance `test_instance` in which each test cases can use to share data and access the command line arguments. If the project is downloaded using one of the install script it will be located in `<exotic/cester.h>` of the compiler include directoy. 
+cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. cester supports function mocking and allows shared instance `test_instance` in which each test cases can use to share data and access the command line arguments. 
 
 ```c
 //!gcc {0} -I. -o test; ./test
@@ -22,6 +22,8 @@ CESTER_TEST(check_shared_arg, test_instance,
     cester_assert_not_equal(2, 1);
 )
 ```
+
+The test results can be outputed as JUnit XML format by adding the option `--cester-junitxml` to your test or using the macro `CESTER_JUNITXML()` in the test source.
 ___
 
 ## Table of content

@@ -38,5 +38,5 @@ CESTER_TEST(this_aftermath, test_instance,
 )
 
 CESTER_OPTIONS(
-    CESTER_VERBOSE();
+    //CESTER_VERBOSE();
 )

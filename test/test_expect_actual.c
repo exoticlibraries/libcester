@@ -1,4 +1,4 @@
-//!gcc test_expect_actual.c -I. -I../include/ -o test_expect_actual; ./test_expect_actual
+//!gcc {0} -I. -I../include/ -o test_expect_actual; ./test_expect_actual
 
 #include <exotic/cester.h>
 

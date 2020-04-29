@@ -65,6 +65,7 @@ extern "C" {
 #define CESTER_FOREGROUND_MAGENTA       5                                                 ///< magenta terminal foreground color
 #define CESTER_FOREGROUND_CYAN          11                                                ///< cyan terminal foreground color
 #define CESTER_FOREGROUND_WHITE         15                                                ///< white terminal foreground color
+#define CESTER_FOREGROUND_GRAY          8                                                 ///< gray terminal foreground color
 #define CESTER_BACKGROUND_BLACK         0                                                 ///< black terminal background color
 #define CESTER_BACKGROUND_RED           64                                                ///< red terminal background color
 #define CESTER_BACKGROUND_GREEN         39                                                ///< green terminal background color
@@ -73,6 +74,7 @@ extern "C" {
 #define CESTER_BACKGROUND_MAGENTA       87                                                ///< magenta terminal background color
 #define CESTER_BACKGROUND_CYAN          176                                               ///< cyan terminal background color
 #define CESTER_BACKGROUND_GRAY          0                                                 ///< gray terminal background color
+#define CESTER_BACKGROUND_WHITE         10                                                ///< gray terminal background color
 #define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(hConsole, default_color); ///< reset the terminal color
 
 #else
@@ -87,6 +89,7 @@ extern "C" {
 #define CESTER_FOREGROUND_MAGENTA       "\x1B[35m"    ///< magenta terminal foreground color
 #define CESTER_FOREGROUND_CYAN          "\x1B[36m"    ///< cyan terminal foreground color
 #define CESTER_FOREGROUND_WHITE         "\x1B[37m"    ///< white terminal foreground color
+#define CESTER_FOREGROUND_GRAY          "\x1B[37m"    ///< gray terminal foreground color
 #define CESTER_BACKGROUND_BLACK         "\x1B[40m"    ///< black terminal background color
 #define CESTER_BACKGROUND_RED           "\x1B[41m"    ///< red terminal background color
 #define CESTER_BACKGROUND_GREEN         "\x1B[42m"    ///< green terminal background color
@@ -94,6 +97,7 @@ extern "C" {
 #define CESTER_BACKGROUND_BLUE          "\x1B[44m"    ///< blue terminal background color
 #define CESTER_BACKGROUND_MAGENTA       "\x1B[45m"    ///< magenta terminal background color
 #define CESTER_BACKGROUND_CYAN          "\x1B[46m"    ///< cyan terminal background color
+#define CESTER_BACKGROUND_GRAY          "\x1B[100m"   ///< gray terminal background color
 #define CESTER_BACKGROUND_WHITE         "\x1B[47m"    ///< gray terminal background color
 #define CESTER_RESET_TERMINAL_ATTR()    ;             ///< reset the terminal color
 
@@ -373,7 +377,7 @@ static inline void cester_print_expect_actual(int expecting, char const* const e
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test case => '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
     if (superTestInstance.verbose == 1) {
@@ -382,9 +386,9 @@ static inline void cester_print_expect_actual(int expecting, char const* const e
         } else {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " expected ");
         }
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", found ");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), found);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", found ");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);
     }
 }
 
@@ -408,26 +412,28 @@ static inline void print_test_result(double time_spent) {
 
 static inline void cester_evaluate_expression(int eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     ++superTestInstance.total_tests_count;
-    cester_print_assertion(expression, file_path, line_num);
     if (eval_result == 0) {
         ++superTestInstance.total_failed_tests_count;
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " FAILED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "FAILED ");
     } else {
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), " PASSED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "PASSED ");
     }
+    cester_print_assertion(expression, file_path, line_num);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
     CESTER_RESET_TERMINAL_ATTR();
 }
 
-static inline void cester_evaluate_expect_actual(int eval_result, int expecting, void* expect, void* found, 
+static inline void cester_evaluate_expect_actual(int eval_result, int expecting, char const* const expected, char const* const actual, 
                                                 char const* const file_path, size_t const line_num) {
     ++superTestInstance.total_tests_count;
-    cester_print_expect_actual(expecting, expect, found, file_path, line_num);
     if (eval_result == 0) {
         ++superTestInstance.total_failed_tests_count;
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " FAILED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "FAILED ");
     } else {
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), " PASSED\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "PASSED ");
     }
+    cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
     CESTER_RESET_TERMINAL_ATTR();
 }
 
@@ -506,6 +512,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
             break;
         }
         if (arg[i] == ',') {
+            (*out)[size][current_index] = '\0';
             current_index = 0;
             ++size;
             (*out)[size] = malloc(sizeof(char*));
@@ -518,6 +525,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
         continue_loop:
                       ++i;
     }
+    (*out)[size-1][current_index] = '\0';
     *out_size = size;
 }
 
@@ -654,9 +662,9 @@ static TestCase const cester_test_cases[] = {
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     int i;
     if (superTestInstance.verbose == 1 && superTestInstance.minimal == 0) {
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "\nRunning tests in '");
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), a_test_case->name);
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "'\n");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "Running tests in '");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->name);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "'\n");
         CESTER_RESET_TERMINAL_ATTR();
     }
     superTestInstance.current_test_case_name = a_test_case->name;

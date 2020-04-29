@@ -197,6 +197,9 @@ CESTER_PRINT_VERSION
 Print cester version before running any test. The option can also be set from the cli 
 using `--cester-printversion`.
 
+CESTER_SINGLE_OUPUT_ONLY
+-------------------------
+
 CESTER_VERSION
 ---------------
 

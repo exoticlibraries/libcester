@@ -135,6 +135,13 @@ typedef struct test_case {
     TestType test_type;    ///< the type of the test function
 } TestCase;
 
+enum cheat_test_status {
+    CESTER_SUCCESS,
+    CESTER_FAILURE,
+    CESTER_SEGFAULT,
+    CESTER_UNKNOWN
+};
+
 /**
     This structure manages the _BEFORE_ and _AFTER_ functions 
     for the test main ::test_instance. And also accounts for all the 
@@ -149,6 +156,8 @@ typedef struct super_test_instance {
     size_t minimal;                           ///< prints minimal output into the output stream
     size_t print_version;                     ///< prints cester version before running tests
     size_t selected_test_cases_size;          ///< the number of selected test casses from command line. For internal use only.
+    size_t single_output_only;                ///< display the output for a single test only no summary and syntesis. For internal use only.
+    size_t isolate_tests;                     ///< Isolate each test case to run in different process to prevent a crashing test case crahsing others. For internal use only.
     char* current_test_case_name;             ///< the current test case that is beein run. For internal use only.
     void* output_stream;                      ///< Output stream to write message to, stdout by default. For internal use only.
     char** selected_test_cases_names;         ///< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1
@@ -164,6 +173,8 @@ SuperTestInstance superTestInstance = {
     0,
     0,
     0,
+    0,
+    1,
     NULL,
     NULL,
     NULL,
@@ -235,6 +246,23 @@ typedef void (*cester_void)();
 **/
 #define CESTER_PRINT_VERSION() (superTestInstance.print_version = 1)
 
+/**
+    Display test for a single test case only, skip syntesis and summary.
+    
+    This option can also be set from the command line with `--cester-singleoutput`
+**/
+#define CESTER_SINGLE_OUPUT_ONLY() (superTestInstance.single_output_only = 1)
+
+/**
+    Do not isolate the tests, run each of the test cases in a single process. 
+    The drawback is if a test case causes segfault or crash the entire test 
+    crashes and no summary is displayed. No isolation causes a crash one 
+    crash all scenerio.
+    
+    This option can also be set from the command line with `--cester-noisolation`
+**/
+#define CESTER_NO_ISOLATION() (superTestInstance.isolate_tests = 0)
+
 // test counts
 
 /**
@@ -289,7 +317,6 @@ typedef void (*cester_void)();
 #else
     void* default_color = CESTER_RESET_TERMINAL;
 #endif
-
 
 static inline void cester_register_test(cester_test ctest, char * const test_name) {
     if (superTestInstance.test_cases==NULL) {
@@ -349,6 +376,7 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput    display cester version and exit\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
@@ -362,7 +390,7 @@ static inline void cester_print_assertion(char const* const expression, char con
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " assertion in '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in test case => '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
     if (superTestInstance.verbose == 1) {
@@ -377,7 +405,7 @@ static inline void cester_print_expect_actual(int expecting, char const* const e
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test case => '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in test case => '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.current_test_case_name);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");
     if (superTestInstance.verbose == 1) {
@@ -502,7 +530,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
     char* prefix = "test=";
     (*out) = malloc(sizeof(char**));
     
-    (*out)[size] = malloc(sizeof(char*));
+    (*out)[size] = malloc(sizeof(char*) * 200);
     while (1) {
         if (arg[i] == '\0') {
             ++size;
@@ -515,7 +543,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
             (*out)[size][current_index] = '\0';
             current_index = 0;
             ++size;
-            (*out)[size] = malloc(sizeof(char*));
+            (*out)[size] = malloc(sizeof(char*) * 200);
             goto continue_loop;
         }
         if (i >= 5) {
@@ -659,14 +687,101 @@ static TestCase const cester_test_cases[] = {
 #define CESTER_MOCK_FUNCTION(x,y,z) 
 #endif
 
+static inline void cester_run_test_no_isolation(TestInstance *, TestCase *, size_t);
+
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
-    int i;
-    if (superTestInstance.verbose == 1 && superTestInstance.minimal == 0) {
+    if (superTestInstance.verbose == 1 && superTestInstance.minimal == 0 && superTestInstance.isolate_tests == 1) {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "Running tests in '");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->name);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "'\n");
         CESTER_RESET_TERMINAL_ATTR();
     }
+    int last_status = CESTER_UNKNOWN;
+    if (superTestInstance.isolate_tests == 1) {
+#ifdef _WIN32
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+        sa.bInheritHandle = TRUE;
+        sa.lpSecurityDescriptor = NULL;
+
+        HANDLE stdout_pipe_read;
+        HANDLE stdout_pipe_write;
+        CreatePipe(&stdout_pipe_read, &stdout_pipe_write, &sa, 0);
+
+        STARTUPINFO si = {
+            .cb = sizeof(STARTUPINFO),
+            .dwFlags = STARTF_USESTDHANDLES,
+            .hStdOutput = stdout_pipe_write
+        };
+
+        PROCESS_INFORMATION pi = {0};
+
+        CHAR command[505];
+        snprintf(command, 505, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation", test_instance->argv[0], a_test_case->name);
+        //CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), command);
+        //CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+
+        CreateProcess(
+            NULL,
+            command,
+            NULL,
+            NULL,
+            TRUE,
+            0,
+            NULL,
+            NULL,
+            &si,
+            &pi);
+
+        CloseHandle(stdout_pipe_write);
+
+        DWORD len;
+        DWORD maxlen = 700;
+        CHAR buffer[700];
+
+        do {
+            ReadFile(stdout_pipe_read, buffer, maxlen, &len, NULL);
+            buffer[len] = '\0';
+            printf("%s", buffer);
+        } while (len > 0);
+
+        WaitForSingleObject(pi.hProcess, INFINITE);
+
+        DWORD status;
+        GetExitCodeProcess(pi.hProcess, &status);
+
+        last_status = (status & 0x80000000) ? CESTER_SEGFAULT : status;
+
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+#elif defined unix
+
+#else
+#warning "Isolated tests not supported in this environment. The tests will be run on a single process"
+        cester_run_test_no_isolation(test_instance, a_test_case, index);
+#endif
+        switch (last_status) {
+            case CESTER_SUCCESS:
+                printf("\nThe test case passed\n");
+                break;
+            case CESTER_FAILURE:
+                printf("\nThe test case failed\n");
+                break;
+            case CESTER_SEGFAULT:
+                printf("\nThe test case segfaults\n");
+                break;
+            default:
+                printf("\nWTF %d\n", last_status);
+                break;
+        }
+    } else {
+        cester_run_test_no_isolation(test_instance, a_test_case, index);
+    }
+    
+}
+
+static inline void cester_run_test_no_isolation(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
+    int i;
     superTestInstance.current_test_case_name = a_test_case->name;
     for (i=0;cester_test_cases[i].function != NULL;++i) {
         if (cester_test_cases[i].test_type == BEFORE_EACH_TEST) {
@@ -679,7 +794,6 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
             ((cester_before_after_each)cester_test_cases[i].function)(test_instance, a_test_case->name, index);
         }
     }
-    
 }
 
 static inline int cester_run_all_test(int argc, char **argv) {
@@ -722,6 +836,12 @@ static inline int cester_run_all_test(int argc, char **argv) {
                 
             } else if (cester_string_equals(cester_option, "printversion") == 1) {
                 superTestInstance.print_version = 1;
+                
+            } else if (cester_string_equals(cester_option, "singleoutput") == 1) {
+                superTestInstance.single_output_only = 1;
+                
+            } else if (cester_string_equals(cester_option, "noisolation") == 1) {
+                superTestInstance.isolate_tests = 0;
                 
             } else if (cester_string_equals(cester_option, "version") == 1) {
                 CESTER_NOCOLOR();
@@ -793,16 +913,18 @@ static inline int cester_run_all_test(int argc, char **argv) {
             }
         }
     }
-    clock_t tok = clock();
-    double time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
-    for (i=0;cester_test_cases[i].function != NULL;++i) {
-        if (cester_test_cases[i].test_type == AFTER_ALL_TEST) {
-            ((cester_test)cester_test_cases[i].function)(test_instance);
+    if (superTestInstance.single_output_only == 0) {
+        clock_t tok = clock();
+        double time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
+        for (i=0;cester_test_cases[i].function != NULL;++i) {
+            if (cester_test_cases[i].test_type == AFTER_ALL_TEST) {
+                ((cester_test)cester_test_cases[i].function)(test_instance);
+            }
         }
+        print_test_result(time_spent);
+        
+        CESTER_RESET_TERMINAL_ATTR();
     }
-    print_test_result(time_spent);
-    
-    CESTER_RESET_TERMINAL_ATTR();
     if (CESTER_TOTAL_FAILED_TESTS_COUNT != 0) {
         return EXIT_FAILURE;
     }

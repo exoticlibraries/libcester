@@ -6,7 +6,7 @@
    :name: main-nav
 
    /download
-   /how_it_works
+   /screenshots
 
 
 .. toctree::
@@ -17,6 +17,16 @@
    :name: docs-nav
 
    /docs/*
+
+
+.. toctree::
+   :hidden:
+   :glob:
+   :maxdepth: 1
+   :caption: How it works
+   :name: docs-how_it_works
+
+   /how_it_works/*
    
 
 libcester

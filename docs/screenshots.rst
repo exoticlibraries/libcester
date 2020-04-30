@@ -1,0 +1,7 @@
+
+.. index::
+	single: screenshots
+
+Screenshots
+=============
+

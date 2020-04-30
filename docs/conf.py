@@ -14,8 +14,8 @@ html_theme_options = {
     'collapsible_sidebar': True,
     'collapsible_sidebar_display': 'block',
     'navbar_links': [
-        ('Download', '/download.html'),
-        ('Documentation', '/docs/index.html'),
+        ('Exotic Libraries', 'https://exoticlibraries.github.io/'),
+        ('Documentation', '/docs/'),
         ('Contribute on Github', 'https://github.com/exoticlibraries/libcester/')
     ],
     'has_left_sidebar': True,

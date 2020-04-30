@@ -12,7 +12,7 @@ All macros in the library starts with `CESTER_`.
 -----------------------
 
 Define the macro CESTER_NO_MOCK to prevent mocking functions in the test. Even if mocked 
-function are defined. This is not a predefined macro it has to be defined in the test source.
+function are defined. This is not a predefined macro it has to be defined in the test source before including cester.h.
 
 CESTER_MOCK_SIMPLE_FUNCTION
 ----------------------------
@@ -136,6 +136,13 @@ inside *CESTER_BODY* macro to avoid error.
 Any code written inside the *CESTER_BODY* macro will be dumb in the file global scope. This macro 
 should not contain other `CESTER_` macros.
 
+#define CESTER_NO_MEM_TEST
+---------------------------
+
+Define the macro CESTER_NO_MEM_TEST to disable cester memory allocation test at compile time. 
+The option `--cester-nomemtest` can be applied to the command line to stop mem test at runtime. 
+This is not a predefined macro it has to be defined in the test source before including cester.h.
+
 CESTER_CHANGE_STREAM
 ---------------------
 
@@ -199,6 +206,15 @@ using `--cester-printversion`.
 
 CESTER_SINGLE_OUPUT_ONLY
 -------------------------
+
+CESTER_NO_ISOLATION
+---------------------
+
+CESTER_NO_MEMTEST
+---------------------
+
+CESTER_DO_MEMTEST
+---------------------
 
 CESTER_VERSION
 ---------------

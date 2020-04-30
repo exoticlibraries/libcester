@@ -1,14 +1,12 @@
 
 .. index::
-	single: documentation_index
+	single: how_it_works_index
 
-Documentation
+How it works
 ==============
 
 .. toctree::
    :glob:
    :maxdepth: 3
 
-   mocking
-   macros
-   options
+   how_mocking

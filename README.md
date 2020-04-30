@@ -38,7 +38,9 @@ ___
 - [Usage](#usage)
     - [Writing and Running test](#writing-test)
     - [Cester options](#cester-options)
-- [Macros](#macros)
+	- [Macros](#macros)
+- [FAQ](#faq)
+	- [No test case detected](#no-test-case-detected)
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [Useful Links](#useful-links)
@@ -91,6 +93,37 @@ You can simply download the header file `cester.h` from the repo in your project
 ### Macros
 
 ### Cester options
+
+## FAQ
+
+### No test detected
+
+If no test was ran or your test cases were not detected, in most cases it because your compiler did not define the __BASE_FILE__ macro. If you are using the Visual studio IDE you should define the macro in 
+`Properties -> C/C++ -> Preprocessor -> Preprocessor Definition` as `__BASE_FILE__="%(Filename)%(Extension)"`. Or you can add the macro at compile time as option to your compiler using the macro option. 
+e.g. in gcc 
+
+```bash
+gcc -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" testfile.c -I.
+```
+
+Alternatively the test cases should be manually registered in the main method, you will have to disable cester main function by defining the macro CESTER_NO_MAIN. 
+
+```c
+#include <exotic/cester.h>
+
+#define CESTER_NO_MAIN
+
+CESTER_TEST(test1, test_instance,
+	cester_assert_equal(NULL, NULL);
+)
+
+CESTER_BODY(
+int main(int argc, char** argv) {
+	CESTER_REGISTER_TEST(test1);
+	return CESTER_RUN_ALL_TESTS(argc, argv);
+}
+)
+```
 
 ## How it works
 

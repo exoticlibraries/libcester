@@ -7,6 +7,7 @@
 
    /download
    /screenshots
+   /faq
 
 
 .. toctree::

@@ -1391,7 +1391,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" failures=\"");
             CESTER_DELEGATE_FPRINT_INT((default_color), superTestInstance.total_failed_tests_count);
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" name=\"");
-            CESTER_DELEGATE_FPRINT_STR((default_color), cester_extract_name_only(test_instance->argv[0]));
+            CESTER_DELEGATE_FPRINT_STR((default_color), cester_extract_name_only(superTestInstance.test_file_path));
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" skipped=\"");
             CESTER_DELEGATE_FPRINT_INT((default_color), CESTER_TOTAL_TESTS_SKIPPED);
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" time=\"");
@@ -1406,7 +1406,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
             }
             CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index5, test_case, {
                 if (((TestCase*)test_case)->test_type == NORMAL_TEST && ((TestCase*)test_case)->execution_status != CESTER_RESULT_UNKNOWN) {
-                    write_testcase_junitxml(((TestCase*)test_case), cester_extract_name_only(test_instance->argv[0]));
+                    write_testcase_junitxml(((TestCase*)test_case), cester_extract_name_only(superTestInstance.test_file_path));
                 }
             })
             CESTER_DELEGATE_FPRINT_STR((default_color), "</testsuite>\n");

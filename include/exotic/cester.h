@@ -578,9 +578,9 @@ static inline void cester_concat_int(char **out, size_t extra) {
         (*out) = malloc(sizeof(char) * 80000 );
     }
 #ifdef _MSC_VER
-    sprintf_s((*out), (index + 10), "%s%zu\0", (*out), extra);
+    sprintf_s((*out), (index + 20), "%s%zu", (*out), extra);
 #else
-    sprintf((*out), "%s%zu\0", (*out), extra);
+    sprintf((*out), "%s%zu", (*out), extra);
 #endif
 }
 
@@ -588,9 +588,9 @@ static inline void cester_ptr_to_str(char **out, void* extra) {
     size_t i = 0;
     (*out) = malloc(sizeof(char) * 30 );
 #ifdef _MSC_VER
-    sprintf_s((*out), (30), "%s%p\0", (*out), extra);
+    sprintf_s((*out), (30), "%s%p", (*out), extra);
 #else
-    sprintf((*out), "%p\0", extra);
+    sprintf((*out), "%p", extra);
 #endif
 }
 

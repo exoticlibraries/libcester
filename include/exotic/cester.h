@@ -29,17 +29,14 @@ extern "C" {
 
 #ifndef __BASE_FILE__
 #ifdef _MSC_VER
-    #pragma warning("__BASE_FILE__ not defined. Define the __BASE_FILE__ directive in Properties -> C/C++ -> Preprocessor -> Preprocessor Definition as __BASE_FILE__=\"%(Filename)%(Extension)\" or register your test cases manually.")
+    #pragma message("__BASE_FILE__ not defined. Define the __BASE_FILE__ directive in Properties -> C/C++ -> Preprocessor -> Preprocessor Definition as __BASE_FILE__=\"%(Filename)%(Extension)\" or register your test cases manually.")
 #else
-    #pragma message ("__BASE_FILE__ not defined. Define __BASE_FILE__ during compilation. -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" or register your test cases manually.")
+    #pragma message("__BASE_FILE__ not defined. Define __BASE_FILE__ during compilation. -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" or register your test cases manually.")
 #endif
 #endif
 
 #ifdef _WIN32
 #include <windows.h>
-#ifdef _MSC_VER
-    #define sprintf sprintf_s
-#endif
 /*
 **  Windows 
 **  Support Windows XP 
@@ -254,7 +251,11 @@ SuperTestInstance superTestInstance = {
     CESTER_RESULT_SUCCESS,
     1,
     "",
+#ifdef __BASE_FILE__
     __BASE_FILE__,
+#else
+    __FILE__
+#endif
     "text",
     NULL,
     NULL,
@@ -401,7 +402,7 @@ SuperTestInstance superTestInstance = {
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
 #ifdef _WIN32
-    size_t default_color = CESTER_RESET_TERMINAL;
+    int default_color = CESTER_RESET_TERMINAL;
     HANDLE hConsole;
 #else
     void* default_color = CESTER_RESET_TERMINAL;
@@ -467,6 +468,9 @@ static inline size_t cester_str_after_prefix(const char* arg, char* prefix, size
 
 static inline size_t cester_string_equals(char* arg, char* arg1) {
     size_t i = 0;
+    if (arg == NULL || arg1 == NULL) {
+        return 0;
+    }
     while (1) {
         if (arg[i] == '\0' && arg1[i] == '\0') {
             break;
@@ -573,13 +577,21 @@ static inline void cester_concat_int(char **out, size_t extra) {
     if (index == 0) {
         (*out) = malloc(sizeof(char) * 80000 );
     }
+#ifdef _MSC_VER
+    sprintf_s((*out), (index + 10), "%s%zu\0", (*out), extra);
+#else
     sprintf((*out), "%s%zu\0", (*out), extra);
+#endif
 }
 
 static inline void cester_ptr_to_str(char **out, void* extra) {
     size_t i = 0;
     (*out) = malloc(sizeof(char) * 30 );
-    sprintf((*out), "%p\0", (void*)extra);
+#ifdef _MSC_VER
+    sprintf_s((*out), (30), "%s%p\0", (*out), extra);
+#else
+    sprintf((*out), "%p\0", extra);
+#endif
 }
 
 static inline size_t cester_is_validate_output_option(char *format_option) {
@@ -876,7 +888,11 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
 */
 #define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
 
-#include __BASE_FILE__
+#ifdef __BASE_FILE__
+    #include __BASE_FILE__
+#else 
+    
+#endif
 
 #undef CESTER_TEST
 #undef CESTER_BEFORE_ALL
@@ -900,7 +916,9 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
 #define CESTER_MOCK_FUNCTION(x,y,z)
 
 static TestCase cester_test_cases[] = {
-#include __BASE_FILE__
+#ifdef __BASE_FILE__
+    #include __BASE_FILE__
+#endif
 { CESTER_RESULT_UNKNOWN, 0, 0.000, NULL, NULL, NULL, TESTS_TERMINATOR }
 };
 
@@ -1437,7 +1455,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
 }
 
 #ifndef CESTER_NO_MAIN
-size_t main(size_t argc, char **argv) {
+int main(int argc, char **argv) {
     return CESTER_RUN_ALL_TESTS(argc, argv);
 }
 #endif

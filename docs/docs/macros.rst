@@ -89,6 +89,11 @@ The macro above expands to the following code
         return return_val;
     }
 
+#define CESTER_NO_MAIN
+-----------------------
+
+Always define before including cester.h
+
 CESTER_BODY
 ---------------
 
@@ -120,8 +125,8 @@ inside *CESTER_BODY* macro to avoid error.
 
 .. code:: c
 
-    #include <exotic/cester.h>
     #define CESTER_NO_MAIN
+    #include <exotic/cester.h>
 
     CESTER_BEFORE_ALL(test_instance,
         cester_assert_equal(1, 1);

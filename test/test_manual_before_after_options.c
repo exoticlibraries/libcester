@@ -1,8 +1,8 @@
 //!gcc {0} -I. -I../include/ -o out; ./out
 
+#define CESTER_NO_MAIN
 #include <exotic/cester.h>
 
-#define CESTER_NO_MAIN
 
 CESTER_BEFORE_ALL(test_instance,
     printf("Before All\n");

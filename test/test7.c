@@ -1,8 +1,8 @@
 //!gcc {0} -IC -I../include/ -o out; ./out
 
+#define CESTER_NO_MAIN
 #include <exotic/cester.h>
 
-#define CESTER_NO_MAIN
 
 CESTER_TEST(assert_false, test_instance,
     cester_assert_equal(1, 1);

@@ -70,3 +70,4 @@ dist/
 # Others
 *.tmp
 */expand.*
+*result.txt

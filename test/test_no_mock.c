@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ '-Wl,--wrap=multiply_by' '-Wl,--wrap=power_of' -o test_no_mock; ./test_no_mock
+//!gcc {0} -I. -I../include/ '-Wl,--wrap=multiply_by' '-Wl,--wrap=power_of' -o out; ./out
 
 #include <exotic/cester.h>
 #include "originals.c"

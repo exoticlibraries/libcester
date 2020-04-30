@@ -1,4 +1,4 @@
-//!gcc {0} -IC -I../include/ -o test6; ./test6
+//!gcc {0} -IC -I../include/ -o out; ./out
 //this test shares data between tests
 
 #include <exotic/cester.h>

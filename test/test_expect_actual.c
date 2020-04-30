@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o test_expect_actual; ./test_expect_actual
+//!gcc {0} -I. -I../include/ -o out; ./out
 
 #include <exotic/cester.h>
 
@@ -26,12 +26,7 @@ CESTER_TEST(modify_test_instance, test_instance,
 )
 
 CESTER_TEST(test_direct_variables, test_instance,
-    cester_assert_equal(((AStruct*)test_instance->arg)->index, 21);
-    cester_assert_not_equal(((AStruct*)test_instance->arg)->value, "A string");
-    cester_assert_equal(((AStruct*)test_instance->arg)->value, "Unknown");
-)
-
-CESTER_OPTIONS(
-    CESTER_VERBOSE();
-    CESTER_MINIMAL();
+    cester_assert_equal(((AStruct*)test_instance->arg)->index, 20);
+    cester_assert_equal(((AStruct*)test_instance->arg)->value, "A string");
+    cester_assert_not_equal(((AStruct*)test_instance->arg)->value, "Unknown");
 )

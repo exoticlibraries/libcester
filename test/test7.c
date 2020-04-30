@@ -1,4 +1,4 @@
-//!gcc {0} -IC -I../include/ -o test7; ./test7
+//!gcc {0} -IC -I../include/ -o out; ./out
 
 #include <exotic/cester.h>
 

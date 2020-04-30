@@ -12,3 +12,5 @@ Documentation
    mocking
    macros
    options
+   manual_test_registration
+   output_formats

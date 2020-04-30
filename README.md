@@ -125,6 +125,8 @@ int main(int argc, char** argv) {
 )
 ```
 
+Visit this [link](https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html) for more detail on manual test registration.
+
 ## How it works
 
 The base file which is the file that contains the tests is included more than twice during the macro expansion process to define and register the test cases. The working principle is best explained by a thought experiment. 

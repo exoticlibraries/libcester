@@ -1,0 +1,7 @@
+
+.. index::
+	single: faq
+
+FAQ
+=========
+

@@ -35,6 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
+*out
 
 # Debug files
 *.dSYM/
@@ -71,3 +72,6 @@ dist/
 *.tmp
 */expand.*
 *result.txt
+*.swb
+*.swp
+*.swo

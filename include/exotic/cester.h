@@ -26,6 +26,7 @@ extern "C" {
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
+#include <string.h>
 
 #ifndef __BASE_FILE__
 #ifdef _MSC_VER

@@ -29,11 +29,15 @@ main() {
 
 check_if_is_sudo() {
 	if [ "$(id -u)" -ne 0 ]; then 
-		echo "it appear you are not running the script as root"
-		echo "the script is reinitiated as root"
-		echo "manually restart the script as sudo it this fails 'sudo bash $NAME.sh"
-		sudo bash "$NAME.sh" $@
-		exit 0
+		if [ "$PREFIX" != "" ]; then 
+			INSTALL_PATH=$PREFIX/include/exotic/
+		else
+			echo "it appear you are not running the script as root"
+			echo "the script is reinitiated as root"
+			echo "manually restart the script as sudo it this fails 'sudo bash $NAME.sh"
+			sudo bash "$NAME.sh" $@
+			exit 0
+		fi	
 	fi
 }
 

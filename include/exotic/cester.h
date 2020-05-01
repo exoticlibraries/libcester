@@ -385,28 +385,6 @@ SuperTestInstance superTestInstance = {
 */
 #define CESTER_RUN_ALL_TESTS(x,y) cester_run_all_test(x,y)
 
-/**
-    Shorthand macro for CESTER_NO_AFTER_ALL, CESTER_NO_AFTER_EACH, 
-    CESTER_NO_BEFORE_ALL and CESTER_NO_BEFORE_EACH
-*/
-#define CESTER_NO_BEFORE_AFTER CESTER_NO_AFTER_ALL    \
-                                CESTER_NO_AFTER_EACH  \
-                                CESTER_NO_BEFORE_ALL  \
-                                CESTER_NO_BEFORE_EACH \
-
-
-// Assertions, Tests
-
-/**
-
-*/
-#define cester_assert_true(x) cester_evaluate_expression(x, "(" #x ")", __FILE__, __LINE__)
-#define cester_assert_false(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
-#define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
-#define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
-#define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
-#define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
-
 #ifdef _WIN32
     int default_color = CESTER_RESET_TERMINAL;
     HANDLE hConsole;
@@ -763,6 +741,30 @@ static inline void print_test_case_outputs(TestCase* test_case) {
     }
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), test_case->execution_output);
 }
+
+
+// Assertions, Tests
+
+/**
+    Assert true failed if the expression evaluates to false. 
+    Prints the expression as in the source code
+*/
+#define cester_assert_true(x) cester_evaluate_expression(x, "(" #x ")", __FILE__, __LINE__)
+
+/**
+    Assert false failed if the expression evaluates to true. 
+    Prints the expression as in the source code
+*/
+#define cester_assert_false(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
+
+/**
+    Check if a variable is NULL, passed if the variable is NULL. 
+    Prints the expression as in the source code
+*/
+#define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
+#define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
+#define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
+#define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (eval_result == 0) {

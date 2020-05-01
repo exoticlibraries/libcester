@@ -6,8 +6,9 @@
    :name: main-nav
 
    /download
-   /screenshots
    /faq
+   /license
+   /screenshots
 
 
 .. toctree::

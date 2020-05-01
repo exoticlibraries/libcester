@@ -9,6 +9,7 @@ Documentation
    :glob:
    :maxdepth: 3
 
+   assertions
    mocking
    macros
    options

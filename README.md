@@ -9,6 +9,8 @@ ___
 
 cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. cester supports function mocking and allows shared instance `test_instance` in which each test cases can use to share data and access the command line arguments. 
 
+Criterion - Unit testing framework with automatic test registration. Supports theories and parameterized tests. Each test is run in its own process, so signals and crashes can be reported. Can output to multiple formats, like the TAP format or JUnit XML. Supported on Linux, OS X, FreeBSD, and Windows
+
 ```c
 //!gcc {0} -I. -o test; ./test
 #include <exotic/cester.h>
@@ -18,12 +20,12 @@ CESTER_BEFORE_ALL(test_instance,
 )
 
 CESTER_TEST(check_shared_arg, test_instance,
-    cester_assert_equal(test_instance->arg, "Hello World");
+    cester_assert_string_equal(test_instance->arg, "Hello World");
     cester_assert_not_equal(2, 1);
 )
 ```
 
-The test results can be outputed as JUnit XML format by specifying the cli option `--cester-junitxml` or using the macro `CESTER_JUNITXML()` in the test source.
+The test results can be outputed as JUnit XML format by specifying the cli option `--cester-junitxml`.
 ___
 
 ## Table of content

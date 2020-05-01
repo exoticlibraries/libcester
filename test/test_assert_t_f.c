@@ -3,9 +3,9 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(Test1, test_instance,
-    cester_assert_true(1 == 2);
+    cester_assert_true(1 != 2);
     cester_assert_true(1 == 1);
-    cester_assert_true(1 == 3);
+    cester_assert_true(5 >= 3);
 )
 
 CESTER_TEST(Test2, test_instance,

@@ -616,20 +616,25 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput    display cester version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest       disable memory leak detection in the tests\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-noisolation     run all the test on a single process. Prevents recovery from crash.\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-output=[FORMAT] change the format in which the test results are printed\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-help            display this help info version and exit\n");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "See https://exoticlibraries.github.io/libcester/cmdlineargs.html for more details");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "See https://exoticlibraries.github.io/libcester/docs/options.html for more details\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nSupported output formats. [FORMAT]:\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    text\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    junitxml\n");
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in test case '");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' expr => '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expression);
@@ -639,7 +644,7 @@ static inline void cester_print_assertion(char const* const expression, char con
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in test case '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), (superTestInstance.current_test_case)->name);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "' expr => '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expression);
@@ -647,11 +652,11 @@ static inline void cester_print_assertion(char const* const expression, char con
 }
 
 static inline void cester_print_expect_actual(size_t expecting, char const* const expect, char const* const found, char const* const file_path, size_t const line_num) {
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in test case '");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' =>");
     if (expecting == 0) {
@@ -668,7 +673,7 @@ static inline void cester_print_expect_actual(size_t expecting, char const* cons
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in test case '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in '");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), (superTestInstance.current_test_case)->name);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "' =>");
     if (expecting == 0) {
@@ -730,11 +735,16 @@ static inline void print_test_case_outputs(TestCase* test_case) {
         } else {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "PrematureTermination ");
         }
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
         CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), test_case->line_num);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ": ");
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "in test case '");
+        if (test_case->execution_status == CESTER_RESULT_SEGFAULT) {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Segmentation fault ");
+        } else {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Premature Termination ");
+        }
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "in '");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), test_case->name);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "' \n");
         
@@ -762,8 +772,25 @@ static inline void print_test_case_outputs(TestCase* test_case) {
     Prints the expression as in the source code
 */
 #define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
+
+/**
+    Check if a variable is not NULL, passed if the variable is not NULL. 
+    Prints the expression as in the source code
+*/
 #define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
+
+/**
+    Compare two variable to check if they are equal. 
+    If both variable is equal it passed.
+    Prints the expression as in the source code
+*/
 #define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
+
+/**
+    Compare two variable to check if they are not equal. 
+    If both variable is equal it fails.
+    Prints the expression as in the source code
+*/
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
@@ -980,7 +1007,7 @@ static inline void cester_register_test(char *test_name, void* function, size_t 
         if (superTestInstance.output_stream==NULL) {
             superTestInstance.output_stream = stdout;
         }
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to register test case '");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to register '");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), test_name);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' \n");
         superTestInstance.mem_test_active = 0;
@@ -1010,11 +1037,16 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
                 CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case was terminated\" type=\"PrematureTermination\">");
                 CESTER_DELEGATE_FPRINT_STR((default_color), "PrematureTermination ");
             }
-            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.verbose == 1 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
             CESTER_DELEGATE_FPRINT_STR((default_color), ":");
             CESTER_DELEGATE_FPRINT_INT((default_color), a_test_case->line_num);
             CESTER_DELEGATE_FPRINT_STR((default_color), ": ");
-            CESTER_DELEGATE_FPRINT_STR((default_color), "in test case '");
+            if (a_test_case->execution_status == CESTER_RESULT_SEGFAULT) {
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Segmentation fault ");
+            } else {
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Premature Termination ");
+            }
+            CESTER_DELEGATE_FPRINT_STR((default_color), "in '");
             CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->name);
             CESTER_DELEGATE_FPRINT_STR((default_color), "' \n");
             CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
@@ -1115,7 +1147,7 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
 	pid = fork();
 
 	if (pid == -1) {
-		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create a seperate process for the test case '");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create a seperate process for the '");
 		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), a_test_case->name);
 		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "'. Running the test on main process.");
 		last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
@@ -1204,11 +1236,11 @@ static inline size_t cester_run_test_no_isolation(TestInstance *test_instance, T
                 leaked_bytes += ((AllocatedMemory*)alloc_mem)->allocated_bytes;
                 if (superTestInstance.current_test_case != NULL) {
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "MemoryLeakError ");
-                    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose == 1 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+                    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
                     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, ((AllocatedMemory*)alloc_mem)->line_num);
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ": ");
-                    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in test case '");
+                    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in '");
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Memory allocated in line '");
                     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, ((AllocatedMemory*)alloc_mem)->line_num);
@@ -1413,7 +1445,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 })
                 if (found_test == 0) {
                     if (superTestInstance.minimal == 0 && cester_string_equals(superTestInstance.output_format, "text") == 1) {
-                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the test case '");
+                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the '");
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' was not found! \n");
                     }
@@ -1479,22 +1511,20 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 }
             })
             
-            if (superTestInstance.minimal == 0) {
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
-                if (superTestInstance.registered_test_cases->size == 0) {
-                    for (i=0;cester_test_cases[i].function != NULL;++i) {
-                        if (cester_test_cases[i].test_type == NORMAL_TEST && cester_test_cases[i].execution_status != CESTER_RESULT_UNKNOWN) {
-                            print_test_case_outputs(&cester_test_cases[i]);
-                        }
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+            if (superTestInstance.registered_test_cases->size == 0) {
+                for (i=0;cester_test_cases[i].function != NULL;++i) {
+                    if (cester_test_cases[i].test_type == NORMAL_TEST && cester_test_cases[i].execution_status != CESTER_RESULT_UNKNOWN) {
+                        print_test_case_outputs(&cester_test_cases[i]);
                     }
                 }
-                CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index6, test_case_delegate1, {
-                    TestCase* test_case1 = test_case_delegate1;
-                    if (test_case1->test_type == NORMAL_TEST && test_case1->execution_status != CESTER_RESULT_UNKNOWN) {
-                        print_test_case_outputs(test_case1);
-                    }
-                })
             }
+            CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index7, test_case_delegate1, {
+                TestCase* test_case1 = test_case_delegate1;
+                if (test_case1->test_type == NORMAL_TEST && test_case1->execution_status != CESTER_RESULT_UNKNOWN) {
+                    print_test_case_outputs(test_case1);
+                }
+            })
             
             print_test_result(time_spent);
             
@@ -1608,11 +1638,11 @@ static inline void cester_free(void *pointer, const char *file, size_t line, con
     if (pointer == NULL) {
         if (superTestInstance.mem_test_active == 1 && superTestInstance.current_test_case != NULL) {
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "InvalidOperation ");
-            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose == 1 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
             cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line);
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ": ");
-            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in test case '");
+            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in '");
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Attempting to free a NULL pointer \n");
             superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;

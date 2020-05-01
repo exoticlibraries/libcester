@@ -1,4 +1,4 @@
-//!gcc {0} -IC -I../include/ -o out; ./out
+//!gcc {0} -IC -I../include/ -o out; ./out --cester-noisolation
 //this test shares data between tests
 
 #include <exotic/cester.h>

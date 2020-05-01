@@ -1057,10 +1057,12 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
         PROCESS_INFORMATION pi = {0};
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s", 
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s", 
                                 test_instance->argv[0], 
                                 a_test_case->name, 
                                 (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""), 
+                                (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+                                (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                                 superTestInstance.flattened_cmd_argv);
 
         CreateProcess(

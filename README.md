@@ -3,7 +3,7 @@
 
 # libcester
 
-A header only unit testing framework for C.
+A robust header only unit testing framework for C programming language. Support function mocking, memory leak detection, crash report. 
 
 ___
 

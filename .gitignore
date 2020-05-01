@@ -75,3 +75,6 @@ dist/
 *.swb
 *.swp
 *.swo
+
+*.xml
+*.tap

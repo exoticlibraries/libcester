@@ -58,6 +58,11 @@ extern "C" {
 #define LIBEXOTIC_API extern
 #endif
 
+#ifdef unix
+#include <unistd.h>
+#include <sys/wait.h>
+#endif
+
 #ifdef _WIN32
 
 #define CESTER_RESET_TERMINAL           15                                                ///< reset the terminal color //Nothing
@@ -1098,9 +1103,52 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
 #elif defined unix
+	pid_t pid;
+	int pipefd[2];
+	char *selected_test_unix = "";
 
+	pipe(pipefd);
+	pid = fork();
+
+	if (pid == -1) {
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create a seperate process for the test case '");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), a_test_case->name);
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "'. Running the test on main process.");
+		last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
+	
+	} else if (pid == 0) {
+		cester_concat_str(&selected_test_unix, "--cester-test=");
+		cester_concat_str(&selected_test_unix, a_test_case->name);
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
+		execl(test_instance->argv[0], 
+				test_instance->argv[0], 
+				selected_test_unix,
+				"--cester-singleoutput",
+				"--cester-noisolation",	
+				(superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
+				(superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+				(superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
+				superTestInstance.flattened_cmd_argv,
+				(char*)NULL);
+		exit(CESTER_RESULT_FAILURE);
+
+	} else {
+		int status;
+		char buffer[700];
+		size_t len;
+
+		close(pipefd[1]);
+		while ((len = read(pipefd[0], buffer, 700)) != 0) {
+			buffer[len] = '\0';
+			cester_concat_str(&a_test_case->execution_output, buffer);
+		}
+		waitpid(pid, &status, 0);
+		close(pipefd[0]);
+		last_status = WEXITSTATUS(status);	
+	}
 #else
-#warning "Isolated tests not supported in this environment. The tests will be run on the main process"
+	#pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")
         last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
 #endif
     } else {

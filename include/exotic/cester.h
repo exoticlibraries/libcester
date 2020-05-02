@@ -433,7 +433,7 @@ SuperTestInstance superTestInstance = {
     int default_color = CESTER_RESET_TERMINAL;
     HANDLE hConsole;
 #else
-    void* default_color = CESTER_RESET_TERMINAL;
+    const char* default_color = CESTER_RESET_TERMINAL;
 #endif
 
 static inline char *cester_extract_name(char const* const file_path) {

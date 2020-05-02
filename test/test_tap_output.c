@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tap
+//!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tap 
 
 #ifndef __BASE_FILE__
 #define CESTER_NO_MAIN
@@ -26,9 +26,6 @@ CESTER_TEST(modify_test_instance, test_instance,
     cester_assert_equal(arg_value->index++, 20);
     cester_assert_equal(arg_value->value, "A string");
     arg_value->value = "Unknown";
-    for (int i = 0; i < 9999999999; i++) {
-        
-    }
 )
 
 CESTER_TODO_TEST(after_we_write_the_array_struct, test_instance,
@@ -39,6 +36,10 @@ CESTER_TEST(test_direct_variables, test_instance,
     cester_assert_equal(((AStruct*)test_instance->arg)->index, 20);
     cester_assert_equal(((AStruct*)test_instance->arg)->value, "A string");
     cester_assert_not_equal(((AStruct*)test_instance->arg)->value, "Unknown");
+)
+
+CESTER_TEST(test_direct_not_variables, test_instance,
+    cester_assert_not_equal(((AStruct*)test_instance->arg)->index, 20);
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
@@ -52,7 +53,7 @@ CESTER_SKIP_TEST(skip_this_test_it_breaks, test_instance,
 CESTER_OPTIONS(
     CESTER_OUTPUT_TAP();
     CESTER_VERBOSE();
-    CESTER_DONT_FORMAT_TESTNAME();
+    CESTER_MINIMAL();
 )
 
 #ifndef __BASE_FILE__

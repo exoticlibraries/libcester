@@ -99,7 +99,7 @@ extern "C" {
 #define CESTER_FOREGROUND_MAGENTA       "\x1B[35m"    ///< magenta terminal foreground color
 #define CESTER_FOREGROUND_CYAN          "\x1B[36m"    ///< cyan terminal foreground color
 #define CESTER_FOREGROUND_WHITE         "\x1B[37m"    ///< white terminal foreground color
-#define CESTER_FOREGROUND_GRAY          "\x1B[37m"    ///< gray terminal foreground color
+#define CESTER_FOREGROUND_GRAY          "\x1B[90m"    ///< gray terminal foreground color
 #define CESTER_BACKGROUND_BLACK         "\x1B[40m"    ///< black terminal background color
 #define CESTER_BACKGROUND_RED           "\x1B[41m"    ///< red terminal background color
 #define CESTER_BACKGROUND_GREEN         "\x1B[42m"    ///< green terminal background color
@@ -858,24 +858,20 @@ static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, in
         
     }
     CESTER_DELEGATE_FPRINT_STR((print_color), (superTestInstance.format_test_name == 1 ? cester_str_replace(a_test_case->name, '_', ' ') : a_test_case->name ));
-    CESTER_DELEGATE_FPRINT_STR((print_color), " in ");
-    CESTER_DELEGATE_FPRINT_STR((print_color), cester_extract_name(superTestInstance.test_file_path));
-    CESTER_DELEGATE_FPRINT_STR((print_color), ":");
-    CESTER_DELEGATE_FPRINT_INT((print_color), a_test_case->line_num);
-    CESTER_DELEGATE_FPRINT_STR((print_color), ": ");
+    CESTER_DELEGATE_FPRINT_STR((print_color), ", ");
     switch (a_test_case->execution_status) {
         case CESTER_RESULT_SUCCESS:
             CESTER_DELEGATE_FPRINT_STR((print_color), "Passed");
             break;
         case CESTER_RESULT_SEGFAULT:
-            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Segmentation fault ");
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Segmentation fault ");
             break;
         case CESTER_RESULT_TERMINATED:
-            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Premature Termination ");
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Premature Termination ");
             break;
 #ifndef CESTER_NO_MEM_TEST
         case CESTER_RESULT_MEMORY_LEAK:
-            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Memory leak");
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Memory leak");
             break;
 #endif
         default:
@@ -887,7 +883,9 @@ static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, in
             break;
     }
     CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
-    
+    if (superTestInstance.verbose == 1) {
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->execution_output);
+    }
 }
 
 static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_name) {
@@ -984,6 +982,9 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
+    if (cester_string_equals(superTestInstance.output_format, "tap") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+    }
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "EvaluationError ");
@@ -998,6 +999,9 @@ static inline void cester_evaluate_expression(size_t eval_result, char const* co
 
 static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expecting, char const* const expected, char const* const actual, 
                                                 char const* const file_path, size_t const line_num) {
+    if (cester_string_equals(superTestInstance.output_format, "tap") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+    }
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
@@ -1271,12 +1275,14 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
         PROCESS_INFORMATION pi = {0};
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s", 
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s", 
                                 test_instance->argv[0], 
                                 a_test_case->name, 
                                 (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""), 
                                 (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
                                 (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
+                                (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                                (cester_string_equals(superTestInstance.output_format, "tap") == 1 ? "--cester-output=tap" : ""),
                                 superTestInstance.flattened_cmd_argv);
 
         CreateProcess(
@@ -1345,6 +1351,8 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
 				(superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
 				(superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
 				(superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
+				(superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+				(cester_string_equals(superTestInstance.output_format, "tap") == 1 ? "--cester-output=tap" : ""),
 				superTestInstance.flattened_cmd_argv,
 				(char*)NULL);
 		exit(CESTER_RESULT_FAILURE);
@@ -1417,6 +1425,9 @@ static inline size_t cester_run_test_no_isolation(TestInstance *test_instance, T
             if (cester_string_equals((char*)((AllocatedMemory*)alloc_mem)->function_name, a_test_case->name)) {
                 leaked_bytes += ((AllocatedMemory*)alloc_mem)->allocated_bytes;
                 if (superTestInstance.current_test_case != NULL) {
+                    if (cester_string_equals(superTestInstance.output_format, "tap") == 1) {
+                        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+                    }
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "MemoryLeakError ");
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
                     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
@@ -1555,6 +1566,9 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester output format: ");
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), superTestInstance.output_format);
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
+                    if (cester_string_starts_with(superTestInstance.output_format, "tap")) {
+                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV3?'\n");
+                    }
                     CESTER_RESET_TERMINAL_ATTR()
                     return EXIT_FAILURE;
                 }

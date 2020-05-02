@@ -1,10 +1,10 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+//!g++ {0} -I. -I../include/ -o out; ./out
 
 #include <exotic/cester.h>
 
 CESTER_BEFORE_EACH(test_instance, test_name, index,
     if (test_name == "test_one") {
-        test_instance->arg = "Hello World";
+        test_instance->arg = (char*) "Hello World";
     }
 )
 
@@ -17,5 +17,5 @@ CESTER_TEST(test_two, test_instance,
 )
 
 CESTER_AFTER_EACH(test_instance, test_name, index,
-    test_instance->arg = "Yahoo";
+    test_instance->arg = (char*) "Yahoo";
 )

@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tapV3
+//!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tapV13
 
 #ifndef __BASE_FILE__
 #define CESTER_NO_MAIN
@@ -47,7 +47,7 @@ CESTER_SKIP_TEST(skip_this_test_it_breaks, test_instance,
 )
 
 CESTER_OPTIONS(
-    CESTER_OUTPUT_TAPV3();
+    CESTER_OUTPUT_TAPV13();
     CESTER_VERBOSE();
     //CESTER_MINIMAL();
 )

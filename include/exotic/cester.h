@@ -373,7 +373,7 @@ SuperTestInstance superTestInstance = {
 /**
     Change the output format to TAP (Test Anything Protocol)
 */
-#define CESTER_OUTPUT_TAPV3() superTestInstance.output_format = "tapV3";
+#define CESTER_OUTPUT_TAPV13() superTestInstance.output_format = "tapV13";
 
 /**
     Format the test case name for output. E.g the test name 
@@ -642,7 +642,7 @@ static inline void cester_ptr_to_str(char **out, void* extra) {
 static inline size_t cester_is_validate_output_option(char *format_option) {
     return (cester_string_equals(format_option, "junitxml") ||  
             cester_string_equals(format_option, "tap") ||  
-            cester_string_equals(format_option, "tapV3") ||  
+            cester_string_equals(format_option, "tapV13") ||  
             cester_string_equals(format_option, "text"));
 }
 
@@ -692,7 +692,7 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    text\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    junitxml\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tap\n");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tapV3\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tapV13\n");
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
@@ -893,7 +893,7 @@ static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, in
     }
 }
 
-static inline void write_testcase_tap_v3(TestCase *a_test_case, char* file_name, int index) {
+static inline void write_testcase_tap_v13(TestCase *a_test_case, char* file_name, int index) {
     #ifdef _WIN32
         size_t print_color = CESTER_FOREGROUND_YELLOW;
     #else 
@@ -1085,7 +1085,7 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
     if (cester_string_equals(superTestInstance.output_format, "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
         
-    } else if (cester_string_equals(superTestInstance.output_format, "tapV3") == 1) {
+    } else if (cester_string_equals(superTestInstance.output_format, "tapV13") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "    - ");
     }
     if (eval_result == 0) {
@@ -1369,7 +1369,7 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
                                 (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                                 (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
                                 (cester_string_equals(superTestInstance.output_format, "tap") == 1 ? "--cester-output=tap" : ""),
-                                (cester_string_equals(superTestInstance.output_format, "tapV3") == 1 ? "--cester-output=tapV3" : ""),
+                                (cester_string_equals(superTestInstance.output_format, "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                                 superTestInstance.flattened_cmd_argv);
 
         CreateProcess(
@@ -1440,7 +1440,7 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
 				(superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
 				(superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
 				(cester_string_equals(superTestInstance.output_format, "tap") == 1 ? "--cester-output=tap" : ""),
-				(cester_string_equals(superTestInstance.output_format, "tapV3") == 1 ? "--cester-output=tapV3" : ""),
+				(cester_string_equals(superTestInstance.output_format, "tapV13") == 1 ? "--cester-output=tapV13" : ""),
 				superTestInstance.flattened_cmd_argv,
 				(char*)NULL);
 		exit(CESTER_RESULT_FAILURE);
@@ -1655,7 +1655,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), superTestInstance.output_format);
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
                     if (cester_string_starts_with(superTestInstance.output_format, "tap")) {
-                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV3?'\n");
+                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV13?'\n");
                     }
                     CESTER_RESET_TERMINAL_ATTR()
                     return EXIT_FAILURE;
@@ -1860,13 +1860,13 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# Failed ");
                 CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_FAILED_TESTS_COUNT);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " of ");
-                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_TESTS_COUNT);
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " tests\n# Time ");
                 CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? (time_spent / 60) : time_spent));
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
             }
             
-        } else if (cester_string_equals(superTestInstance.output_format, "tapV3") == 1) {
+        } else if (cester_string_equals(superTestInstance.output_format, "tapV13") == 1) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "TAP version 13");
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "\n");
             CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_CYAN), 1);
@@ -1882,7 +1882,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                         if (superTestInstance.selected_test_cases_size > 0 && cester_test_cases[i].execution_status == CESTER_RESULT_UNKNOWN) {
                             continue;
                         }
-                        write_testcase_tap_v3(&cester_test_cases[i], cester_extract_name_only(superTestInstance.test_file_path), index_sub);
+                        write_testcase_tap_v13(&cester_test_cases[i], cester_extract_name_only(superTestInstance.test_file_path), index_sub);
                         ++index_sub;
                     }
                 }
@@ -1894,7 +1894,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                     if (superTestInstance.selected_test_cases_size > 0 && ((TestCase*)test_case)->execution_status == CESTER_RESULT_UNKNOWN) {
                         continue;
                     }
-                    write_testcase_tap_v3(((TestCase*)test_case), cester_extract_name_only(superTestInstance.test_file_path), index_sub);
+                    write_testcase_tap_v13(((TestCase*)test_case), cester_extract_name_only(superTestInstance.test_file_path), index_sub);
                     ++index_sub;
                 }
             })
@@ -1902,7 +1902,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# Failed ");
                 CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_FAILED_TESTS_COUNT);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " of ");
-                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_TESTS_COUNT);
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " tests\n# Time ");
                 CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? (time_spent / 60) : time_spent));
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));

@@ -208,6 +208,7 @@ typedef struct super_test_instance {
     size_t isolate_tests;                               ///< Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only.
     size_t skipped_test_count;                          ///< The number of test cases to be skipped. For internal use only.
     size_t todo_tests_count;                            ///< The number of test cases that would be implemented in future. For internal use only.
+    size_t format_test_name;                            ///< Format the test name for fine output e.g. 'test_file_exit' becomes 'test file exist'. For internal use only.
     char* flattened_cmd_argv;                           ///< Flattened command line argument for sub process. For internal use only.
     char* test_file_path;                               ///< The main test file full path. For internal use only.
     char* output_format;                                ///< The output format to print the test result in. For internal use only.
@@ -264,6 +265,7 @@ SuperTestInstance superTestInstance = {
     1,
     0,
     0,
+    1,
     "",
 #ifdef __BASE_FILE__
     __BASE_FILE__,
@@ -357,6 +359,30 @@ SuperTestInstance superTestInstance = {
     allocation will be validated in all the other test case that follows.
 **/
 #define CESTER_DO_MEMTEST() (superTestInstance.mem_test_active = 1)
+
+/**
+    Change the output format to junitxml
+*/
+#define CESTER_OUTPUT_JUNITXML() superTestInstance.output_format = "junitxml";
+
+/**
+    Change the output format to TAP (Test Anything Protocol)
+*/
+#define CESTER_OUTPUT_TAP() superTestInstance.output_format = "tap";
+
+/**
+    Format the test case name for output. E.g the test name 
+    `modify_test_instance` becomes `modify test instance`. This 
+    does not apply to junitxml as the test name remain the way it 
+    declared in the test source.
+*/
+#define CESTER_FORMAT_TESTNAME() superTestInstance.format_test_name = 1;
+
+/**
+    Do not format the test case name, it remain the way it 
+    declared in the test source.
+*/
+#define CESTER_DONT_FORMAT_TESTNAME() superTestInstance.format_test_name = 0;
 
 // test counts
 
@@ -461,6 +487,23 @@ static inline size_t cester_str_after_prefix(const char* arg, char* prefix, size
     }
     (*out)[i-prefix_size] = '\0';
     return 1;
+}
+
+static inline char* cester_str_replace(char* str, char old_char, char new_char) {
+    char* tmp = malloc(strlen(str) + 1);
+    size_t index = 0;
+    do {
+        if (*str == old_char) {
+            tmp[index] = new_char;
+        } else {
+            tmp[index] = *str;
+        }
+        ++str;
+        index++;
+    } while (*str != '\0');
+    tmp[index] = '\0';
+    
+    return tmp;
 }
 
 static inline size_t cester_string_equals(char* arg, char* arg1) {
@@ -592,8 +635,10 @@ static inline void cester_ptr_to_str(char **out, void* extra) {
 }
 
 static inline size_t cester_is_validate_output_option(char *format_option) {
-    return (cester_string_equals(format_option, "junitxml") 
-            || cester_string_equals(format_option, "text"));
+    return (cester_string_equals(format_option, "junitxml") ||  
+            cester_string_equals(format_option, "tap") ||  
+            cester_string_equals(format_option, "tapV3") ||  
+            cester_string_equals(format_option, "text"));
 }
 
 #define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? default_color : x)
@@ -632,6 +677,7 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest       disable memory leak detection in the tests\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-noisolation     run all the test on a single process. Prevents recovery from crash.\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-dontformatname  leave the test case name as declared in the source file in the output\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-output=[FORMAT] change the format in which the test results are printed\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-version         display cester version and exit\n");
@@ -640,6 +686,8 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nSupported output formats. [FORMAT]:\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    text\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    junitxml\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tap\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tapV3\n");
 }
 
 static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
@@ -732,7 +780,7 @@ static inline void print_test_case_result(TestCase* test_case) {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "(");
         CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), test_case->execution_time);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), ") ");
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), test_case->name);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (superTestInstance.format_test_name == 1 ? cester_str_replace(test_case->name, '_', ' ') : test_case->name ));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), (test_case->test_type == CESTER_NORMAL_TODO_TEST ? " TODO " : " SKIP "));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
     } else {
@@ -752,7 +800,7 @@ static inline void print_test_case_result(TestCase* test_case) {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "(");
         CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), test_case->execution_time);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), ") ");
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), test_case->name);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (superTestInstance.format_test_name == 1 ? cester_str_replace(test_case->name, '_', ' ') : test_case->name ));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
     }
 }
@@ -779,6 +827,119 @@ static inline void print_test_case_outputs(TestCase* test_case) {
         
     }
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), test_case->execution_output);
+}
+
+static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, int index) {
+    #ifdef _WIN32
+        size_t print_color = CESTER_FOREGROUND_YELLOW;
+    #else 
+        char* print_color = CESTER_FOREGROUND_YELLOW;
+    #endif
+    if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
+        a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 
+        a_test_case->test_type == CESTER_NORMAL_TODO_TEST) {
+            
+        if (a_test_case->execution_status == CESTER_RESULT_SUCCESS) {
+            print_color = CESTER_FOREGROUND_GREEN;
+        }
+        CESTER_DELEGATE_FPRINT_STR((print_color), "ok ");
+        
+    } else {
+        print_color = CESTER_FOREGROUND_RED;
+        CESTER_DELEGATE_FPRINT_STR((print_color), "not ok ");
+    }
+    CESTER_DELEGATE_FPRINT_INT((print_color), index);
+    CESTER_DELEGATE_FPRINT_STR((print_color), " - ");
+    if (a_test_case->test_type == CESTER_NORMAL_SKIP_TEST) {
+        CESTER_DELEGATE_FPRINT_STR((print_color), "# SKIP ");
+        
+    } else if (a_test_case->test_type == CESTER_NORMAL_TODO_TEST) {
+        CESTER_DELEGATE_FPRINT_STR((print_color), "# TODO ");
+        
+    }
+    CESTER_DELEGATE_FPRINT_STR((print_color), (superTestInstance.format_test_name == 1 ? cester_str_replace(a_test_case->name, '_', ' ') : a_test_case->name ));
+    CESTER_DELEGATE_FPRINT_STR((print_color), " in ");
+    CESTER_DELEGATE_FPRINT_STR((print_color), cester_extract_name(superTestInstance.test_file_path));
+    CESTER_DELEGATE_FPRINT_STR((print_color), ":");
+    CESTER_DELEGATE_FPRINT_INT((print_color), a_test_case->line_num);
+    CESTER_DELEGATE_FPRINT_STR((print_color), ": ");
+    switch (a_test_case->execution_status) {
+        case CESTER_RESULT_SUCCESS:
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Passed");
+            break;
+        case CESTER_RESULT_SEGFAULT:
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Segmentation fault ");
+            break;
+        case CESTER_RESULT_TERMINATED:
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Premature Termination ");
+            break;
+#ifndef CESTER_NO_MEM_TEST
+        case CESTER_RESULT_MEMORY_LEAK:
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed, Memory leak");
+            break;
+#endif
+        default:
+            if (a_test_case->test_type != CESTER_NORMAL_SKIP_TEST && 
+                a_test_case->test_type != CESTER_NORMAL_TODO_TEST) {
+                
+                CESTER_DELEGATE_FPRINT_STR((print_color), "Failed");
+            }
+            break;
+    }
+    CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
+    
+}
+
+static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_name) {
+    CESTER_DELEGATE_FPRINT_STR((default_color), "    <testcase classname=\"");
+    CESTER_DELEGATE_FPRINT_STR((default_color), file_name);
+    CESTER_DELEGATE_FPRINT_STR((default_color), "\" name=\"");
+    CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->name);
+    CESTER_DELEGATE_FPRINT_STR((default_color), "\" time=\"");
+    CESTER_DELEGATE_FPRINT_DOUBLE_2((default_color), a_test_case->execution_time);
+    CESTER_DELEGATE_FPRINT_STR((default_color), "\"");
+    switch (a_test_case->execution_status) {
+        case CESTER_RESULT_SUCCESS:
+            CESTER_DELEGATE_FPRINT_STR((default_color), "/>\n");
+            break;
+        case CESTER_RESULT_SEGFAULT:
+        case CESTER_RESULT_TERMINATED:
+            if (a_test_case->execution_status == CESTER_RESULT_SEGFAULT) {
+                CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case crashed\" type=\"SegmentationFault\">");
+                CESTER_DELEGATE_FPRINT_STR((default_color), "SegfaultError ");
+            } else {
+                CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case was terminated\" type=\"PrematureTermination\">");
+                CESTER_DELEGATE_FPRINT_STR((default_color), "PrematureTermination ");
+            }
+            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path)));
+            CESTER_DELEGATE_FPRINT_STR((default_color), ":");
+            CESTER_DELEGATE_FPRINT_INT((default_color), a_test_case->line_num);
+            CESTER_DELEGATE_FPRINT_STR((default_color), ": ");
+            if (a_test_case->execution_status == CESTER_RESULT_SEGFAULT) {
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Segmentation fault ");
+            } else {
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Premature Termination ");
+            }
+            CESTER_DELEGATE_FPRINT_STR((default_color), "in '");
+            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->name);
+            CESTER_DELEGATE_FPRINT_STR((default_color), "' \n");
+            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
+            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
+            break;
+#ifndef CESTER_NO_MEM_TEST
+        case CESTER_RESULT_MEMORY_LEAK:
+            CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case leaks memory\" type=\"MemoryLeakError\">");
+            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
+            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
+            break;
+#endif
+        default:
+            CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case failed\" type=\"TestFailed\">");
+            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
+            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
+            break;
+    }
+    
 }
 
 
@@ -914,6 +1075,12 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
     only your C or C++ code.
 */
 #define CESTER_BODY(x)
+
+/**
+    A multiline comment macro everything in the macro is totally 
+    ignored during macro expansion.
+*/
+#define CESTER_COMMENT(x)
 
 #ifndef CESTER_NO_MOCK
 /**
@@ -1080,58 +1247,6 @@ static inline void cester_register_test(char *test_name, void* function, size_t 
 }
 
 static inline size_t cester_run_test_no_isolation(TestInstance *, TestCase *, size_t);
-
-static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_name) {
-    CESTER_DELEGATE_FPRINT_STR((default_color), "    <testcase classname=\"");
-    CESTER_DELEGATE_FPRINT_STR((default_color), file_name);
-    CESTER_DELEGATE_FPRINT_STR((default_color), "\" name=\"");
-    CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->name);
-    CESTER_DELEGATE_FPRINT_STR((default_color), "\" time=\"");
-    CESTER_DELEGATE_FPRINT_DOUBLE_2((default_color), a_test_case->execution_time);
-    CESTER_DELEGATE_FPRINT_STR((default_color), "\"");
-    switch (a_test_case->execution_status) {
-        case CESTER_RESULT_SUCCESS:
-            CESTER_DELEGATE_FPRINT_STR((default_color), "/>\n");
-            break;
-        case CESTER_RESULT_SEGFAULT:
-        case CESTER_RESULT_TERMINATED:
-            if (a_test_case->execution_status == CESTER_RESULT_SEGFAULT) {
-                CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case crashed\" type=\"SegmentationFault\">");
-                CESTER_DELEGATE_FPRINT_STR((default_color), "SegfaultError ");
-            } else {
-                CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case was terminated\" type=\"PrematureTermination\">");
-                CESTER_DELEGATE_FPRINT_STR((default_color), "PrematureTermination ");
-            }
-            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
-            CESTER_DELEGATE_FPRINT_STR((default_color), ":");
-            CESTER_DELEGATE_FPRINT_INT((default_color), a_test_case->line_num);
-            CESTER_DELEGATE_FPRINT_STR((default_color), ": ");
-            if (a_test_case->execution_status == CESTER_RESULT_SEGFAULT) {
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Segmentation fault ");
-            } else {
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Premature Termination ");
-            }
-            CESTER_DELEGATE_FPRINT_STR((default_color), "in '");
-            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->name);
-            CESTER_DELEGATE_FPRINT_STR((default_color), "' \n");
-            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
-            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
-            break;
-#ifndef CESTER_NO_MEM_TEST
-        case CESTER_RESULT_MEMORY_LEAK:
-            CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case leaks memory\" type=\"MemoryLeakError\">");
-            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
-            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
-            break;
-#endif
-        default:
-            CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case failed\" type=\"TestFailed\">");
-            CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
-            CESTER_DELEGATE_FPRINT_STR((default_color), "        </failure>\n    </testcase>\n");
-            break;
-    }
-    
-}
 
 static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     clock_t tic = clock();
@@ -1332,6 +1447,7 @@ static inline size_t cester_run_test_no_isolation(TestInstance *test_instance, T
 static inline size_t cester_run_all_test(size_t argc, char **argv) {
     size_t i = 0; 
     size_t j = 1; 
+    size_t index_sub;
     size_t found_test = 0;
     char* selected_test_case_name;
     #ifdef _WIN32
@@ -1412,6 +1528,9 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 
             } else if (cester_string_equals(cester_option, "noisolation") == 1) {
                 superTestInstance.isolate_tests = 0;
+                
+            } else if (cester_string_equals(cester_option, "dontformatname") == 1) {
+                superTestInstance.format_test_name = 0;
                 
             } else if (cester_string_equals(cester_option, "nomemtest") == 1) {
                 superTestInstance.mem_test_active = 0;
@@ -1604,6 +1723,39 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
                 }
             })
             CESTER_DELEGATE_FPRINT_STR((default_color), "</testsuite>\n");
+            
+        } else if (cester_string_equals(superTestInstance.output_format, "tap") == 1) {
+            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), 1);
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "..");
+            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), CESTER_TOTAL_TESTS_COUNT);
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+            index_sub = 1;
+            if (superTestInstance.registered_test_cases->size == 0) {
+                for (i=0;cester_test_cases[i].function != NULL;++i) {
+                    if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
+                        cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST)) {
+                        write_testcase_tap(&cester_test_cases[i], cester_extract_name_only(superTestInstance.test_file_path), index_sub);
+                        ++index_sub;
+                    }
+                }
+            }
+            CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index5, test_case, {
+                if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST || ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST || 
+                    ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+                    write_testcase_tap(((TestCase*)test_case), cester_extract_name_only(superTestInstance.test_file_path), index_sub);
+                    ++index_sub;
+                }
+            })
+            if (superTestInstance.verbose == 1) {
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# Failed ");
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_FAILED_TESTS_COUNT);
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " of ");
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_TESTS_COUNT);
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " test\n# Time ");
+                CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? (time_spent / 60) : time_spent));
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? " Minutes\n" : " Seconds\n" ));
+            }
+            
         } else {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
             if (superTestInstance.registered_test_cases->size == 0) {
@@ -1648,10 +1800,9 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
             })
             
             print_test_result(time_spent);
-            
-            CESTER_RESET_TERMINAL_ATTR();
         }
     }
+    CESTER_RESET_TERMINAL_ATTR();
     if (CESTER_TOTAL_FAILED_TESTS_COUNT != 0 && superTestInstance.current_execution_status == CESTER_RESULT_SUCCESS) {
         return CESTER_RESULT_FAILURE;
     }

@@ -1,0 +1,18 @@
+# https://github.com/vovkos/doxyrest#2-prepare-configuration-files
+
+PROJECT_NAME           = "libcester"
+INPUT                  = README.md ./include/
+GENERATE_XML           = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+XML_OUTPUT             = dist/xml/
+HTML_OUTPUT            = dist/html/
+XML_PROGRAMLISTING     = NO
+CASE_SENSE_NAMES       = NO
+HIDE_UNDOC_RELATIONS   = YES
+EXTRACT_ALL            = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+SEARCH_INCLUDES        = YES
+INHERIT_DOCS           = YES
+MARKDOWN_SUPPORT       = YES
+RECURSIVE              = YES

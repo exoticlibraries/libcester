@@ -161,8 +161,6 @@ typedef struct test_case {
 } TestCase;
 
 #ifndef CESTER_NO_MEM_TEST
-#define CESTER_ARRAY_INITIAL_CAPACITY 30
-#define CESTER_ARRAY_MAX_CAPACITY ((size_t) - 5)
 
 typedef struct allocated_memory {
     size_t line_num;
@@ -171,6 +169,11 @@ typedef struct allocated_memory {
     const char* function_name;
     const char* file_name;
 } AllocatedMemory;
+
+#endif
+
+#define CESTER_ARRAY_INITIAL_CAPACITY 30
+#define CESTER_ARRAY_MAX_CAPACITY ((size_t) - 5)
 
 typedef struct mem_alloc_man {
     size_t size;
@@ -184,8 +187,6 @@ typedef struct mem_alloc_man {
                                           void* y = w->buffer[x];\
                                           z\
                                       }
-
-#endif
 
 /**
     This structure manages the _BEFORE_ and _AFTER_ functions 
@@ -286,7 +287,9 @@ SuperTestInstance superTestInstance = {
     Change the output stream used by cester to write data. The default is `stdout`. 
     E.g to change the output stream to a file. 
     
-    \code CESTER_CHANGE_STREAM(fopen("./test.txt", "w+"));
+    \code{.c} 
+    CESTER_CHANGE_STREAM(fopen("./test.txt", "w+"));
+    \endcode
     
     The code above changes the stream to a file test.txt, all the output from 
     the test will be written in the file.
@@ -1027,40 +1030,73 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 // Assertions, Tests
 
 /**
-    Assert true failed if the expression evaluates to false. 
+    Compare two argument using the provided operator
     Prints the expression as in the source code
+    
+    \param w a value to compare to y
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y a value to compare to w
+    \param z the expression to print in output
 */
-#define cester_assert_true(x) cester_evaluate_expression(x, "(" #x ")", __FILE__, __LINE__)
+#define cester_assert_cmp_msg(w,x,y,z) cester_evaluate_expression(w x y, z, __FILE__, __LINE__)
 
 /**
-    Assert false failed if the expression evaluates to true. 
+    Compare two argument using the provided operator
     Prints the expression as in the source code
+    
+    \param x a value to compare to z
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z a value to compare to x
 */
-#define cester_assert_false(x) cester_evaluate_expression(x == 0, "!(" #x ")", __FILE__, __LINE__)
+#define cester_assert_cmp(x,y,z) cester_assert_cmp_msg(x, y, z, "(" #x " " #y " " #z ")")
 
 /**
-    Check if a variable is NULL, passed if the variable is NULL. 
-    Prints the expression as in the source code
+    Check if the expression evaluates to true. 
+    Prints the expression as in the source code.
+    
+    \param x the expression to check if true
 */
-#define cester_assert_null(x) cester_evaluate_expression(x == NULL, "(" #x ")", __FILE__, __LINE__)
+#define cester_assert_true(x) cester_assert_cmp_msg(x, ==, 1, "(" #x ")")
 
 /**
-    Check if a variable is not NULL, passed if the variable is not NULL. 
-    Prints the expression as in the source code
+    Check if the expression evaluates to false. 
+    Prints the expression as in the source code.
+    
+    \param x the expression to check if false
 */
-#define cester_assert_not_null(x) cester_evaluate_expression(x != NULL, "!(" #x ")", __FILE__, __LINE__)
+#define cester_assert_false(x) cester_assert_cmp_msg(x, ==, 0, "(" #x ")")
 
 /**
-    Compare two variable to check if they are equal. 
-    If both variable is equal it passed.
+    Assertion macro that passes if an expression is NULL. 
+    Prints the expression as in the source code.
+    
+    \param x the expression to check if it NULL.
+*/
+#define cester_assert_null(x) cester_assert_cmp_msg(x, ==, NULL, "(" #x ")")
+
+/**
+    Assertion macro that passes if an expression is not NULL. 
+    Prints the expression as in the source code.
+    
+    \param x the expression to check if it not NULL.
+*/
+#define cester_assert_not_null(x) cester_assert_cmp_msg(x, !=, NULL, "!(" #x ")")
+
+/**
+    Assertion macro that passes if the two expression is equal. 
     Prints the expression as in the source code
+    
+    \param x the first expression to compare
+    \param y the second expression to compare
 */
 #define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
 
 /**
-    Compare two variable to check if they are not equal. 
-    If both variable is equal it fails.
+    Assertion macro that passes if the two expression is not equal. 
     Prints the expression as in the source code
+    
+    \param x the first expression to compare
+    \param y the second expression to compare
 */
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 

@@ -1,7 +1,7 @@
 import themata
 
 project = 'libcester'
-copyright = '2020, Adewale Azeez, Creative Commons Zero v1.0 Universal License'
+copyright = '2020, Adewale Azeez, GNU General Public License v3.0'
 author = 'Adewale Azeez'
 
 html_theme_path = [themata.get_html_theme_path()]
@@ -14,9 +14,11 @@ html_theme_options = {
     'collapsible_sidebar': True,
     'collapsible_sidebar_display': 'block',
     'navbar_links': [
-        ('Exotic Libraries', 'https://exoticlibraries.github.io/'),
+        ('Download', '/download.html'),
         ('Documentation', '/docs/'),
-        ('Contribute on Github', 'https://github.com/exoticlibraries/libcester/')
+        ('Reference', '/reference/'),
+        ('Contribute on Github', 'https://github.com/exoticlibraries/libcester/'),
+        ('Exotic Libraries', 'https://exoticlibraries.github.io/')
     ],
     'has_left_sidebar': True,
     'has_right_sidebar': True,

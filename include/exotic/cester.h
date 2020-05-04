@@ -1143,7 +1143,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
     \param z another char
 */
-#define cester_assert_cmp_char(x,y,z) cester_compare_char(x y z, "(%c %s %c)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_char(x,y,z) cester_compare_char(x y z, (char*) "(%c %s %c)", x, z, #y, __FILE__, __LINE__)
 
 /**
     Check if the two char are the same.
@@ -1214,7 +1214,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
     \param z another unsigned char
 */
-#define cester_assert_cmp_uchar(x,y,z) cester_compare_uchar(x y z, "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_uchar(x,y,z) cester_compare_uchar(x y z, (char*) "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
 
 /**
     Check if the two unsigned char are the same.
@@ -1277,148 +1277,6 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 #define cester_assert_uchar_le(x,y) cester_assert_cmp_uchar(x, <=, y)
 
 /**
-    Compare two int using the provided operator
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another int
-*/
-#define cester_assert_cmp_int(x,y,z) cester_compare_int(x y z, "(%d %s %d)", x, z, #y, __FILE__, __LINE__)
-
-/**
-    Check if the two int are the same.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_eq(x,y) cester_assert_cmp_int(x, ==, y)
-
-/**
-    Check if the two int are not the same.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_ne(x,y) cester_assert_cmp_int(x, !=, y)
-
-/**
-    Check if the a int is greater than the other.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_gt(x,y) cester_assert_cmp_int(x, >, y)
-
-/**
-    Check if the a int is greater than or equal to the other.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_ge(x,y) cester_assert_cmp_int(x, >=, y)
-
-/**
-    Check if the a int is lesser than the other.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_lt(x,y) cester_assert_cmp_int(x, <, y)
-
-/**
-    Check if the a int is lesser than or equal to the other.
-    This macro prints out the actual values of the two 
-    int.
-    
-    \param x an int
-    \param z another int
-*/
-#define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
-
-/**
-    Compare two unsigned int using the provided operator
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned int
-*/
-#define cester_assert_cmp_uint(x,y,z) cester_compare_uint(x y z, "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
-
-/**
-    Check if the two unsigned int are the same.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_eq(x,y) cester_assert_cmp_uint(x, ==, y)
-
-/**
-    Check if the two unsigned int are not the same.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_ne(x,y) cester_assert_cmp_uint(x, !=, y)
-
-/**
-    Check if the a unsigned int is greater than the other.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_gt(x,y) cester_assert_cmp_uint(x, >, y)
-
-/**
-    Check if the a unsigned int is greater than or equal to the other.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_ge(x,y) cester_assert_cmp_uint(x, >=, y)
-
-/**
-    Check if the a unsigned int is lesser than the other.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_lt(x,y) cester_assert_cmp_uint(x, <, y)
-
-/**
-    Check if the a unsigned int is lesser than or equal to the other.
-    This macro prints out the actual values of the two 
-    unsigned int.
-    
-    \param x an unsigned int
-    \param z another unsigned int
-*/
-#define cester_assert_uint_le(x,y) cester_assert_cmp_uint(x, <=, y)
-
-/**
     Compare two short using the provided operator
     This macro prints out the actual values of the two 
     short.
@@ -1427,7 +1285,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
     \param z another short
 */
-#define cester_assert_cmp_short(x,y,z) cester_compare_short(x y z, "(%hi %s %hi)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_short(x,y,z) cester_compare_short(x y z, (char*) "(%hi %s %hi)", x, z, #y, __FILE__, __LINE__)
 
 /**
     Check if the two short are the same.
@@ -1498,7 +1356,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
     \param z another unsigned short
 */
-#define cester_assert_cmp_ushort(x,y,z) cester_compare_ushort(x y z, "(%hu %s %hu)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_ushort(x,y,z) cester_compare_ushort(x y z, (char*) "(%hu %s %hu)", x, z, #y, __FILE__, __LINE__)
 
 /**
     Check if the two unsigned short are the same.
@@ -1559,6 +1417,645 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param z another unsigned short
 */
 #define cester_assert_ushort_le(x,y) cester_assert_cmp_ushort(x, <=, y)
+
+/**
+    Compare two int using the provided operator
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another int
+*/
+#define cester_assert_cmp_int(x,y,z) cester_compare_int(x y z, (char*) "(%d %s %d)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two int are the same.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_eq(x,y) cester_assert_cmp_int(x, ==, y)
+
+/**
+    Check if the two int are not the same.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_ne(x,y) cester_assert_cmp_int(x, !=, y)
+
+/**
+    Check if the a int is greater than the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_gt(x,y) cester_assert_cmp_int(x, >, y)
+
+/**
+    Check if the a int is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_ge(x,y) cester_assert_cmp_int(x, >=, y)
+
+/**
+    Check if the a int is lesser than the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_lt(x,y) cester_assert_cmp_int(x, <, y)
+
+/**
+    Check if the a int is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x an int
+    \param z another int
+*/
+#define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
+
+/**
+    Compare two unsigned int using the provided operator
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another unsigned int
+*/
+#define cester_assert_cmp_uint(x,y,z) cester_compare_uint(x y z, (char*) "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two unsigned int are the same.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_eq(x,y) cester_assert_cmp_uint(x, ==, y)
+
+/**
+    Check if the two unsigned int are not the same.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_ne(x,y) cester_assert_cmp_uint(x, !=, y)
+
+/**
+    Check if the a unsigned int is greater than the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_gt(x,y) cester_assert_cmp_uint(x, >, y)
+
+/**
+    Check if the a unsigned int is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_ge(x,y) cester_assert_cmp_uint(x, >=, y)
+
+/**
+    Check if the a unsigned int is lesser than the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_lt(x,y) cester_assert_cmp_uint(x, <, y)
+
+/**
+    Check if the a unsigned int is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_le(x,y) cester_assert_cmp_uint(x, <=, y)
+
+/**
+    Compare two long using the provided operator
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another long
+*/
+#define cester_assert_cmp_long(x,y,z) cester_compare_long(x y z, (char*) "(%li %s %li)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two long are the same.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_eq(x,y) cester_assert_cmp_long(x, ==, y)
+
+/**
+    Check if the two long are not the same.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_ne(x,y) cester_assert_cmp_long(x, !=, y)
+
+/**
+    Check if the a long is greater than the other.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_gt(x,y) cester_assert_cmp_long(x, >, y)
+
+/**
+    Check if the a long is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_ge(x,y) cester_assert_cmp_long(x, >=, y)
+
+/**
+    Check if the a long is lesser than the other.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_lt(x,y) cester_assert_cmp_long(x, <, y)
+
+/**
+    Check if the a long is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    long.
+    
+    \param x a long
+    \param z another long
+*/
+#define cester_assert_long_le(x,y) cester_assert_cmp_long(x, <=, y)
+
+/**
+    Compare two unsigned long using the provided operator
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another unsigned long
+*/
+#define cester_assert_cmp_ulong(x,y,z) cester_compare_ulong(x y z, "(%lu %s %lu)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two unsigned long are the same.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_eq(x,y) cester_assert_cmp_ulong(x, ==, y)
+
+/**
+    Check if the two unsigned long are not the same.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_ne(x,y) cester_assert_cmp_ulong(x, !=, y)
+
+/**
+    Check if the a unsigned long is greater than the other.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_gt(x,y) cester_assert_cmp_ulong(x, >, y)
+
+/**
+    Check if the a unsigned long is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_ge(x,y) cester_assert_cmp_ulong(x, >=, y)
+
+/**
+    Check if the a unsigned long is lesser than the other.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_lt(x,y) cester_assert_cmp_ulong(x, <, y)
+
+/**
+    Check if the a unsigned long is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned long.
+    
+    \param x a unsigned long
+    \param z another unsigned long
+*/
+#define cester_assert_ulong_le(x,y) cester_assert_cmp_ulong(x, <=, y)
+
+/**
+    Compare two long long using the provided operator
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another long long
+*/
+#define cester_assert_cmp_llong(x,y,z) cester_compare_llong(x y z, (char*) "(%lli %s %lli)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two long long are the same.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_eq(x,y) cester_assert_cmp_llong(x, ==, y)
+
+/**
+    Check if the two long long are not the same.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_ne(x,y) cester_assert_cmp_llong(x, !=, y)
+
+/**
+    Check if the a long long is greater than the other.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_gt(x,y) cester_assert_cmp_llong(x, >, y)
+
+/**
+    Check if the a long long is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_ge(x,y) cester_assert_cmp_llong(x, >=, y)
+
+/**
+    Check if the a long long is lesser than the other.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_lt(x,y) cester_assert_cmp_llong(x, <, y)
+
+/**
+    Check if the a long long is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    long long.
+    
+    \param x a long long
+    \param z another long long
+*/
+#define cester_assert_llong_le(x,y) cester_assert_cmp_llong(x, <=, y)
+
+/**
+    Compare two unsigned long long using the provided operator
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another unsigned long long
+*/
+#define cester_assert_cmp_ullong(x,y,z) cester_compare_ullong(x y z, "(%llu %s %llu)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two unsigned long long are the same.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_eq(x,y) cester_assert_cmp_ullong(x, ==, y)
+
+/**
+    Check if the two unsigned long long are not the same.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_ne(x,y) cester_assert_cmp_ullong(x, !=, y)
+
+/**
+    Check if the a unsigned long long is greater than the other.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_gt(x,y) cester_assert_cmp_ullong(x, >, y)
+
+/**
+    Check if the a unsigned long long is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_ge(x,y) cester_assert_cmp_ullong(x, >=, y)
+
+/**
+    Check if the a unsigned long long is lesser than the other.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_lt(x,y) cester_assert_cmp_ullong(x, <, y)
+
+/**
+    Check if the a unsigned long long is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned long long.
+    
+    \param x a unsigned long long
+    \param z another unsigned long long
+*/
+#define cester_assert_ullong_le(x,y) cester_assert_cmp_ullong(x, <=, y)
+
+/**
+    Compare two float using the provided operator
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another float
+*/
+#define cester_assert_cmp_float(x,y,z) cester_compare_float(x y z, "(%f %s %f)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two float are the same.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_eq(x,y) cester_assert_cmp_float(x, ==, y)
+
+/**
+    Check if the two float are not the same.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_ne(x,y) cester_assert_cmp_float(x, !=, y)
+
+/**
+    Check if the a float is greater than the other.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_gt(x,y) cester_assert_cmp_float(x, >, y)
+
+/**
+    Check if the a float is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_ge(x,y) cester_assert_cmp_float(x, >=, y)
+
+/**
+    Check if the a float is lesser than the other.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_lt(x,y) cester_assert_cmp_float(x, <, y)
+
+/**
+    Check if the a float is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    float.
+    
+    \param x a float
+    \param z another float
+*/
+#define cester_assert_float_le(x,y) cester_assert_cmp_float(x, <=, y)
+
+/**
+    Compare two double using the provided operator
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another double
+*/
+#define cester_assert_cmp_double(x,y,z) cester_compare_double(x y z, "(%lf %s %lf)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two double are the same.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_eq(x,y) cester_assert_cmp_double(x, ==, y)
+
+/**
+    Check if the two double are not the same.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_ne(x,y) cester_assert_cmp_double(x, !=, y)
+
+/**
+    Check if the a double is greater than the other.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_gt(x,y) cester_assert_cmp_double(x, >, y)
+
+/**
+    Check if the a double is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_ge(x,y) cester_assert_cmp_double(x, >=, y)
+
+/**
+    Check if the a double is lesser than the other.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_lt(x,y) cester_assert_cmp_double(x, <, y)
+
+/**
+    Check if the a double is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    double.
+    
+    \param x a double
+    \param z another double
+*/
+#define cester_assert_double_le(x,y) cester_assert_cmp_double(x, <=, y)
+
+/**
+    Compare two long double using the provided operator
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another long double
+*/
+#define cester_assert_cmp_ldouble(x,y,z) cester_compare_ldouble(x y z, "(%e %s %e)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two long double are the same.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_eq(x,y) cester_assert_cmp_ldouble(x, ==, y)
+
+/**
+    Check if the two long double are not the same.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_ne(x,y) cester_assert_cmp_ldouble(x, !=, y)
+
+/**
+    Check if the a long double is greater than the other.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_gt(x,y) cester_assert_cmp_ldouble(x, >, y)
+
+/**
+    Check if the a long double is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_ge(x,y) cester_assert_cmp_ldouble(x, >=, y)
+
+/**
+    Check if the a long double is lesser than the other.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_lt(x,y) cester_assert_cmp_ldouble(x, <, y)
+
+/**
+    Check if the a long double is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    long double.
+    
+    \param x a long double
+    \param z another long double
+*/
+#define cester_assert_ldouble_le(x,y) cester_assert_cmp_ldouble(x, <=, y)
 
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
@@ -1648,6 +2145,48 @@ static inline void cester_compare_short(int eval_result, char* expr, short first
 }
 
 static inline void cester_compare_ushort(int eval_result, char* expr, unsigned short first, unsigned short second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_long(int eval_result, char* expr, long first, long second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_ulong(int eval_result, char* expr, unsigned long first, unsigned long second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_llong(int eval_result, char* expr, long long first, long long second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_ullong(int eval_result, char* expr, unsigned long long first, unsigned long long second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_float(int eval_result, char* expr, float first, float second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_double(int eval_result, char* expr, double first, double second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_ldouble(int eval_result, char* expr, long double first, long double second, char* op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);

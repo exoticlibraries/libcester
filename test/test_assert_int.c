@@ -26,3 +26,23 @@ CESTER_TEST(test_int_assertion_literal, test_instance,
     cester_assert_int_lt(20, number);
     cester_assert_int_le(number, number);
 )
+
+CESTER_TEST(test_assert_cmp_unsigned_int, test_instance, 
+    cester_assert_cmp_uint(1, ==, 1);
+    cester_assert_cmp_uint(2, !=, 3);
+)
+
+CESTER_TEST(test_unsigned_int_assertion, test_instance, 
+    cester_assert_cmp_uint(4, <, 5);
+    cester_assert_cmp_uint(7, >, 6);
+)
+
+CESTER_TEST(test_unsigned_int_assertion_literal, test_instance, 
+    unsigned int number = *((unsigned int*)test_instance->arg);
+    cester_assert_uint_eq(21, number);
+    cester_assert_uint_ne(30, number);
+    cester_assert_uint_gt(number, 10);
+    cester_assert_uint_ge(number, 9);
+    cester_assert_uint_lt(20, number);
+    cester_assert_uint_le(number, number);
+)

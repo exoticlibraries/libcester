@@ -28,3 +28,26 @@ CESTER_TEST(test_char_assertion_literal, test_instance,
     cester_assert_char_lt(((char*)test_instance->arg)[3], 'z');
     cester_assert_char_le('a', 'b');
 )
+
+CESTER_TEST(test_assert_cmp_uchar, test_instance, 
+    cester_assert_cmp_uchar('a', ==, 'a');
+    cester_assert_cmp_uchar('b', !=, 'c');
+)
+
+CESTER_TEST(test_uchar_assertion, test_instance, 
+    cester_assert_cmp_uchar('a', <, 'b');
+    cester_assert_cmp_uchar('d', >, 'c');
+    cester_assert_cmp_uchar('e', <=, 'e');
+    cester_assert_cmp_uchar('f', >=, 'f');
+    cester_assert_cmp_uchar('g', ==, 'g');
+    cester_assert_cmp_uchar('h', !=, 'i');
+)
+
+CESTER_TEST(test_uchar_assertion_literal, test_instance, 
+    cester_assert_uchar_eq('i', ((char*)test_instance->arg)[1]);
+    cester_assert_uchar_ne(((char*)test_instance->arg)[0], 'a');
+    cester_assert_uchar_gt(((char*)test_instance->arg)[5], ((char*)test_instance->arg)[0]);
+    cester_assert_uchar_ge(((char*)test_instance->arg)[2], ((char*)test_instance->arg)[2]);
+    cester_assert_uchar_lt(((char*)test_instance->arg)[3], 'z');
+    cester_assert_uchar_le('a', 'b');
+)

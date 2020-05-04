@@ -1261,20 +1261,20 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     This macro prints out the actual values of the two 
     unsigned char.
     
-    \param x a unsigned char
+    \param x an unsigned char
     \param z another unsigned char
 */
 #define cester_assert_uchar_lt(x,y) cester_assert_cmp_uchar(x, <, y)
 
 /**
-    Check if the a int is lesser than or equal to the other.
+    Check if the a unsigned char is lesser than or equal to the other.
     This macro prints out the actual values of the two 
-    int.
+    unsigned char.
     
-    \param x an int
-    \param z another int
+    \param x an unsigned char
+    \param z another unsigned char
 */
-#define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
+#define cester_assert_uchar_le(x,y) cester_assert_cmp_uchar(x, <=, y)
 
 /**
     Compare two int using the provided operator
@@ -1347,6 +1347,219 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 */
 #define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
 
+/**
+    Compare two unsigned int using the provided operator
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another unsigned int
+*/
+#define cester_assert_cmp_uint(x,y,z) cester_compare_uint(x y z, "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two unsigned int are the same.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_eq(x,y) cester_assert_cmp_uint(x, ==, y)
+
+/**
+    Check if the two unsigned int are not the same.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_ne(x,y) cester_assert_cmp_uint(x, !=, y)
+
+/**
+    Check if the a unsigned int is greater than the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_gt(x,y) cester_assert_cmp_uint(x, >, y)
+
+/**
+    Check if the a unsigned int is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_ge(x,y) cester_assert_cmp_uint(x, >=, y)
+
+/**
+    Check if the a unsigned int is lesser than the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_lt(x,y) cester_assert_cmp_uint(x, <, y)
+
+/**
+    Check if the a unsigned int is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned int.
+    
+    \param x an unsigned int
+    \param z another unsigned int
+*/
+#define cester_assert_uint_le(x,y) cester_assert_cmp_uint(x, <=, y)
+
+/**
+    Compare two short using the provided operator
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another short
+*/
+#define cester_assert_cmp_short(x,y,z) cester_compare_short(x y z, "(%hi %s %hi)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two short are the same.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_eq(x,y) cester_assert_cmp_short(x, ==, y)
+
+/**
+    Check if the two short are not the same.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_ne(x,y) cester_assert_cmp_short(x, !=, y)
+
+/**
+    Check if the a short is greater than the other.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_gt(x,y) cester_assert_cmp_short(x, >, y)
+
+/**
+    Check if the a short is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_ge(x,y) cester_assert_cmp_short(x, >=, y)
+
+/**
+    Check if the a short is lesser than the other.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_lt(x,y) cester_assert_cmp_short(x, <, y)
+
+/**
+    Check if the a short is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    short.
+    
+    \param x a short
+    \param z another short
+*/
+#define cester_assert_short_le(x,y) cester_assert_cmp_short(x, <=, y)
+
+/**
+    Compare two unsigned short using the provided operator
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another unsigned short
+*/
+#define cester_assert_cmp_ushort(x,y,z) cester_compare_ushort(x y z, "(%hu %s %hu)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two unsigned short are the same.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_eq(x,y) cester_assert_cmp_ushort(x, ==, y)
+
+/**
+    Check if the two unsigned short are not the same.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_ne(x,y) cester_assert_cmp_ushort(x, !=, y)
+
+/**
+    Check if the a unsigned short is greater than the other.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_gt(x,y) cester_assert_cmp_ushort(x, >, y)
+
+/**
+    Check if the a unsigned short is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_ge(x,y) cester_assert_cmp_ushort(x, >=, y)
+
+/**
+    Check if the a unsigned short is lesser than the other.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_lt(x,y) cester_assert_cmp_ushort(x, <, y)
+
+/**
+    Check if the a unsigned short is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    unsigned short.
+    
+    \param x an unsigned short
+    \param z another unsigned short
+*/
+#define cester_assert_ushort_le(x,y) cester_assert_cmp_ushort(x, <=, y)
+
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
@@ -1410,12 +1623,6 @@ static inline void cester_compare_char(int eval_result, char* expr, char first, 
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_int(int eval_result, char* expr, int first, int second, char* op, char const* const file_path, size_t const line_num) {
-    char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
-    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
-}
-
 static inline void cester_compare_uchar(int eval_result, char* expr, unsigned char first, unsigned char second, char* op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
@@ -1423,6 +1630,24 @@ static inline void cester_compare_uchar(int eval_result, char* expr, unsigned ch
 }
 
 static inline void cester_compare_int(int eval_result, char* expr, int first, int second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_uint(int eval_result, char* expr, unsigned int first, unsigned int second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_short(int eval_result, char* expr, short first, short second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_ushort(int eval_result, char* expr, unsigned short first, unsigned short second, char* op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);

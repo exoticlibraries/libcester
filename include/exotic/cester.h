@@ -1203,7 +1203,78 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
     \param x a char
     \param z another char
 */
-#define cester_assert_char_le(x,y) cester_assert_cmp_char(x, <, y)
+#define cester_assert_char_le(x,y) cester_assert_cmp_char(x, <=, y)
+
+/**
+    Compare two int using the provided operator
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another int
+*/
+#define cester_assert_cmp_int(x,y,z) cester_compare_int(x y z, "(%d %s %d)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two int are the same.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_eq(x,y) cester_assert_cmp_int(x, ==, y)
+
+/**
+    Check if the two int are not the same.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_ne(x,y) cester_assert_cmp_int(x, !=, y)
+
+/**
+    Check if the a int is greater than the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_gt(x,y) cester_assert_cmp_int(x, >, y)
+
+/**
+    Check if the a int is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_ge(x,y) cester_assert_cmp_int(x, >=, y)
+
+/**
+    Check if the a int is lesser than the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_lt(x,y) cester_assert_cmp_int(x, <, y)
+
+/**
+    Check if the a int is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    int.
+    
+    \param x a int
+    \param z another int
+*/
+#define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
 
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
@@ -1264,6 +1335,12 @@ static inline void cester_evaluate_expect_actual_str(char const* const expected,
 
 static inline void cester_compare_char(int eval_result, char* expr, char first, char second, char* op, char const* const file_path, size_t const line_num) {
     char expression[2048] = "";
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
+}
+
+static inline void cester_compare_int(int eval_result, char* expr, int first, int second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }

@@ -2,20 +2,7 @@
 
 #include <exotic/cester.h>
 
-CESTER_BEFORE_EACH(test_instance, test_name, index,
-    if (test_name == "test_one") {
-        test_instance->arg = (char*) "Hello World";
-    }
-)
-
-CESTER_TEST(test_one, test_instance,
-    cester_assert_equal(test_instance->arg, "Hello World");
-)
-
-CESTER_TEST(test_two, test_instance,
-    cester_assert_equal(test_instance->arg, "Yahoo");
-)
-
-CESTER_AFTER_EACH(test_instance, test_name, index,
-    test_instance->arg = (char*) "Yahoo";
+CESTER_TEST(check_shared_arg, test_instance,
+   cester_assert_equal(NULL, ((void*)0));
+   cester_assert_not_equal(2, 1);
 )

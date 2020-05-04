@@ -7,8 +7,6 @@ CESTER_BEFORE_ALL(test_instance,
 )
 
 CESTER_TEST(test_string, test_instance, 
-    cester_assert_equal(test_instance->arg, "exoticlibs");
-    cester_assert_string_equal(test_instance->arg, "exoticlibs");
-    cester_assert_not_equal(NULL, test_instance->arg);
-    cester_assert_string_not_equal(test_instance->arg, NULL);
+    cester_assert_str_equal(test_instance->arg, "exoticlibs");
+    cester_assert_str_not_equal(test_instance->arg, NULL);
 )

@@ -281,6 +281,13 @@ SuperTestInstance superTestInstance = {
     NULL
 };
 
+#ifdef _MSC_VER
+#define cester_sprintf(x,y,z,...) sprintf_s(x, y, z, __VA_ARGS__);
+#else
+#define cester_sprintf(x,y,z,...) sprintf(x, z, __VA_ARGS__);
+#endif
+
+
 // cester options
 
 /**
@@ -604,10 +611,13 @@ static inline void cester_str_value_after_first(char *arg, char from, char** out
     (*out)[index] = '\0';
 }
 
-static inline void cester_concat_str(char **out, const char * const extra) {
+static inline void cester_concat_str(char **out, const char * extra) {
     size_t i = 0, index = strlen(*out);
     if (index == 0) {
         (*out) = (char*) malloc(sizeof(char) * 80000 );
+    }
+    if (extra == NULL) {
+        extra = "(null)";
     }
     while (1) {
         if (extra[i] == '\0') {
@@ -620,26 +630,26 @@ static inline void cester_concat_str(char **out, const char * const extra) {
     (*out)[index] = '\0';
 }
 
+static inline void cester_concat_char(char **out, char extra) {
+    size_t i = 0, index = strlen(*out);
+    if (index == 0) {
+        (*out) = (char*) malloc(sizeof(char) * 80000 );
+    }
+    cester_sprintf((*out), (index + 5), "%s%c", (*out), extra);
+}
+
 static inline void cester_concat_int(char **out, size_t extra) {
     size_t i = 0, index = strlen(*out);
     if (index == 0) {
         (*out) = (char*) malloc(sizeof(char) * 80000 );
     }
-#ifdef _MSC_VER
-    sprintf_s((*out), (index + 20), "%s%zu", (*out), extra);
-#else
-    sprintf((*out), "%s%zu", (*out), extra);
-#endif
+    cester_sprintf((*out), (index + 20), "%s%zu", (*out), extra);
 }
 
 static inline void cester_ptr_to_str(char **out, void* extra) {
     size_t i = 0;
     (*out) = (char*) malloc(sizeof(char) * 30 );
-#ifdef _MSC_VER
-    sprintf_s((*out), (30), "%s%p", (*out), extra);
-#else
-    sprintf((*out), "%p", extra);
-#endif
+    cester_sprintf((*out), (30), "%s%p", (*out), extra);
 }
 
 static inline size_t cester_is_validate_output_option(char *format_option) {
@@ -734,9 +744,13 @@ static inline void cester_print_expect_actual(size_t expecting, char const* cons
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " expected ");
     }
     
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expect);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ", found ");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, found);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     
     /*CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
@@ -1100,6 +1114,97 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 */
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
+/**
+    Compare two strings. If the comparison fails the test case 
+    is marked as failed. The advantage of this macro is that it display 
+    the actual values of the two strings.
+    
+    \param x a string to compare
+    \param x another string to compare with the first string
+*/
+#define cester_assert_str_equal(x,y) cester_evaluate_expect_actual_str(x, y, 1, __FILE__, __LINE__)
+
+/**
+    Compare two strings. If the comparison passes the test case 
+    is marked as failed. The advantage of this macro is that it display 
+    the actual values of the two strings.
+    
+    \param x a string to compare
+    \param x another string to compare with the first string
+*/
+#define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, 0, __FILE__, __LINE__)
+
+/**
+    Compare two char using the provided operator
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param z another char
+*/
+#define cester_assert_cmp_char(x,y,z) cester_compare_char(x y z, "(%c %s %c)", x, z, #y, __FILE__, __LINE__)
+
+/**
+    Check if the two char are the same.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_eq(x,y) cester_assert_cmp_char(x, ==, y)
+
+/**
+    Check if the two char are not the same.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_ne(x,y) cester_assert_cmp_char(x, !=, y)
+
+/**
+    Check if the a char is greater than the other.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_gt(x,y) cester_assert_cmp_char(x, >, y)
+
+/**
+    Check if the a char is greater than or equal to the other.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_ge(x,y) cester_assert_cmp_char(x, >=, y)
+
+/**
+    Check if the a char is lesser than the other.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_lt(x,y) cester_assert_cmp_char(x, <, y)
+
+/**
+    Check if the a char is lesser than or equal to the other.
+    This macro prints out the actual values of the two 
+    chars.
+    
+    \param x a char
+    \param z another char
+*/
+#define cester_assert_char_le(x,y) cester_assert_cmp_char(x, <, y)
+
 static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
@@ -1118,6 +1223,7 @@ static inline void cester_evaluate_expression(size_t eval_result, char const* co
 
 static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expecting, char const* const expected, char const* const actual, 
                                                 char const* const file_path, size_t const line_num) {
+                                                    
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
         
@@ -1134,6 +1240,32 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
         cester_print_expect_actual(expecting, actual, expected, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
+}
+
+static inline void cester_evaluate_expect_actual_str(char const* const expected, char const* const actual, size_t expecting, char const* const file_path, size_t const line_num) {
+    size_t eval_result = cester_string_equals((char*)expected, (char*)actual);  
+    if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+        
+    } else if (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "    - ");
+    }
+    if (eval_result != expecting) {
+        superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
+    } else if (superTestInstance.verbose == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
+    }  
+    if (eval_result != expecting || superTestInstance.verbose == 1) {
+        cester_print_expect_actual(expecting, actual, expected, file_path, line_num);
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
+    }
+}
+
+static inline void cester_compare_char(int eval_result, char* expr, char first, char second, char* op, char const* const file_path, size_t const line_num) {
+    char expression[2048] = "";
+    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 /**

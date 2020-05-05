@@ -14,4 +14,5 @@ Documentation
    macros
    options
    manual_test_registration
+   test_for_failure
    output_formats

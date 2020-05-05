@@ -4,5 +4,8 @@
 
 CESTER_TEST(check_shared_arg, test_instance,
    cester_assert_equal(NULL, ((void*)0));
-   cester_assert_not_equal(2, 1);
+)
+
+CESTER_OPTIONS(
+
 )

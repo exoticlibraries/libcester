@@ -27,7 +27,7 @@ The test results can be outputed as JUnit XML format by specifying the cli optio
 ___
 
 ## Table of content
-- [Standards Compliance and Portability](#standard-compliance-and-portability)
+- [Standards Compliance and Portability](#standards-compliance-and-portability)
 - [Installation](#installation)
 	- [Install](#install)
 		- [Windows](#windows)

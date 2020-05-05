@@ -61,12 +61,12 @@ extern "C" {
 #define LIBOTYPES_WINDLLEXPORT 1
 /* Linux */
 #else
-#define LIBOTYPES_WINDLLEXPORT 0
+#define LIBOTYPES_WINDLLEXPORT 0             /**< the platform is windows use windows export keyword __declspec(dllexport). NOT USED. IGNORED */ 
 #endif
 #if LIBOTYPES_WINDLLEXPORT
 #define LIBEXOTIC_API __declspec(dllexport)
 #else
-#define LIBEXOTIC_API extern
+#define LIBEXOTIC_API extern                 /**< Keyword to export the functions to allow ussage dynamically. NOT USED. IGNORED              */
 #endif
 
 #ifdef unix
@@ -422,7 +422,7 @@ SuperTestInstance superTestInstance = {
 #define CESTER_OUTPUT_TAP() superTestInstance.output_format = (char*) "tap";
 
 /**
-    Change the output format to TAP (Test Anything Protocol)
+    Change the output format to TAP (Test Anything Protocol) Version 13
 */
 #define CESTER_OUTPUT_TAPV13() superTestInstance.output_format = (char*) "tapV13";
 
@@ -2406,62 +2406,82 @@ static TestCase cester_test_cases[] = {
 #endif
 
 /**
-    Manual
+    Manually register a test case in situation where the the test 
+    are not auto detected or selected test cases want to be run. 
+    
+    If a test is registered manually all auto detected test will not 
+    be executed. 
 */
 #define CESTER_REGISTER_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_TEST)
 
 /**
-    Manual
+    Manually register a test case as a skip test which cases the test case 
+    not to run but it will be reported in result and logged under skipped tests.
+    
+    Reason for skipping a test can be unavailability of resources or any other 
+    reason.
 */
 #define CESTER_REGISTER_SKIP_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_SKIP_TEST)
 
 /**
-    Manual
+    Manually register a test case that is yet to be implemented so it will be 
+    skipped but it will be reported in result and logged under todo tests.
 */
 #define CESTER_REGISTER_TODO_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_TODO_TEST)
 
 /**
-    Manual
+    Manually notify cester to execute the BEFORE_ALL function to execute 
+    before all the test case are run.
 */
 #define CESTER_REGISTER_BEFORE_ALL() cester_register_test("cester_before_all_test", (cester_before_all_test), __LINE__, CESTER_BEFORE_ALL_TEST)
 
 /**
-    Manual
+    Manually notify cester to execute the BEFORE_EACH function to execute 
+    every time before a test case is run.
 */
 #define CESTER_REGISTER_BEFORE_EACH() cester_register_test("cester_before_each_test", (cester_before_each_test), __LINE__, CESTER_BEFORE_EACH_TEST)
 
 /**
-    Manual
+    Manually notify cester to execute the AFTER_ALL function to execute 
+    after all the test case are run.
 */
 #define CESTER_REGISTER_AFTER_ALL() cester_register_test("cester_after_all_test", (cester_after_all_test), __LINE__, CESTER_AFTER_ALL_TEST)
 
 /**
-    Manual
+    Manually notify cester to execute the AFTER_EACH function to execute 
+    every time after a test case is run.
 */
 #define CESTER_REGISTER_AFTER_EACH() cester_register_test("cester_after_each_test", (cester_after_each_test), __LINE__, CESTER_AFTER_EACH_TEST)
 
 /**
-    Manual
+    Manually notify cester to execute the CESTER_OPTIONS block before running 
+    the tests.
 */
 #define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
 
 /**
-
+    Change the expected result of a test case to Segfault. 
+    If the test segfault then it passes. If it does not segfault 
+    it is marked as failed.
 */
 #define CESTER_SHOULD_SEGFAULT(x) cester_expected_test_result(#x, CESTER_RESULT_SEGFAULT);
 
 /**
-
+    Change the expected result of a test case to failure. 
+    If the test case passed then it marked as failure. If it failed 
+    then it consider as passed.
 */
 #define CESTER_SHOULD_FAIL(x) cester_expected_test_result(#x, CESTER_RESULT_FAILURE);
 
 /**
-
+    Change the expected test case result. If the test case is terminated by user 
+    or another program then it passes ortherwise it fails.
 */
 #define CESTER_SHOULD_BE_TERMINATED(x) cester_expected_test_result(#x, CESTER_RESULT_TERMINATED);
 
 /**
-
+    Change the expected test case result to leak memory. If the test case does not 
+    leak any memory then the test case is marked as failure.
 */
 #define CESTER_SHOULD_LEAK_MEMORY(x) cester_expected_test_result(#x, CESTER_RESULT_MEMORY_LEAK);
 
@@ -3303,8 +3323,8 @@ static __CESTER__INLINE__ void cester_free(void *pointer, const char *file, size
     free(pointer);
 }
 
-#define malloc(x) cester_malloc( x, __FILE__, __LINE__, __FUNCTION__)
-#define free(x) cester_free( x, __FILE__, __LINE__, __FUNCTION__)
+#define malloc(x) cester_malloc( x, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
+#define free(x) cester_free( x, __FILE__, __LINE__, __FUNCTION__)     /**< Override the default free function for mem test   */
 #endif
 
 #ifdef __cplusplus

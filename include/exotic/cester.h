@@ -4,9 +4,7 @@
     \author Adewale Azeez <azeezadewale98@gmail.com>
     \date 10 April 2020
     \file cester.h
-*/
 
-/**
     Cester is a header only unit testing framework for C. The header 
     file can be downloaded and placed in a project folder or can be 
     used as part of libopen library by including it in the projects 
@@ -23,6 +21,13 @@
 extern "C" {
 #endif
 
+/** 
+    The inline keyword to optimize the function. In 
+    C89 and C90 the inline keyword semantic is 
+    different from current C standard semantic hence 
+    for compilation targeting C89 or C99 the inline 
+    keyword is ommited.
+*/
 #ifndef __STDC_VERSION__
     #define __CESTER__INLINE__ 
 #else 
@@ -129,21 +134,31 @@ extern "C" {
 */
 #define CESTER_LICENSE "GNU General Public License v3.0"
 
+/**
+    The hash # symbol for macro directive
+*/
 #define CESTER_HASH_SIGN #
-#define CESTER_CONCAT(x, y) x y
-
-enum cheat_test_status {
-    CESTER_RESULT_SUCCESS,
-    CESTER_RESULT_FAILURE,
-    CESTER_RESULT_TERMINATED,
-    CESTER_RESULT_SEGFAULT,
-    CESTER_RESULT_MEMORY_LEAK,
-    CESTER_RESULT_UNKNOWN
-};
 
 /**
-    The type of test
+    Concat two items including C macro directives.
 */
+#define CESTER_CONCAT(x, y) x y
+
+/**
+    The execution status of a test case that indicates 
+    whether a test passes of fails. And also enable the 
+    detection of the reason if a test fail.
+*/
+enum cheat_test_status {
+    CESTER_RESULT_SUCCESS,        /**< the test case passed                                                       */
+    CESTER_RESULT_FAILURE,        /**< the test case failes dues to various reason mostly AssertionError          */
+    CESTER_RESULT_TERMINATED,     /**< in isolated test, the test case was termiated by a user or another program */
+    CESTER_RESULT_SEGFAULT,       /**< the test case crahses or causes segmentation fault                         */
+    CESTER_RESULT_MEMORY_LEAK,    /**< the test case passes or fails but failed to free allocated memory          */
+    CESTER_RESULT_TIMED_OUT,      /**< cester terminated the test case because it running for too long            */
+    CESTER_RESULT_UNKNOWN         /**< the test case was never ran                                                */
+};
+
 typedef enum cester_test_type {
     CESTER_NORMAL_TEST,             /**< normal test in global or test suite. For internal use only.                                              */
     CESTER_NORMAL_TODO_TEST,        /**< test to be implemented in future. For internal use only.                                                 */
@@ -170,22 +185,32 @@ typedef struct test_case {
 #ifndef CESTER_NO_MEM_TEST
 
 typedef struct allocated_memory {
-    size_t line_num;
-    size_t allocated_bytes;
-    char* address;
-    const char* function_name;
-    const char* file_name;
+    size_t line_num;                 /**< the line number where the memory was allocated. For internal use only.   */
+    size_t allocated_bytes;          /**< the number of allocated bytes. For internal use only.                    */
+    char* address;                   /**< the allocated pointer address. For internal use only.                    */
+    const char* function_name;       /**< the function where the memory is allocated in. For internal use only.    */
+    const char* file_name;           /**< the file name where the memory is allocated. For internal use only.      */
 } AllocatedMemory;
 
 #endif
 
+/**
+    The initial amount of item the ::CesterArray can accept the first 
+    time it initialized.
+*/
 #define CESTER_ARRAY_INITIAL_CAPACITY 30
+
+/**
+    The maximum number of item the ::CesterArray can contain, in case of 
+    the Memory manager array reaching this max capacity continous mem 
+    test will be disabled.
+*/
 #define CESTER_ARRAY_MAX_CAPACITY ((size_t) - 5)
 
-typedef struct mem_alloc_man {
-    size_t size;
-    size_t capacity;
-    void** buffer;
+typedef struct cester_array_struct {
+    size_t size;                        /**< the size of the item in the array                         */
+    size_t capacity;                    /**< the number of item the array can contain before expanding */
+    void** buffer;                      /**< pointer to the pointers of items added to the array       */
 } CesterArray;
 
 
@@ -241,11 +266,20 @@ typedef struct test_instance {
 } TestInstance;
 
 /**
-    The function signature for each test case. It accepts the ::test_instance 
-    as it only argument. 
+    The function signature for each test case and the before after functions. 
+    It accepts the ::test_instance as it only argument. 
 */
 typedef void (*cester_test)(TestInstance*);
+
+/**
+    The function signature for function to execute before and after each test 
+    cases. It accepts the ::test_instance, char* and size_t as parameters. 
+*/
 typedef void (*cester_before_after_each)(TestInstance*, char * const, size_t);
+
+/**
+    A void function signature with no return type and no parameters.
+*/
 typedef void (*cester_void)();
 
 /* CesterArray */
@@ -1135,7 +1169,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     the actual values of the two strings.
     
     \param x a string to compare
-    \param x another string to compare with the first string
+    \param y another string to compare with the first string
 */
 #define cester_assert_str_equal(x,y) cester_evaluate_expect_actual_str(x, y, 1, __FILE__, __LINE__)
 
@@ -1145,7 +1179,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     the actual values of the two strings.
     
     \param x a string to compare
-    \param x another string to compare with the first string
+    \param y another string to compare with the first string
 */
 #define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, 0, __FILE__, __LINE__)
 
@@ -1166,7 +1200,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_eq(x,y) cester_assert_cmp_char(x, ==, y)
 
@@ -1176,7 +1210,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_ne(x,y) cester_assert_cmp_char(x, !=, y)
 
@@ -1186,7 +1220,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_gt(x,y) cester_assert_cmp_char(x, >, y)
 
@@ -1196,7 +1230,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_ge(x,y) cester_assert_cmp_char(x, >=, y)
 
@@ -1206,7 +1240,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_lt(x,y) cester_assert_cmp_char(x, <, y)
 
@@ -1216,7 +1250,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     chars.
     
     \param x a char
-    \param z another char
+    \param y another char
 */
 #define cester_assert_char_le(x,y) cester_assert_cmp_char(x, <=, y)
 
@@ -1237,7 +1271,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_eq(x,y) cester_assert_cmp_uchar(x, ==, y)
 
@@ -1247,7 +1281,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_ne(x,y) cester_assert_cmp_uchar(x, !=, y)
 
@@ -1257,7 +1291,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_gt(x,y) cester_assert_cmp_uchar(x, >, y)
 
@@ -1267,7 +1301,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_ge(x,y) cester_assert_cmp_uchar(x, >=, y)
 
@@ -1277,7 +1311,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_lt(x,y) cester_assert_cmp_uchar(x, <, y)
 
@@ -1287,7 +1321,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned char.
     
     \param x an unsigned char
-    \param z another unsigned char
+    \param y another unsigned char
 */
 #define cester_assert_uchar_le(x,y) cester_assert_cmp_uchar(x, <=, y)
 
@@ -1308,7 +1342,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_eq(x,y) cester_assert_cmp_short(x, ==, y)
 
@@ -1318,7 +1352,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_ne(x,y) cester_assert_cmp_short(x, !=, y)
 
@@ -1328,7 +1362,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_gt(x,y) cester_assert_cmp_short(x, >, y)
 
@@ -1338,7 +1372,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_ge(x,y) cester_assert_cmp_short(x, >=, y)
 
@@ -1348,7 +1382,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_lt(x,y) cester_assert_cmp_short(x, <, y)
 
@@ -1358,7 +1392,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     short.
     
     \param x a short
-    \param z another short
+    \param y another short
 */
 #define cester_assert_short_le(x,y) cester_assert_cmp_short(x, <=, y)
 
@@ -1379,7 +1413,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_eq(x,y) cester_assert_cmp_ushort(x, ==, y)
 
@@ -1389,7 +1423,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_ne(x,y) cester_assert_cmp_ushort(x, !=, y)
 
@@ -1399,7 +1433,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_gt(x,y) cester_assert_cmp_ushort(x, >, y)
 
@@ -1409,7 +1443,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_ge(x,y) cester_assert_cmp_ushort(x, >=, y)
 
@@ -1419,7 +1453,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_lt(x,y) cester_assert_cmp_ushort(x, <, y)
 
@@ -1429,7 +1463,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned short.
     
     \param x an unsigned short
-    \param z another unsigned short
+    \param y another unsigned short
 */
 #define cester_assert_ushort_le(x,y) cester_assert_cmp_ushort(x, <=, y)
 
@@ -1450,7 +1484,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_eq(x,y) cester_assert_cmp_int(x, ==, y)
 
@@ -1460,7 +1494,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_ne(x,y) cester_assert_cmp_int(x, !=, y)
 
@@ -1470,7 +1504,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_gt(x,y) cester_assert_cmp_int(x, >, y)
 
@@ -1480,7 +1514,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_ge(x,y) cester_assert_cmp_int(x, >=, y)
 
@@ -1490,7 +1524,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_lt(x,y) cester_assert_cmp_int(x, <, y)
 
@@ -1500,7 +1534,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     int.
     
     \param x an int
-    \param z another int
+    \param y another int
 */
 #define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
 
@@ -1521,7 +1555,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_eq(x,y) cester_assert_cmp_uint(x, ==, y)
 
@@ -1531,7 +1565,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_ne(x,y) cester_assert_cmp_uint(x, !=, y)
 
@@ -1541,7 +1575,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_gt(x,y) cester_assert_cmp_uint(x, >, y)
 
@@ -1551,7 +1585,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_ge(x,y) cester_assert_cmp_uint(x, >=, y)
 
@@ -1561,7 +1595,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_lt(x,y) cester_assert_cmp_uint(x, <, y)
 
@@ -1571,7 +1605,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned int.
     
     \param x an unsigned int
-    \param z another unsigned int
+    \param y another unsigned int
 */
 #define cester_assert_uint_le(x,y) cester_assert_cmp_uint(x, <=, y)
 
@@ -1592,7 +1626,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_eq(x,y) cester_assert_cmp_long(x, ==, y)
 
@@ -1602,7 +1636,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_ne(x,y) cester_assert_cmp_long(x, !=, y)
 
@@ -1612,7 +1646,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_gt(x,y) cester_assert_cmp_long(x, >, y)
 
@@ -1622,7 +1656,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_ge(x,y) cester_assert_cmp_long(x, >=, y)
 
@@ -1632,7 +1666,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_lt(x,y) cester_assert_cmp_long(x, <, y)
 
@@ -1642,7 +1676,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long.
     
     \param x a long
-    \param z another long
+    \param y another long
 */
 #define cester_assert_long_le(x,y) cester_assert_cmp_long(x, <=, y)
 
@@ -1663,7 +1697,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_eq(x,y) cester_assert_cmp_ulong(x, ==, y)
 
@@ -1673,7 +1707,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_ne(x,y) cester_assert_cmp_ulong(x, !=, y)
 
@@ -1683,7 +1717,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_gt(x,y) cester_assert_cmp_ulong(x, >, y)
 
@@ -1693,7 +1727,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_ge(x,y) cester_assert_cmp_ulong(x, >=, y)
 
@@ -1703,7 +1737,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_lt(x,y) cester_assert_cmp_ulong(x, <, y)
 
@@ -1713,7 +1747,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long.
     
     \param x a unsigned long
-    \param z another unsigned long
+    \param y another unsigned long
 */
 #define cester_assert_ulong_le(x,y) cester_assert_cmp_ulong(x, <=, y)
 
@@ -1734,7 +1768,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_eq(x,y) cester_assert_cmp_llong(x, ==, y)
 
@@ -1744,7 +1778,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_ne(x,y) cester_assert_cmp_llong(x, !=, y)
 
@@ -1754,7 +1788,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_gt(x,y) cester_assert_cmp_llong(x, >, y)
 
@@ -1764,7 +1798,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_ge(x,y) cester_assert_cmp_llong(x, >=, y)
 
@@ -1774,7 +1808,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_lt(x,y) cester_assert_cmp_llong(x, <, y)
 
@@ -1784,7 +1818,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long long.
     
     \param x a long long
-    \param z another long long
+    \param y another long long
 */
 #define cester_assert_llong_le(x,y) cester_assert_cmp_llong(x, <=, y)
 
@@ -1805,7 +1839,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_eq(x,y) cester_assert_cmp_ullong(x, ==, y)
 
@@ -1815,7 +1849,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_ne(x,y) cester_assert_cmp_ullong(x, !=, y)
 
@@ -1825,7 +1859,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_gt(x,y) cester_assert_cmp_ullong(x, >, y)
 
@@ -1835,7 +1869,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_ge(x,y) cester_assert_cmp_ullong(x, >=, y)
 
@@ -1845,7 +1879,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_lt(x,y) cester_assert_cmp_ullong(x, <, y)
 
@@ -1855,7 +1889,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     unsigned long long.
     
     \param x a unsigned long long
-    \param z another unsigned long long
+    \param y another unsigned long long
 */
 #define cester_assert_ullong_le(x,y) cester_assert_cmp_ullong(x, <=, y)
 
@@ -1876,7 +1910,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_eq(x,y) cester_assert_cmp_float(x, ==, y)
 
@@ -1886,7 +1920,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_ne(x,y) cester_assert_cmp_float(x, !=, y)
 
@@ -1896,7 +1930,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_gt(x,y) cester_assert_cmp_float(x, >, y)
 
@@ -1906,7 +1940,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_ge(x,y) cester_assert_cmp_float(x, >=, y)
 
@@ -1916,7 +1950,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_lt(x,y) cester_assert_cmp_float(x, <, y)
 
@@ -1926,7 +1960,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     float.
     
     \param x a float
-    \param z another float
+    \param y another float
 */
 #define cester_assert_float_le(x,y) cester_assert_cmp_float(x, <=, y)
 
@@ -1947,7 +1981,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_eq(x,y) cester_assert_cmp_double(x, ==, y)
 
@@ -1957,7 +1991,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_ne(x,y) cester_assert_cmp_double(x, !=, y)
 
@@ -1967,7 +2001,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_gt(x,y) cester_assert_cmp_double(x, >, y)
 
@@ -1977,7 +2011,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_ge(x,y) cester_assert_cmp_double(x, >=, y)
 
@@ -1987,7 +2021,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_lt(x,y) cester_assert_cmp_double(x, <, y)
 
@@ -1997,7 +2031,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     double.
     
     \param x a double
-    \param z another double
+    \param y another double
 */
 #define cester_assert_double_le(x,y) cester_assert_cmp_double(x, <=, y)
 
@@ -2018,7 +2052,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_eq(x,y) cester_assert_cmp_ldouble(x, ==, y)
 
@@ -2028,7 +2062,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_ne(x,y) cester_assert_cmp_ldouble(x, !=, y)
 
@@ -2038,7 +2072,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_gt(x,y) cester_assert_cmp_ldouble(x, >, y)
 
@@ -2048,7 +2082,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_ge(x,y) cester_assert_cmp_ldouble(x, >=, y)
 
@@ -2058,7 +2092,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_lt(x,y) cester_assert_cmp_ldouble(x, <, y)
 
@@ -2068,7 +2102,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     long double.
     
     \param x a long double
-    \param z another long double
+    \param y another long double
 */
 #define cester_assert_ldouble_le(x,y) cester_assert_cmp_ldouble(x, <=, y)
 

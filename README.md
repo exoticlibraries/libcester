@@ -27,7 +27,7 @@ The test results can be outputed as JUnit XML format by specifying the cli optio
 ___
 
 ## Table of content
-- [Portability](#portability)
+- [Standards Compliance and Portability](#standard-compliance-and-portability)
 - [Installation](#installation)
 	- [Install](#install)
 		- [Windows](#windows)
@@ -46,11 +46,13 @@ ___
 - [Useful Links](#useful-links)
 - [License](#license)
 
-## Portability
+## Standards Compliance and Portability
 
-cester follows the original C language specification, ISO/IEC 9899:1990, and the first POSIX specification, IEEE Std 1003.1-1988, to the letter. cester avoids newer features of C compilers. The project includes only `stdlib.h`, `time.h`, `stdio.h` and `windows.h` on WIndows to color output. Some function are manually implemented in the library to ensure it works in embedded system and even in the most isolated system. 
+The project is compliant with the original C language specification ISO/IEC 9899:1990 and the first POSIX specification IEEE Std 1003.1-1988 which ensures the project compatibility in various environments. It also makes use of features in the newer revisions ISO/IEC 9899:1999 and IEEE Std 1003.1-2001 whenever possible. 
 
-The project is designed for C, but also works with C++ as it compatible with C++11 Standard (ISO/IEC 14882:2011).
+Even though the project is designed for C, but also works with C++ as it is compatible with C++98 Standard (ISO/IEC 14882:1998), C++03 Standard (ISO/IEC 14882:2003) and C++11 Standard (ISO/IEC 14882:2011).
+
+The project can be used with any C or C++ compiler. There are optional macros and options that can be used to attain the desired output in the case of undesired results.
 
 ## Installation
 

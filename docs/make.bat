@@ -261,3 +261,5 @@ if "%1" == "pseudoxml" (
 )
 
 :end
+mkdir build/html/reference/
+doxygen 

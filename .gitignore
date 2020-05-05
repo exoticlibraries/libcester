@@ -78,3 +78,4 @@ dist/
 
 *.xml
 *.tap
+*.tmp

@@ -153,7 +153,7 @@ typedef enum cester_test_type {
 typedef struct test_case {
     size_t execution_status;                   ///< the test execution result status. For internal use only.
     size_t line_num;                           ///< the line number where the test case is created. For internal use only.
-    enum cester_test_type expected_result;     ///< The expected result for the test case. For internal use only.
+    enum cheat_test_status expected_result;    ///< The expected result for the test case. For internal use only.
     double execution_time;                     ///< the time taken for the test case to complete. For internal use only.
     char* execution_output;                    ///< the test execution output in string. For internal use only.
     void *function;                            ///< the function that enclosed the tests. For internal use only.
@@ -2477,8 +2477,8 @@ static inline void cester_expected_test_result(const char* const test_name, enum
                    ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST || 
                    ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) && 
                    cester_string_equals(((TestCase*)test_case)->name, (char*)test_name) == 1) {
-                       
-            ++superTestInstance.total_tests_count;
+            
+            ((TestCase*)test_case)->expected_result = expected_result;
         }
     })
 }
@@ -2752,19 +2752,18 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
     }
     
     // execute options
-    if (superTestInstance.registered_test_cases->size == 0) {
-        for (size_t i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
-            if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
-                ((cester_void)cester_test_cases[i].function)();
-                
-            } else if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST || 
-                       cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
-                       cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
-                           
-                ++superTestInstance.total_tests_count;
-            }
+    for (size_t i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
+        if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
+            ((cester_void)cester_test_cases[i].function)();
             
+        } else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || 
+                   cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
+                   cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) && 
+                   superTestInstance.registered_test_cases->size == 0) {
+                       
+            ++superTestInstance.total_tests_count;
         }
+        
     }
     
     CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {

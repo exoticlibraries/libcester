@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-#ifdef __STRICT_ANSI__
+#ifndef __STDC_VERSION__
     #define __CESTER__INLINE__ 
 #else 
     #define __CESTER__INLINE__ inline

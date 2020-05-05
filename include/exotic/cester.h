@@ -2637,7 +2637,7 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
                 break;
 #ifndef CESTER_NO_MEM_TEST
             case CESTER_RESULT_MEMORY_LEAK:
-                cester_concat_str(&a_test_case->execution_output, "leaked memory as expected");
+                cester_concat_str(&a_test_case->execution_output, "Leaked memory as expected");
                 break;
 #endif
         }

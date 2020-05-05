@@ -260,6 +260,13 @@ if "%1" == "pseudoxml" (
 	goto end
 )
 
+if "%1" == "doxygen" (
+	mkdir %BUILDDIR%/html/reference/
+    doxygen 
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Build finished. The Refrence files are in %BUILDDIR%/html/reference/.
+	goto end
+)
+
 :end
-mkdir build/html/reference/
-doxygen 

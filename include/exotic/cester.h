@@ -23,6 +23,12 @@
 extern "C" {
 #endif
 
+#ifdef __STRICT_ANSI__
+    #define __CESTER__INLINE__ 
+#else 
+    #define __CESTER__INLINE__ inline
+#endif
+
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -65,51 +71,51 @@ extern "C" {
 
 #ifdef _WIN32
 
-#define CESTER_RESET_TERMINAL           15                                                ///< reset the terminal color //Nothing
-#define CESTER_BOLD                     15                                                ///< bold text                //Nothing
-#define CESTER_FOREGROUND_BLACK         8                                                 ///< gray terminal foreground color
-#define CESTER_FOREGROUND_RED           4                                                 ///< red terminal foreground color
-#define CESTER_FOREGROUND_GREEN         2                                                 ///< green foreground color
-#define CESTER_FOREGROUND_YELLOW        6                                                 ///< yellow terminal foreground color
-#define CESTER_FOREGROUND_BLUE          3                                                 ///< blue terminal foreground color
-#define CESTER_FOREGROUND_MAGENTA       5                                                 ///< magenta terminal foreground color
-#define CESTER_FOREGROUND_CYAN          11                                                ///< cyan terminal foreground color
-#define CESTER_FOREGROUND_WHITE         15                                                ///< white terminal foreground color
-#define CESTER_FOREGROUND_GRAY          8                                                 ///< gray terminal foreground color
-#define CESTER_BACKGROUND_BLACK         0                                                 ///< black terminal background color
-#define CESTER_BACKGROUND_RED           64                                                ///< red terminal background color
-#define CESTER_BACKGROUND_GREEN         39                                                ///< green terminal background color
-#define CESTER_BACKGROUND_YELLOW        96                                                ///< yellow terminal background color
-#define CESTER_BACKGROUND_BLUE          48                                                ///< blue terminal background color
-#define CESTER_BACKGROUND_MAGENTA       87                                                ///< magenta terminal background color
-#define CESTER_BACKGROUND_CYAN          176                                               ///< cyan terminal background color
-#define CESTER_BACKGROUND_GRAY          0                                                 ///< gray terminal background color
-#define CESTER_BACKGROUND_WHITE         10                                                ///< gray terminal background color
-#define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(hConsole, default_color); ///< reset the terminal color
+#define CESTER_RESET_TERMINAL           15                                                /**< reset the terminal color //Nothing     */
+#define CESTER_BOLD                     15                                                /**< bold text                //Nothing     */
+#define CESTER_FOREGROUND_BLACK         8                                                 /**< gray terminal foreground color         */
+#define CESTER_FOREGROUND_RED           4                                                 /**< red terminal foreground color          */
+#define CESTER_FOREGROUND_GREEN         2                                                 /**< green foreground color                 */
+#define CESTER_FOREGROUND_YELLOW        6                                                 /**< yellow terminal foreground color       */
+#define CESTER_FOREGROUND_BLUE          3                                                 /**< blue terminal foreground color         */
+#define CESTER_FOREGROUND_MAGENTA       5                                                 /**< magenta terminal foreground color      */
+#define CESTER_FOREGROUND_CYAN          11                                                /**< cyan terminal foreground color         */
+#define CESTER_FOREGROUND_WHITE         15                                                /**< white terminal foreground color        */
+#define CESTER_FOREGROUND_GRAY          8                                                 /**< gray terminal foreground color         */
+#define CESTER_BACKGROUND_BLACK         0                                                 /**< black terminal background color        */
+#define CESTER_BACKGROUND_RED           64                                                /**< red terminal background color          */
+#define CESTER_BACKGROUND_GREEN         39                                                /**< green terminal background color        */
+#define CESTER_BACKGROUND_YELLOW        96                                                /**< yellow terminal background color       */
+#define CESTER_BACKGROUND_BLUE          48                                                /**< blue terminal background color         */
+#define CESTER_BACKGROUND_MAGENTA       87                                                /**< magenta terminal background color      */
+#define CESTER_BACKGROUND_CYAN          176                                               /**< cyan terminal background color         */
+#define CESTER_BACKGROUND_GRAY          0                                                 /**< gray terminal background color         */
+#define CESTER_BACKGROUND_WHITE         10                                                /**< gray terminal background color         */
+#define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(hConsole, default_color); /**< reset the terminal color               */
 
 #else
     
-#define CESTER_RESET_TERMINAL           "\x1B[0m"     ///< reset the terminal color
-#define CESTER_BOLD                     "\x1B[1m"     ///< bold text 
-#define CESTER_FOREGROUND_BLACK         "\x1B[30m"    ///< gray terminal foreground color
-#define CESTER_FOREGROUND_RED           "\x1B[31m"    ///< red terminal foreground color
-#define CESTER_FOREGROUND_GREEN         "\x1B[32m"    ///< green foreground color
-#define CESTER_FOREGROUND_YELLOW        "\x1B[33m"    ///< yellow terminal foreground color
-#define CESTER_FOREGROUND_BLUE          "\x1B[34m"    ///< blue terminal foreground color
-#define CESTER_FOREGROUND_MAGENTA       "\x1B[35m"    ///< magenta terminal foreground color
-#define CESTER_FOREGROUND_CYAN          "\x1B[36m"    ///< cyan terminal foreground color
-#define CESTER_FOREGROUND_WHITE         "\x1B[37m"    ///< white terminal foreground color
-#define CESTER_FOREGROUND_GRAY          "\x1B[90m"    ///< gray terminal foreground color
-#define CESTER_BACKGROUND_BLACK         "\x1B[40m"    ///< black terminal background color
-#define CESTER_BACKGROUND_RED           "\x1B[41m"    ///< red terminal background color
-#define CESTER_BACKGROUND_GREEN         "\x1B[42m"    ///< green terminal background color
-#define CESTER_BACKGROUND_YELLOW        "\x1B[43m"    ///< yellow terminal background color
-#define CESTER_BACKGROUND_BLUE          "\x1B[44m"    ///< blue terminal background color
-#define CESTER_BACKGROUND_MAGENTA       "\x1B[45m"    ///< magenta terminal background color
-#define CESTER_BACKGROUND_CYAN          "\x1B[46m"    ///< cyan terminal background color
-#define CESTER_BACKGROUND_GRAY          "\x1B[100m"   ///< gray terminal background color
-#define CESTER_BACKGROUND_WHITE         "\x1B[47m"    ///< gray terminal background color
-#define CESTER_RESET_TERMINAL_ATTR()    ;             ///< reset the terminal color
+#define CESTER_RESET_TERMINAL           "\x1B[0m"     /**< reset the terminal color           */
+#define CESTER_BOLD                     "\x1B[1m"     /**< bold text                          */
+#define CESTER_FOREGROUND_BLACK         "\x1B[30m"    /**< gray terminal foreground color     */
+#define CESTER_FOREGROUND_RED           "\x1B[31m"    /**< red terminal foreground color      */
+#define CESTER_FOREGROUND_GREEN         "\x1B[32m"    /**< green foreground color             */
+#define CESTER_FOREGROUND_YELLOW        "\x1B[33m"    /**< yellow terminal foreground color   */
+#define CESTER_FOREGROUND_BLUE          "\x1B[34m"    /**< blue terminal foreground color     */
+#define CESTER_FOREGROUND_MAGENTA       "\x1B[35m"    /**< magenta terminal foreground color  */
+#define CESTER_FOREGROUND_CYAN          "\x1B[36m"    /**< cyan terminal foreground color     */
+#define CESTER_FOREGROUND_WHITE         "\x1B[37m"    /**< white terminal foreground color    */
+#define CESTER_FOREGROUND_GRAY          "\x1B[90m"    /**< gray terminal foreground color     */
+#define CESTER_BACKGROUND_BLACK         "\x1B[40m"    /**< black terminal background color    */
+#define CESTER_BACKGROUND_RED           "\x1B[41m"    /**< red terminal background color      */
+#define CESTER_BACKGROUND_GREEN         "\x1B[42m"    /**< green terminal background color    */
+#define CESTER_BACKGROUND_YELLOW        "\x1B[43m"    /**< yellow terminal background color   */
+#define CESTER_BACKGROUND_BLUE          "\x1B[44m"    /**< blue terminal background color     */
+#define CESTER_BACKGROUND_MAGENTA       "\x1B[45m"    /**< magenta terminal background color  */
+#define CESTER_BACKGROUND_CYAN          "\x1B[46m"    /**< cyan terminal background color     */
+#define CESTER_BACKGROUND_GRAY          "\x1B[100m"   /**< gray terminal background color     */
+#define CESTER_BACKGROUND_WHITE         "\x1B[47m"    /**< gray terminal background color     */
+#define CESTER_RESET_TERMINAL_ATTR()    ;             /**< reset the terminal color           */
 
 #endif
 
@@ -139,27 +145,27 @@ enum cheat_test_status {
     The type of test
 */
 typedef enum cester_test_type {
-    CESTER_NORMAL_TEST,             ///< normal test in global or test suite. For internal use only.
-    CESTER_NORMAL_TODO_TEST,        ///< test to be implemented in future. For internal use only.
-    CESTER_NORMAL_SKIP_TEST,        ///< test to be skipped. For internal use only.
-    CESTER_BEFORE_ALL_TEST,         ///< test to run before all normal tests in global or test suite. For internal use only.
-    CESTER_BEFORE_EACH_TEST,        ///< test to run before each normal tests in global or test suite. For internal use only.
-    CESTER_AFTER_ALL_TEST,          ///< test to run after all normal tests in global or test suite. For internal use only.
-    CESTER_AFTER_EACH_TEST,         ///< test to run after each normal tests in global or test suite. For internal use only.
-    CESTER_OPTIONS_FUNCTION,        ///< the cester function for test, this wil be excuted before running the tests. For internal use only.
-    CESTER_TESTS_TERMINATOR         ///< the last value in the test cases to terminates the tests. For internal use only.
+    CESTER_NORMAL_TEST,             /**< normal test in global or test suite. For internal use only.                                              */
+    CESTER_NORMAL_TODO_TEST,        /**< test to be implemented in future. For internal use only.                                                 */
+    CESTER_NORMAL_SKIP_TEST,        /**< test to be skipped. For internal use only.                                                               */
+    CESTER_BEFORE_ALL_TEST,         /**< test to run before all normal tests in global or test suite. For internal use only.                      */
+    CESTER_BEFORE_EACH_TEST,        /**< test to run before each normal tests in global or test suite. For internal use only.                     */
+    CESTER_AFTER_ALL_TEST,          /**< test to run after all normal tests in global or test suite. For internal use only.                       */
+    CESTER_AFTER_EACH_TEST,         /**< test to run after each normal tests in global or test suite. For internal use only.                      */
+    CESTER_OPTIONS_FUNCTION,        /**< the cester function for test, this wil be excuted before running the tests. For internal use only.       */
+    CESTER_TESTS_TERMINATOR         /**< the last value in the test cases to terminates the tests. For internal use only.                         */
 } TestType;
 
 typedef struct test_case {
-    size_t execution_status;                   ///< the test execution result status. For internal use only.
-    size_t line_num;                           ///< the line number where the test case is created. For internal use only.
-    enum cheat_test_status expected_result;    ///< The expected result for the test case. For internal use only.
-    double execution_time;                     ///< the time taken for the test case to complete. For internal use only.
-    char* execution_output;                    ///< the test execution output in string. For internal use only.
-    void *function;                            ///< the function that enclosed the tests. For internal use only.
-    char *name;                                ///< the test function name. For internal use only.
-    TestType test_type;                        ///< the type of the test function. For internal use only.
-} TestCase;
+    size_t execution_status;                   /**< the test execution result status. For internal use only.                                      */
+    size_t line_num;                           /**< the line number where the test case is created. For internal use only.                        */
+    enum cheat_test_status expected_result;    /**< The expected result for the test case. For internal use only.                                 */
+    double execution_time;                     /**< the time taken for the test case to complete. For internal use only.                          */
+    char* execution_output;                    /**< the test execution output in string. For internal use only.                                   */
+    void *function;                            /**< the function that enclosed the tests. For internal use only.                                  */
+    char *name;                                /**< the test function name. For internal use only.                                                */
+    TestType test_type;                        /**< the type of the test function. For internal use only.                                         */
+} TestCase; 
 
 #ifndef CESTER_NO_MEM_TEST
 
@@ -195,31 +201,31 @@ typedef struct mem_alloc_man {
     registered test cases. This is for Cester internal use only.
 */
 typedef struct super_test_instance {
-    size_t no_color;                                    ///< Do not print to the console with color if one. For internal use only.
-    size_t total_tests_count;                           ///< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT
-    size_t total_failed_tests_count;                    ///< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT
-    size_t total_passed_tests_count;                    ///< the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT
-    size_t verbose;                                     ///< prints as much info as possible into the output stream
-    size_t minimal;                                     ///< prints minimal output into the output stream
-    size_t print_version;                               ///< prints cester version before running tests
-    size_t selected_test_cases_size;                    ///< the number of selected test casses from command line. For internal use only.
-    size_t selected_test_cases_found;                   ///< the number of selected test casses from command line that is found in the test file. For internal use only.
-    size_t single_output_only;                          ///< display the output for a single test only no summary and syntesis. For internal use only.
-    size_t mem_test_active;                             ///< Enable or disable memory test at runtime. Enabled by default. For internal use only.
-    size_t current_execution_status;                    ///< the current test case status. This is used when the test cases run on a single process. For internal use only.
-    size_t isolate_tests;                               ///< Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only.
-    size_t skipped_test_count;                          ///< The number of test cases to be skipped. For internal use only.
-    size_t todo_tests_count;                            ///< The number of test cases that would be implemented in future. For internal use only.
-    size_t format_test_name;                            ///< Format the test name for fine output e.g. 'test_file_exit' becomes 'test file exist'. For internal use only.
-    char* flattened_cmd_argv;                           ///< Flattened command line argument for sub process. For internal use only.
-    char* test_file_path;                               ///< The main test file full path. For internal use only.
-    char* output_format;                                ///< The output format to print the test result in. For internal use only.
-    FILE* output_stream;                                ///< Output stream to write message to, stdout by default. For internal use only.
-    char** selected_test_cases_names;                   ///< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1
-    TestCase* current_test_case;                        ///< The currently running test case. For internal use only.
-    CesterArray *registered_test_cases;                 ///< all the manually registered test cases in the instance. For internal use only.
+    size_t no_color;                                    /**< Do not print to the console with color if one. For internal use only.                                                            */
+    size_t total_tests_count;                           /**< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT                          */
+    size_t total_failed_tests_count;                    /**< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT                                  */
+    size_t total_passed_tests_count;                    /**< the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT                                  */
+    size_t verbose;                                     /**< prints as much info as possible into the output stream                                                                           */
+    size_t minimal;                                     /**< prints minimal output into the output stream                                                                                     */
+    size_t print_version;                               /**< prints cester version before running tests                                                                                       */
+    size_t selected_test_cases_size;                    /**< the number of selected test casses from command line. For internal use only.                                                     */
+    size_t selected_test_cases_found;                   /**< the number of selected test casses from command line that is found in the test file. For internal use only.                      */
+    size_t single_output_only;                          /**< display the output for a single test only no summary and syntesis. For internal use only.                                        */
+    size_t mem_test_active;                             /**< Enable or disable memory test at runtime. Enabled by default. For internal use only.                                             */
+    size_t current_execution_status;                    /**< the current test case status. This is used when the test cases run on a single process. For internal use only.                   */
+    size_t isolate_tests;                               /**< Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only.  */
+    size_t skipped_test_count;                          /**< The number of test cases to be skipped. For internal use only.                                                                   */
+    size_t todo_tests_count;                            /**< The number of test cases that would be implemented in future. For internal use only.                                             */
+    size_t format_test_name;                            /**< Format the test name for fine output e.g. 'test_file_exit' becomes 'test file exist'. For internal use only.                     */
+    char* flattened_cmd_argv;                           /**< Flattened command line argument for sub process. For internal use only.                                                          */
+    char* test_file_path;                               /**< The main test file full path. For internal use only.                                                                             */
+    char* output_format;                                /**< The output format to print the test result in. For internal use only.                                                            */
+    FILE* output_stream;                                /**< Output stream to write message to, stdout by default. For internal use only.                                                     */
+    char** selected_test_cases_names;                   /**< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1                                     */
+    TestCase* current_test_case;                        /**< The currently running test case. For internal use only.                                                                          */
+    CesterArray *registered_test_cases;                 /**< all the manually registered test cases in the instance. For internal use only.                                                   */
 #ifndef CESTER_NO_MEM_TEST
-    CesterArray* mem_alloc_manager;                     ///< the array of allocated memory. For testing and detecting memory leaks. For internal use only.
+    CesterArray* mem_alloc_manager;                     /**< the array of allocated memory. For testing and detecting memory leaks. For internal use only.                                    */
 #endif
 } SuperTestInstance;
 
@@ -229,9 +235,9 @@ typedef struct super_test_instance {
     share data between unit tests.
 */
 typedef struct test_instance {
-    size_t argc;                   ///< the length of the command line arg
-    char **argv;                   ///< the command line arguments 
-    void *arg;                     ///< pointer to an object that can be passed between unit tests
+    size_t argc;                   /**< the length of the command line arg                            */
+    char **argv;                   /**< the command line arguments                                    */
+    void *arg;                     /**< pointer to an object that can be passed between unit tests    */
 } TestInstance;
 
 /**
@@ -242,13 +248,13 @@ typedef void (*cester_test)(TestInstance*);
 typedef void (*cester_before_after_each)(TestInstance*, char * const, size_t);
 typedef void (*cester_void)();
 
-// CesterArray
-static inline size_t cester_array_init(CesterArray**);
-static inline size_t cester_array_add(CesterArray*, void*);
-static inline void* cester_array_remove_at(CesterArray*, size_t);
+/* CesterArray */
+static __CESTER__INLINE__ size_t cester_array_init(CesterArray**);
+static __CESTER__INLINE__ size_t cester_array_add(CesterArray*, void*);
+static __CESTER__INLINE__ void* cester_array_remove_at(CesterArray*, size_t);
 
-static inline size_t cester_run_all_test(size_t, char **);
-static inline void cester_str_value_after_first(char *, char, char**);
+static __CESTER__INLINE__ size_t cester_run_all_test(size_t, char **);
+static __CESTER__INLINE__ void cester_str_value_after_first(char *, char, char**);
 
 
 SuperTestInstance superTestInstance = { 
@@ -289,7 +295,7 @@ SuperTestInstance superTestInstance = {
 #endif
 
 
-// cester options
+/* cester options */
 
 /**
     Change the output stream used by cester to write data. The default is `stdout`. 
@@ -400,7 +406,7 @@ SuperTestInstance superTestInstance = {
 */
 #define CESTER_DONT_FORMAT_TESTNAME() superTestInstance.format_test_name = 0;
 
-// test counts
+/* test counts */
 
 /**
     The total number of tests that will be run.
@@ -447,7 +453,7 @@ SuperTestInstance superTestInstance = {
     const char* default_color = CESTER_RESET_TERMINAL;
 #endif
 
-static inline char *cester_extract_name(char const* const file_path) {
+static __CESTER__INLINE__ char *cester_extract_name(char const* const file_path) {
     size_t i = 0, j = 0;
     size_t found_seperator = 0;
     char *file_name_only = (char*) malloc (sizeof (char) * 30);
@@ -466,7 +472,7 @@ static inline char *cester_extract_name(char const* const file_path) {
     return file_name_only;
 }
 
-static inline char *cester_extract_name_only(char const* const file_path) {
+static __CESTER__INLINE__ char *cester_extract_name_only(char const* const file_path) {
     size_t i = 0;
     char *file_name = cester_extract_name(file_path);
     while (file_name[i] != '\0') {
@@ -479,7 +485,7 @@ static inline char *cester_extract_name_only(char const* const file_path) {
     return file_name;
 }
 
-static inline size_t cester_str_after_prefix(const char* arg, char* prefix, size_t prefix_size, char** out) {
+static __CESTER__INLINE__ size_t cester_str_after_prefix(const char* arg, char* prefix, size_t prefix_size, char** out) {
     size_t i = 0;
     *out = (char*) malloc (sizeof (char) * 200);
     
@@ -505,7 +511,7 @@ static inline size_t cester_str_after_prefix(const char* arg, char* prefix, size
     return 1;
 }
 
-static inline char* cester_str_replace(char* str, char old_char, char new_char) {
+static __CESTER__INLINE__ char* cester_str_replace(char* str, char old_char, char new_char) {
     char* tmp = (char*) malloc(strlen(str) + 1);
     size_t index = 0;
     do {
@@ -522,7 +528,7 @@ static inline char* cester_str_replace(char* str, char old_char, char new_char) 
     return tmp;
 }
 
-static inline size_t cester_string_equals(char* arg, char* arg1) {
+static __CESTER__INLINE__ size_t cester_string_equals(char* arg, char* arg1) {
     size_t i = 0;
     if (arg == NULL || arg1 == NULL) {
         return 0;
@@ -539,7 +545,7 @@ static inline size_t cester_string_equals(char* arg, char* arg1) {
     return 1;
 }
 
-static inline size_t cester_string_starts_with(char* arg, char* arg1) {
+static __CESTER__INLINE__ size_t cester_string_starts_with(char* arg, char* arg1) {
     size_t i = 0;
     while (1) {
         if (arg[i] == '\0' && arg1[i] == '\0') {
@@ -557,7 +563,7 @@ static inline size_t cester_string_starts_with(char* arg, char* arg1) {
     return 1;
 }
 
-static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* out_size) {
+static __CESTER__INLINE__ void unpack_selected_extra_args(char *arg, char*** out, size_t* out_size) {
     size_t i = 0;
     size_t size = 0, current_index = 0;
     char* prefix = (char*) "test=";
@@ -590,7 +596,7 @@ static inline void unpack_selected_extra_args(char *arg, char*** out, size_t* ou
     *out_size = size;
 }
 
-static inline void cester_str_value_after_first(char *arg, char from, char** out) {
+static __CESTER__INLINE__ void cester_str_value_after_first(char *arg, char from, char** out) {
     size_t i = 0, index = 0;
     size_t found_char = 0;
     *out = (char*) malloc(sizeof(char) * 200);
@@ -612,7 +618,7 @@ static inline void cester_str_value_after_first(char *arg, char from, char** out
     (*out)[index] = '\0';
 }
 
-static inline void cester_concat_str(char **out, const char * extra) {
+static __CESTER__INLINE__ void cester_concat_str(char **out, const char * extra) {
     size_t i = 0, index = strlen(*out);
     if (index == 0) {
         (*out) = (char*) malloc(sizeof(char) * 80000 );
@@ -631,7 +637,7 @@ static inline void cester_concat_str(char **out, const char * extra) {
     (*out)[index] = '\0';
 }
 
-static inline void cester_concat_char(char **out, char extra) {
+static __CESTER__INLINE__ void cester_concat_char(char **out, char extra) {
     size_t i = 0, index = strlen(*out);
     if (index == 0) {
         (*out) = (char*) malloc(sizeof(char) * 80000 );
@@ -639,7 +645,7 @@ static inline void cester_concat_char(char **out, char extra) {
     cester_sprintf((*out), (index + 5), "%s%c", (*out), extra);
 }
 
-static inline void cester_concat_int(char **out, size_t extra) {
+static __CESTER__INLINE__ void cester_concat_int(char **out, size_t extra) {
     size_t i = 0, index = strlen(*out);
     if (index == 0) {
         (*out) = (char*) malloc(sizeof(char) * 80000 );
@@ -647,13 +653,13 @@ static inline void cester_concat_int(char **out, size_t extra) {
     cester_sprintf((*out), (index + 20), "%s%zu", (*out), extra);
 }
 
-static inline void cester_ptr_to_str(char **out, void* extra) {
+static __CESTER__INLINE__ void cester_ptr_to_str(char **out, void* extra) {
     size_t i = 0;
     (*out) = (char*) malloc(sizeof(char) * 30 );
     cester_sprintf((*out), (30), "%s%p", (*out), extra);
 }
 
-static inline size_t cester_is_validate_output_option(char *format_option) {
+static __CESTER__INLINE__ size_t cester_is_validate_output_option(char *format_option) {
     return (cester_string_equals(format_option, (char*) "junitxml") ||  
             cester_string_equals(format_option, (char*) "tap") ||  
             cester_string_equals(format_option, (char*) "tapV13") ||  
@@ -676,9 +682,9 @@ static inline size_t cester_is_validate_output_option(char *format_option) {
 #define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) fprintf(superTestInstance.output_stream, "%s%.2f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
 #endif
 
-static inline size_t cester_string_equals(char* arg, char* arg1);
+static __CESTER__INLINE__ size_t cester_string_equals(char* arg, char* arg1);
 
-static inline void cester_print_version() {
+static __CESTER__INLINE__ void cester_print_version() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "CESTER v");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_VERSION);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
@@ -686,7 +692,7 @@ static inline void cester_print_version() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
 }
 
-static inline void cester_print_help() {
+static __CESTER__INLINE__ void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Usage: ./testfile [-options] [args...]\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
@@ -709,7 +715,7 @@ static inline void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tapV13\n");
 }
 
-static inline void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_print_assertion(char const* const expression, char const* const file_path, size_t const line_num) {
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
@@ -731,7 +737,7 @@ static inline void cester_print_assertion(char const* const expression, char con
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");**/
 }
 
-static inline void cester_print_expect_actual(size_t expecting, char const* const expect, char const* const found, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_print_expect_actual(size_t expecting, char const* const expect, char const* const found, char const* const file_path, size_t const line_num) {
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
@@ -770,7 +776,7 @@ static inline void cester_print_expect_actual(size_t expecting, char const* cons
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);*/
 }
 
-static inline void print_test_result(double time_spent) {
+static __CESTER__INLINE__ void print_test_result(double time_spent) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nRan ");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), superTestInstance.total_tests_count);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test(s) in ");
@@ -796,7 +802,7 @@ static inline void print_test_result(double time_spent) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n"); 
 }
 
-static inline void print_test_case_result(TestCase* test_case) {
+static __CESTER__INLINE__ void print_test_case_result(TestCase* test_case) {
     #ifdef _WIN32
         size_t print_color = CESTER_FOREGROUND_GRAY;
     #else 
@@ -836,7 +842,7 @@ static inline void print_test_case_result(TestCase* test_case) {
     }
 }
 
-static inline void print_test_case_outputs(TestCase* test_case) {
+static __CESTER__INLINE__ void print_test_case_outputs(TestCase* test_case) {
     if (test_case->execution_status == CESTER_RESULT_SEGFAULT || test_case->execution_status == CESTER_RESULT_TERMINATED) {
         if (test_case->execution_status == CESTER_RESULT_SEGFAULT) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "SegfaultError ");
@@ -860,7 +866,7 @@ static inline void print_test_case_outputs(TestCase* test_case) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), test_case->execution_output);
 }
 
-static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, int index) {
+static __CESTER__INLINE__ void write_testcase_tap(TestCase *a_test_case, char* file_name, int index) {
     #ifdef _WIN32
         size_t print_color = CESTER_FOREGROUND_YELLOW;
     #else 
@@ -919,7 +925,7 @@ static inline void write_testcase_tap(TestCase *a_test_case, char* file_name, in
     }
 }
 
-static inline void write_testcase_tap_v13(TestCase *a_test_case, char* file_name, int index) {
+static __CESTER__INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char* file_name, int index) {
     #ifdef _WIN32
         size_t print_color = CESTER_FOREGROUND_YELLOW;
     #else 
@@ -997,7 +1003,7 @@ static inline void write_testcase_tap_v13(TestCase *a_test_case, char* file_name
     }
 }
 
-static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_name) {
+static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, char* file_name) {
     CESTER_DELEGATE_FPRINT_STR((default_color), "    <testcase classname=\"");
     CESTER_DELEGATE_FPRINT_STR((default_color), file_name);
     CESTER_DELEGATE_FPRINT_STR((default_color), "\" name=\"");
@@ -1050,7 +1056,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 }
 
 
-// Assertions, Tests
+/* Assertions, Tests */
 
 /**
     Compare two argument using the provided operator
@@ -2066,7 +2072,7 @@ static inline void write_testcase_junitxml(TestCase *a_test_case, char* file_nam
 */
 #define cester_assert_ldouble_le(x,y) cester_assert_cmp_ldouble(x, <=, y)
 
-static inline void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_evaluate_expression(size_t eval_result, char const* const expression, char const* const file_path, size_t const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
     }
@@ -2082,7 +2088,7 @@ static inline void cester_evaluate_expression(size_t eval_result, char const* co
     }
 }
 
-static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expecting, char const* const expected, char const* const actual, 
+static __CESTER__INLINE__ void cester_evaluate_expect_actual(size_t eval_result, size_t expecting, char const* const expected, char const* const actual, 
                                                 char const* const file_path, size_t const line_num) {
                                                     
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
@@ -2103,7 +2109,7 @@ static inline void cester_evaluate_expect_actual(size_t eval_result, size_t expe
     }
 }
 
-static inline void cester_evaluate_expect_actual_str(char const* const expected, char const* const actual, size_t expecting, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_evaluate_expect_actual_str(char const* const expected, char const* const actual, size_t expecting, char const* const file_path, size_t const line_num) {
     size_t eval_result = cester_string_equals((char*)expected, (char*)actual);  
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
@@ -2123,79 +2129,79 @@ static inline void cester_evaluate_expect_actual_str(char const* const expected,
     }
 }
 
-static inline void cester_compare_char(int eval_result, char* expr, char first, char second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_char(int eval_result, char* expr, char first, char second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] = "";
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_uchar(int eval_result, char* expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_uchar(int eval_result, char* expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_int(int eval_result, char* expr, int first, int second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_int(int eval_result, char* expr, int first, int second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_uint(int eval_result, char* expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_uint(int eval_result, char* expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_short(int eval_result, char* expr, short first, short second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_short(int eval_result, char* expr, short first, short second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_ushort(int eval_result, char* expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_ushort(int eval_result, char* expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_long(int eval_result, char* expr, long first, long second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_long(int eval_result, char* expr, long first, long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_ulong(int eval_result, char* expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_ulong(int eval_result, char* expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_llong(int eval_result, char* expr, long long first, long long second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_llong(int eval_result, char* expr, long long first, long long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_ullong(int eval_result, char* expr, unsigned long long first, unsigned long long second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_ullong(int eval_result, char* expr, unsigned long long first, unsigned long long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_float(int eval_result, char* expr, float first, float second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_float(int eval_result, char* expr, float first, float second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_double(int eval_result, char* expr, double first, double second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_double(int eval_result, char* expr, double first, double second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static inline void cester_compare_ldouble(int eval_result, char* expr, long double first, long double second, char const* const op, char const* const file_path, size_t const line_num) {
+static __CESTER__INLINE__ void cester_compare_ldouble(int eval_result, char* expr, long double first, long double second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
     cester_sprintf(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
@@ -2428,7 +2434,7 @@ static TestCase cester_test_cases[] = {
 /**
     Manually register a test case
 */
-static inline void cester_register_test(char *test_name, void* function, size_t line_num, TestType test_type) {
+static __CESTER__INLINE__ void cester_register_test(char *test_name, void* function, size_t line_num, TestType test_type) {
     if (superTestInstance.registered_test_cases == NULL) {
         if (cester_array_init(&superTestInstance.registered_test_cases) == 0) {
             if (superTestInstance.output_stream==NULL) {
@@ -2458,9 +2464,10 @@ static inline void cester_register_test(char *test_name, void* function, size_t 
     }
 }
 
-static inline void cester_expected_test_result(const char* const test_name, enum cheat_test_status expected_result) {
+static __CESTER__INLINE__ void cester_expected_test_result(const char* const test_name, enum cheat_test_status expected_result) {
+    size_t i;
     if (superTestInstance.registered_test_cases->size == 0) {
-        for (size_t i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
+        for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
             if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || 
                        cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
                        cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) &&
@@ -2483,9 +2490,9 @@ static inline void cester_expected_test_result(const char* const test_name, enum
     })
 }
 
-static inline size_t cester_run_test_no_isolation(TestInstance *, TestCase *, size_t);
+static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *, TestCase *, size_t);
 
-static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
+static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     clock_t tic = clock();
     size_t last_status = CESTER_RESULT_UNKNOWN;
     if (superTestInstance.isolate_tests == 1) {
@@ -2653,7 +2660,7 @@ static inline void cester_run_test(TestInstance *test_instance, TestCase *a_test
     
 }
 
-static inline size_t cester_run_test_no_isolation(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
+static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     size_t i;
     superTestInstance.current_test_case = a_test_case;
     superTestInstance.current_execution_status = CESTER_RESULT_SUCCESS;
@@ -2719,7 +2726,7 @@ static inline size_t cester_run_test_no_isolation(TestInstance *test_instance, T
     return superTestInstance.current_execution_status;
 }
 
-static inline size_t cester_run_all_test(size_t argc, char **argv) {
+static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
     size_t i = 0; 
     size_t j = 1; 
     size_t index_sub;
@@ -2751,8 +2758,8 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
         }
     }
     
-    // execute options
-    for (size_t i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
+    /* execute options */
+    for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
         if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
             ((cester_void)cester_test_cases[i].function)();
             
@@ -2780,7 +2787,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
     
     
     
-    // resolve command line options
+    /* resolve command line options */
     for (;j < argc; ++j) {
         char* arg = argv[j];
         char* cester_option;
@@ -2859,7 +2866,7 @@ static inline size_t cester_run_all_test(size_t argc, char **argv) {
     test_instance->argc = argc;
     test_instance->argv = argv;
     
-    // before all
+    /* before all */
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].function != NULL;++i) {
             if (cester_test_cases[i].test_type == CESTER_BEFORE_ALL_TEST) {
@@ -3142,9 +3149,9 @@ int main(int argc, char **argv) {
 }
 #endif
 
-// CesterArray
+/* CesterArray */
 
-static inline size_t cester_array_init(CesterArray** out) {
+static __CESTER__INLINE__ size_t cester_array_init(CesterArray** out) {
     CesterArray* array_local = (CesterArray*) malloc(sizeof(CesterArray));
     if (!array_local) {
         return 0;
@@ -3161,7 +3168,7 @@ static inline size_t cester_array_init(CesterArray** out) {
     return 1;
 }
 
-static inline size_t cester_array_add(CesterArray* array, void* item) {
+static __CESTER__INLINE__ size_t cester_array_add(CesterArray* array, void* item) {
     if (array->size >= array->capacity) {
         if (array->capacity >= CESTER_ARRAY_MAX_CAPACITY) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Max managable memory allocation reached, cannot expand array. Further Memory test disabled.\n");
@@ -3184,7 +3191,7 @@ static inline size_t cester_array_add(CesterArray* array, void* item) {
     return 1;
 }
 
-static inline void* cester_array_remove_at(CesterArray* array, size_t index) {
+static __CESTER__INLINE__ void* cester_array_remove_at(CesterArray* array, size_t index) {
     void* item = array->buffer[index];
     if (index != array->size - 1) {
         size_t block_size = (array->size - 1 - index) * sizeof(void*);
@@ -3195,11 +3202,11 @@ static inline void* cester_array_remove_at(CesterArray* array, size_t index) {
     return item;
 }
 
-// Memory leak Detection procedures 
+/* Memory leak Detection procedures */
 
 #ifndef CESTER_NO_MEM_TEST                                      
 
-static inline void* cester_malloc(size_t size, const char *file, size_t line, const char *func) {
+static __CESTER__INLINE__ void* cester_malloc(size_t size, const char *file, size_t line, const char *func) {
     if (superTestInstance.mem_test_active == 1) {
         if (superTestInstance.mem_alloc_manager == NULL) {
             if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
@@ -3229,7 +3236,7 @@ static inline void* cester_malloc(size_t size, const char *file, size_t line, co
     return p;
 }
 
-static inline void cester_free(void *pointer, const char *file, size_t line, const char *func) {
+static __CESTER__INLINE__ void cester_free(void *pointer, const char *file, size_t line, const char *func) {
     if (pointer == NULL) {
         if (superTestInstance.mem_test_active == 1 && superTestInstance.current_test_case != NULL) {
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "InvalidOperation ");

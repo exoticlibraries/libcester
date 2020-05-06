@@ -5,6 +5,43 @@
 FAQ
 =========
 
+Q: No test detected why?
+--------------------------
+
+If no test was ran or your test cases were not detected, in most cases it because your compiler 
+did not define the __BASE_FILE__ macro. If you are using the Visual studio IDE you should define 
+the macro in `Properties -> C/C++ -> Preprocessor -> Preprocessor Definition` 
+as `__BASE_FILE__="%(Filename)%(Extension)"`. 
+
+Or you can define the macro at compile time as argument to your compiler using the macro option. 
+e.g. in gcc 
+
+.. code:: bash
+	
+	gcc -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" testfile.c -I.
+
+
+Alternatively the test cases should be manually registered in the main method, you will have to disable cester main function by defining the macro CESTER_NO_MAIN. 
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	#define CESTER_NO_MAIN
+
+	CESTER_TEST(test1, test_instance,
+		cester_assert_equal(NULL, NULL);
+	)
+
+	CESTER_BODY(
+	int main(int argc, char** argv) {
+		CESTER_REGISTER_TEST(test1);
+		return CESTER_RUN_ALL_TESTS(argc, argv);
+	}
+	)
+
+Visit this link `Manual test registration`_ for more detail on manual test registration.
+
 Q: What is the best practice for test detection
 ------------------------------------------------
 
@@ -31,7 +68,7 @@ Include the guide for __BASE_FILE__
 This ensure that if the directive __BASE_FILE__ is not defined by the compiler the test case will be registered 
 manually.
 
-Q: why is test_instance->arg value not changing
+Q: Why is test_instance->arg value not changing
 ------------------------------------------------
 
 In isolated tests the test_instance object is not preserved between the test cases, each test case 
@@ -103,3 +140,7 @@ to use a single process for all the tests.
 
 	Ran 2 test(s) in 0.00 Seconds
 	Synthesis: SUCCESS Tested: 2 | Passing: 2 | Failing: 0 | Skipped: 0
+
+
+
+.. _Manual test registration: https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html

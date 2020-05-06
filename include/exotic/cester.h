@@ -214,7 +214,7 @@ typedef struct cester_array_struct {
 } CesterArray;
 
 
-#define CESTER_ARRAY_FOREACH(w,x,y,z) size_t x;\
+#define CESTER_ARRAY_FOREACH(w,x,y,z) x;\
                                       for (x = 0; x < w->size; ++x) {\
                                           void* y = w->buffer[x];\
                                           z\
@@ -312,20 +312,25 @@ SuperTestInstance superTestInstance = {
 #ifdef __BASE_FILE__
     (char*)__BASE_FILE__,
 #else
-    (char*)__FILE__
+    (char*)__FILE__,
 #endif
     (char*)"text",
     NULL,
     NULL,
     NULL,
     NULL,
+#ifndef CESTER_NO_MEM_TEST
     NULL
+#endif
 };
 
 #ifdef _MSC_VER
 #define cester_sprintf(x,y,z,...) sprintf_s(x, y, z, __VA_ARGS__);
 #else
-#define cester_sprintf(x,y,z,...) sprintf(x, z, __VA_ARGS__);
+#define cester_sprintf(x,y,z,a,b) sprintf(x, z, a, b);
+#define cester_sprintf1(x,y,z,a) sprintf(x, z, a)
+#define cester_sprintf2(x,y,z,a,b) sprintf(x, z, a, b)
+#define cester_sprintf3(x,y,z,a,b,c) sprintf(x, z, a, b, c)
 #endif
 
 
@@ -671,20 +676,20 @@ static __CESTER__INLINE__ void cester_concat_str(char **out, const char * extra)
     (*out)[index] = '\0';
 }
 
+/* For some wierd reasons sprintf clears old array first 
+before concatenatng in old compiler e.g Turbo C. 
+So we first convert int to str then concat it to str*/
+
 static __CESTER__INLINE__ void cester_concat_char(char **out, char extra) {
-    size_t i = 0, index = strlen(*out);
-    if (index == 0) {
-        (*out) = (char*) malloc(sizeof(char) * 80000 );
-    }
-    cester_sprintf((*out), (index + 5), "%s%c", (*out), extra);
+    char tmp[5] ;
+    cester_sprintf1(tmp, 5, "%c", extra);
+    cester_concat_str(out, tmp);
 }
 
-static __CESTER__INLINE__ void cester_concat_int(char **out, size_t extra) {
-    size_t i = 0, index = strlen(*out);
-    if (index == 0) {
-        (*out) = (char*) malloc(sizeof(char) * 80000 );
-    }
-    cester_sprintf((*out), (index + 20), "%s%zu", (*out), extra);
+static __CESTER__INLINE__ void cester_concat_int(char **out, int extra) {
+    char tmp[30];
+    cester_sprintf1(tmp, 30, "%d", extra);
+    cester_concat_str(out, tmp);
 }
 
 static __CESTER__INLINE__ void cester_ptr_to_str(char **out, void* extra) {
@@ -695,7 +700,7 @@ static __CESTER__INLINE__ void cester_ptr_to_str(char **out, void* extra) {
 
 static __CESTER__INLINE__ size_t cester_is_validate_output_option(char *format_option) {
     return (cester_string_equals(format_option, (char*) "junitxml") ||  
-            cester_string_equals(format_option, (char*) "tap") ||  
+	    cester_string_equals(format_option, (char*) "tap") ||
             cester_string_equals(format_option, (char*) "tapV13") ||  
             cester_string_equals(format_option, (char*) "text"));
 }
@@ -706,12 +711,12 @@ static __CESTER__INLINE__ size_t cester_is_validate_output_option(char *format_o
 
 #ifdef _WIN32
 #define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%zu", y)
+#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%hu", y)
 #define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%f", y)
 #define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%.2f", y)
 #else
 #define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%zu%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
+#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%hu%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
 #define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
 #define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) fprintf(superTestInstance.output_stream, "%s%.2f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
 #endif
@@ -784,7 +789,7 @@ static __CESTER__INLINE__ void cester_print_expect_actual(size_t expecting, char
     } else {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " expected ");
     }
-    
+
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expect);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
@@ -853,23 +858,31 @@ static __CESTER__INLINE__ void print_test_case_result(TestCase* test_case) {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), (test_case->test_type == CESTER_NORMAL_TODO_TEST ? " TODO " : " SKIP "));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
     } else {
-        if (test_case->execution_status == CESTER_RESULT_SUCCESS) {
-            #ifdef _WIN32
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "+ ");
-            #else
+	if (test_case->execution_status == CESTER_RESULT_SUCCESS) {
+	    #ifdef _WIN32
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "+ ");
+	    #else
+            #ifdef __STDC_VERSION__
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "\u2713 ");
-            #endif
-        } else {
-            #ifdef _WIN32
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
             #else
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "X ");
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "+ ");
             #endif
-            print_color = CESTER_FOREGROUND_RED;
-        }
-        CESTER_DELEGATE_FPRINT_STR((print_color), "(");
-        CESTER_DELEGATE_FPRINT_DOUBLE_2((print_color), (test_case->execution_time > 60 ? (test_case->execution_time / 60) : test_case->execution_time));
-        CESTER_DELEGATE_FPRINT_STR((print_color), (test_case->execution_time > 60 ? "m" : "s"));
+	    #endif
+	} else {
+	    #ifdef _WIN32
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
+	    #else
+            #ifdef __STDC_VERSION__
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "X ");
+            #else
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
+            #endif
+	    #endif
+	    print_color = CESTER_FOREGROUND_RED;
+	}
+	CESTER_DELEGATE_FPRINT_STR((print_color), "(");
+	CESTER_DELEGATE_FPRINT_DOUBLE_2((print_color), (test_case->execution_time > 60 ? (test_case->execution_time / 60) : test_case->execution_time));
+	CESTER_DELEGATE_FPRINT_STR((print_color), (test_case->execution_time > 60 ? "m" : "s"));
         CESTER_DELEGATE_FPRINT_STR((print_color), ") ");
         CESTER_DELEGATE_FPRINT_STR((print_color), (superTestInstance.format_test_name == 1 ? cester_str_replace(test_case->name, '_', ' ') : test_case->name ));
         CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
@@ -2165,109 +2178,109 @@ static __CESTER__INLINE__ void cester_evaluate_expect_actual_str(char const* con
 
 static __CESTER__INLINE__ void cester_compare_char(int eval_result, char* expr, char first, char second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] = "";
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_uchar(int eval_result, char* expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_int(int eval_result, char* expr, int first, int second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_uint(int eval_result, char* expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_short(int eval_result, char* expr, short first, short second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_ushort(int eval_result, char* expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_long(int eval_result, char* expr, long first, long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_ulong(int eval_result, char* expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_llong(int eval_result, char* expr, long long first, long long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_ullong(int eval_result, char* expr, unsigned long long first, unsigned long long second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_float(int eval_result, char* expr, float first, float second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_double(int eval_result, char* expr, double first, double second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER__INLINE__ void cester_compare_ldouble(int eval_result, char* expr, long double first, long double second, char const* const op, char const* const file_path, size_t const line_num) {
     char expression[2048] ;
-    cester_sprintf(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, first, op, second);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 /**
-    Create a test case, this uses the first arguments as the test 
-    case name and identifier and the body of the test. 
+    Create a test case, this uses the first arguments as the test
+    case name and identifier and the body of the test.
 */
 #define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y);
 
 /**
-    Create a test case that has not been implemented, It is skipped and 
-    generates warning. This macro will print message in output to remind 
-    the developer of it implementation. Good for TDD. 
-    
-    This uses the first arguments as the test case name and identifier 
-    and the body of the test. 
+    Create a test case that has not been implemented, It is skipped and
+    generates warning. This macro will print message in output to remind
+    the developer of it implementation. Good for TDD.
+
+    This uses the first arguments as the test case name and identifier
+    and the body of the test.
 */
 #define CESTER_TODO_TEST(x,y,z) static void cester_test_##x(TestInstance* y);
 
 /**
-    Create a test case that is not run. 
+    Create a test case that is not run.
 
-    This uses the first arguments as the test case name and identifier 
-    and the body of the test. 
+    This uses the first arguments as the test case name and identifier
+    and the body of the test.
 */
 #define CESTER_SKIP_TEST(x,y,z) static void cester_test_##x(TestInstance* y);
 
 /**
-    The function that would be invoked once before running 
-    any test in the test file. You can only have one of this function 
+    The function that would be invoked once before running
+    any test in the test file. You can only have one of this function
     in a test file.
 */
 #define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x);
@@ -2489,16 +2502,17 @@ static TestCase cester_test_cases[] = {
     Manually register a test case
 */
 static __CESTER__INLINE__ void cester_register_test(char *test_name, void* function, size_t line_num, TestType test_type) {
+    TestCase* test_case ;
     if (superTestInstance.registered_test_cases == NULL) {
-        if (cester_array_init(&superTestInstance.registered_test_cases) == 0) {
-            if (superTestInstance.output_stream==NULL) {
-                superTestInstance.output_stream = stdout;
-            }
-            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the test cases array. Cannot run manually registered tests.\n");
-            return;
-        }
+	if (cester_array_init(&superTestInstance.registered_test_cases) == 0) {
+	    if (superTestInstance.output_stream==NULL) {
+            superTestInstance.output_stream = stdout;
+	    }
+	    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the test cases array. Cannot run manually registered tests.\n");
+	    return;
+	}
     }
-    TestCase* test_case = (TestCase*) malloc(sizeof(TestCase));
+    test_case = (TestCase*) malloc(sizeof(TestCase));
     test_case->execution_status = CESTER_RESULT_UNKNOWN;
     test_case->line_num = line_num;
     test_case->expected_result = CESTER_RESULT_SUCCESS;
@@ -2519,7 +2533,7 @@ static __CESTER__INLINE__ void cester_register_test(char *test_name, void* funct
 }
 
 static __CESTER__INLINE__ void cester_expected_test_result(const char* const test_name, enum cheat_test_status expected_result) {
-    size_t i;
+    size_t i,index;
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
             if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || 
@@ -2548,6 +2562,7 @@ static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *, Te
 
 static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
     clock_t tic = clock();
+    clock_t tok ;
     size_t last_status = CESTER_RESULT_UNKNOWN;
     if (superTestInstance.isolate_tests == 1) {
 #ifdef _WIN32
@@ -2569,16 +2584,16 @@ static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, Test
         PROCESS_INFORMATION pi = {0};
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s %s", 
-                                test_instance->argv[0], 
-                                a_test_case->name, 
-                                (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""), 
-                                (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
-                                (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
-                                (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
-                                (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
-                                (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
-                                superTestInstance.flattened_cmd_argv);
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s %s",
+                    test_instance->argv[0],
+                    a_test_case->name,
+                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+                    (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
+                    (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
+                    (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
+                    superTestInstance.flattened_cmd_argv);
 
         CreateProcess(
             NULL,
@@ -2620,61 +2635,61 @@ static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, Test
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
 #elif defined unix
-	pid_t pid;
-	int pipefd[2];
-	char *selected_test_unix = (char*) "";
+        pid_t pid;
+        int pipefd[2];
+        char *selected_test_unix = (char*) "";
 
-	pipe(pipefd);
-	pid = fork();
+        pipe(pipefd);
+        pid = fork();
 
-	if (pid == -1) {
-		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create a seperate process for the '");
-		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), a_test_case->name);
-		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "'. Running the test on main process.");
-		last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
-	
-	} else if (pid == 0) {
-		cester_concat_str(&selected_test_unix, "--cester-test=");
-		cester_concat_str(&selected_test_unix, a_test_case->name);
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		execl(test_instance->argv[0], 
-				test_instance->argv[0], 
-				selected_test_unix,
-				"--cester-singleoutput",
-				"--cester-noisolation",	
-				(superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
-				(superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
-				(superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
-				(superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
-				(cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
-				(cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
-				superTestInstance.flattened_cmd_argv,
-				(char*)NULL);
-		exit(CESTER_RESULT_FAILURE);
+        if (pid == -1) {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create a seperate process for the '");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), a_test_case->name);
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "'. Running the test on main process.");
+            last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
 
-	} else {
-		int status;
-		char buffer[700];
-		size_t len;
+        } else if (pid == 0) {
+            cester_concat_str(&selected_test_unix, "--cester-test=");
+            cester_concat_str(&selected_test_unix, a_test_case->name);
+            close(pipefd[0]);
+            dup2(pipefd[1], STDOUT_FILENO);
+            execl(test_instance->argv[0],
+                    test_instance->argv[0],
+                    selected_test_unix,
+                    "--cester-singleoutput",
+                    "--cester-noisolation",
+                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+                    (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
+                    (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
+                    (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
+                    superTestInstance.flattened_cmd_argv,
+                    (char*)NULL);
+            exit(CESTER_RESULT_FAILURE);
 
-		close(pipefd[1]);
-		while ((len = read(pipefd[0], buffer, 700)) != 0) {
-			buffer[len] = '\0';
-			cester_concat_str(&a_test_case->execution_output, buffer);
-		}
-		waitpid(pid, &status, 0);
-		close(pipefd[0]);
-		last_status = WEXITSTATUS(status);	
-	}
+        } else {
+            int status;
+            char buffer[700];
+            size_t len;
+
+            close(pipefd[1]);
+            while ((len = read(pipefd[0], buffer, 700)) != 0) {
+                buffer[len] = '\0';
+                cester_concat_str(&a_test_case->execution_output, buffer);
+            }
+            waitpid(pid, &status, 0);
+            close(pipefd[0]);
+            last_status = WEXITSTATUS(status);
+        }
 #else
-	#pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")
+        #pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")
         last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
 #endif
     } else {
         last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
     }
-    clock_t tok = clock();
+    tok = clock();
     a_test_case->execution_time = (double)(((double)tok) - ((double)tic)) / CLOCKS_PER_SEC;
     if ((a_test_case->expected_result == last_status || a_test_case->expected_result == CESTER_RESULT_FAILURE) && last_status != CESTER_RESULT_SUCCESS) {
         a_test_case->execution_status = CESTER_RESULT_SUCCESS;
@@ -2711,11 +2726,12 @@ static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, Test
     } else {
         ++superTestInstance.total_failed_tests_count;
     }
-    
+
 }
 
 static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *test_instance, TestCase *a_test_case, size_t index) {
-    size_t i;
+    size_t i, index1, index2, mem_index;
+    clock_t tok;
     superTestInstance.current_test_case = a_test_case;
     superTestInstance.current_execution_status = CESTER_RESULT_SUCCESS;
     if (superTestInstance.registered_test_cases->size == 0) {
@@ -2740,7 +2756,7 @@ static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *test
     }
     CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index2, test_case, {
         if (((TestCase*)test_case)->test_type == CESTER_AFTER_EACH_TEST) {
-            ((cester_before_after_each)((TestCase*)test_case)->function)(test_instance, a_test_case->name, index);
+           ((cester_before_after_each)((TestCase*)test_case)->function)(test_instance, a_test_case->name, index);
         }
     })
 #ifndef CESTER_NO_MEM_TEST
@@ -2781,66 +2797,71 @@ static __CESTER__INLINE__ size_t cester_run_test_no_isolation(TestInstance *test
 }
 
 static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
-    size_t i = 0; 
-    size_t j = 1; 
+    clock_t tic;
+    clock_t tok;
+    double time_spent;
+    size_t mem_index, index, index1, index2, index3, index4, index5, index6, index7, index8;
+    TestInstance *test_instance ;
+    size_t i = 0;
+    size_t j = 1;
     size_t index_sub;
     size_t found_test = 0;
     char* selected_test_case_name;
-    #ifdef _WIN32
-        CONSOLE_SCREEN_BUFFER_INFO info;
-        if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
-            default_color = info.wAttributes;
-        }
-        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    #endif
-    
+#ifdef _WIN32
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
+	    default_color = info.wAttributes;
+	}
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
+
     if (superTestInstance.output_stream==NULL) {
         superTestInstance.output_stream = stdout;
     }
-    #ifndef CESTER_NO_MEM_TEST
-        if (superTestInstance.mem_alloc_manager == NULL) {
-            if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
-                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the memory management array. Memory test disabled.\n");
-                superTestInstance.mem_test_active = 0;
-            }
-        }
-    #endif
+#ifndef CESTER_NO_MEM_TEST
+	if (superTestInstance.mem_alloc_manager == NULL) {
+	    if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the memory management array. Memory test disabled.\n");
+            superTestInstance.mem_test_active = 0;
+	    }
+	}
+#endif
     if (superTestInstance.registered_test_cases == NULL) {
         if (cester_array_init(&superTestInstance.registered_test_cases) == 0) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Unable to initialize the registered test cases array. Cannot continue tests.\n");
             return CESTER_RESULT_FAILURE;
         }
     }
-    
+
     /* execute options */
     for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
-        if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
-            ((cester_void)cester_test_cases[i].function)();
-            
-        } else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || 
-                   cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
-                   cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) && 
-                   superTestInstance.registered_test_cases->size == 0) {
-                       
-            ++superTestInstance.total_tests_count;
-        }
-        
+	if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
+	    ((cester_void)cester_test_cases[i].function)();
+
+	} else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST ||
+		   cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST ||
+		   cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) &&
+		   superTestInstance.registered_test_cases->size == 0) {
+
+	    ++superTestInstance.total_tests_count;
+	}
+
     }
-    
+
     CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
-        if (((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION) {
-            ((cester_void)((TestCase*)test_case)->function)();
-            
-        } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST || 
-                   ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST || 
-                   ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
-                       
-            ++superTestInstance.total_tests_count;
-        }
+	if (((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION) {
+	    ((cester_void)((TestCase*)test_case)->function)();
+
+	} else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST ||
+		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST ||
+		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+
+	    ++superTestInstance.total_tests_count;
+	}
     })
-    
-    
-    
+
+
+
     /* resolve command line options */
     for (;j < argc; ++j) {
         char* arg = argv[j];
@@ -2848,42 +2869,42 @@ static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
         if (cester_str_after_prefix(arg, (char*) "--cester-", 9, &cester_option) == 1) {
             if (cester_string_equals(cester_option, (char*) "minimal") == 1) {
                 superTestInstance.minimal = 1;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "verbose") == 1) {
                 superTestInstance.verbose = 1;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "nocolor") == 1) {
                 superTestInstance.no_color = 1;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "printversion") == 1) {
                 superTestInstance.print_version = 1;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "singleoutput") == 1) {
                 superTestInstance.single_output_only = 1;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "noisolation") == 1) {
                 superTestInstance.isolate_tests = 0;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "dontformatname") == 1) {
                 superTestInstance.format_test_name = 0;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "nomemtest") == 1) {
                 superTestInstance.mem_test_active = 0;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "version") == 1) {
                 CESTER_NOCOLOR();
                 cester_print_version();
                 return EXIT_SUCCESS;
-                
+
             } else if (cester_string_equals(cester_option, (char*) "help") == 1) {
                 CESTER_NOCOLOR();
                 cester_print_version();
                 cester_print_help();
                 return EXIT_SUCCESS;
-                
+
             } else if (cester_string_starts_with(cester_option, (char*) "test=") == 1) {
                 unpack_selected_extra_args(cester_option, &superTestInstance.selected_test_cases_names, &superTestInstance.selected_test_cases_size);
-                
+
             } else if (cester_string_starts_with(cester_option, (char*) "output=") == 1) {
                 cester_str_value_after_first(cester_option, '=', &superTestInstance.output_format);
                 if (cester_is_validate_output_option(superTestInstance.output_format) == 0) {
@@ -2896,7 +2917,7 @@ static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
                     CESTER_RESET_TERMINAL_ATTR()
                     return EXIT_FAILURE;
                 }
-                
+
             } else {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), cester_option);
@@ -2909,17 +2930,17 @@ static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
             cester_concat_str(&superTestInstance.flattened_cmd_argv, " ");
         }
     }
-    
+
     if (superTestInstance.print_version == 1) {
         cester_print_version();
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
         CESTER_RESET_TERMINAL_ATTR();
     }
-    
-    TestInstance *test_instance = (TestInstance*) malloc(sizeof(TestInstance*));
+
+    test_instance = (TestInstance*) malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
-    
+
     /* before all */
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].function != NULL;++i) {
@@ -2933,95 +2954,95 @@ static __CESTER__INLINE__ size_t cester_run_all_test(size_t argc, char **argv) {
             ((cester_test)((TestCase*)test_case)->function)(test_instance);
         }
     })
-    
-    
-    clock_t tic = clock();
+
+
+    tic = clock();
     if (superTestInstance.selected_test_cases_size == 0) {
-        if (superTestInstance.registered_test_cases->size == 0) {
-            for (i=0;cester_test_cases[i].function != NULL;++i) {
-                if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST) {
-                    cester_run_test(test_instance, &cester_test_cases[i], i);
-                    
-                } else if (cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST) {
-                    ++superTestInstance.todo_tests_count;
-                    
-                } else if (cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
-                    ++superTestInstance.skipped_test_count;
-                    
-                }
-            }
-        }
-        CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index2, test_case, {
-            if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST) {
-                cester_run_test(test_instance, ((TestCase*)test_case), i);
-                
-            } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST) {
+	if (superTestInstance.registered_test_cases->size == 0) {
+	    for (i=0;cester_test_cases[i].function != NULL;++i) {
+            if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST) {
+                cester_run_test(test_instance, &cester_test_cases[i], i);
+
+            } else if (cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST) {
                 ++superTestInstance.todo_tests_count;
-                
-            } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+
+            } else if (cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
                 ++superTestInstance.skipped_test_count;
-                
+
             }
-        })
-        
+	    }
+	}
+	CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index2, test_case, {
+	    if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST) {
+            cester_run_test(test_instance, ((TestCase*)test_case), i);
+
+	    } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST) {
+            ++superTestInstance.todo_tests_count;
+
+	    } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+            ++superTestInstance.skipped_test_count;
+
+	    }
+	})
+
     } else {
-        for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
-            selected_test_case_name = superTestInstance.selected_test_cases_names[j];
-            found_test = 0;
-            if (superTestInstance.registered_test_cases->size == 0) {
-                for (i=0;cester_test_cases[i].function != NULL;++i) {
-                    if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST || 
-                        cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) && 
-                        cester_string_equals(cester_test_cases[i].name, selected_test_case_name) == 1) {
-                            
-                        found_test = 1;
-                        if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST) {
-                            ++superTestInstance.selected_test_cases_found;
-                            cester_run_test(test_instance, &cester_test_cases[i], i);
+	for (j = 0; j < superTestInstance.selected_test_cases_size; ++j) {
+	    selected_test_case_name = superTestInstance.selected_test_cases_names[j];
+	    found_test = 0;
+	    if (superTestInstance.registered_test_cases->size == 0) {
+            for (i=0;cester_test_cases[i].function != NULL;++i) {
+                if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST || cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST ||
+                    cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) &&
+                    cester_string_equals(cester_test_cases[i].name, selected_test_case_name) == 1) {
+
+                    found_test = 1;
+                    if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST) {
+                        ++superTestInstance.selected_test_cases_found;
+                        cester_run_test(test_instance, &cester_test_cases[i], i);
+                    } else {
+                        cester_test_cases[i].execution_status = CESTER_RESULT_SUCCESS;
+                        if (cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
+                        ++superTestInstance.skipped_test_count;
                         } else {
-                            cester_test_cases[i].execution_status = CESTER_RESULT_SUCCESS;
-                            if (cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
-                                ++superTestInstance.skipped_test_count;
-                            } else {
-                                ++superTestInstance.todo_tests_count;
-                            }
+                        ++superTestInstance.todo_tests_count;
                         }
                     }
                 }
             }
+	    }
+	    if (found_test == 0) {
+            CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index3, test_case, {
+                if ((((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST || ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST ||
+                    ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) &&
+                    cester_string_equals(((TestCase*)test_case)->name, selected_test_case_name) == 1) {
+
+                    found_test = 1;
+                    if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST) {
+                        ++superTestInstance.selected_test_cases_found;
+                        cester_run_test(test_instance, ((TestCase*)test_case), i);
+                    } else {
+                        ((TestCase*)test_case)->execution_status = CESTER_RESULT_SUCCESS;
+                        if (((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+                        ++superTestInstance.skipped_test_count;
+                        } else {
+                        ++superTestInstance.todo_tests_count;
+                        }
+                    }
+                }
+            })
             if (found_test == 0) {
-                CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index3, test_case, {
-                    if ((((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST || ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST || 
-                        ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) && 
-                        cester_string_equals(((TestCase*)test_case)->name, selected_test_case_name) == 1) {
-                            
-                        found_test = 1;
-                        if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST) {
-                            ++superTestInstance.selected_test_cases_found;
-                            cester_run_test(test_instance, ((TestCase*)test_case), i);
-                        } else {
-                            ((TestCase*)test_case)->execution_status = CESTER_RESULT_SUCCESS;
-                            if (((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
-                                ++superTestInstance.skipped_test_count;
-                            } else {
-                                ++superTestInstance.todo_tests_count;
-                            }
-                        }
-                    }
-                })
-                if (found_test == 0) {
-                    if (superTestInstance.minimal == 0 && cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) {
-                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the '");
-                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
-                        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' was not found! \n");
-                    }
+                if (superTestInstance.minimal == 0 && cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) {
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the '");
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' was not found! \n");
                 }
             }
-        }
+	    }
+	}
     }
-    clock_t tok = clock();
-    double time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
-    
+    tok = clock();
+    time_spent = (double)(tok - tic) / CLOCKS_PER_SEC;
+
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].function != NULL;++i) {
             if (cester_test_cases[i].test_type == CESTER_AFTER_ALL_TEST) {
@@ -3206,13 +3227,14 @@ int main(int argc, char **argv) {
 /* CesterArray */
 
 static __CESTER__INLINE__ size_t cester_array_init(CesterArray** out) {
+    void **buffer;
     CesterArray* array_local = (CesterArray*) malloc(sizeof(CesterArray));
     if (!array_local) {
         return 0;
     }
     array_local->size = 0;
     array_local->capacity = CESTER_ARRAY_INITIAL_CAPACITY;
-    void **buffer = (void**) malloc(sizeof(void*) * array_local->capacity);
+    buffer = (void**) malloc(sizeof(void*) * array_local->capacity);
     if (!buffer) {
         free(array_local);
         return 0;
@@ -3223,6 +3245,7 @@ static __CESTER__INLINE__ size_t cester_array_init(CesterArray** out) {
 }
 
 static __CESTER__INLINE__ size_t cester_array_add(CesterArray* array, void* item) {
+    void** new_buffer;
     if (array->size >= array->capacity) {
         if (array->capacity >= CESTER_ARRAY_MAX_CAPACITY) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Max managable memory allocation reached, cannot expand array. Further Memory test disabled.\n");
@@ -3230,7 +3253,7 @@ static __CESTER__INLINE__ size_t cester_array_add(CesterArray* array, void* item
             return 0;
         }
         array->capacity = array->capacity + CESTER_ARRAY_INITIAL_CAPACITY;
-        void **new_buffer = (void**) malloc(sizeof(void*) * array->capacity);
+        new_buffer = (void**) malloc(sizeof(void*) * array->capacity);
         if (!new_buffer) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to expand the memoray allocation array. Further Memory test disabled.\n");
             superTestInstance.mem_test_active = 0;
@@ -3258,9 +3281,10 @@ static __CESTER__INLINE__ void* cester_array_remove_at(CesterArray* array, size_
 
 /* Memory leak Detection procedures */
 
-#ifndef CESTER_NO_MEM_TEST                                      
+#ifndef CESTER_NO_MEM_TEST
 
 static __CESTER__INLINE__ void* cester_malloc(size_t size, const char *file, size_t line, const char *func) {
+    void* p;
     if (superTestInstance.mem_test_active == 1) {
         if (superTestInstance.mem_alloc_manager == NULL) {
             if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
@@ -3272,7 +3296,7 @@ static __CESTER__INLINE__ void* cester_malloc(size_t size, const char *file, siz
             }
         }
     }
-    void *p = malloc(size);
+    p = malloc(size);
     if (superTestInstance.mem_test_active == 1) {
         AllocatedMemory* allocated_mem = (AllocatedMemory*) malloc(sizeof(AllocatedMemory));
         allocated_mem->line_num = line;
@@ -3291,6 +3315,7 @@ static __CESTER__INLINE__ void* cester_malloc(size_t size, const char *file, siz
 }
 
 static __CESTER__INLINE__ void cester_free(void *pointer, const char *file, size_t line, const char *func) {
+    size_t index;
     if (pointer == NULL) {
         if (superTestInstance.mem_test_active == 1 && superTestInstance.current_test_case != NULL) {
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "InvalidOperation ");

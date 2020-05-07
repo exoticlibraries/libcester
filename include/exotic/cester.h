@@ -326,6 +326,9 @@ SuperTestInstance superTestInstance = {
 
 #ifdef _MSC_VER
 #define cester_sprintf(x,y,z,...) sprintf_s(x, y, z, __VA_ARGS__);
+#define cester_sprintf1(x,y,z,a) cester_sprintf(x,y,z,a)
+#define cester_sprintf2(x,y,z,a,b) cester_sprintf(x,y,z,a,b)
+#define cester_sprintf3(x,y,z,a,b,c) cester_sprintf(x,y,z,a,b,c)
 #else
 #define cester_sprintf(x,y,z,a,b) sprintf(x, z, a, b);
 #define cester_sprintf1(x,y,z,a) sprintf(x, z, a)

@@ -9,10 +9,10 @@ Text
 ------
 
 
-JUnitXML
+xUnitXML
 ---------
 
-The generated output is validated with the npm package `verify-junit-xml`_.
+http://reflex.gforge.inria.fr/xunit.html#xunitReport
 
 
 TAP
@@ -29,6 +29,12 @@ TAP Version 13
 (Test Anythin Protocol)
 
 Spec: `tap-13-spec`_.
+
+
+JUnitXML
+---------
+
+The generated output is validated with the npm package `verify-junit-xml`_.
 
 
 .. _verify-junit-xml: https://www.npmjs.com/package/verify-junit-xml

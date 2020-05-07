@@ -1,11 +1,7 @@
-//!g++ {0} -I. -I../include/ -o out; ./out
+//!clang {0} -I. -I../include/ -o out.exe; ./out
 
 #include <exotic/cester.h>
 
 CESTER_TEST(check_shared_arg, test_instance,
    cester_assert_equal(NULL, ((void*)0));
-)
-
-CESTER_OPTIONS(
-
 )

@@ -29,37 +29,165 @@
    :name: docs-how_it_works
 
    /how_it_works/*
-   
 
-libcester
-==========
+.. raw:: html
 
-cester is a header only automated testing framework for the C programming language, 
-with support for objects mocking. It requires no dependency and can be downloaded and used in a project 
-immediately. cester allows shared instance `test_instance` in which each test cases can use to 
-share data and access the command line arguments. It works on a wide range of platforms including embedded and 
-with different compilers. 
+    <style>
+        .documentwrapper {
+            margin: 0px;
+            margin-top: 550px;
+        }
+        .bodywrapper {
+            margin-left: 15%;
+            width:70%;
+        }
+    </style>
+    <div class="header">
+        <div class="overlay">
+            <span class="title">libcester</span><br/>
+            <p class="brief">
+                A robust header only unit testing framework for C and C++ programming language. <br/>
+                Support function mocking, memory leak detection, crash report. Works on various 
+                platorms including embedded <br/>systems and compatible with various compilers. Requires 
+                no dependency only the header file is needed to get the tests running.
 
-It automatically register test cases so developer can concentrate more on writing and validating 
-the tests. Can output to JUnit XML. 
+                <div class="linksdiv">
+                    <a class="link" href="./download.html">Download</a>
+                    <a class="link" href="./docs/">Documentation</a>
+                    <a class="link" href="./reference/">API Reference</a>
+                </div>
+            </p>
+        </div>
+    </div>
 
-.. code:: c
+    <div class="features-flex">
+        <div class="project main-project" style="display: block;">
+            <span class="title">Write Once, Test Anywhere</span><br>
+            <p class="description">
+                libcester is compliant with the original C language specification 
+                ISO/IEC 9899:1990 and the first POSIX specification IEEE Std 1003.1-1988 
+                which ensures the project compatibility in various environments including 
+                embedded systems.<br/><br/>
+                
+                It also makes use of features in the newer revisions ISO/IEC 9899:1999 
+                and IEEE Std 1003.1-2001 whenever possible.
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Automatic Tests Registration</span><br>
+            <p class="description">
+                With the stretched use of C preprocessor libcester in most cases does not 
+                require you to manually register your test cases, you just define your test with 
+                the provided macros and it will be executed.
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Supports various output formats</span><br>
+            <p class="description">
+                libcester supports various output formats for test analysis. The following output 
+                formats are supported:
+                
+                <ul>
+                    <li><a href="./docs/output_formats.html#text">Text</a></li>
+                    <li><a href="./docs/output_formats.html#junitxml">JunitXML</a></li>
+                    <li><a href="./docs/output_formats.html#xunitxml">xUnitXML</a></li>
+                    <li><a href="./docs/output_formats.html#tap">Test Anything Protocol</a></li>
+                    <li><a href="./docs/output_formats.html#tap-version-13">Test Anything Protocol Version 13</a></li>
+                </ul> 
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Detailed documentation</span><br>
+            <p class="description">
+                The <a class="link" href="./docs/">documentation</a> provides several examples, 
+                tutorials, and detailed guides for using the library. <br/><br/>
 
-    #include <exotic/cester.h>
+                While <a class="link" href="./reference/">reference</a> provides a 
+                low-level overview of all the implemented APIs in the library
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Function mocking</span><br>
+            <p class="description">
+                Create functions that simulate the behaviour of the real function implementation. 
+                <br/><br/>
+                Mocking function is useful when your unit tests relies on dependencies which are 
+                not available at the time of running your tests.
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Isolated unit testing</span><br>
+            <p class="description">
+                Each test case is run in isolation which allows exceptions like a segfault, 
+                premature termination e.t.c to be reported. <br/><br/>
+                
+                A crahsed test case does not cause the testing to stop instead the test case is 
+                reported as failure and libcester continue running other test cases.
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Shared objects</span><br>
+            <p class="description">
+                Each test cases accepts a <a class="link" href="reference/structtest__instance.html">test_instance</a> 
+                variable that can be used to share data across multiple test cases.<br/><br/>
 
-    CESTER_BEFORE_ALL(test_instance,
-        test_instance->arg = "Hello World";
-    )
+                There are also CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_EACH and 
+                CESTER_AFTER_ALL macros to setup and tear down shared functions and objects use 
+                in the test cases.
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">Testing of memory leaks</span><br>
+            <p class="description">
+                The library detects memory leak in the test cases without the need to run 
+                program like valgrind. The precise amount of bytes leaked is reported for 
+                each test case.<br/><br/>
 
-    CESTER_TEST(check_shared_arg, test_instance,
-        cester_assert_equal(test_instance->arg, "Hello World");
-        cester_assert_not_equal(2, 1);
-    )
+                Memory leak test is optional and can be diabled with the option 
+                <span class="bold">--cester-nomemtest</span>
+            </p>
+        </div>
+        <div class="project main-project" style="display: block;">
+            <span class="title">GNU General Public License v3.0</span><br>
+            <p class="description">
+                This allows you to use the library freely in your open or closed source project. 
+                You also have the freedom to modify your version so far it provides the freedom 
+                GNU GPLv3 stated.
+            </p>
+        </div>
+    </div>
 
-It follows the original C language specification, ISO/IEC 9899:1990, and the first POSIX 
-specification, IEEE Std 1003.1-1988, to the letter avoiding newer features of C compilers as 
-much a possible. The project includes only stdlib.h, time.h, stdio.h and windows.h on WIndows 
-to color output. Some function are manually implemented in the library to ensure it works in 
-embedded systems and even in the most isolated systems.
+    <div class="two-sided">
+        <div class="left-side">
+            <h3 class="title">Function mocking</h3>
+            <br/>
 
-The project is designed for C, but also works with C++ but be ready for waves of warnings.
+            Portability, list ISOs
+            cester is a header only automated testing framework for the C programming language, 
+            with support for objects mocking. It requires no dependency and can be downloaded and used in a project 
+            immediately. cester allows shared instance `test_instance` in which each test cases can use to 
+            share data and access the command line arguments. It works on a wide range of platforms including embedded and 
+            with different compilers. 
+        </div>
+        <div class="right-side">
+            
+        </div>
+    </div>
+
+    
+    <div class="two-sided">
+        <div class="left-side">
+            <h3 class="title">Function mocking</h3>
+            <br/>
+
+            Automatic Test Registration
+            
+        </div>
+        <div class="right-side">
+            <div class="highlight-c notranslate"><div class="highlight"><pre>
+            
+            </pre></div>
+            </div>
+        </div>
+    </div>
+

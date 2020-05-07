@@ -5,9 +5,7 @@
 
 A robust header only unit testing framework for C programming language. Support function mocking, memory leak detection, crash report. 
 
-___
-
-cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. cester supports function mocking and allows shared instance `test_instance` in which each test cases can use to share data and access the command line arguments. 
+cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. Works on various platorms including embedded systems and compatible with various compilers. Allows shared instance `TestInstance` object in which each test cases can use to share data and access the command line arguments. 
 
 ```c
 //!gcc {0} -I. -o test; ./test

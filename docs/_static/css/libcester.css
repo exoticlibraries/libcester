@@ -1,0 +1,113 @@
+
+.documentwrapper {
+    font-size: 17px;
+}
+
+.header {
+    position: absolute;
+    background-image: url('https://github.com/exoticlibraries/exoticlibraries.github.io/raw/master/assets/images/libcester/dosbox_output.png');
+    color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    height: 500px;
+    text-align: center;
+    vertical-align: middle;       
+}
+
+.header .title {
+    color: #14a4ff;
+    font-size: 50px;
+}
+
+.overlay {
+    top: 0;
+    background: rgba(51, 55, 59, 0.95);
+    width: 100%;
+    padding-top: 180px;
+    height: 320px;
+}
+
+.header .brief {
+    
+}
+
+.header .linksdiv {
+    margin-top: 40px;
+}
+
+.header .link {
+    margin: 10px;
+    padding: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: #1484c9;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 5px;
+    /*border: #14a4ff 1px solid;*/
+}
+
+.header .link:hover {
+    text-decoration: none;
+    background: #d2e9f7;
+    color: #01263d !important;
+}
+
+.header p {
+    color: white !important;
+    font-size: 21px;
+}
+
+.features-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.project {
+    margin-top: 40px;
+    margin-right: 40px;
+    max-width: 400px;
+    display: none;
+}
+
+.project .title {
+    font-size: 25px;
+}
+
+.two-sided {
+    display: flex;
+    margin-top: 50px;
+}
+
+.two-sided .left-side {
+    width: 50%;
+    padding: 5%;
+    padding-top: 1%;
+    padding-left: 0;
+}
+
+.two-sided .left-side .title {
+    font-weight: bold;
+}
+
+.two-sided .right-side {
+    width: 50%;
+}
+
+.two-sided pre {
+    max-height: 20pc; 
+    overflow-y: scroll;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+
+
+
+
+

@@ -707,7 +707,11 @@ static __CESTER__INLINE__ unsigned cester_is_validate_output_option(char *format
             cester_string_equals(format_option, (char*) "text"));
 }
 
+#ifdef _WIN32
 #define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? default_color : x)
+#else 
+#define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? "" : x)
+#endif
 #define CESTER_GET_RESULT_AGGR (superTestInstance.total_failed_tests_count == 0 ? "SUCCESS" : "FAILURE")
 #define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? (CESTER_FOREGROUND_GREEN) : (CESTER_FOREGROUND_RED))
 
@@ -718,11 +722,11 @@ static __CESTER__INLINE__ unsigned cester_is_validate_output_option(char *format
 #define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%f", y)
 #define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%.2f", y)
 #else
-#define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%d%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_UINT(x,y) fprintf(superTestInstance.output_stream, "%s%u%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL)
-#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
-#define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) fprintf(superTestInstance.output_stream, "%s%.2f%s", CESTER_SELECTCOLOR(x), y, CESTER_RESET_TERMINAL) 
+#define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
+#define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%d%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
+#define CESTER_DELEGATE_FPRINT_UINT(x,y) fprintf(superTestInstance.output_stream, "%s%u%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
+#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) fprintf(superTestInstance.output_stream, "%s%f%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL)) 
+#define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) fprintf(superTestInstance.output_stream, "%s%.2f%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL)) 
 #endif
 
 static __CESTER__INLINE__ unsigned cester_string_equals(char* arg, char* arg1);
@@ -2610,13 +2614,14 @@ static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, Test
         PROCESS_INFORMATION pi = {0};
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s %s",
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s %s %s",
                     test_instance->argv[0],
                     a_test_case->name,
                     (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
                     (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
                     (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                     (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                     superTestInstance.flattened_cmd_argv);
@@ -2688,6 +2693,7 @@ static __CESTER__INLINE__ void cester_run_test(TestInstance *test_instance, Test
                     (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
                     (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                     (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                     superTestInstance.flattened_cmd_argv,
@@ -2865,35 +2871,6 @@ static __CESTER__INLINE__ unsigned cester_run_all_test(unsigned argc, char **arg
         }
     }
 
-    /* execute options */
-    for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
-	if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION) {
-	    ((cester_void)cester_test_cases[i].function)();
-
-	} else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST ||
-		   cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST ||
-		   cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) &&
-		   superTestInstance.registered_test_cases->size == 0) {
-
-	    ++superTestInstance.total_tests_count;
-	}
-
-    }
-
-    CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
-	if (((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION) {
-	    ((cester_void)((TestCase*)test_case)->function)();
-
-	} else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST ||
-		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST ||
-		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
-
-	    ++superTestInstance.total_tests_count;
-	}
-    })
-
-
-
     /* resolve command line options */
     for (;j < argc; ++j) {
         char* arg = argv[j];
@@ -2972,6 +2949,35 @@ static __CESTER__INLINE__ unsigned cester_run_all_test(unsigned argc, char **arg
     test_instance = (TestInstance*) malloc(sizeof(TestInstance*));
     test_instance->argc = argc;
     test_instance->argv = argv;
+
+    /* execute options */
+    for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
+	if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION && superTestInstance.single_output_only == 0) {
+	    ((cester_void)cester_test_cases[i].function)();
+
+	} else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST ||
+		   cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST ||
+		   cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) &&
+		   superTestInstance.registered_test_cases->size == 0) {
+
+	    ++superTestInstance.total_tests_count;
+	}
+
+    }
+
+    CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
+	if (((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION && superTestInstance.single_output_only == 0) {
+	    ((cester_void)((TestCase*)test_case)->function)();
+
+	} else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST ||
+		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST ||
+		   ((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {
+
+	    ++superTestInstance.total_tests_count;
+	}
+    })
+
+
 
     /* before all */
     if (superTestInstance.registered_test_cases->size == 0) {

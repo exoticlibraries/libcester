@@ -106,12 +106,23 @@ e.g. in gcc
 gcc -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" testfile.c -I.
 ```
 
+You can also define the __BASE_FILE__ at the beginning of your test file with the absolute 
+path to the test file. E.g for the test file test.c:
+
+```c
+#define __BASE_FILE__ "/path/to/test.c"
+#include <exotic/cester.h>
+
+CESTER_TEST(test1, test_instance,
+	cester_assert_equal(NULL, NULL);
+)
+```
+
 Alternatively the test cases should be manually registered in the main method, you will have to disable cester main function by defining the macro CESTER_NO_MAIN. 
 
 ```c
-#include <exotic/cester.h>
-
 #define CESTER_NO_MAIN
+#include <exotic/cester.h>
 
 CESTER_TEST(test1, test_instance,
 	cester_assert_equal(NULL, NULL);

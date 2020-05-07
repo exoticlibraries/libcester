@@ -1,7 +1,7 @@
 //!g++ {0} -I. -I../include/ -o out.exe; ./out
 
-#include <exotic/cester.h>
+#include <stdio.h>
 
-CESTER_TEST(check_shared_arg, test_instance,
-   cester_assert_equal(NULL, ((void*)0));
-)
+int main() {
+    printf("Hello World\n", 3, 6, 7, 8, "nine");
+}

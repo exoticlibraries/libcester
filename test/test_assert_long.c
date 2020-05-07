@@ -8,13 +8,13 @@ CESTER_BEFORE_EACH(test_instance, _t, _i,
 )
 
 CESTER_TEST(test_assert_cmp_long, test_instance, 
-    cester_assert_cmp_long(1, ==, 1);
-    cester_assert_cmp_long(2, !=, 3);
+    cester_assert_cmp_long(1, ==, 1, "%li %s %li");
+    cester_assert_cmp_long(2147483647, !=, 3, "%li %s %li");
 )
 
 CESTER_TEST(test_long_assertion, test_instance, 
-    cester_assert_cmp_long(4, <, 5);
-    cester_assert_cmp_long(7, >, 6);
+    cester_assert_cmp_long(4, <, 5, "%li %s %li");
+    cester_assert_cmp_long(7, >, 6, "%li %s %li");
 )
 
 CESTER_TEST(test_long_assertion_literal, test_instance, 
@@ -28,13 +28,13 @@ CESTER_TEST(test_long_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_unsigned_long, test_instance, 
-    cester_assert_cmp_ulong(1, ==, 1);
-    cester_assert_cmp_ulong(2, !=, 3);
+    cester_assert_cmp_ulong(1, ==, 1, "%lu %s %lu");
+    cester_assert_cmp_ulong(2, !=, 3, "%lu %s %lu");
 )
 
 CESTER_TEST(test_unsigned_long_assertion, test_instance, 
-    cester_assert_cmp_ulong(4, <, 5);
-    cester_assert_cmp_ulong(7, >, 6);
+    cester_assert_cmp_ulong(4, <, 5, "%lu %s %lu");
+    cester_assert_cmp_ulong(7, >, 6, "%lu %s %lu");
 )
 
 CESTER_TEST(test_unsigned_long_assertion_literal, test_instance, 

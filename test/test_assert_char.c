@@ -7,17 +7,17 @@ CESTER_BEFORE_ALL(test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_char, test_instance, 
-    cester_assert_cmp_char('a', ==, 'a');
-    cester_assert_cmp_char('b', !=, 'c');
+    cester_assert_cmp_char('a', ==, 'a', "verify that a is same as a");
+    cester_assert_cmp_char('b', !=, 'c', "check if b does not equal to c");
 )
 
 CESTER_TEST(test_char_assertion, test_instance, 
-    cester_assert_cmp_char('a', <, 'b');
-    cester_assert_cmp_char('d', >, 'c');
-    cester_assert_cmp_char('e', <=, 'e');
-    cester_assert_cmp_char('f', >=, 'f');
-    cester_assert_cmp_char('g', ==, 'g');
-    cester_assert_cmp_char('h', !=, 'i');
+    cester_assert_cmp_char('a', <, 'b', "is a less than b?");
+    cester_assert_cmp_char('d', >, 'c', "is d greater than c");
+    cester_assert_cmp_char('e', <=, 'e', "validate that e is lesser than or equal to itself");
+    cester_assert_cmp_char('f', >=, 'f', "check if f is also greater than or equal to itself");
+    cester_assert_cmp_char('g', ==, 'g', "is g equal to itself?");
+    cester_assert_cmp_char('h', !=, 'i', "am tired");
 )
 
 CESTER_TEST(test_char_assertion_literal, test_instance, 
@@ -30,17 +30,17 @@ CESTER_TEST(test_char_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_uchar, test_instance, 
-    cester_assert_cmp_uchar('a', ==, 'a');
-    cester_assert_cmp_uchar('b', !=, 'c');
+    cester_assert_cmp_uchar('a', ==, 'a', "verify that a is same as a");
+    cester_assert_cmp_uchar('b', !=, 'c', "check if b does not equal to c");
 )
 
 CESTER_TEST(test_uchar_assertion, test_instance, 
-    cester_assert_cmp_uchar('a', <, 'b');
-    cester_assert_cmp_uchar('d', >, 'c');
-    cester_assert_cmp_uchar('e', <=, 'e');
-    cester_assert_cmp_uchar('f', >=, 'f');
-    cester_assert_cmp_uchar('g', ==, 'g');
-    cester_assert_cmp_uchar('h', !=, 'i');
+    cester_assert_cmp_uchar('a', <, 'b', "is a less than b?");
+    cester_assert_cmp_uchar('d', >, 'c', "is d greater than c");
+    cester_assert_cmp_uchar('e', <=, 'e', "validate that e is lesser than or equal to itself");
+    cester_assert_cmp_uchar('f', >=, 'f', "check if f is also greater than or equal to itself");
+    cester_assert_cmp_uchar('g', ==, 'g', "is g equal to itself?");
+    cester_assert_cmp_uchar('h', !=, 'i', "am tired");
 )
 
 CESTER_TEST(test_uchar_assertion_literal, test_instance, 

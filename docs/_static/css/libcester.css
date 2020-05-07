@@ -82,7 +82,7 @@
 }
 
 .two-sided .left-side {
-    width: 50%;
+    width: 30%;
     padding: 5%;
     padding-top: 1%;
     padding-left: 0;
@@ -93,7 +93,7 @@
 }
 
 .two-sided .right-side {
-    width: 50%;
+    width: 70%;
 }
 
 .two-sided pre {

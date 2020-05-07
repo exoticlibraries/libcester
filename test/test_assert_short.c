@@ -8,13 +8,13 @@ CESTER_BEFORE_EACH(test_instance, _t, _i,
 )
 
 CESTER_TEST(test_assert_cmp_short, test_instance, 
-    cester_assert_cmp_short(1, ==, 1);
-    cester_assert_cmp_short(2, !=, 3);
+    cester_assert_cmp_short(1, ==, 1, "%d %s %d");
+    cester_assert_cmp_short(2, !=, 3, "%d %s %d");
 )
 
 CESTER_TEST(test_short_assertion, test_instance, 
-    cester_assert_cmp_short(4, <, 5);
-    cester_assert_cmp_short(7, >, 6);
+    cester_assert_cmp_short(4, <, 5, "%d %s %d");
+    cester_assert_cmp_short(7, >, 6, "%d %s %d");
 )
 
 CESTER_TEST(test_short_assertion_literal, test_instance, 
@@ -28,13 +28,13 @@ CESTER_TEST(test_short_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_unsigned_short, test_instance, 
-    cester_assert_cmp_ushort(1, ==, 1);
-    cester_assert_cmp_ushort(2, !=, 3);
+    cester_assert_cmp_ushort(1, ==, 1, "%d %s %d");
+    cester_assert_cmp_ushort(2, !=, 3, "%d %s %d");
 )
 
 CESTER_TEST(test_unsigned_short_assertion, test_instance, 
-    cester_assert_cmp_ushort(4, <, 5);
-    cester_assert_cmp_ushort(7, >, 6);
+    cester_assert_cmp_ushort(4, <, 5, "%d %s %d");
+    cester_assert_cmp_ushort(7, >, 6, "%d %s %d");
 )
 
 CESTER_TEST(test_unsigned_short_assertion_literal, test_instance, 

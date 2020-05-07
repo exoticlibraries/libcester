@@ -780,7 +780,7 @@ static __CESTER__INLINE__ void cester_print_assertion(char const* const expressi
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");**/
 }
 
-static __CESTER__INLINE__ void cester_print_expect_actual(unsigned expecting, char const* const expect, char const* const found, char const* const file_path, unsigned const line_num) {
+static __CESTER__INLINE__ void cester_print_expect_actual(unsigned expecting, char const* const expect, char const* const received, char const* const file_path, unsigned const line_num) {
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
@@ -797,9 +797,9 @@ static __CESTER__INLINE__ void cester_print_expect_actual(unsigned expecting, ch
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expect);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ", found ");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ", received ");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, found);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, received);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     
     /*CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
@@ -814,8 +814,8 @@ static __CESTER__INLINE__ void cester_print_expect_actual(unsigned expecting, ch
     } else {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " expected ");
     }
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), found);
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", found ");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), received);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", received ");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);*/
 }
 
@@ -1200,16 +1200,26 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
 */
 #define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, 0, __FILE__, __LINE__)
 
+/* document the following, add 'compile time only' */
+#define __internal_cester_assert_cmp(w,x,y,z) (w x y, z, w, y, #x, __FILE__, __LINE__)
+#define __internal_cester_assert_eq(x,y,z) (x == y, (char*) "expected " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_ne(x,y,z) (x != y, (char*) "not expecting " #z ",%s found " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_gt(x,y,z) (x > y, (char*) "expected value to be greater than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_ge(x,y,z) (x >= y, (char*) "expected value to be greater than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_lt(x,y,z) (x < y, (char*) "expected value to be lesser than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_le(x,y,z) (x <= y, (char*) "expected value to be lesser than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+
 /**
     Compare two char using the provided operator
     This macro prints out the actual values of the two 
     chars.
     
-    \param x a char
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another char
+    \param w a char
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another char
+    \param z the string formated for output
 */
-#define cester_assert_cmp_char(x,y,z) cester_compare_char(x y z, (char*) "(%c %s %c)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_char(w,x,y,z) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two char are the same.
@@ -1219,7 +1229,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_eq(x,y) cester_assert_cmp_char(x, ==, y)
+#define cester_assert_char_eq(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_eq(x,y,%c))
 
 /**
     Check if the two char are not the same.
@@ -1229,7 +1239,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_ne(x,y) cester_assert_cmp_char(x, !=, y)
+#define cester_assert_char_ne(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_ne(x,y,%c))
 
 /**
     Check if the a char is greater than the other.
@@ -1239,7 +1249,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_gt(x,y) cester_assert_cmp_char(x, >, y)
+#define cester_assert_char_gt(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_gt(x,y,%c))
 
 /**
     Check if the a char is greater than or equal to the other.
@@ -1249,7 +1259,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_ge(x,y) cester_assert_cmp_char(x, >=, y)
+#define cester_assert_char_ge(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_ge(x,y,%c))
 
 /**
     Check if the a char is lesser than the other.
@@ -1259,7 +1269,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_lt(x,y) cester_assert_cmp_char(x, <, y)
+#define cester_assert_char_lt(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_lt(x,y,%c))
 
 /**
     Check if the a char is lesser than or equal to the other.
@@ -1269,18 +1279,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a char
     \param y another char
 */
-#define cester_assert_char_le(x,y) cester_assert_cmp_char(x, <=, y)
+#define cester_assert_char_le(x,y) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_le(x,y,%c))
 
 /**
     Compare two unsigned char using the provided operator
     This macro prints out the actual values of the two 
     unsigned char.
     
-    \param x an unsigned char
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned char
+    \param w an unsigned char
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another unsigned char
+    \param z the string formated for output
 */
-#define cester_assert_cmp_uchar(x,y,z) cester_compare_uchar(x y z, (char*) "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_uchar(w,x,y,z) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two unsigned char are the same.
@@ -1290,7 +1301,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_eq(x,y) cester_assert_cmp_uchar(x, ==, y)
+#define cester_assert_uchar_eq(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_eq(x,y,%c))
 
 /**
     Check if the two unsigned char are not the same.
@@ -1300,7 +1311,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_ne(x,y) cester_assert_cmp_uchar(x, !=, y)
+#define cester_assert_uchar_ne(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_ne(x,y,%c))
 
 /**
     Check if the a unsigned char is greater than the other.
@@ -1310,7 +1321,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_gt(x,y) cester_assert_cmp_uchar(x, >, y)
+#define cester_assert_uchar_gt(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_gt(x,y,%c))
 
 /**
     Check if the a unsigned char is greater than or equal to the other.
@@ -1320,7 +1331,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_ge(x,y) cester_assert_cmp_uchar(x, >=, y)
+#define cester_assert_uchar_ge(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_ge(x,y,%c))
 
 /**
     Check if the a unsigned char is lesser than the other.
@@ -1330,7 +1341,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_lt(x,y) cester_assert_cmp_uchar(x, <, y)
+#define cester_assert_uchar_lt(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_lt(x,y,%c))
 
 /**
     Check if the a unsigned char is lesser than or equal to the other.
@@ -1340,18 +1351,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned char
     \param y another unsigned char
 */
-#define cester_assert_uchar_le(x,y) cester_assert_cmp_uchar(x, <=, y)
+#define cester_assert_uchar_le(x,y) CESTER_CONCAT(cester_compare_uchar, __internal_cester_assert_le(x,y,%c))
 
 /**
     Compare two short using the provided operator
     This macro prints out the actual values of the two 
     short.
     
-    \param x a short
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another short
+    \param w a short
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another short
+    \param z the string formated for output
 */
-#define cester_assert_cmp_short(x,y,z) cester_compare_short(x y z, (char*) "(%hi %s %hi)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_short(w,x,y,z) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two short are the same.
@@ -1361,7 +1373,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_eq(x,y) cester_assert_cmp_short(x, ==, y)
+#define cester_assert_short_eq(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_eq(x,y,%hi))
 
 /**
     Check if the two short are not the same.
@@ -1371,7 +1383,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_ne(x,y) cester_assert_cmp_short(x, !=, y)
+#define cester_assert_short_ne(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_ne(x,y,%hi))
 
 /**
     Check if the a short is greater than the other.
@@ -1381,7 +1393,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_gt(x,y) cester_assert_cmp_short(x, >, y)
+#define cester_assert_short_gt(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_gt(x,y,%hi))
 
 /**
     Check if the a short is greater than or equal to the other.
@@ -1391,7 +1403,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_ge(x,y) cester_assert_cmp_short(x, >=, y)
+#define cester_assert_short_ge(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_ge(x,y,%hi))
 
 /**
     Check if the a short is lesser than the other.
@@ -1401,7 +1413,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_lt(x,y) cester_assert_cmp_short(x, <, y)
+#define cester_assert_short_lt(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_lt(x,y,%hi))
 
 /**
     Check if the a short is lesser than or equal to the other.
@@ -1411,18 +1423,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a short
     \param y another short
 */
-#define cester_assert_short_le(x,y) cester_assert_cmp_short(x, <=, y)
+#define cester_assert_short_le(x,y) CESTER_CONCAT(cester_compare_short, __internal_cester_assert_le(x,y,%hi))
 
 /**
     Compare two unsigned short using the provided operator
     This macro prints out the actual values of the two 
     unsigned short.
     
-    \param x an unsigned short
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned short
+    \param w an unsigned short
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another unsigned short
+    \param z the string formated for output
 */
-#define cester_assert_cmp_ushort(x,y,z) cester_compare_ushort(x y z, (char*) "(%hu %s %hu)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_ushort(w,x,y,z) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two unsigned short are the same.
@@ -1432,7 +1445,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_eq(x,y) cester_assert_cmp_ushort(x, ==, y)
+#define cester_assert_ushort_eq(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_eq(x,y,%hu))
 
 /**
     Check if the two unsigned short are not the same.
@@ -1442,7 +1455,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_ne(x,y) cester_assert_cmp_ushort(x, !=, y)
+#define cester_assert_ushort_ne(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_ne(x,y,%hu))
 
 /**
     Check if the a unsigned short is greater than the other.
@@ -1452,7 +1465,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_gt(x,y) cester_assert_cmp_ushort(x, >, y)
+#define cester_assert_ushort_gt(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_gt(x,y,%hu))
 
 /**
     Check if the a unsigned short is greater than or equal to the other.
@@ -1462,7 +1475,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_ge(x,y) cester_assert_cmp_ushort(x, >=, y)
+#define cester_assert_ushort_ge(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_ge(x,y,%hu))
 
 /**
     Check if the a unsigned short is lesser than the other.
@@ -1472,7 +1485,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_lt(x,y) cester_assert_cmp_ushort(x, <, y)
+#define cester_assert_ushort_lt(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_lt(x,y,%hu))
 
 /**
     Check if the a unsigned short is lesser than or equal to the other.
@@ -1482,18 +1495,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned short
     \param y another unsigned short
 */
-#define cester_assert_ushort_le(x,y) cester_assert_cmp_ushort(x, <=, y)
+#define cester_assert_ushort_le(x,y) CESTER_CONCAT(cester_compare_ushort, __internal_cester_assert_le(x,y,%hu))
 
 /**
     Compare two int using the provided operator
     This macro prints out the actual values of the two 
     int.
     
-    \param x an int
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another int
+    \param w an int
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another int
+    \param z the string formated for output
 */
-#define cester_assert_cmp_int(x,y,z) cester_compare_int(x y z, (char*) "(%d %s %d)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_int(w,x,y,z) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two int are the same.
@@ -1503,7 +1517,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_eq(x,y) cester_assert_cmp_int(x, ==, y)
+#define cester_assert_int_eq(x,y) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_eq(x,y,%d))
 
 /**
     Check if the two int are not the same.
@@ -1513,7 +1527,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_ne(x,y) cester_assert_cmp_int(x, !=, y)
+#define cester_assert_int_ne(x,y)  CESTER_CONCAT(cester_compare_int, __internal_cester_assert_ne(x,y,%d))
 
 /**
     Check if the a int is greater than the other.
@@ -1523,7 +1537,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_gt(x,y) cester_assert_cmp_int(x, >, y)
+#define cester_assert_int_gt(x,y) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_gt(x,y,%d))
 
 /**
     Check if the a int is greater than or equal to the other.
@@ -1533,7 +1547,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_ge(x,y) cester_assert_cmp_int(x, >=, y)
+#define cester_assert_int_ge(x,y) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_ge(x,y,%d))
 
 /**
     Check if the a int is lesser than the other.
@@ -1543,7 +1557,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_lt(x,y) cester_assert_cmp_int(x, <, y)
+#define cester_assert_int_lt(x,y) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_lt(x,y,%d))
 
 /**
     Check if the a int is lesser than or equal to the other.
@@ -1553,18 +1567,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an int
     \param y another int
 */
-#define cester_assert_int_le(x,y) cester_assert_cmp_int(x, <=, y)
+#define cester_assert_int_le(x,y) CESTER_CONCAT(cester_compare_int, __internal_cester_assert_le(x,y,%d))
 
 /**
     Compare two unsigned int using the provided operator
     This macro prints out the actual values of the two 
     unsigned int.
     
-    \param x an unsigned int
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned int
+    \param w an unsigned int
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another unsigned int
+    \param z the string formated for output
 */
-#define cester_assert_cmp_uint(x,y,z) cester_compare_uint(x y z, (char*) "(%u %s %u)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_uint(w,x,y,z) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two unsigned int are the same.
@@ -1574,7 +1589,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_eq(x,y) cester_assert_cmp_uint(x, ==, y)
+#define cester_assert_uint_eq(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_eq(x,y,%u))
 
 /**
     Check if the two unsigned int are not the same.
@@ -1584,7 +1599,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_ne(x,y) cester_assert_cmp_uint(x, !=, y)
+#define cester_assert_uint_ne(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_ne(x,y,%u))
 
 /**
     Check if the a unsigned int is greater than the other.
@@ -1594,7 +1609,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_gt(x,y) cester_assert_cmp_uint(x, >, y)
+#define cester_assert_uint_gt(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_gt(x,y,%u))
 
 /**
     Check if the a unsigned int is greater than or equal to the other.
@@ -1604,7 +1619,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_ge(x,y) cester_assert_cmp_uint(x, >=, y)
+#define cester_assert_uint_ge(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_ge(x,y,%u))
 
 /**
     Check if the a unsigned int is lesser than the other.
@@ -1614,7 +1629,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_lt(x,y) cester_assert_cmp_uint(x, <, y)
+#define cester_assert_uint_lt(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_lt(x,y,%u))
 
 /**
     Check if the a unsigned int is lesser than or equal to the other.
@@ -1624,18 +1639,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x an unsigned int
     \param y another unsigned int
 */
-#define cester_assert_uint_le(x,y) cester_assert_cmp_uint(x, <=, y)
+#define cester_assert_uint_le(x,y) CESTER_CONCAT(cester_compare_uint, __internal_cester_assert_le(x,y,%u))
 
 /**
     Compare two long using the provided operator
     This macro prints out the actual values of the two 
     long.
     
-    \param x a long
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another long
+    \param w a long
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another long
+    \param z the string formated for output
 */
-#define cester_assert_cmp_long(x,y,z) cester_compare_long(x y z, (char*) "(%li %s %li)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_long(w,x,y,z) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two long are the same.
@@ -1645,7 +1661,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_eq(x,y) cester_assert_cmp_long(x, ==, y)
+#define cester_assert_long_eq(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_eq(x,y,%li))
 
 /**
     Check if the two long are not the same.
@@ -1655,7 +1671,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_ne(x,y) cester_assert_cmp_long(x, !=, y)
+#define cester_assert_long_ne(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_ne(x,y,%li))
 
 /**
     Check if the a long is greater than the other.
@@ -1665,7 +1681,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_gt(x,y) cester_assert_cmp_long(x, >, y)
+#define cester_assert_long_gt(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_gt(x,y,%li))
 
 /**
     Check if the a long is greater than or equal to the other.
@@ -1675,7 +1691,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_ge(x,y) cester_assert_cmp_long(x, >=, y)
+#define cester_assert_long_ge(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_ge(x,y,%li))
 
 /**
     Check if the a long is lesser than the other.
@@ -1685,7 +1701,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_lt(x,y) cester_assert_cmp_long(x, <, y)
+#define cester_assert_long_lt(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_lt(x,y,%li))
 
 /**
     Check if the a long is lesser than or equal to the other.
@@ -1695,18 +1711,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long
     \param y another long
 */
-#define cester_assert_long_le(x,y) cester_assert_cmp_long(x, <=, y)
+#define cester_assert_long_le(x,y) CESTER_CONCAT(cester_compare_long, __internal_cester_assert_le(x,y,%li))
 
 /**
     Compare two unsigned long using the provided operator
     This macro prints out the actual values of the two 
     unsigned long.
     
-    \param x a unsigned long
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned long
+    \param w a unsigned long
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another unsigned long
+    \param z the string formated for output
 */
-#define cester_assert_cmp_ulong(x,y,z) cester_compare_ulong(x y z, "(%lu %s %lu)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_ulong(w,x,y,z) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two unsigned long are the same.
@@ -1716,7 +1733,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_eq(x,y) cester_assert_cmp_ulong(x, ==, y)
+#define cester_assert_ulong_eq(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_eq(x,y,%lu))
 
 /**
     Check if the two unsigned long are not the same.
@@ -1726,7 +1743,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_ne(x,y) cester_assert_cmp_ulong(x, !=, y)
+#define cester_assert_ulong_ne(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_ne(x,y,%lu))
 
 /**
     Check if the a unsigned long is greater than the other.
@@ -1736,7 +1753,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_gt(x,y) cester_assert_cmp_ulong(x, >, y)
+#define cester_assert_ulong_gt(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_gt(x,y,%lu))
 
 /**
     Check if the a unsigned long is greater than or equal to the other.
@@ -1746,7 +1763,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_ge(x,y) cester_assert_cmp_ulong(x, >=, y)
+#define cester_assert_ulong_ge(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_ge(x,y,%lu))
 
 /**
     Check if the a unsigned long is lesser than the other.
@@ -1756,7 +1773,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_lt(x,y) cester_assert_cmp_ulong(x, <, y)
+#define cester_assert_ulong_lt(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_lt(x,y,%lu))
 
 /**
     Check if the a unsigned long is lesser than or equal to the other.
@@ -1766,18 +1783,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long
     \param y another unsigned long
 */
-#define cester_assert_ulong_le(x,y) cester_assert_cmp_ulong(x, <=, y)
+#define cester_assert_ulong_le(x,y) CESTER_CONCAT(cester_compare_ulong, __internal_cester_assert_le(x,y,%lu))
 
 /**
     Compare two long long using the provided operator
     This macro prints out the actual values of the two 
     long long.
     
-    \param x a long long
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another long long
+    \param w a long long
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another long long
+    \param z the string formated for output
 */
-#define cester_assert_cmp_llong(x,y,z) cester_compare_llong(x y z, (char*) "(%lli %s %lli)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_llong(w,x,y,z) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two long long are the same.
@@ -1787,7 +1805,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_eq(x,y) cester_assert_cmp_llong(x, ==, y)
+#define cester_assert_llong_eq(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_eq(x,y,%lli))
 
 /**
     Check if the two long long are not the same.
@@ -1797,7 +1815,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_ne(x,y) cester_assert_cmp_llong(x, !=, y)
+#define cester_assert_llong_ne(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ne(x,y,%lli))
 
 /**
     Check if the a long long is greater than the other.
@@ -1807,7 +1825,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_gt(x,y) cester_assert_cmp_llong(x, >, y)
+#define cester_assert_llong_gt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_gt(x,y,%lli))
 
 /**
     Check if the a long long is greater than or equal to the other.
@@ -1817,7 +1835,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_ge(x,y) cester_assert_cmp_llong(x, >=, y)
+#define cester_assert_llong_ge(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ge(x,y,%lli))
 
 /**
     Check if the a long long is lesser than the other.
@@ -1827,7 +1845,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_lt(x,y) cester_assert_cmp_llong(x, <, y)
+#define cester_assert_llong_lt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_lt(x,y,%lli))
 
 /**
     Check if the a long long is lesser than or equal to the other.
@@ -1837,18 +1855,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long long
     \param y another long long
 */
-#define cester_assert_llong_le(x,y) cester_assert_cmp_llong(x, <=, y)
+#define cester_assert_llong_le(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_le(x,y,%lli))
 
 /**
     Compare two unsigned long long using the provided operator
     This macro prints out the actual values of the two 
     unsigned long long.
     
-    \param x a unsigned long long
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another unsigned long long
+    \param w a unsigned long long
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another unsigned long long
+    \param z the string formated for output
 */
-#define cester_assert_cmp_ullong(x,y,z) cester_compare_ullong(x y z, "(%llu %s %llu)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_ullong(w,x,y,z) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two unsigned long long are the same.
@@ -1858,7 +1877,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_eq(x,y) cester_assert_cmp_ullong(x, ==, y)
+#define cester_assert_ullong_eq(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_eq(x,y,%llu))
 
 /**
     Check if the two unsigned long long are not the same.
@@ -1868,7 +1887,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_ne(x,y) cester_assert_cmp_ullong(x, !=, y)
+#define cester_assert_ullong_ne(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_ne(x,y,%llu))
 
 /**
     Check if the a unsigned long long is greater than the other.
@@ -1878,7 +1897,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_gt(x,y) cester_assert_cmp_ullong(x, >, y)
+#define cester_assert_ullong_gt(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_gt(x,y,%llu))
 
 /**
     Check if the a unsigned long long is greater than or equal to the other.
@@ -1888,7 +1907,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_ge(x,y) cester_assert_cmp_ullong(x, >=, y)
+#define cester_assert_ullong_ge(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_ge(x,y,%llu))
 
 /**
     Check if the a unsigned long long is lesser than the other.
@@ -1898,7 +1917,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_lt(x,y) cester_assert_cmp_ullong(x, <, y)
+#define cester_assert_ullong_lt(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_lt(x,y,%llu))
 
 /**
     Check if the a unsigned long long is lesser than or equal to the other.
@@ -1908,18 +1927,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a unsigned long long
     \param y another unsigned long long
 */
-#define cester_assert_ullong_le(x,y) cester_assert_cmp_ullong(x, <=, y)
+#define cester_assert_ullong_le(x,y) CESTER_CONCAT(cester_compare_ullong, __internal_cester_assert_le(x,y,%llu))
 
 /**
     Compare two float using the provided operator
     This macro prints out the actual values of the two 
     float.
     
-    \param x a float
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another float
+    \param w a float
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another float
+    \param z the string formated for output
 */
-#define cester_assert_cmp_float(x,y,z) cester_compare_float(x y z, "(%f %s %f)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_float(w,x,y,z) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two float are the same.
@@ -1929,7 +1949,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_eq(x,y) cester_assert_cmp_float(x, ==, y)
+#define cester_assert_float_eq(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_eq(x,y,%f))
 
 /**
     Check if the two float are not the same.
@@ -1939,7 +1959,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_ne(x,y) cester_assert_cmp_float(x, !=, y)
+#define cester_assert_float_ne(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_ne(x,y,%f))
 
 /**
     Check if the a float is greater than the other.
@@ -1949,7 +1969,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_gt(x,y) cester_assert_cmp_float(x, >, y)
+#define cester_assert_float_gt(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_gt(x,y,%f))
 
 /**
     Check if the a float is greater than or equal to the other.
@@ -1959,7 +1979,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_ge(x,y) cester_assert_cmp_float(x, >=, y)
+#define cester_assert_float_ge(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_ge(x,y,%f))
 
 /**
     Check if the a float is lesser than the other.
@@ -1969,7 +1989,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_lt(x,y) cester_assert_cmp_float(x, <, y)
+#define cester_assert_float_lt(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_lt(x,y,%f))
 
 /**
     Check if the a float is lesser than or equal to the other.
@@ -1979,18 +1999,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a float
     \param y another float
 */
-#define cester_assert_float_le(x,y) cester_assert_cmp_float(x, <=, y)
+#define cester_assert_float_le(x,y) CESTER_CONCAT(cester_compare_float, __internal_cester_assert_le(x,y,%f))
 
 /**
     Compare two double using the provided operator
     This macro prints out the actual values of the two 
     double.
     
-    \param x a double
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another double
+    \param w a double
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another double
+    \param z the string formated for output
 */
-#define cester_assert_cmp_double(x,y,z) cester_compare_double(x y z, "(%lf %s %lf)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_double(w,x,y,z) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two double are the same.
@@ -2000,7 +2021,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_eq(x,y) cester_assert_cmp_double(x, ==, y)
+#define cester_assert_double_eq(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_eq(x,y,%lf))
 
 /**
     Check if the two double are not the same.
@@ -2010,7 +2031,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_ne(x,y) cester_assert_cmp_double(x, !=, y)
+#define cester_assert_double_ne(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_ne(x,y,%lf))
 
 /**
     Check if the a double is greater than the other.
@@ -2020,7 +2041,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_gt(x,y) cester_assert_cmp_double(x, >, y)
+#define cester_assert_double_gt(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_gt(x,y,%lf))
 
 /**
     Check if the a double is greater than or equal to the other.
@@ -2030,7 +2051,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_ge(x,y) cester_assert_cmp_double(x, >=, y)
+#define cester_assert_double_ge(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_ge(x,y,%lf))
 
 /**
     Check if the a double is lesser than the other.
@@ -2040,7 +2061,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_lt(x,y) cester_assert_cmp_double(x, <, y)
+#define cester_assert_double_lt(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_lt(x,y,%lf))
 
 /**
     Check if the a double is lesser than or equal to the other.
@@ -2050,18 +2071,19 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a double
     \param y another double
 */
-#define cester_assert_double_le(x,y) cester_assert_cmp_double(x, <=, y)
+#define cester_assert_double_le(x,y) CESTER_CONCAT(cester_compare_double, __internal_cester_assert_le(x,y,%lf))
 
 /**
     Compare two long double using the provided operator
     This macro prints out the actual values of the two 
     long double.
     
-    \param x a long double
-    \param y the operator to use for the comparison. One of ==, !=, <, >, <=, >=
-    \param z another long double
+    \param w a long double
+    \param x the operator to use for the comparison. One of ==, !=, <, >, <=, >=
+    \param y another long double
+    \param z the string formated for output
 */
-#define cester_assert_cmp_ldouble(x,y,z) cester_compare_ldouble(x y z, "(%e %s %e)", x, z, #y, __FILE__, __LINE__)
+#define cester_assert_cmp_ldouble(w,x,y,z) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
     Check if the two long double are the same.
@@ -2071,7 +2093,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_eq(x,y) cester_assert_cmp_ldouble(x, ==, y)
+#define cester_assert_ldouble_eq(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_eq(x,y,%e))
 
 /**
     Check if the two long double are not the same.
@@ -2081,7 +2103,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_ne(x,y) cester_assert_cmp_ldouble(x, !=, y)
+#define cester_assert_ldouble_ne(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_ne(x,y,%e))
 
 /**
     Check if the a long double is greater than the other.
@@ -2091,7 +2113,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_gt(x,y) cester_assert_cmp_ldouble(x, >, y)
+#define cester_assert_ldouble_gt(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_gt(x,y,%e))
 
 /**
     Check if the a long double is greater than or equal to the other.
@@ -2101,7 +2123,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_ge(x,y) cester_assert_cmp_ldouble(x, >=, y)
+#define cester_assert_ldouble_ge(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_ge(x,y,%e))
 
 /**
     Check if the a long double is lesser than the other.
@@ -2111,7 +2133,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_lt(x,y) cester_assert_cmp_ldouble(x, <, y)
+#define cester_assert_ldouble_lt(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_lt(x,y,%e))
 
 /**
     Check if the a long double is lesser than or equal to the other.
@@ -2121,7 +2143,7 @@ static __CESTER__INLINE__ void write_testcase_junitxml(TestCase *a_test_case, ch
     \param x a long double
     \param y another long double
 */
-#define cester_assert_ldouble_le(x,y) cester_assert_cmp_ldouble(x, <=, y)
+#define cester_assert_ldouble_le(x,y) CESTER_CONCAT(cester_compare_ldouble, __internal_cester_assert_le(x,y,%e))
 
 static __CESTER__INLINE__ void cester_evaluate_expression(unsigned eval_result, char const* const expression, char const* const file_path, unsigned const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {

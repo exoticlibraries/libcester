@@ -8,13 +8,13 @@ CESTER_BEFORE_EACH(test_instance, _t, _i,
 )
 
 CESTER_TEST(test_assert_cmp_int, test_instance, 
-    cester_assert_cmp_int(1, ==, 1);
-    cester_assert_cmp_int(2, !=, 3);
+    cester_assert_cmp_int(1, ==, 1, "1 should be equal to 1");
+    cester_assert_cmp_int(2, !=, 3, "three should not be than 3");
 )
 
 CESTER_TEST(test_int_assertion, test_instance, 
-    cester_assert_cmp_int(4, <, 5);
-    cester_assert_cmp_int(7, >, 6);
+    cester_assert_cmp_int(4, <, 5, "4 should be less than 5");
+    cester_assert_cmp_int(7, >, 6, "check if 7 is for sure greater than 6");
 )
 
 CESTER_TEST(test_int_assertion_literal, test_instance, 
@@ -28,13 +28,13 @@ CESTER_TEST(test_int_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_unsigned_int, test_instance, 
-    cester_assert_cmp_uint(1, ==, 1);
-    cester_assert_cmp_uint(2, !=, 3);
+    cester_assert_cmp_uint(1, ==, 1, "%d %s %d");
+    cester_assert_cmp_uint(2, !=, 3, "%d %s %d");
 )
 
 CESTER_TEST(test_unsigned_int_assertion, test_instance, 
-    cester_assert_cmp_uint(4, <, 5);
-    cester_assert_cmp_uint(7, >, 6);
+    cester_assert_cmp_uint(4, <, 5, "%d %s %d");
+    cester_assert_cmp_uint(7, >, 6, "%d %s %d");
 )
 
 CESTER_TEST(test_unsigned_int_assertion_literal, test_instance, 

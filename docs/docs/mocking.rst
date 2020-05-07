@@ -126,7 +126,7 @@ compilation.
     Synthesis: SUCCESS Tested: 1 | Passing: 1 | Failing: 0
 
 
-To disable mocking in a test without deleting your mock stubs you can chose not to compile 
+To disable mocking in a test without deleting your mock code you can chose not to compile 
 the test with the -Wl,--wrap option or you can define `CESTER_NO_MOCK` anywhere in the code. 
 
 

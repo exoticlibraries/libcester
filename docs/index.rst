@@ -157,37 +157,15 @@
         </div>
     </div>
 
-    <div class="two-sided">
+    <!--<div class="two-sided">
         <div class="left-side">
             <h3 class="title">Function mocking</h3>
             <br/>
 
-            Portability, list ISOs
-            cester is a header only automated testing framework for the C programming language, 
-            with support for objects mocking. It requires no dependency and can be downloaded and used in a project 
-            immediately. cester allows shared instance `test_instance` in which each test cases can use to 
-            share data and access the command line arguments. It works on a wide range of platforms including embedded and 
-            with different compilers. 
+            LEave the template here please
         </div>
         <div class="right-side">
             
         </div>
-    </div>
-
-    
-    <div class="two-sided">
-        <div class="left-side">
-            <h3 class="title">Function mocking</h3>
-            <br/>
-
-            Automatic Test Registration
-            
-        </div>
-        <div class="right-side">
-            <div class="highlight-c notranslate"><div class="highlight"><pre>
-            
-            </pre></div>
-            </div>
-        </div>
-    </div>
+    </div>-->
 

@@ -10,3 +10,4 @@ How it works
    :maxdepth: 3
 
    how_mocking
+   how_assertion_macro

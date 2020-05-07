@@ -19,13 +19,13 @@ CESTER_BEFORE_EACH(test_instance, name, index,
 )
 
 CESTER_TEST(test_assert_cmp_float, test_instance, 
-    cester_assert_cmp_float(1.12, ==, 1.12);
-    cester_assert_cmp_float(2.13, !=, 2.131);
+    cester_assert_cmp_float(1.12, ==, 1.12, "%f %s %f");
+    cester_assert_cmp_float(2.13, !=, 2.131, "%f %s %f");
 )
 
 CESTER_TEST(test_float_assertion, test_instance, 
-    cester_assert_cmp_float(1.58, <, 2.12);
-    cester_assert_cmp_float(31.12, >, 31.11);
+    cester_assert_cmp_float(1.58, <, 2.12, "%f %s %f");
+    cester_assert_cmp_float(31.12, >, 31.11, "%f %s %f");
 )
 
 CESTER_TEST(test_float_assertion_literal, test_instance, 
@@ -39,13 +39,13 @@ CESTER_TEST(test_float_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_double, test_instance, 
-    cester_assert_cmp_double(1.12, ==, 1.12);
-    cester_assert_cmp_double(2.13, !=, 2.131);
+    cester_assert_cmp_double(1.12, ==, 1.12, "%lf %s %lf");
+    cester_assert_cmp_double(2.13, !=, 2.131, "%lf %s %lf");
 )
 
 CESTER_TEST(test_double_assertion, test_instance, 
-    cester_assert_cmp_double(1.58, <, 2.12);
-    cester_assert_cmp_double(31.12, >, 31.11);
+    cester_assert_cmp_double(1.58, <, 2.12, "%lf %s %lf");
+    cester_assert_cmp_double(31.12, >, 31.11, "%lf %s %lf");
 )
 
 CESTER_TEST(test_double_assertion_literal, test_instance, 
@@ -59,13 +59,13 @@ CESTER_TEST(test_double_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_long_double, test_instance, 
-    cester_assert_cmp_ldouble(1.12, ==, 1.12);
-    cester_assert_cmp_ldouble(2.13, !=, 2.131);
+    cester_assert_cmp_ldouble(1.12, ==, 1.12, "%e %s %e");
+    cester_assert_cmp_ldouble(2.13, !=, 2.131, "%e %s %e");
 )
 
 CESTER_TEST(test_long_double_assertion, test_instance, 
-    cester_assert_cmp_ldouble(133.545348, <, 3452.12353);
-    cester_assert_cmp_ldouble(343541.35312, >, 343351.345411);
+    cester_assert_cmp_ldouble(133.545348, <, 3452.12353, "%e %s %e");
+    cester_assert_cmp_ldouble(343541.35312, >, 343351.345411, "%e %s %e");
 )
 
 CESTER_TEST(test_long_double_assertion_literal, test_instance, 

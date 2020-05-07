@@ -17,8 +17,8 @@ CESTER_MOCK_FUNCTION(power_of(int* num1, int num2), int,
 
 CESTER_TEST(check_mocked_function, test_instance,
     int num = 2;
-    cester_assert_equal(multiply_a_number(2), 10);
-    cester_assert_equal(power_of(&num, 3), 8);
+    cester_assert_int_eq(multiply_a_number(2), 10);
+    cester_assert_int_eq(power_of(&num, 3), 8);
 )
 
 CESTER_OPTIONS(

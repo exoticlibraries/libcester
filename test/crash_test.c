@@ -1,4 +1,4 @@
-//!clang {0} -I. -I../include/ -o out.exe; ./out
+//!g++ {0} -I. -I../include/ -o out.exe; ./out
 
 #include <exotic/cester.h>
 

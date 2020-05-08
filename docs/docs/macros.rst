@@ -148,6 +148,13 @@ Define the macro CESTER_NO_MEM_TEST to disable cester memory allocation test at 
 The option `--cester-nomemtest` can be applied to the command line to stop mem test at runtime. 
 This is not a predefined macro it has to be defined in the test source before including cester.h.
 
+
+#define CESTER_NO_SIGNAL
+--------------------------
+
+Disable error handling with signal.h
+
+
 CESTER_CHANGE_STREAM
 ---------------------
 

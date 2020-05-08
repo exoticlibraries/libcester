@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out */
 
 #include <exotic/cester.h>
 
@@ -9,6 +9,11 @@ typedef struct a_struct {
     char* value;
 } AStruct;
 
+)
+
+CESTER_TEST(definitely_crahses, test_instance,
+    int *p = NULL;
+    *p=0xdead;
 )
 
 CESTER_TEST(segfault_test_null_ptr, test_instance,

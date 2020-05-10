@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc {0} -ansi -pedantic-errors -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
 

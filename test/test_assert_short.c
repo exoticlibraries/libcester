@@ -46,3 +46,4 @@ CESTER_TEST(test_unsigned_short_assertion_literal, test_instance,
     cester_assert_ushort_lt(20, number);
     cester_assert_ushort_le(number, number);
 )
+

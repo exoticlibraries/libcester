@@ -1,52 +1,57 @@
 /*!gcc {0} -I. -I../include/ -o out.exe; ./out*/
 
-#include <signal.h>
 #include <stdio.h>
 #include <setjmp.h>
 
-//Declaring global jmp_buf variable to be used by both main and signal handler
-jmp_buf buf;
+jmp_buf bufferA, bufferB;
 
+void routineB(); // forward declaration 
 
-void magic_handler(int s)
+void routineA()
 {
+    int r ;
 
-    switch(s)
-    {
+    printf("(A1)\n");
 
-        case SIGSEGV:
-        printf("\nSegmentation fault signal caught! Attempting recovery..");
-        longjmp(buf, 1);
-        break;
-    }
+    r = setjmp(bufferA);
+    if (r == 0) routineB();
 
-    printf("\nAfter switch. Won't be reached");
+    printf("(A2) r=%d\n",r);
 
+    r = setjmp(bufferA);
+    if (r == 0) longjmp(bufferB, 20001);
+
+    printf("(A3) r=%d\n",r);
+
+    r = setjmp(bufferA);
+    if (r == 0) longjmp(bufferB, 20002);
+
+    printf("(A4) r=%d\n",r);
+}
+
+void routineB()
+{
+    int r;
+
+    printf("(B1)\n");
+
+    r = setjmp(bufferB);
+    if (r == 0) longjmp(bufferA, 10001);
+
+    printf("(B2) r=%d\n", r);
+
+    r = setjmp(bufferB);
+    if (r == 0) longjmp(bufferA, 10002);
+
+    printf("(B3) r=%d\n", r);
+
+    r = setjmp(bufferB);
+    if (r == 0) longjmp(bufferA, 10003);
 }
 
 
-
-int main(void) 
+int main(int argc, char **argv) 
 {
-
-    int *p = NULL;
-
-    signal(SIGSEGV, magic_handler);
-
-    if(!setjmp(buf))
-    {
-
-         //Trying to dereference a null pointer will cause a segmentation fault, 
-         //which is handled by our magic_handler now.
-         *p=0xdead;
-
-    }
-    else
-    {
-        printf("\nSuccessfully recovered! Welcome back in main!!\n\n"); 
-    }
-
-
-
+    routineA();
     return 0;
 }

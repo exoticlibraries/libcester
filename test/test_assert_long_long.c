@@ -1,9 +1,9 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose --cester-minimal */
 
 #include <exotic/cester.h>
 
 CESTER_BEFORE_EACH(test_instance, _t, _i,
-    __CESTER_LONG_LONG__ number = 2147447334;
+    __CESTER_LONG_LONG__ number = 214734234;
     test_instance->arg = &number;
 )
 
@@ -25,7 +25,6 @@ CESTER_TEST(test_llong_assertion_literal, test_instance,
     cester_assert_llong_ge(number, 9);
     cester_assert_llong_lt(20, number);
     cester_assert_llong_le(number, number);
-    printf("heer\n");
 )
 
 CESTER_TEST(test_assert_cmp_unsigned_long, test_instance, 

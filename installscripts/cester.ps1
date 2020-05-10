@@ -1,58 +1,88 @@
 
 $NAME="cester"
 $DOWNLOAD_PATH="https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h"
-$Global:INSTALL_PATH=""
+$Global:IncludePaths = New-Object System.Collections.Generic.List[System.Object]
 $AFTER_INSTALL_TEXT="compile your test like 'gcc -I. test.c', don't forget the -I. option"
 
 
-Function Find-GCC-Include-Folder {
-    # GCC
-    $CmdOutput = cmd /c gcc -v '2>&1'
+Function Find-Include-Folder-With-Command {
+    Param(
+        [string]$command
+    )
+
+    $CmdOutput = cmd /c $command -v '2>&1'
     ForEach ($Line in $CmdOutput) {
-        if ($Line.Contains("/bin")) {
-            return $Line.Split("bin")[0] + "bin"
+        if ($Line.Contains("/bin") -or $Line.Contains("\bin")) {
+            $IncludePath, $x = $Line -split ("bin") + "bin"
+            $IncludePath = $IncludePath -split (":")
+            $IncludePath = $IncludePath[$IncludePath.Length-1]
+            $IncludePath = $Line.SubString($Line.IndexOf($IncludePath)-2, 2) + $IncludePath
+            $IncludePath = ($IncludePath -split ("bin"))[0] + "bin"
         }
     }
-}
-
-Function Find-Include-Folder {
-    $IncludePath_ = Find-GCC-Include-Folder
-    $IncludePath = ""
-    $previous_char = ''
-    ForEach ($char in $IncludePath_.toCharArray()) {
-        If ($char -eq ':') {
-            $IncludePath += $previous_char
-            $previous_char = '*'
-        }
-        if ($previous_char -eq "*") {
-            $IncludePath += $char
-        } else {
-            $previous_char = $char
-        }
-    }
-    if ($IncludePath.Contains("bin")) {
-        Get-ChildItem -Path "$IncludePath/../" -Filter windows.h -Recurse | Foreach-Object { 
-            $Global:INSTALL_PATH = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
-        }
-    }
-}
-
-Find-Include-Folder
-"Downloading $NAME ..."
-Invoke-WebRequest $DOWNLOAD_PATH -OutFile ./cester.h
-"Installing lib$NAME into $Global:INSTALL_PATH"
-if ($Global:INSTALL_PATH -eq "") {
-    "Failed to detect the compiler include folder" 
-    "cester.h downloaded into the current folder"
-}
-If ( -not [System.IO.Directory]::Exists($Global:INSTALL_PATH)) {
-    [System.IO.Directory]::CreateDirectory($Global:INSTALL_PATH) > $null
-    If ( -not $?) {
-        "Failed to create the folder $($Global:INSTALL_PATH)." 
-        "cester.h downloaded into the current folder"
+    if (-not $IncludePath) {
         Return
     }
+    Get-ChildItem -Path "$IncludePath/../" -Filter windows.h -Recurse | Foreach-Object { 
+        $APath = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
+    }
+    # Barren C++ only compiler e.g CLANG
+    If (-not $APath) {
+        Get-ChildItem -Path "$IncludePath/../" -Filter stdbool.h -Recurse | Foreach-Object { 
+            $APath = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
+        }
+    }
+    If ($APath) {
+        $Global:IncludePaths.Add($APath)
+    }
 }
-Move-Item -Path ./cester.h -Destination $Global:INSTALL_PATH -Force
+
+Function Find-Include-Folder-With-Path {
+    Param(
+        [string]$path
+    )
+
+    Get-ChildItem -Path $path -Filter windows.h -Recurse -ErrorAction SilentlyContinue | Foreach-Object { 
+        $APath = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
+    }
+    If (-not $APath) {
+        Get-ChildItem -Path $path -Filter setjmp.h -Recurse -ErrorAction SilentlyContinue | Foreach-Object { 
+            $APath = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
+        }
+    }
+    If (-not $APath) {
+        Get-ChildItem -Path $path -Filter stdbool.h -Recurse -ErrorAction SilentlyContinue | Foreach-Object { 
+            $APath = [System.IO.Directory]::GetParent($_.FullName).FullName + "/exotic/"
+        }
+    }
+    If ($APath) {
+        $Global:IncludePaths.Add($APath)
+    }
+}
+
+"Downloading $NAME ..."
+Invoke-WebRequest $DOWNLOAD_PATH -OutFile ./cester.h
+"Trying to detect headers paths ..."
+Find-Include-Folder-With-Command clang
+Find-Include-Folder-With-Command gcc
+Find-Include-Folder-With-Path "C:\Program Files\Microsoft Visual Studio\"
+Find-Include-Folder-With-Path "C:\Program Files (x86)\Microsoft Visual Studio\"
+if ($($Global:IncludePaths).Length -eq 0) {
+    "No compiler detected. cester.h downloaded into the current folder"
+    Return
+}
+"Found $($($Global:IncludePaths).Length) compiler headers paths ..."
+ForEach ($Path in $Global:IncludePaths) {
+    If ( -not [System.IO.Directory]::Exists($Path)) {
+        [System.IO.Directory]::CreateDirectory($Path) > $null
+        If ( -not $?) {
+            "Failed to create the folder $($Path). Skipping..." 
+            continue
+        }
+    }
+    " => Installing lib$NAME into $Path"
+    Copy-Item -Path ./cester.h -Destination $Path -Force
+}
+"A copy is downloaded into the current directory"
 $AFTER_INSTALL_TEXT
 "Done installing $NAME"

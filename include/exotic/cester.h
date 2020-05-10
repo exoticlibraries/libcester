@@ -2734,7 +2734,7 @@ static TestCase cester_test_cases[] = {
     If a test is registered manually all auto detected test will not 
     be executed. 
 */
-#define CESTER_REGISTER_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TEST)
+#define CESTER_REGISTER_TEST(x) cester_register_test((char*)#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TEST)
 
 /**
     Manually register a test case as a skip test which cases the test case 
@@ -2743,13 +2743,13 @@ static TestCase cester_test_cases[] = {
     Reason for skipping a test can be unavailability of resources or any other 
     reason.
 */
-#define CESTER_REGISTER_SKIP_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_SKIP_TEST)
+#define CESTER_REGISTER_SKIP_TEST(x) cester_register_test((char*)#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_SKIP_TEST)
 
 /**
     Manually register a test case that is yet to be implemented so it will be 
     skipped but it will be reported in result and logged under todo tests.
 */
-#define CESTER_REGISTER_TODO_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TODO_TEST)
+#define CESTER_REGISTER_TODO_TEST(x) cester_register_test((char*)#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TODO_TEST)
 
 /**
     Manually notify cester to execute the BEFORE_ALL function to execute 
@@ -3155,17 +3155,18 @@ void cester_recover_on_signal(int sig_num);
 
 /* use start param to save the state index instead of starting 
 loop again or super var */ 
-static __CESTER_INLINE__ unsigned cester_run_all_test_iterator(int start) {
-    unsigned i, j, index, index1, index2, index3;
+static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
+    unsigned i, j, index, index1, index2, index3, test_index;
     unsigned found_test;
     char* selected_test_case_name;
     
     found_test = 0;
+    test_index = 0;
     if (superTestInstance.selected_test_cases_size == 0) {
         if (superTestInstance.registered_test_cases->size == 0) {
             for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
                 if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST && cester_test_cases[i].execution_status == CESTER_RESULT_UNKNOWN) {
-                    cester_run_test(superTestInstance.test_instance, &cester_test_cases[i], i);
+                    cester_run_test(superTestInstance.test_instance, &cester_test_cases[i], ++test_index);
 
                 } else if (cester_test_cases[i].test_type == CESTER_NORMAL_TODO_TEST) {
                     ++superTestInstance.todo_tests_count;
@@ -3178,7 +3179,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test_iterator(int start) {
         }
         CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index2, test_case, {
             if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST && ((TestCase*)test_case)->execution_status == CESTER_RESULT_UNKNOWN) {
-                cester_run_test(superTestInstance.test_instance, ((TestCase*)test_case), i);
+                cester_run_test(superTestInstance.test_instance, ((TestCase*)test_case), ++test_index);
 
             } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST) {
                 ++superTestInstance.todo_tests_count;
@@ -3203,7 +3204,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test_iterator(int start) {
                         found_test = 1;
                         if (cester_test_cases[i].test_type == CESTER_NORMAL_TEST) {
                             ++superTestInstance.selected_test_cases_found;
-                            cester_run_test(superTestInstance.test_instance, &cester_test_cases[i], i);
+                            cester_run_test(superTestInstance.test_instance, &cester_test_cases[i], ++test_index);
                         } else {
                             cester_test_cases[i].execution_status = CESTER_RESULT_SUCCESS;
                             if (cester_test_cases[i].test_type == CESTER_NORMAL_SKIP_TEST) {
@@ -3225,7 +3226,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test_iterator(int start) {
                         found_test = 1;
                         if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST) {
                             ++superTestInstance.selected_test_cases_found;
-                            cester_run_test(superTestInstance.test_instance, ((TestCase*)test_case), i);
+                            cester_run_test(superTestInstance.test_instance, ((TestCase*)test_case), ++test_index);
                         } else {
                             ((TestCase*)test_case)->execution_status = CESTER_RESULT_SUCCESS;
                             if (((TestCase*)test_case)->test_type == CESTER_NORMAL_SKIP_TEST) {

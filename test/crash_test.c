@@ -1,4 +1,4 @@
-/*!gcc {0} -I. -I../include/ -o out.exe; ./out*/
+/*!gcc {0} -I. -o out.exe; ./out*/
 
 #include <stdio.h>
 

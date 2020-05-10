@@ -17,4 +17,8 @@ int power_of(int* num1, int num2) {
     return *num1 * num2;
 }
 
+char *get_author_name() {
+    return the_original_field;
+}
+
 #endif

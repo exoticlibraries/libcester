@@ -5,9 +5,8 @@
 Mocking
 =========
 
-cester supports Mocking field, function and struct. The mock feature currently works on GCC 
-compiler only because of the use of the `--wrap` option which is not supported on MAC OSX and 
-might not be available in other compilers.
+cester supports mocking function. The mock feature currently works on GCC compiler only because 
+of the use of the `--wrap` option which is not supported on MAC OSX and might not be available in other compilers.
 
 The following macros are use for mocking
 
@@ -59,10 +58,11 @@ compilation.
 
     gcc test_mock.c -I. -Wl,--wrap=multiply_by -o test_mock
     ./test_mock
-    test_mock.c:9: assertion in 'check_mocked_function' PASSED
+        
+    + (0.00s) check mocked function
 
-    Ran 1 test(s) in 0.002000 Seconds
-    Synthesis: SUCCESS Tested: 1 | Passing: 1 | Failing: 0
+    Ran 1 test(s) in 0.00 Seconds
+    Synthesis: SUCCESS Tests: 1 | Passing: 1 | Failing: 0
 
 
 In the example above the function `multiply_by` was mocked to return 5 instead of 2, without 
@@ -120,7 +120,8 @@ compilation.
 
     gcc test_mock.c -I. -Wl,--wrap=power_of -o test_mock
     ./test_mock
-    test_mock.c:16: assertion in 'check_mocked_function' PASSED
+
+    + (0.00s) check mocked function
 
     Ran 1 test(s) in 0.001000 Seconds
     Synthesis: SUCCESS Tested: 1 | Passing: 1 | Failing: 0

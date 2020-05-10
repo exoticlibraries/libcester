@@ -768,8 +768,12 @@ static __CESTER_INLINE__ void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nocolor         do not print info with coloring\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput    display cester version and exit\n");
+#ifndef CESTER_NO_MEM_TEST
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest       disable memory leak detection in the tests\n");
+#endif
+#ifdef __STDC_VERSION__
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-noisolation     run all the test on a single process. Prevents recovery from crash.\n");
+#endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-dontformatname  leave the test case name as declared in the source file in the output\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma\n");
@@ -2434,7 +2438,7 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual(unsigned eval_result
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }
     if (eval_result == 0 || superTestInstance.verbose == 1) {
-        cester_print_expect_actual(expecting, actual, expected, file_path, line_num);
+        cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
 }
@@ -2454,7 +2458,7 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_str(char const* cons
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }  
     if (eval_result != expecting || superTestInstance.verbose == 1) {
-        cester_print_expect_actual(expecting, actual, expected, file_path, line_num);
+        cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
 }
@@ -2480,7 +2484,7 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }  
     if (eval_result != expecting || superTestInstance.verbose == 1) {
-        cester_print_expect_actual(expecting, actual, expected, file_path, line_num);
+        cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
 }
@@ -3309,10 +3313,10 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 
             } else if (cester_string_equals(cester_option, (char*) "dontformatname") == 1) {
                 superTestInstance.format_test_name = 0;
-
+#ifndef CESTER_NO_MEM_TEST
             } else if (cester_string_equals(cester_option, (char*) "nomemtest") == 1) {
                 superTestInstance.mem_test_active = 0;
-
+#endif
             } else if (cester_string_equals(cester_option, (char*) "version") == 1) {
                 CESTER_NOCOLOR();
                 cester_print_version();

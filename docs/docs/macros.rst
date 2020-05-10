@@ -3,8 +3,8 @@
 	single: macros
 
 
-Macros
-===========
+Helper Macros
+==============
 
 All macros in the library starts with `CESTER_`.
 

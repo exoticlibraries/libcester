@@ -1,18 +1,11 @@
-/*!gcc {0} -I. -o out.exe; ./out*/
+/*!gcc {0} -I. -I../include/ -o out; ./out */
 
-#include <stdio.h>
+#include <exotic/cester.h>
 
-#ifndef __STDC_VERSION__
-    #define __CESTER_INLINE__ 
-    #define __CESTER_LONG_LONG__ long
-    #define __FUNCTION__ "<unknown>"
-#else 
-    #define __CESTER_INLINE__ inline
-    #define __CESTER_LONG_LONG__ long long
-    #define __FUNCTION__ __func__
-#endif
+CESTER_TEST(test_one, inst,
+	cester_assert_equal(NULL, ((void*)0));	
+)
 
-int main(int argc, char** argv) {
-    printf("%s", __FUNCTION__);
-    return 0;
-}
+CESTER_TEST(test_two, inst,
+	cester_assert_ptr_equal(inst, NULL);	
+)

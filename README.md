@@ -8,20 +8,14 @@ A robust header only unit testing framework for C programming language. Support 
 cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. Works on various platorms including embedded systems and compatible with various compilers. Allows shared instance `TestInstance` object in which each test cases can use to share data and access the command line arguments. 
 
 ```c
-//!gcc {0} -I. -o test; ./test
 #include <exotic/cester.h>
 
-CESTER_BEFORE_ALL(test_instance,
-    test_instance->arg = "Hello World";
-)
-
-CESTER_TEST(check_shared_arg, test_instance,
-    cester_assert_string_equal(test_instance->arg, "Hello World");
-    cester_assert_not_equal(2, 1);
+CESTER_TEST(test_one, inst,
+	cester_assert_equal(NULL, ((void*)0));	
 )
 ```
 
-The test results can be outputed as JUnit XML format by specifying the cli option `--cester-junitxml`.
+The test results can be outputed as various format JunitXML, Test Anything Protocol, Test Anything Protocol Version 13 and text. Visit [https://exoticlibraries.github.io/libcester/docs/](https://exoticlibraries.github.io/libcester/docs/) for documentation and tutorials. 
 ___
 
 ## Table of content
@@ -32,16 +26,16 @@ ___
 		- [Linux](#linux)
 		- [Other platforms](#other-platforms)
 - [Documentation](#documentation)
-- [Mocking](#mocking)
 - [Usage](#usage)
     - [Writing and Running test](#writing-test)
     - [Cester options](#cester-options)
 	- [Macros](#macros)
+- [Mocking](#mocking)
 - [FAQ](#faq)
 	- [No test case detected](#no-test-case-detected)
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
-- [Useful Links](#useful-links)
+- [References](#references)
 - [License](#license)
 
 ## Standards Compliance and Portability
@@ -66,12 +60,6 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 
 ### Linux
 
-Use apt package manager to install libcester 
-
-```bash
-apt install libcester
-```
-
 Use the remote installation script to install libcester with bash. Before running this command ensure you are root `su` so it can move cester.h to the /usr/include/ folder. 
 
 ```bash
@@ -80,25 +68,137 @@ bash <(curl -s https://exoticlibraries.github.io/dl/cester/cester.sh)
 
 ### Other platforms
 
-You can simply download the header file `cester.h` from the repo in your project source folder and include it in your project. Download the file from [here](https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h). The you can include it in your test relatively like `#include "cester.h"`.
+You can simply download the header file `cester.h` from the repo into your project source folder and include it in your project. Download the file from [here](https://github.com/exoticlibraries/libcester/releases). The you can include it in your test relatively like `#include "cester.h"`.
 
 ## Documentation
 
-## Mocking
+The [documentation](https://exoticlibraries.github.io/libcester/docs/) provides several examples, tutorials, and detailed guides for using the library. While [reference](https://exoticlibraries.github.io/libcester/reference/) provides a low-level overview of all the implemented APIs in the library. 
+
+Some of the documentation pages are listed below:
+
+ - [Assertion Macros](https://exoticlibraries.github.io/libcester/docs/assertions.html)
+ - [Mocking](https://exoticlibraries.github.io/libcester/docs/mocking.html)
+ - [Helper Macros](https://exoticlibraries.github.io/libcester/docs/macros.html)
+ - [Manual Tests Registration](https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html)
+ - [Cester Options](https://exoticlibraries.github.io/libcester/docs/options.html)
+ - [Output Formats](https://exoticlibraries.github.io/libcester/docs/output_formats.html)
+ - [Testing for failures](https://exoticlibraries.github.io/libcester/docs/test_for_failure.html)
+ - [How it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html)
 
 ## Usage
 
 ### Writing and Running test
 
+The macro CESTER_TEST is used to create a test case, the first parameter is the test case name the second parameter is the test instance object which is used to share data between the test cases and also has the command line arguments object and count, the last parameter is the body of the test case. The following example defines a test case that chack if `NULL` is the same as `((void*)0)`
+
+```c
+//test.c
+#include <exotic/cester.h>
+
+CESTER_TEST(test_one, inst,
+	cester_assert_equal(NULL, ((void*)0));	
+)
+
+CESTER_TEST(test_two, inst,
+	cester_assert_ptr_equal(inst, NULL);	
+)
+```
+
+cester will automatically detect and register the test cases if the macro `__BASE_FILE__` is predefined by the compiler. If no test is detected see the [FAQ](#faq) below on ways to make cester aware of the test case. 
+
+The test above can be compiled and run like below. **Do not forget to add the option -I. for gcc so it can find the `__BASE_FILE__`**.
+
+```bash
+gcc test.c -I.-o test
+./test
+
+  + (0.00s) test one
+  - (0.00s) test two
+
+AssertionError crash_test.c:10: in 'test_two' => expected '0761C50', received '0000000'
+
+Ran 2 test(s) in 0.01 Seconds
+Synthesis: FAILURE Tests: 2 | Passing: 1 | Failing: 1
+```
+
 ### Macros
 
+Many predefined helper macros are present in cester, all cester macros begins with CESTER_ and cester_. The detail documentation of the macros is at [Helper Macros](https://exoticlibraries.github.io/libcester/docs/macros.html).
+
+## Mocking
+
+cester supports mocking function. The mock feature currently works on GCC compiler because 
+of the use of the `--wrap` option which is not supported on MAC OSX and might not be available in other compilers. The two macros [CESTER_MOCK_SIMPLE_FUNCTION](https://exoticlibraries.github.io/libcester/docs/macros.html#cester-mock-simple-function) and [CESTER_MOCK_FUNCTION](https://exoticlibraries.github.io/libcester/docs/macros.html#cester-mock-function) are used for function mocking.
+
+The following test mocks a funtion that accept no parameter and return a value:
+
+*originals.c*
+
+```c
+#ifndef ORIGINALS
+#define ORIGINALS
+
+int multiply_by() {
+	return 2;
+}
+
+int multiply_a_number(int a) {
+	return a * multiply_by() ;
+}
+#endif
+```
+
+*test_mock.c*
+
+```c
+#include <exotic/cester.h>
+#include "originals.c"
+
+CESTER_MOCK_FUNCTION(multiply_by(), int, {
+    return 5;
+})
+
+CESTER_TEST(check_mocked_function, test_instance,
+	cester_assert_equal(multiply_a_number(2), 10);
+)
+```
+
+Compile the test file *test_mock.c* with the --wrap option e.g. in the example above the function `multiply_by` was mocked so the option *-Wl,--wrap=multiply_by* is supplied during 
+compilation. 
+
+```bash
+gcc test_mock.c -I. -Wl,--wrap=multiply_by -o test_mock
+./test_mock
+
++ (0.00s) check mocked function
+
+Ran 1 test(s) in 0.00 Seconds
+Synthesis: SUCCESS Tests: 1 | Passing: 1 | Failing: 0
+```
+
+More detailed explanation on mocking function can be seen at [https://exoticlibraries.github.io/libcester/docs/mocking.html](https://exoticlibraries.github.io/libcester/docs/mocking.html).
+
 ### Cester options
+
+cester accepts various options to tune it functionalities. Any command line parameter that starts with --cester- is treated as cester option otherwise it is ignored. All the available options can be viewed [here](https://exoticlibraries.github.io/libcester/docs/options.html).
+
+The following options performs important task:
+
+- **--cester-noisolation**: instruct cester to run all the test in one single process. With this option signal will be used for crash reporting but if the test is compiled with the macro `CESTER_NO_SIGNAL` defined, cester will not be able to recover from critical crash therefore if a test case segfault the tests will terminate immediately.
+
+ - **--cester-output**: Change the format in which the outpout is generated. Various format is supported, all the supported format can be viewed [here](https://exoticlibraries.github.io/libcester/docs/output_formats.html). E.g. to print the output in JunitXML format you supply the option `--cester-output=junitxml`.
+
+ - **--cester-nomemtest**: instruct cester to skip memory leak detection and test. Alternatively the test can be compiled with the macro `CESTER_NO_MEM_TEST` defined at the beginning of the source file.
+
+ - **--cester-verbose**: printf as much output as possible including passed test expression, output to the stdout from within the test case. This option combined with **--cester-minimal** prints out the output in a very sane format.
+
+ - **--cester-help**: to view all the options accepted by cester.
 
 ## FAQ
 
 ### No test detected
 
-If no test was ran or your test cases were not detected, in most cases it because your compiler did not define the __BASE_FILE__ macro. If you are using the Visual studio IDE you should define the macro in 
+If no test was ran or your test cases were not detected, in most cases it because your compiler did not define the `__BASE_FILE__` macro. If you are using the Visual studio IDE you should define the macro in 
 `Properties -> C/C++ -> Preprocessor -> Preprocessor Definition` as `__BASE_FILE__="%(Filename)%(Extension)"`. Or you can add the macro at compile time as option to your compiler using the macro option. 
 e.g. in gcc 
 
@@ -106,7 +206,7 @@ e.g. in gcc
 gcc -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" testfile.c -I.
 ```
 
-You can also define the __BASE_FILE__ at the beginning of your test file with the absolute 
+You can also define the `__BASE_FILE__` at the beginning of your test file with the absolute 
 path to the test file. E.g for the test file test.c:
 
 ```c
@@ -150,7 +250,7 @@ Yes the project uses the same approach used by the [cheat](http://users.jyu.fi/~
 
 If you have any issue or you want to request a feature you can open a request [here](https://github.com/exoticlibraries/libcester/issues/new/choose) anytime and if you made some changes that should be added to the main project send in a [pull request](https://github.com/Thecarisma/Cronux/compare). 
 
-## Useful Links
+## References
 
  - [ANSI C](https://en.wikipedia.org/wiki/ANSI_C)
  - [CHEAT](http://users.jyu.fi/~sapekiis/cheat/index.html)

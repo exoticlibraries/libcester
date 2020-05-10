@@ -91,7 +91,8 @@
                     <li><a href="./docs/output_formats.html#text">Text</a></li>
                     <li><a href="./docs/output_formats.html#junitxml">JunitXML</a></li>
                     <!--<li><a href="./docs/output_formats.html#xunitxml">xUnitXML</a></li>
-                    <li><a href="./docs/output_formats.html#xunitxml">Subunit</a></li>-->
+                    <li><a href="./docs/output_formats.html#xunitxml">Subunit</a></li>
+                    <li><a href="./docs/output_formats.html#key-value-log">Key Value log</a></li>-->
                     <li><a href="./docs/output_formats.html#tap">Test Anything Protocol</a></li>
                     <li><a href="./docs/output_formats.html#tap-version-13">Test Anything Protocol Version 13</a></li>
                 </ul> 

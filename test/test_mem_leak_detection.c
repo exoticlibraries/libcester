@@ -1,6 +1,6 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out*/
 
-//#define CESTER_NO_MEM_TEST
+/* #define CESTER_NO_MEM_TEST */
 #include <exotic/cester.h>
 
 CESTER_BODY(
@@ -13,8 +13,9 @@ typedef struct a_struct {
 )
 
 CESTER_TEST(skip_mem_test, test_instance,
+    AStruct* arg_value;
     CESTER_NO_MEMTEST();
-    AStruct* arg_value = malloc(sizeof(AStruct*));
+    arg_value = malloc(sizeof(AStruct*));
     cester_assert_not_equal(arg_value, NULL);
     CESTER_DO_MEMTEST();
 )
@@ -32,7 +33,6 @@ CESTER_TEST(free_null_leak_byte, test_instance,
     free(str);
     free(str1);
     free(str2);
-    free(str3);
     free(str4);
     free(str5);
     free(str6);
@@ -41,9 +41,9 @@ CESTER_TEST(free_null_leak_byte, test_instance,
 CESTER_TEST(leak_chars_bytes, test_instance,
     char* str = malloc(sizeof(char)* 3);
     char* str1 = malloc(sizeof(char)* 31);
-    void* str2 = malloc(sizeof(void)* 3);
+    void* str2 = malloc(sizeof(3));
     char* str3 = malloc(sizeof(char)* 65);
-    void* str4 = malloc(sizeof(void)* 12);
+    void* str4 = malloc(sizeof(12));
     cester_assert_not_equal(str, NULL);
     free(str2);
     free(str4);
@@ -51,4 +51,9 @@ CESTER_TEST(leak_chars_bytes, test_instance,
 
 CESTER_TEST(no_leak_here, test_instance,
     AStruct* arg_value;
+)
+
+CESTER_OPTIONS(
+    CESTER_TEST_SHOULD_LEAK_MEMORY(free_null_leak_byte);
+    CESTER_TEST_SHOULD_LEAK_MEMORY(leak_chars_bytes);
 )

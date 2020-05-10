@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out*/
 
 #ifndef __BASE_FILE__
 #define CESTER_NO_MAIN
@@ -6,11 +6,11 @@
 #include <exotic/cester.h>
 
 CESTER_TODO_TEST(a_test_to_implement, test_instance,
-    
+    void *p = NULL;
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
-    
+    void *p = NULL;
 )
 
 #ifndef __BASE_FILE__

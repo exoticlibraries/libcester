@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tapV13
+/*!gcc {0} -I. -I../include/ -o out; ./out --cester-output=tapV13 */
 
 #ifndef __BASE_FILE__
 #define CESTER_NO_MAIN
@@ -33,9 +33,9 @@ CESTER_TODO_TEST(after_we_write_the_array_struct, test_instance,
 )
 
 CESTER_TEST(test_direct_variables, test_instance,
-    cester_assert_equal(((AStruct*)test_instance->arg)->index, 20);
-    cester_assert_equal(((AStruct*)test_instance->arg)->value, "A string");
-    cester_assert_not_equal(((AStruct*)test_instance->arg)->value, "Unknown");
+    cester_assert_int_eq(((AStruct*)test_instance->arg)->index, 21);
+    cester_assert_str_not_equal(((AStruct*)test_instance->arg)->value, "A string");
+    cester_assert_str_equal(((AStruct*)test_instance->arg)->value, "Unknown");
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
@@ -49,7 +49,8 @@ CESTER_SKIP_TEST(skip_this_test_it_breaks, test_instance,
 CESTER_OPTIONS(
     CESTER_OUTPUT_TAPV13();
     CESTER_VERBOSE();
-    //CESTER_MINIMAL();
+    CESTER_MINIMAL();
+    CESTER_NO_ISOLATION();
 )
 
 #ifndef __BASE_FILE__

@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out*/
 
 #define CESTER_NO_MAIN
 #include <exotic/cester.h>
@@ -41,6 +41,7 @@ int main(int argc, char** argv) {
 	CESTER_REGISTER_TEST(test2);
 	CESTER_REGISTER_AFTER_ALL();
 	CESTER_REGISTER_AFTER_EACH();
+    CESTER_TEST_SHOULD_FAIL(test2);
 	return CESTER_RUN_ALL_TESTS(argc, argv);
 }
 )

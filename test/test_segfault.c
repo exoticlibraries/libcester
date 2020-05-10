@@ -26,6 +26,7 @@ CESTER_TEST(no_segfault, test_instance,
     AStruct* arg_value = malloc(sizeof(AStruct*));
     arg_value->index = 20;
     cester_assert_equal(arg_value, NULL);
+    free(arg_value);
 )
 
 CESTER_TEST(this_should_notbe_affected, test_instance,
@@ -34,4 +35,10 @@ CESTER_TEST(this_should_notbe_affected, test_instance,
 
 CESTER_TEST(this_aftermath, test_instance,
     cester_assert_equal(1, 1);
+)
+
+CESTER_OPTIONS(
+    CESTER_TEST_SHOULD_SEGFAULT(definitely_crahses);
+    CESTER_TEST_SHOULD_SEGFAULT(segfault_test_null_ptr);
+    CESTER_TEST_SHOULD_FAIL(no_segfault);
 )

@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc {0} -I. -I../include/ -o out; ./out*/
 
 #ifndef __BASE_FILE__
 #define CESTER_NO_MAIN

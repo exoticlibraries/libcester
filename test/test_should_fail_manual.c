@@ -1,4 +1,4 @@
-//!gcc {0} -I. -I../include/ -o out; ./out
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out*/
 
 #define CESTER_NO_MAIN
 #include <exotic/cester.h>
@@ -24,10 +24,10 @@ CESTER_TEST(this_should_leak_memory, test_instance,
 )
 
 CESTER_OPTIONS(
-    CESTER_SHOULD_SEGFAULT(this_should_segfault);
-    CESTER_SHOULD_FAIL(this_should_fail);
-    CESTER_SHOULD_FAIL(this_should_segfault_also_fail);
-    CESTER_SHOULD_LEAK_MEMORY(this_should_leak_memory);
+    CESTER_TEST_SHOULD_SEGFAULT(this_should_segfault);
+    CESTER_TEST_SHOULD_FAIL(this_should_fail);
+    CESTER_TEST_SHOULD_FAIL(this_should_segfault_also_fail);
+    CESTER_TEST_SHOULD_LEAK_MEMORY(this_should_leak_memory);
 )
 
 CESTER_BODY(

@@ -40,13 +40,7 @@ extern "C" {
 #else 
     #define __CESTER_INLINE__ inline
     #define __CESTER_LONG_LONG__ long long
-    #ifndef __FUNCTION__
-        #ifdef __func__
-            #define __FUNCTION__ __func__
-        #else
-            #define __FUNCTION__ "<unknown>"
-        #endif
-    #endif
+    #define __FUNCTION__ __func__
 #endif
 
 #include <stdlib.h>
@@ -2407,6 +2401,9 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 static __CESTER_INLINE__ void cester_evaluate_expression(unsigned eval_result, char const* const expression, char const* const file_path, unsigned const line_num) {
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+        
+    } else if (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "    - ");
     }
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
@@ -2737,7 +2734,7 @@ static TestCase cester_test_cases[] = {
     If a test is registered manually all auto detected test will not 
     be executed. 
 */
-#define CESTER_REGISTER_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_TEST)
+#define CESTER_REGISTER_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TEST)
 
 /**
     Manually register a test case as a skip test which cases the test case 
@@ -2746,69 +2743,69 @@ static TestCase cester_test_cases[] = {
     Reason for skipping a test can be unavailability of resources or any other 
     reason.
 */
-#define CESTER_REGISTER_SKIP_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_SKIP_TEST)
+#define CESTER_REGISTER_SKIP_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_SKIP_TEST)
 
 /**
     Manually register a test case that is yet to be implemented so it will be 
     skipped but it will be reported in result and logged under todo tests.
 */
-#define CESTER_REGISTER_TODO_TEST(x) cester_register_test(#x, (cester_test_##x), __LINE__, CESTER_NORMAL_TODO_TEST)
+#define CESTER_REGISTER_TODO_TEST(x) cester_register_test(#x, (cester_test_##x), NULL, NULL, __LINE__, CESTER_NORMAL_TODO_TEST)
 
 /**
     Manually notify cester to execute the BEFORE_ALL function to execute 
     before all the test case are run.
 */
-#define CESTER_REGISTER_BEFORE_ALL() cester_register_test("cester_before_all_test", (cester_before_all_test), __LINE__, CESTER_BEFORE_ALL_TEST)
+#define CESTER_REGISTER_BEFORE_ALL() cester_register_test("cester_before_all_test", (cester_before_all_test), NULL, NULL, __LINE__, CESTER_BEFORE_ALL_TEST)
 
 /**
     Manually notify cester to execute the BEFORE_EACH function to execute 
     every time before a test case is run.
 */
-#define CESTER_REGISTER_BEFORE_EACH() cester_register_test("cester_before_each_test", (cester_before_each_test), __LINE__, CESTER_BEFORE_EACH_TEST)
+#define CESTER_REGISTER_BEFORE_EACH() cester_register_test("cester_before_each_test", NULL, (cester_before_each_test), NULL, __LINE__, CESTER_BEFORE_EACH_TEST)
 
 /**
     Manually notify cester to execute the AFTER_ALL function to execute 
     after all the test case are run.
 */
-#define CESTER_REGISTER_AFTER_ALL() cester_register_test("cester_after_all_test", (cester_after_all_test), __LINE__, CESTER_AFTER_ALL_TEST)
+#define CESTER_REGISTER_AFTER_ALL() cester_register_test("cester_after_all_test", (cester_after_all_test), NULL, NULL, __LINE__, CESTER_AFTER_ALL_TEST)
 
 /**
     Manually notify cester to execute the AFTER_EACH function to execute 
     every time after a test case is run.
 */
-#define CESTER_REGISTER_AFTER_EACH() cester_register_test("cester_after_each_test", (cester_after_each_test), __LINE__, CESTER_AFTER_EACH_TEST)
+#define CESTER_REGISTER_AFTER_EACH() cester_register_test("cester_after_each_test", NULL, (cester_after_each_test), NULL, __LINE__, CESTER_AFTER_EACH_TEST)
 
 /**
     Manually notify cester to execute the CESTER_OPTIONS block before running 
     the tests.
 */
-#define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
+#define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", NULL, NULL, (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
 
 /**
     Change the expected result of a test case to Segfault. 
     If the test segfault then it passes. If it does not segfault 
     it is marked as failed.
 */
-#define CESTER_SHOULD_SEGFAULT(x) cester_expected_test_result(#x, CESTER_RESULT_SEGFAULT);
+#define CESTER_TEST_SHOULD_SEGFAULT(x) cester_expected_test_result(#x, CESTER_RESULT_SEGFAULT);
 
 /**
     Change the expected result of a test case to failure. 
     If the test case passed then it marked as failure. If it failed 
     then it consider as passed.
 */
-#define CESTER_SHOULD_FAIL(x) cester_expected_test_result(#x, CESTER_RESULT_FAILURE);
+#define CESTER_TEST_SHOULD_FAIL(x) cester_expected_test_result(#x, CESTER_RESULT_FAILURE);
 
 /**
     Change the expected test case result. If the test case is terminated by user 
     or another program then it passes ortherwise it fails.
 */
-#define CESTER_SHOULD_BE_TERMINATED(x) cester_expected_test_result(#x, CESTER_RESULT_TERMINATED);
+#define CESTER_TEST_SHOULD_BE_TERMINATED(x) cester_expected_test_result(#x, CESTER_RESULT_TERMINATED);
 
 /**
     Change the expected test case result to leak memory. If the test case does not 
     leak any memory then the test case is marked as failure.
 */
-#define CESTER_SHOULD_LEAK_MEMORY(x) cester_expected_test_result(#x, CESTER_RESULT_MEMORY_LEAK);
+#define CESTER_TEST_SHOULD_LEAK_MEMORY(x) cester_expected_test_result(#x, CESTER_RESULT_MEMORY_LEAK);
 
 /**
     Manually register a test case
@@ -2831,7 +2828,9 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
     test_case->start_tic = 0.000;
     test_case->execution_time = 0.000;
     test_case->execution_output = (char*) "";
-    /*test_case->function = function;*/
+    test_case->test_function = f1;
+    test_case->test_ba_function = f2;
+    test_case->test_void_function = f3;
     test_case->name = test_name;
     test_case->test_type = test_type;
     if (cester_array_add(superTestInstance.registered_test_cases, test_case) == 0) {
@@ -3524,6 +3523,16 @@ static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, unsign
 
 static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, unsigned line, const char *func) {
     void* p;
+    const char* actual_function_name;
+#ifndef __STDC_VERSION__
+    if (superTestInstance.current_test_case != NULL) {
+        actual_function_name = superTestInstance.current_test_case->name;
+    } else {
+        actual_function_name = func;
+    }
+#else 
+    actual_function_name = func;
+#endif
     if (superTestInstance.mem_test_active == 1) {
         if (superTestInstance.mem_alloc_manager == NULL) {
             if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
@@ -3540,8 +3549,8 @@ static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, un
         AllocatedMemory* allocated_mem = (AllocatedMemory*) malloc(sizeof(AllocatedMemory));
         allocated_mem->line_num = line;
         allocated_mem->allocated_bytes = size;
-        if (cester_str_after_prefix(func, (char*) "cester_test_", 12, (char **) &(allocated_mem->function_name)) == 0) {
-            allocated_mem->function_name = func;
+        if (cester_str_after_prefix(actual_function_name, (char*) "cester_test_", 12, (char **) &(allocated_mem->function_name)) == 0) {
+            allocated_mem->function_name = actual_function_name;
         }
         allocated_mem->file_name = file;
         cester_ptr_to_str(&allocated_mem->address, p);
@@ -3555,6 +3564,16 @@ static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, un
 
 static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsigned line, const char *func) {
     unsigned index;
+    const char* actual_function_name;
+#ifndef __STDC_VERSION__
+    if (superTestInstance.current_test_case != NULL) {
+        actual_function_name = superTestInstance.current_test_case->name;
+    } else {
+        actual_function_name = func;
+    }
+#else 
+    actual_function_name = func;
+#endif
     if (pointer == NULL) {
         if (superTestInstance.mem_test_active == 1 && superTestInstance.current_test_case != NULL) {
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "InvalidOperation ");

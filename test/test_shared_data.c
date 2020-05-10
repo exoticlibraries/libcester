@@ -1,5 +1,6 @@
-//!gcc {0} -IC -I../include/ -o out; ./out --cester-noisolation
-//this test shares data between tests
+/*!gcc -ansi -pedantic-errors {0} -IC -I../include/ -o out; ./out */
+
+/* this test shares data between tests */
 
 #include <exotic/cester.h>
 
@@ -23,4 +24,5 @@ CESTER_TEST(validate_shared_arg, test_instance,
 CESTER_OPTIONS(
     CESTER_VERBOSE();
     CESTER_MINIMAL();
+    CESTER_NO_ISOLATION();
 )

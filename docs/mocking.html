@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mocking &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Helper Macros" href="macros.html" />
+    <link rel="prev" title="Documentation" href="index.html" />
+   
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+            <a href="../index.html" class="title">libcester</a>
+            
+                <a href="/docs/">Docs</a> <!-- class="active" -->
+            
+                <a href="/reference/">Reference</a> <!-- class="active" -->
+            
+                <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
+            
+                <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> <!-- class="active" -->
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="mocking">
+<span id="index-0"></span><h1>Mocking<a class="headerlink" href="#mocking" title="Permalink to this headline">¶</a></h1>
+<p>cester supports mocking function. The mock feature currently works on GCC compiler only because
+of the use of the <cite>–wrap</cite> option which is not supported on MAC OSX and might not be available in other compilers.</p>
+<p>The following macros are use for mocking</p>
+<ul class="simple">
+<li><p><a class="reference external" href="./macros.html#define-cester-no-mock">CESTER_NO_MOCK</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-mock-simple-function">CESTER_MOCK_SIMPLE_FUNCTION</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-mock-function">CESTER_MOCK_FUNCTION</a></p></li>
+</ul>
+<div class="section" id="mocking-a-simple-function">
+<h2>Mocking a simple function<a class="headerlink" href="#mocking-a-simple-function" title="Permalink to this headline">¶</a></h2>
+<p>The macro CESTER_MOCK_SIMPLE_FUNCTION can be used to mock a function to return a value.
+The macro simply wrap the function to return the third parameter when invoked.</p>
+<p>Example:</p>
+<p>The following test mock a function that accepts no parameter and return a value.</p>
+<p><strong>originals.c</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">multiply_by</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">multiply_a_number</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">multiply_by</span><span class="p">()</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>test_mock.c</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;originals.c&quot;</span><span class="cp"></span>
+
+<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">check_mocked_function</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">multiply_a_number</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile your test file with the –wrap option e.g. in the example above the function
+<cite>multiply_by</cite> was mocked so the option <em>-Wl,–wrap=multiply_by</em> is supplied during
+compilation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc test_mock.c -I. -Wl,--wrap<span class="o">=</span>multiply_by -o test_mock
+./test_mock
+
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> check mocked <span class="k">function</span>
+
+Ran <span class="m">1</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.00 Seconds
+Synthesis: SUCCESS Tests: <span class="m">1</span> <span class="p">|</span> Passing: <span class="m">1</span> <span class="p">|</span> Failing: <span class="m">0</span>
+</pre></div>
+</div>
+<p>In the example above the function <cite>multiply_by</cite> was mocked to return 5 instead of 2, without
+mocking it the test will fail because <cite>multiply_a_number(2)</cite> will return 4 instead of 10.</p>
+</div>
+<div class="section" id="mocking-a-function">
+<h2>Mocking a function<a class="headerlink" href="#mocking-a-function" title="Permalink to this headline">¶</a></h2>
+<p>The macro CESTER_MOCK_FUNCTION can be used to mock a function to with a body. Compare to the
+CESTER_MOCK_SIMPLE_FUNCTION macro this macro can wrap a function that returns or does not
+return a value.</p>
+<p>Example:</p>
+<p>The following test mock a function that accepts 2 parameters a pointer to integer and another
+integer, then return the power of the first parameter.</p>
+<p><strong>originals.c</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">num1</span> <span class="o">*</span> <span class="n">num2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the function above the returned value is not correct as it does not return the actual power
+of the num1 pointer. in our test we will mock the function to properly calculates the power of
+the num1 pointer.</p>
+<p><strong>test_mock.c</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;originals.c&quot;</span><span class="cp"></span>
+
+<span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">),</span> <span class="kt">int</span><span class="p">,</span>
+    <span class="kt">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">check_mocked_function</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="o">&amp;</span><span class="n">num</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">8</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile your test file with the –wrap option e.g. in the example above the function
+<cite>power_of</cite> was mocked so the option <em>-Wl,–wrap=power_of</em> is supplied during
+compilation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc test_mock.c -I. -Wl,--wrap<span class="o">=</span>power_of -o test_mock
+./test_mock
+
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> check mocked <span class="k">function</span>
+
+Ran <span class="m">1</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.001000 Seconds
+Synthesis: SUCCESS Tested: <span class="m">1</span> <span class="p">|</span> Passing: <span class="m">1</span> <span class="p">|</span> Failing: <span class="m">0</span>
+</pre></div>
+</div>
+<p>To disable mocking in a test without deleting your mock code you can chose not to compile
+the test with the -Wl,–wrap option or you can define <cite>CESTER_NO_MOCK</cite> anywhere in the code.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Static functions cannot be mocked in cester.</p>
+</div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/mocking.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="macros.html">Helper Macros<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="index.html"><i class="fa fa-arrow-left"></i>Documentation</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Mocking</a><ul>
+<li><a class="reference internal" href="#mocking-a-simple-function">Mocking a simple function</a></li>
+<li><a class="reference internal" href="#mocking-a-function">Mocking a function</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="index.html">Documentation</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="macros.html">Helper Macros</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/mocking.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/mocking.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+        <script>
+            var coll = document.getElementsByClassName("caption");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
+            </script>
+    
+
+  </body>
+</html>

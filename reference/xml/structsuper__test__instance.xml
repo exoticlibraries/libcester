@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structsuper__test__instance" kind="struct" language="C++" prot="public">
+    <compoundname>super_test_instance</compoundname>
+    <includes refid="cester_8h" local="no">cester.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsuper__test__instance_1a63061bc69c9d2d4429bb9b2d7ebf206e" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::no_color</definition>
+        <argsstring></argsstring>
+        <name>no_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Do not print to the console with color if one. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="276" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a4a0c435b304ea1b2104c47f40e20bd3e" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::total_tests_count</definition>
+        <argsstring></argsstring>
+        <name>total_tests_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="277" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::total_failed_tests_count</definition>
+        <argsstring></argsstring>
+        <name>total_failed_tests_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="278" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::total_passed_tests_count</definition>
+        <argsstring></argsstring>
+        <name>total_passed_tests_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="279" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a633f4efc8dc7359e57c13c21bfe0e6e7" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::verbose</definition>
+        <argsstring></argsstring>
+        <name>verbose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>prints as much info as possible into the output stream </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="280" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ac12f371eae0498b75792c17bd897f546" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::minimal</definition>
+        <argsstring></argsstring>
+        <name>minimal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>prints minimal output into the output stream </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="281" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::print_version</definition>
+        <argsstring></argsstring>
+        <name>print_version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>prints cester version before running tests </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="282" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::selected_test_cases_size</definition>
+        <argsstring></argsstring>
+        <name>selected_test_cases_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the number of selected test casses from command line. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="283" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::selected_test_cases_found</definition>
+        <argsstring></argsstring>
+        <name>selected_test_cases_found</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the number of selected test casses from command line that is found in the test file. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="284" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a20c6f80a327f4898508e0ef68900d490" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::single_output_only</definition>
+        <argsstring></argsstring>
+        <name>single_output_only</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>display the output for a single test only no summary and syntesis. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="285" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a31b4b2b5eb8a9436fe8c669037f736ee" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::mem_test_active</definition>
+        <argsstring></argsstring>
+        <name>mem_test_active</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable memory test at runtime. Enabled by default. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="286" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::current_execution_status</definition>
+        <argsstring></argsstring>
+        <name>current_execution_status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the current test case status. This is used when the test cases run on a single process. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="287" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a04956eaa3ef1041dffeee727a165414d" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::isolate_tests</definition>
+        <argsstring></argsstring>
+        <name>isolate_tests</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="288" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::skipped_test_count</definition>
+        <argsstring></argsstring>
+        <name>skipped_test_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of test cases to be skipped. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="289" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a89d96c1fc13f272ac790b4050b6feb64" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::todo_tests_count</definition>
+        <argsstring></argsstring>
+        <name>todo_tests_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of test cases that would be implemented in future. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="290" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1aec18d447f7671387a7d904f64796fc97" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::format_test_name</definition>
+        <argsstring></argsstring>
+        <name>format_test_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Format the test name for fine output e.g. &apos;test_file_exit&apos; becomes &apos;test file exist&apos;. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="291" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a4e5c74b3d8053fea28beab23f4ebacfd" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double super_test_instance::start_tic</definition>
+        <argsstring></argsstring>
+        <name>start_tic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The unix time when the tests starts. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="292" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* super_test_instance::flattened_cmd_argv</definition>
+        <argsstring></argsstring>
+        <name>flattened_cmd_argv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Flattened command line argument for sub process. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="293" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* super_test_instance::test_file_path</definition>
+        <argsstring></argsstring>
+        <name>test_file_path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The main test file full path. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="294" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* super_test_instance::output_format</definition>
+        <argsstring></argsstring>
+        <name>output_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The output format to print the test result in. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="295" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a81cbca2fadde792ea218afbc2f8131fe" prot="public" static="no" mutable="no">
+        <type><ref refid="cester_8h_1abfd2a6d8c09aa2c747f283a947084609" kindref="member">TestInstance</ref> *</type>
+        <definition>TestInstance* super_test_instance::test_instance</definition>
+        <argsstring></argsstring>
+        <name>test_instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The test instance for sharing datas. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="296" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" prot="public" static="no" mutable="no">
+        <type>FILE *</type>
+        <definition>FILE* super_test_instance::output_stream</definition>
+        <argsstring></argsstring>
+        <name>output_stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Output stream to write message to, stdout by default. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="297" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1acefe9ae1d777e134e6ea99a5cc9ced7f" prot="public" static="no" mutable="no">
+        <type>char **</type>
+        <definition>char** super_test_instance::selected_test_cases_names</definition>
+        <argsstring></argsstring>
+        <name>selected_test_cases_names</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>selected test cases from command line. For internal use only. e.g. <ndash/>cester-test=Test2,Test1 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="298" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" prot="public" static="no" mutable="no">
+        <type><ref refid="cester_8h_1a9fe713844062da45ba493e7ec829cbaf" kindref="member">TestCase</ref> *</type>
+        <definition>TestCase* super_test_instance::current_test_case</definition>
+        <argsstring></argsstring>
+        <name>current_test_case</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The currently running test case. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="299" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" prot="public" static="no" mutable="no">
+        <type><ref refid="cester_8h_1a070259cacab7aadac6ed756f2565dc5e" kindref="member">CesterArray</ref> *</type>
+        <definition>CesterArray* super_test_instance::registered_test_cases</definition>
+        <argsstring></argsstring>
+        <name>registered_test_cases</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>all the manually registered test cases in the instance. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="300" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a8339cc5c1db8285e7abebb1837d02aa1" prot="public" static="no" mutable="no">
+        <type><ref refid="cester_8h_1a070259cacab7aadac6ed756f2565dc5e" kindref="member">CesterArray</ref> *</type>
+        <definition>CesterArray* super_test_instance::mem_alloc_manager</definition>
+        <argsstring></argsstring>
+        <name>mem_alloc_manager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the array of allocated memory. For testing and detecting memory leaks. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="302" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This structure manages the <emphasis>BEFORE</emphasis> and <emphasis>AFTER</emphasis> functions for the test main <ref refid="structtest__instance" kindref="compound">test_instance</ref>. And also accounts for all the registered test cases. This is for Cester internal use only. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>test_case</label>
+        <link refid="structtest__case"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>test_ba_function</edgelabel>
+          <edgelabel>test_function</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>super_test_instance</label>
+        <link refid="structsuper__test__instance"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>test_instance</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>registered_test_cases</edgelabel>
+          <edgelabel>mem_alloc_manager</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>current_test_case</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>test_instance</label>
+        <link refid="structtest__instance"/>
+      </node>
+      <node id="7">
+        <label>cester_array_struct</label>
+        <link refid="structcester__array__struct"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="275" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="275" bodyend="304"/>
+    <listofallmembers>
+      <member refid="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>current_execution_status</name></member>
+      <member refid="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>current_test_case</name></member>
+      <member refid="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>flattened_cmd_argv</name></member>
+      <member refid="structsuper__test__instance_1aec18d447f7671387a7d904f64796fc97" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>format_test_name</name></member>
+      <member refid="structsuper__test__instance_1a04956eaa3ef1041dffeee727a165414d" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>isolate_tests</name></member>
+      <member refid="structsuper__test__instance_1a8339cc5c1db8285e7abebb1837d02aa1" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>mem_alloc_manager</name></member>
+      <member refid="structsuper__test__instance_1a31b4b2b5eb8a9436fe8c669037f736ee" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>mem_test_active</name></member>
+      <member refid="structsuper__test__instance_1ac12f371eae0498b75792c17bd897f546" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>minimal</name></member>
+      <member refid="structsuper__test__instance_1a63061bc69c9d2d4429bb9b2d7ebf206e" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>no_color</name></member>
+      <member refid="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_format</name></member>
+      <member refid="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_stream</name></member>
+      <member refid="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>print_version</name></member>
+      <member refid="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>registered_test_cases</name></member>
+      <member refid="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>selected_test_cases_found</name></member>
+      <member refid="structsuper__test__instance_1acefe9ae1d777e134e6ea99a5cc9ced7f" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>selected_test_cases_names</name></member>
+      <member refid="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>selected_test_cases_size</name></member>
+      <member refid="structsuper__test__instance_1a20c6f80a327f4898508e0ef68900d490" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>single_output_only</name></member>
+      <member refid="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>skipped_test_count</name></member>
+      <member refid="structsuper__test__instance_1a4e5c74b3d8053fea28beab23f4ebacfd" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>start_tic</name></member>
+      <member refid="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>test_file_path</name></member>
+      <member refid="structsuper__test__instance_1a81cbca2fadde792ea218afbc2f8131fe" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>test_instance</name></member>
+      <member refid="structsuper__test__instance_1a89d96c1fc13f272ac790b4050b6feb64" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>todo_tests_count</name></member>
+      <member refid="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>total_failed_tests_count</name></member>
+      <member refid="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>total_passed_tests_count</name></member>
+      <member refid="structsuper__test__instance_1a4a0c435b304ea1b2104c47f40e20bd3e" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>total_tests_count</name></member>
+      <member refid="structsuper__test__instance_1a633f4efc8dc7359e57c13c21bfe0e6e7" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

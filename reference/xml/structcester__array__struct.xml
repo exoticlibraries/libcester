@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structcester__array__struct" kind="struct" language="C++" prot="public">
+    <compoundname>cester_array_struct</compoundname>
+    <includes refid="cester_8h" local="no">cester.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcester__array__struct_1ae754b1474dc0daf8fd50194dd26398ee" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t cester_array_struct::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the size of the item in the array </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="259" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcester__array__struct_1aecb870362b8d6f79a3c1e12b37485a2e" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t cester_array_struct::capacity</definition>
+        <argsstring></argsstring>
+        <name>capacity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the number of item the array can contain before expanding </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="260" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcester__array__struct_1ae53682c19ff37319c0ba19aec4c11b86" prot="public" static="no" mutable="no">
+        <type>void **</type>
+        <definition>void** cester_array_struct::buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>pointer to the pointers of items added to the array </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="261" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="258" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="258" bodyend="262"/>
+    <listofallmembers>
+      <member refid="structcester__array__struct_1ae53682c19ff37319c0ba19aec4c11b86" prot="public" virt="non-virtual"><scope>cester_array_struct</scope><name>buffer</name></member>
+      <member refid="structcester__array__struct_1aecb870362b8d6f79a3c1e12b37485a2e" prot="public" virt="non-virtual"><scope>cester_array_struct</scope><name>capacity</name></member>
+      <member refid="structcester__array__struct_1ae754b1474dc0daf8fd50194dd26398ee" prot="public" virt="non-virtual"><scope>cester_array_struct</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

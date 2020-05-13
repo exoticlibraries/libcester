@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structtest__instance" kind="struct" language="C++" prot="public">
+    <compoundname>test_instance</compoundname>
+    <includes refid="cester_8h" local="no">cester.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtest__instance_1ab0cfc2d5ca1218d74a73fe412640bdad" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned test_instance::argc</definition>
+        <argsstring></argsstring>
+        <name>argc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the length of the command line arg </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="197" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtest__instance_1ae7ca9a9df9fffcbae0e183eec60c59ca" prot="public" static="no" mutable="no">
+        <type>char **</type>
+        <definition>char** test_instance::argv</definition>
+        <argsstring></argsstring>
+        <name>argv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the command line arguments </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="198" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* test_instance::arg</definition>
+        <argsstring></argsstring>
+        <name>arg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>pointer to an object that can be passed between unit tests </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="199" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The test instance that contains the command line argument length and values, with void* pointer that can be used to share data between unit tests. </para>
+    </detaileddescription>
+    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="196" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="196" bodyend="200"/>
+    <listofallmembers>
+      <member refid="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" virt="non-virtual"><scope>test_instance</scope><name>arg</name></member>
+      <member refid="structtest__instance_1ab0cfc2d5ca1218d74a73fe412640bdad" prot="public" virt="non-virtual"><scope>test_instance</scope><name>argc</name></member>
+      <member refid="structtest__instance_1ae7ca9a9df9fffcbae0e183eec60c59ca" prot="public" virt="non-virtual"><scope>test_instance</scope><name>argv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

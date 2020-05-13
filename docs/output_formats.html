@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Output Formats &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing in various IDE" href="testing_in_various_ide.html" />
+    <link rel="prev" title="Testing for failures" href="test_for_failure.html" />
+   
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+            <a href="../index.html" class="title">libcester</a>
+            
+                <a href="/docs/">Docs</a> <!-- class="active" -->
+            
+                <a href="/reference/">Reference</a> <!-- class="active" -->
+            
+                <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
+            
+                <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> <!-- class="active" -->
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="output-formats">
+<span id="index-0"></span><h1>Output Formats<a class="headerlink" href="#output-formats" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="text">
+<h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="xunitxml">
+<h2>xUnitXML<a class="headerlink" href="#xunitxml" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://reflex.gforge.inria.fr/xunit.html#xunitReport">http://reflex.gforge.inria.fr/xunit.html#xunitReport</a></p>
+</div>
+<div class="section" id="tap">
+<h2>TAP<a class="headerlink" href="#tap" title="Permalink to this headline">¶</a></h2>
+<p>(Test Anythin Protocol)</p>
+<p>Spec: <a class="reference external" href="https://testanything.org/tap-specification.html">tap-spec</a>.</p>
+</div>
+<div class="section" id="tap-version-13">
+<h2>TAP Version 13<a class="headerlink" href="#tap-version-13" title="Permalink to this headline">¶</a></h2>
+<p>(Test Anythin Protocol)</p>
+<p>Spec: <a class="reference external" href="https://testanything.org/tap-version-13-specification.html">tap-13-spec</a>.</p>
+</div>
+<div class="section" id="junitxml">
+<h2>JUnitXML<a class="headerlink" href="#junitxml" title="Permalink to this headline">¶</a></h2>
+<p>The generated output is validated with the npm package <a class="reference external" href="https://www.npmjs.com/package/verify-junit-xml">verify-junit-xml</a>.</p>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/output_formats.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="testing_in_various_ide.html">Testing in various IDE<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="test_for_failure.html"><i class="fa fa-arrow-left"></i>Testing for failures</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Output Formats</a><ul>
+<li><a class="reference internal" href="#text">Text</a></li>
+<li><a class="reference internal" href="#xunitxml">xUnitXML</a></li>
+<li><a class="reference internal" href="#tap">TAP</a></li>
+<li><a class="reference internal" href="#tap-version-13">TAP Version 13</a></li>
+<li><a class="reference internal" href="#junitxml">JUnitXML</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="test_for_failure.html">Testing for failures</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="testing_in_various_ide.html">Testing in various IDE</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/output_formats.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/output_formats.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+        <script>
+            var coll = document.getElementsByClassName("caption");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
+            </script>
+    
+
+  </body>
+</html>

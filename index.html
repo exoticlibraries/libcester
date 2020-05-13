@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>libcester &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Download" href="download.html" />
+   
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+            <a href="#" class="title">libcester</a>
+            
+                <a href="/docs/">Docs</a> <!-- class="active" -->
+            
+                <a href="/reference/">Reference</a> <!-- class="active" -->
+            
+                <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
+            
+                <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> <!-- class="active" -->
+            
+            <div class="search-container">
+                <form class="search" action="search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="toctree-wrapper compound" id="main-nav">
+</div>
+<div class="toctree-wrapper compound" id="docs-nav">
+</div>
+<div class="toctree-wrapper compound" id="docs-how-it-works">
+</div>
+<style>
+    .documentwrapper {
+        margin: 0px;
+        margin-top: 550px;
+    }
+    .bodywrapper {
+        margin-left: 15%;
+        width:70%;
+    }
+</style>
+<div class="header">
+    <div class="overlay">
+        <span class="title">libcester</span><br/>
+        <p class="brief">
+            A robust header only unit testing framework for C and C++ programming language. <br/>
+            Support function mocking, memory leak detection, crash report. Works on various
+            platorms including embedded <br/>systems and compatible with various compilers. Requires
+            no dependency only the header file is needed to get the tests running.
+
+            <div class="linksdiv">
+                <a class="link" href="./download.html">Download</a>
+                <a class="link" href="./docs/">Documentation</a>
+                <a class="link" href="./reference/">API Reference</a>
+            </div>
+        </p>
+    </div>
+</div>
+
+<div class="features-flex">
+    <div class="project main-project" style="display: block;">
+        <span class="title">Write Once, Test Anywhere</span><br>
+        <p class="description">
+            libcester is compliant with the original C language specification
+            ISO/IEC 9899:1990 and the first POSIX specification IEEE Std 1003.1-1988
+            which ensures the project compatibility in various environments including
+            embedded systems.<br/><br/>
+
+            It also makes use of features in the newer revisions ISO/IEC 9899:1999
+            and IEEE Std 1003.1-2001 whenever possible.
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Automatic Tests Registration</span><br>
+        <p class="description">
+            With the stretched use of C preprocessor libcester in most cases does not
+            require you to manually register your test cases, you just define your test with
+            the provided macros and it will be executed.
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Supports various output formats</span><br>
+        <p class="description">
+            libcester supports various output formats for test analysis. The following output
+            formats are supported:
+
+            <ul>
+                <li><a href="./docs/output_formats.html#text">Text</a></li>
+                <li><a href="./docs/output_formats.html#junitxml">JunitXML</a></li>
+                <!--<li><a href="./docs/output_formats.html#xunitxml">xUnitXML</a></li>
+                <li><a href="./docs/output_formats.html#xunitxml">Subunit</a></li>
+                <li><a href="./docs/output_formats.html#key-value-log">Key Value log</a></li>-->
+                <li><a href="./docs/output_formats.html#tap">Test Anything Protocol</a></li>
+                <li><a href="./docs/output_formats.html#tap-version-13">Test Anything Protocol Version 13</a></li>
+            </ul>
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Detailed documentation</span><br>
+        <p class="description">
+            The <a class="link" href="./docs/">documentation</a> provides several examples,
+            tutorials, and detailed guides for using the library. <br/><br/>
+
+            While <a class="link" href="./reference/">reference</a> provides a
+            low-level overview of all the implemented APIs in the library
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Function mocking</span><br>
+        <p class="description">
+            Create functions that simulate the behaviour of the real function implementation.
+            <br/><br/>
+            Mocking function is useful when your unit tests relies on dependencies which are
+            not available at the time of running your tests.
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Isolated unit testing</span><br>
+        <p class="description">
+            Each test case is run in isolation which allows exceptions like a segfault,
+            premature termination e.t.c to be reported. <br/><br/>
+
+            A crahsed test case does not cause the testing to stop instead the test case is
+            reported as failure and libcester continue running other test cases.
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Shared objects</span><br>
+        <p class="description">
+            Each test cases accepts a <a class="link" href="reference/structtest__instance.html">test_instance</a>
+            variable that can be used to share data across multiple test cases.<br/><br/>
+
+            There are also CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_EACH and
+            CESTER_AFTER_ALL macros to setup and tear down shared functions and objects use
+            in the test cases.
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">Testing of memory leaks</span><br>
+        <p class="description">
+            The library detects memory leak in the test cases without the need to run
+            program like valgrind. The precise amount of bytes leaked is reported for
+            each test case.<br/><br/>
+
+            Memory leak test is optional and can be diabled with the option
+            <span class="bold">--cester-nomemtest</span>
+        </p>
+    </div>
+    <div class="project main-project" style="display: block;">
+        <span class="title">GNU General Public License v3.0</span><br>
+        <p class="description">
+            This allows you to use the library freely in your open or closed source project.
+            You also have the freedom to modify your version so far it provides the freedom
+            GNU GPLv3 stated.
+        </p>
+    </div>
+</div>
+
+<!--<div class="two-sided">
+    <div class="left-side">
+        <h3 class="title">Function mocking</h3>
+        <br/>
+
+        LEave the template here please
+    </div>
+    <div class="right-side">
+
+    </div>
+</div>-->
+
+                
+                </br>
+                 
+                    
+                
+        </div>
+        
+            
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+        <script>
+            var coll = document.getElementsByClassName("caption");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
+            </script>
+    
+
+  </body>
+</html>

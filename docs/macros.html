@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Helper Macros &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cester Options" href="options.html" />
+    <link rel="prev" title="Mocking" href="mocking.html" />
+   
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+            <a href="../index.html" class="title">libcester</a>
+            
+                <a href="/docs/">Docs</a> <!-- class="active" -->
+            
+                <a href="/reference/">Reference</a> <!-- class="active" -->
+            
+                <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
+            
+                <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> <!-- class="active" -->
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="helper-macros">
+<span id="index-0"></span><h1>Helper Macros<a class="headerlink" href="#helper-macros" title="Permalink to this headline">¶</a></h1>
+<p>All macros in the library starts with <cite>CESTER_</cite>.</p>
+<div class="section" id="define-cester-no-mock">
+<h2>#define CESTER_NO_MOCK<a class="headerlink" href="#define-cester-no-mock" title="Permalink to this headline">¶</a></h2>
+<p>Define the macro CESTER_NO_MOCK to prevent mocking functions in the test. Even if mocked
+function are defined. This is not a predefined macro it has to be defined in the test source before including cester.h.</p>
+</div>
+<div class="section" id="cester-mock-simple-function">
+<h2>CESTER_MOCK_SIMPLE_FUNCTION<a class="headerlink" href="#cester-mock-simple-function" title="Permalink to this headline">¶</a></h2>
+<p>Mock a function that simply return a value. The macro accepts three parameters, the function
+identifier and parameters, the return type and the value to return when the function is
+invoked. For example mocking a function that return an integer:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">multiply_by</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To function above returns 2, the macro CESTER_MOCK_SIMPLE_FUNCTION can mock this function to
+return 5 instead of two:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The macro above expands to the following code</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">//...</span>
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="kt">int</span> <span class="n">multiply_by</span><span class="p">();</span> <span class="kt">int</span> <span class="nf">__real_multiply_by</span><span class="p">();</span>
+<span class="c1">//...</span>
+<span class="kt">int</span> <span class="nf">__wrap_multiply_by</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">5</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cester-mock-function">
+<h2>CESTER_MOCK_FUNCTION<a class="headerlink" href="#cester-mock-function" title="Permalink to this headline">¶</a></h2>
+<p>This macro is similar to the CESTER_MOCK_SIMPLE_FUNCTION macro but instead of return a single
+value it accepts function body as the third argument. It accepts three parameters, the first is
+the function name and parameters, the second is the return type and the thrid is the function
+body. For example the function below does not return the correct power of value of an integer:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">num1</span> <span class="o">*</span> <span class="n">num2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We then mock the function in the snippet below to properly calculate the power of an integer:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">),</span> <span class="kt">int</span><span class="p">,</span>
+    <span class="kt">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The macro above expands to the following code</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">//...</span>
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="kt">int</span> <span class="n">power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">);</span> <span class="kt">int</span> <span class="nf">__real_power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="c1">//...</span>
+<span class="kt">int</span> <span class="nf">__wrap_power_of</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-cester-no-main">
+<h2>#define CESTER_NO_MAIN<a class="headerlink" href="#define-cester-no-main" title="Permalink to this headline">¶</a></h2>
+<p>Always define before including cester.h</p>
+</div>
+<div class="section" id="cester-body">
+<h2>CESTER_BODY<a class="headerlink" href="#cester-body" title="Permalink to this headline">¶</a></h2>
+<p>This macro wraps codes in test file to prevent generating the codes more than once.
+Any code block not in one of the test macros should be placed in this macro. Putting
+code in the file without wraping it with CESTER_BODY will cause issues during compilation.</p>
+<p>The following code will cause compilation issues.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="n">an_integer</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The solution is to wrap the statement in CESTER_BODY</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="kt">int</span> <span class="n">an_integer</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Another good example is defining the entry point for the test instead of relying on cester
+main function. After defining the <cite>CESTER_NO_MAIN</cite> your main function must be wrapped
+inside <em>CESTER_BODY</em> macro to avoid error.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define CESTER_NO_MAIN</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_equal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Any code written inside the <em>CESTER_BODY</em> macro will be dumb in the file global scope. This macro
+should not contain other <cite>CESTER_</cite> macros.</p>
+</div>
+<div class="section" id="define-cester-no-mem-test">
+<h2>#define CESTER_NO_MEM_TEST<a class="headerlink" href="#define-cester-no-mem-test" title="Permalink to this headline">¶</a></h2>
+<p>Define the macro CESTER_NO_MEM_TEST to disable cester memory allocation test at compile time.
+The option <cite>–cester-nomemtest</cite> can be applied to the command line to stop mem test at runtime.
+This is not a predefined macro it has to be defined in the test source before including cester.h.</p>
+</div>
+<div class="section" id="define-cester-no-signal">
+<h2>#define CESTER_NO_SIGNAL<a class="headerlink" href="#define-cester-no-signal" title="Permalink to this headline">¶</a></h2>
+<p>Disable error handling with signal.h</p>
+</div>
+<div class="section" id="cester-change-stream">
+<h2>CESTER_CHANGE_STREAM<a class="headerlink" href="#cester-change-stream" title="Permalink to this headline">¶</a></h2>
+<p>Change the stream where the ouput is written to, the default value is the standard output
+<cite>stdout</cite>, the macro accepts one argument which is the stream to use. The example below shows
+how to write the test result to a file ‘result.txt’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">FILE</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&quot;./result.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">);</span>
+    <span class="n">CESTER_CHANGE_STREAM</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The result of the test will be written into the file ‘result.txt’. The ouput stream changes
+at which point the macro is used, hence output written before changing the stream will
+remain and the new output will be written to the new stream.</p>
+</div>
+<div class="section" id="cester-nocolor">
+<h2>CESTER_NOCOLOR<a class="headerlink" href="#cester-nocolor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_NO_COLOR</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Prevent displaying the output with colors. This option can prevent writing extra bytes into
+an output file in place of the color values. The option can also be set from the cli using
+<cite>–cester-nocolor</cite>.</p>
+</div>
+<div class="section" id="cester-minimal">
+<h2>CESTER_MINIMAL<a class="headerlink" href="#cester-minimal" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MINIMAL</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Print minimal info into the output stream. With this option set the expression evaluated
+will not be printed in the result output. The option can also be set from the cli using
+<cite>–cester-minimal</cite>.</p>
+</div>
+<div class="section" id="cester-verbose">
+<h2>CESTER_VERBOSE<a class="headerlink" href="#cester-verbose" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_VERBOSE</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Print as much info as possible into the output stream. With this option set both passed
+and failed expression evaluated will be printed in the result. The option can also be set
+from the cli using <cite>–cester-verbose</cite>.</p>
+</div>
+<div class="section" id="cester-print-version">
+<h2>CESTER_PRINT_VERSION<a class="headerlink" href="#cester-print-version" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_PRINT_VERSION</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Print cester version before running any test. The option can also be set from the cli
+using <cite>–cester-printversion</cite>.</p>
+</div>
+<div class="section" id="cester-single-ouput-only">
+<h2>CESTER_SINGLE_OUPUT_ONLY<a class="headerlink" href="#cester-single-ouput-only" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cester-no-isolation">
+<h2>CESTER_NO_ISOLATION<a class="headerlink" href="#cester-no-isolation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cester-no-memtest">
+<h2>CESTER_NO_MEMTEST<a class="headerlink" href="#cester-no-memtest" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cester-do-memtest">
+<h2>CESTER_DO_MEMTEST<a class="headerlink" href="#cester-do-memtest" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cester-version">
+<h2>CESTER_VERSION<a class="headerlink" href="#cester-version" title="Permalink to this headline">¶</a></h2>
+<p>Current cester version</p>
+</div>
+<div class="section" id="cester-license">
+<h2>CESTER_LICENSE<a class="headerlink" href="#cester-license" title="Permalink to this headline">¶</a></h2>
+<p>cester licence <strong>GNU General Public License v3.0</strong></p>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/macros.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="options.html">Cester Options<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="mocking.html"><i class="fa fa-arrow-left"></i>Mocking</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Helper Macros</a><ul>
+<li><a class="reference internal" href="#define-cester-no-mock">#define CESTER_NO_MOCK</a></li>
+<li><a class="reference internal" href="#cester-mock-simple-function">CESTER_MOCK_SIMPLE_FUNCTION</a></li>
+<li><a class="reference internal" href="#cester-mock-function">CESTER_MOCK_FUNCTION</a></li>
+<li><a class="reference internal" href="#define-cester-no-main">#define CESTER_NO_MAIN</a></li>
+<li><a class="reference internal" href="#cester-body">CESTER_BODY</a></li>
+<li><a class="reference internal" href="#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
+<li><a class="reference internal" href="#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
+<li><a class="reference internal" href="#cester-change-stream">CESTER_CHANGE_STREAM</a></li>
+<li><a class="reference internal" href="#cester-nocolor">CESTER_NOCOLOR</a></li>
+<li><a class="reference internal" href="#cester-minimal">CESTER_MINIMAL</a></li>
+<li><a class="reference internal" href="#cester-verbose">CESTER_VERBOSE</a></li>
+<li><a class="reference internal" href="#cester-print-version">CESTER_PRINT_VERSION</a></li>
+<li><a class="reference internal" href="#cester-single-ouput-only">CESTER_SINGLE_OUPUT_ONLY</a></li>
+<li><a class="reference internal" href="#cester-no-isolation">CESTER_NO_ISOLATION</a></li>
+<li><a class="reference internal" href="#cester-no-memtest">CESTER_NO_MEMTEST</a></li>
+<li><a class="reference internal" href="#cester-do-memtest">CESTER_DO_MEMTEST</a></li>
+<li><a class="reference internal" href="#cester-version">CESTER_VERSION</a></li>
+<li><a class="reference internal" href="#cester-license">CESTER_LICENSE</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="mocking.html">Mocking</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="options.html">Cester Options</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/macros.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/macros.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+        <script>
+            var coll = document.getElementsByClassName("caption");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
+            </script>
+    
+
+  </body>
+</html>

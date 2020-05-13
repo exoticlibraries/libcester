@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structallocated__memory" kind="struct" language="C++" prot="public">
+    <compoundname>allocated_memory</compoundname>
+    <includes refid="cester_8h" local="no">cester.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned allocated_memory::line_num</definition>
+        <argsstring></argsstring>
+        <name>line_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the line number where the memory was allocated. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="236" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned allocated_memory::allocated_bytes</definition>
+        <argsstring></argsstring>
+        <name>allocated_bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the number of allocated bytes. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="237" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* allocated_memory::address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the allocated pointer address. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="238" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structallocated__memory_1a39adabacc0245837f6e9d1c26cb3e953" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* allocated_memory::function_name</definition>
+        <argsstring></argsstring>
+        <name>function_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the function where the memory is allocated in. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="239" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structallocated__memory_1a0461a06bf32054523f24c0e7534cd330" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* allocated_memory::file_name</definition>
+        <argsstring></argsstring>
+        <name>file_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the file name where the memory is allocated. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="240" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="235" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="235" bodyend="241"/>
+    <listofallmembers>
+      <member refid="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>address</name></member>
+      <member refid="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>allocated_bytes</name></member>
+      <member refid="structallocated__memory_1a0461a06bf32054523f24c0e7534cd330" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>file_name</name></member>
+      <member refid="structallocated__memory_1a39adabacc0245837f6e9d1c26cb3e953" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>function_name</name></member>
+      <member refid="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>line_num</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

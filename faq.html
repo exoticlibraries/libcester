@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>FAQ &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LICENSE" href="license.html" />
+    <link rel="prev" title="Download" href="download.html" />
+   
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+            <a href="index.html" class="title">libcester</a>
+            
+                <a href="/docs/">Docs</a> <!-- class="active" -->
+            
+                <a href="/reference/">Reference</a> <!-- class="active" -->
+            
+                <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
+            
+                <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> <!-- class="active" -->
+            
+            <div class="search-container">
+                <form class="search" action="search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/testing_in_various_ide.html">Testing in various IDE</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="faq">
+<span id="index-0"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="q-no-test-detected-why">
+<h2>Q: No test detected why?<a class="headerlink" href="#q-no-test-detected-why" title="Permalink to this headline">¶</a></h2>
+<p>If no test was ran or your test cases were not detected, in most cases it because your compiler
+did not define the __BASE_FILE__ macro. If you are using the Visual studio IDE you should define
+the macro in <cite>Properties -&gt; C/C++ -&gt; Preprocessor -&gt; Preprocessor Definition</cite>
+as <cite>__BASE_FILE__=”%(Filename)%(Extension)”</cite>.</p>
+<p>Or you can define the macro at compile time as argument to your compiler using the macro option.
+e.g. in gcc</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -D__BASE_FILE__<span class="o">=</span><span class="se">\&quot;</span>/the/path/to/yout/testfile.c<span class="se">\&quot;</span> testfile.c -I.
+</pre></div>
+</div>
+<p>You can also define the __BASE_FILE__ at the beginning of your test file with the absolute
+path to the test file. E.g for the test file test.c:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define __BASE_FILE__ &quot;/path/to/test.c&quot;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively the test cases should be manually registered in the main method, you will have to disable cester main function by defining the macro CESTER_NO_MAIN.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#define CESTER_NO_MAIN</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Visit this link <a class="reference external" href="https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html">Manual test registration</a> for more detail on manual test registration.</p>
+</div>
+<div class="section" id="q-what-is-the-best-practice-for-test-detection">
+<h2>Q: What is the best practice for test detection<a class="headerlink" href="#q-what-is-the-best-practice-for-test-detection" title="Permalink to this headline">¶</a></h2>
+<p>Include the guide for __BASE_FILE__</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef __BASE_FILE__</span>
+<span class="cp">#define CESTER_NO_MAIN</span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="c1">//your test cases here</span>
+
+<span class="cp">#ifndef __BASE_FILE__</span>
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// register your test cases here</span>
+        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>This ensure that if the directive __BASE_FILE__ is not defined by the compiler the test case will be registered
+manually.</p>
+</div>
+<div class="section" id="q-why-is-test-instance-arg-value-not-changing">
+<h2>Q: Why is test_instance-&gt;arg value not changing<a class="headerlink" href="#q-why-is-test-instance-arg-value-not-changing" title="Permalink to this headline">¶</a></h2>
+<p>In isolated tests the test_instance object is not preserved between the test cases, each test case
+has a new copy of the test_instance object the same applied to CESTER_BEFORE_EACH and CESTER_AFTER_EACH.
+changes made in each test cases, the CESTER_BEFORE_EACH and CESTER_AFTER_EACH does not reflect
+in each test case as each test case is ran on a new process, the solution is to declare shared datas
+in CESTER_BEFORE_ALL and CESTER_AFTER_ALL functions. Or add the <cite>–cester-noisolation</cite> to run the
+tests on a single process this way all data are shared. <em>argv</em> and <em>argc</em> values of the
+test_instance is shared between each test process in isolated test only <em>arg</em> data is not shared.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using the <cite>–cester-noisolation</cite> prevent cester from recovering from a test segfault or critical
+crash.</p>
+</div>
+<p>The example below recreates the problem and provides a solution.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_BEFORE_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s">&quot;test_one&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_one</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_two</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s">&quot;Yahoo&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_AFTER_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s">&quot;Yahoo&quot;</span><span class="p">;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compiling and running test on seperate process.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc ./crash_test.c -I. -o out
+./out
+
++ <span class="o">(</span><span class="m">0</span>.01<span class="o">)</span> test_one
+- <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_two
+
+AssertionError crash_test.c:14: in <span class="nb">test</span> <span class="k">case</span> <span class="s1">&#39;test_two&#39;</span> <span class="o">=</span>&gt; expected <span class="s2">&quot;Yahoo&quot;</span>, found test_instance-&gt;arg
+
+Ran <span class="m">2</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.01 Seconds
+Synthesis: FAILURE Tested: <span class="m">2</span> <span class="p">|</span> Passing: <span class="m">1</span> <span class="p">|</span> Failing: <span class="m">1</span> <span class="p">|</span> Skipped: <span class="m">0</span>
+</pre></div>
+</div>
+<p>The test above wil fail because for test case <strong>test_two</strong> because the test_instance-&gt;arg value
+will still be <cite>“Hello World”</cite> as the CESTER_AFTER_EACH executed for <strong>test_one</strong> will be exclusive
+to test_one process only. The solution is to applly the option <cite>–cester-noisolation</cite> to the test
+to use a single process for all the tests.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc ./crash_test.c -I. -o out
+./out --cester-noisolation
+
++ <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_one
++ <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_two
+
+
+Ran <span class="m">2</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.00 Seconds
+Synthesis: SUCCESS Tested: <span class="m">2</span> <span class="p">|</span> Passing: <span class="m">2</span> <span class="p">|</span> Failing: <span class="m">0</span> <span class="p">|</span> Skipped: <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/faq.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="license.html">LICENSE<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="download.html"><i class="fa fa-arrow-left"></i>Download</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">FAQ</a><ul>
+<li><a class="reference internal" href="#q-no-test-detected-why">Q: No test detected why?</a></li>
+<li><a class="reference internal" href="#q-what-is-the-best-practice-for-test-detection">Q: What is the best practice for test detection</a></li>
+<li><a class="reference internal" href="#q-why-is-test-instance-arg-value-not-changing">Q: Why is test_instance-&gt;arg value not changing</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="download.html">Download</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="license.html">LICENSE</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="_sources/faq.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/faq.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+        <script>
+            var coll = document.getElementsByClassName("caption");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
+            </script>
+    
+
+  </body>
+</html>

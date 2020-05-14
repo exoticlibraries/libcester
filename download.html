@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Download &#8212; libcester  documentation</title>
@@ -30,9 +30,9 @@
             
             <a href="index.html" class="title">libcester</a>
             
-                <a href="/docs/">Docs</a> <!-- class="active" -->
+                <a href="/libcester/docs/">Docs</a> <!-- class="active" -->
             
-                <a href="/reference/">Reference</a> <!-- class="active" -->
+                <a href="/libcester/reference/">Reference</a> <!-- class="active" -->
             
                 <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
             
@@ -56,7 +56,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
@@ -89,15 +89,42 @@
 <span id="index-0"></span><h1>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>Install the library using powershell. It auto detect your insalled C and C++ compilers
+include directory and install libcester into the include folder. Execute the command in
+powershell as admin to install cester for compiler like Visual C++.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span> <span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://exoticlibraries.github.io/libcester/cester.ps1&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If you have one of the following compilers in your system the library will be installed for each
+of them</p>
+<ul class="simple">
+<li><p>GCC</p></li>
+<li><p>Clang</p></li>
+<li><p>Visual C++</p></li>
+</ul>
+<p>For other compilers the files cester.h will be downloaded into the current working directory
+and can be moved into your include path or used directly in your project.</p>
 </div>
 <div class="section" id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Use the remote installation script to install libcester with bash. Before running this
+command ensure you are root <cite>su</cite> so it can move cester.h to the /usr/include/ folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash &lt;<span class="o">(</span>curl -s https://exoticlibraries.github.io/libcester/cester.sh<span class="o">)</span>
+</pre></div>
 </div>
-<div class="section" id="macos">
-<h2>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h2>
+<p>The command above also works for installing libcester on Android using the Termux application.</p>
 </div>
 <div class="section" id="other-platforms">
 <h2>Other Platforms<a class="headerlink" href="#other-platforms" title="Permalink to this headline">¶</a></h2>
+<p>You can simply download the header file <cite>cester.h</cite> from the repo into your project source
+folder and include it in your project. Download the file from
+<a class="reference external" href="https://github.com/exoticlibraries/libcester/releases">https://github.com/exoticlibraries/libcester/releases</a>. The you can include it in your project
+relatively like <cite>#include “cester.h”</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are compiling with a compiler with the macro __BASE_FILE__ defined always add the
+option <strong>-I.</strong> so it can detect the base file where the test case are declared.</p>
+</div>
 </div>
 </div>
 
@@ -132,7 +159,6 @@
 <li><a class="reference internal" href="#">Download</a><ul>
 <li><a class="reference internal" href="#windows">Windows</a></li>
 <li><a class="reference internal" href="#linux">Linux</a></li>
-<li><a class="reference internal" href="#macos">MacOS</a></li>
 <li><a class="reference internal" href="#other-platforms">Other Platforms</a></li>
 </ul>
 </li>
@@ -175,7 +201,7 @@
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.3
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

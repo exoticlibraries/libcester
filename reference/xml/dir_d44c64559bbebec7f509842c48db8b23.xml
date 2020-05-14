@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
   <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
-    <compoundname>C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include</compoundname>
-    <innerdir refid="dir_87ca12e6a78269c9869212930533a16e">C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic</innerdir>
+    <compoundname>/home/travis/build/exoticlibraries/libcester/include</compoundname>
+    <innerdir refid="dir_87ca12e6a78269c9869212930533a16e">/home/travis/build/exoticlibraries/libcester/include/exotic</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/"/>
+    <location file="/home/travis/build/exoticlibraries/libcester/include/"/>
   </compounddef>
 </doxygen>

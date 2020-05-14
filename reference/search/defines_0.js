@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_5f_5fcester_5fcast_5fchar_5farray_5f_5f',['__CESTER_CAST_CHAR_ARRAY__',['../cester_8h.html#ab84f56f39c77569225b79823a1cce112',1,'cester.h']]],
   ['_5f_5fcester_5finline_5f_5f',['__CESTER_INLINE__',['../cester_8h.html#ab5b83a0b9327495ccb1df5cfb348d91c',1,'cester.h']]],
   ['_5f_5fcester_5flong_5flong_5f_5f',['__CESTER_LONG_LONG__',['../cester_8h.html#a6405ac2e364bfb49385d93f50c1ea3e9',1,'cester.h']]],
   ['_5f_5ffunction_5f_5f',['__FUNCTION__',['../cester_8h.html#a828bb1dfda1afd67ca795075903d227d',1,'cester.h']]],

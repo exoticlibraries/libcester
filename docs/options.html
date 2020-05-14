@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Cester Options &#8212; libcester  documentation</title>
@@ -30,9 +30,9 @@
             
             <a href="../index.html" class="title">libcester</a>
             
-                <a href="/docs/">Docs</a> <!-- class="active" -->
+                <a href="/libcester/docs/">Docs</a> <!-- class="active" -->
             
-                <a href="/reference/">Reference</a> <!-- class="active" -->
+                <a href="/libcester/reference/">Reference</a> <!-- class="active" -->
             
                 <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
             
@@ -56,7 +56,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
@@ -87,7 +87,129 @@
                 
   <div class="section" id="cester-options">
 <span id="index-0"></span><h1>Cester Options<a class="headerlink" href="#cester-options" title="Permalink to this headline">¶</a></h1>
-<p>can use to custoimise output verbose and minimal</p>
+<p>cester accepts various options to tune it functionalities. Any command line parameter that
+starts with –cester- is treated as cester option otherwise it is ignored.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER v0.2
+GNU General Public License v3.0
+Usage: ./testfile [-options] [args...]
+
+where options include:
+        --cester-minimal         print minimal info into the output stream
+        --cester-verbose         print as much info as possible into the output stream
+        --cester-nocolor         do not print info with coloring
+        --cester-singleoutput    display cester version and exit
+        --cester-nomemtest       disable memory leak detection in the tests
+        --cester-noisolation     run all the test on a single process. Prevents recovery from crash.
+        --cester-printversion    display cester version before running the tests
+        --cester-dontformatname  leave the test case name as declared in the source file in the output
+        --cester-test=Test1,...  run only selected tests. Seperate the test cases by comma
+        --cester-output=[FORMAT] change the format in which the test results are printed
+        --cester-version         display cester version and exit
+        --cester-help            display this help info version and exit
+See https://exoticlibraries.github.io/libcester/docs/options.html for more details
+
+Supported output formats. [FORMAT]:
+        text
+        junitxml
+        tap
+        tapV13
+</pre></div>
+</div>
+<div class="section" id="cester-nocolor">
+<h2>–cester-nocolor<a class="headerlink" href="#cester-nocolor" title="Permalink to this headline">¶</a></h2>
+<p>Disable colorfull output in the terminal. This option is useful when writing the test result to
+a file, it removes the color bytes that enable the color print in the terminal. This can also
+be set in the code within the CESTER_OPTIONS block with the macro CESTER_NOCOLOR().</p>
+</div>
+<div class="section" id="cester-singleoutput">
+<h2>–cester-singleoutput<a class="headerlink" href="#cester-singleoutput" title="Permalink to this headline">¶</a></h2>
+<p>Only print the assertion detail to the output. This is used within cester during
+isolation testing to capture the output from a single test case. This can also be set in the
+code within the CESTER_OPTIONS block with the macro CESTER_SINGLE_OUPUT_ONLY().</p>
+</div>
+<div class="section" id="cester-nomemtest">
+<h2>–cester-nomemtest<a class="headerlink" href="#cester-nomemtest" title="Permalink to this headline">¶</a></h2>
+<p>Disable memory leak detection and memory test. This option is available if the test source
+does not define the CESTER_NO_MEM_TEST macro.  If the macro CESTER_NO_MEM_TEST is defined in the
+test source memory leak detection is disabled at compile time and this option is not available
+at runtime. This can also be set within the code using the macro CESTER_NO_MEMTEST().</p>
+</div>
+<div class="section" id="cester-noisolation">
+<h2>–cester-noisolation<a class="headerlink" href="#cester-noisolation" title="Permalink to this headline">¶</a></h2>
+<p>Instruct cester to run all the test in one single process. With this option signal will be used
+for crash reporting but if the test is compiled with the macro <cite>CESTER_NO_SIGNAL</cite> defined,
+cester will not be able to recover from critical crash therefore if a test case segfault the
+tests will terminate immediately.</p>
+<p>If the test is compiled for C version less than C99, isolated test is disabled, in such case
+the signal is used to recover from a critical test case crash. This can also be set within
+the code using the macro CESTER_NO_ISOLATION().</p>
+</div>
+<div class="section" id="cester-test">
+<h2>–cester-test=<a class="headerlink" href="#cester-test" title="Permalink to this headline">¶</a></h2>
+<p>Select which test case you want to run. Each of the selected test case mush be seperated with
+a comma, if any of the selected test case is not found in the test file it is ignored. E.g. for
+the test file below, this option can be used to run only one test case.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_assert_equal</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_assert_fail</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span>
+        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gcc test.c -I. -o test
+./test --cester-test=test_assert_equal
+
++ (0.00s) test assert equal
+
+
+Ran 2 test(s) in 0.00 Seconds
+Synthesis: SUCCESS Tests: 2 | Passing: 1 | Failing: 0
+</pre></div>
+</div>
+<p>The option is used to select which test to run. Above we selected the test case <cite>test_assert_equal</cite>
+to select the two test cases we can supply this option <cite>–cester-test=test_assert_equal,test_assert_fail</cite>.</p>
+</div>
+<div class="section" id="cester-output">
+<h2>–cester-output=<a class="headerlink" href="#cester-output" title="Permalink to this headline">¶</a></h2>
+<p>Change the format in which the outpout is generated. Various format is supported, all the
+supported format can be viewed at <a class="reference external" href="./output_formats.html">output_formats</a>. E.g. to print the
+output in JunitXML format you supply the option <cite>–cester-output=junitxml</cite>.</p>
+</div>
+<div class="section" id="cester-minimal">
+<h2>–cester-minimal<a class="headerlink" href="#cester-minimal" title="Permalink to this headline">¶</a></h2>
+<p>Display minimal information in the output, this option combined with –cester-verbose produces
+a fine output in the terminal. This can also be set within the code using the macro
+CESTER_MINIMAL().</p>
+</div>
+<div class="section" id="cester-verbose">
+<h2>–cester-verbose<a class="headerlink" href="#cester-verbose" title="Permalink to this headline">¶</a></h2>
+<p>Display as much detail as possible in the output. This include expression and information of
+assertion macro that passed, only failed assertion is displayed if this option is not supplied.
+This can also be set within the code using the macro CESTER_VERBOSE().</p>
+</div>
+<div class="section" id="cester-dontformatname">
+<h2>–cester-dontformatname<a class="headerlink" href="#cester-dontformatname" title="Permalink to this headline">¶</a></h2>
+<p>Do not format the test case when displaying the output. E.g. the test case <cite>test_assert_equal</cite> in
+the output will be displayed as <cite>test assert equal</cite> but if this option is supplied it will be
+displayed as it declared in the source. This can also be set within the code using the macro
+CESTER_DONT_FORMAT_TESTNAME().</p>
+</div>
+<div class="section" id="cester-printversion">
+<h2>–cester-printversion<a class="headerlink" href="#cester-printversion" title="Permalink to this headline">¶</a></h2>
+<p>Display cester version and license before running the tests.</p>
+</div>
+<div class="section" id="cester-version">
+<h2>–cester-version<a class="headerlink" href="#cester-version" title="Permalink to this headline">¶</a></h2>
+<p>Display cester version and license and exit.</p>
+</div>
+<div class="section" id="cester-help">
+<h2>–cester-help<a class="headerlink" href="#cester-help" title="Permalink to this headline">¶</a></h2>
+<p>Display the help info version and exit.</p>
+</div>
 </div>
 
 
@@ -118,7 +240,21 @@
                     
                         <h2>Page Contents</h2>
                         <ul>
-<li><a class="reference internal" href="#">Cester Options</a></li>
+<li><a class="reference internal" href="#">Cester Options</a><ul>
+<li><a class="reference internal" href="#cester-nocolor">–cester-nocolor</a></li>
+<li><a class="reference internal" href="#cester-singleoutput">–cester-singleoutput</a></li>
+<li><a class="reference internal" href="#cester-nomemtest">–cester-nomemtest</a></li>
+<li><a class="reference internal" href="#cester-noisolation">–cester-noisolation</a></li>
+<li><a class="reference internal" href="#cester-test">–cester-test=</a></li>
+<li><a class="reference internal" href="#cester-output">–cester-output=</a></li>
+<li><a class="reference internal" href="#cester-minimal">–cester-minimal</a></li>
+<li><a class="reference internal" href="#cester-verbose">–cester-verbose</a></li>
+<li><a class="reference internal" href="#cester-dontformatname">–cester-dontformatname</a></li>
+<li><a class="reference internal" href="#cester-printversion">–cester-printversion</a></li>
+<li><a class="reference internal" href="#cester-version">–cester-version</a></li>
+<li><a class="reference internal" href="#cester-help">–cester-help</a></li>
+</ul>
+</li>
 </ul>
 
                         
@@ -158,7 +294,7 @@
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.3
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

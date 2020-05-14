@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
   <compounddef id="structtest__instance" kind="struct" language="C++" prot="public">
     <compoundname>test_instance</compoundname>
     <includes refid="cester_8h" local="no">cester.h</includes>
@@ -12,11 +12,10 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the length of the command line arg </para>
-        </detaileddescription>
+<para>the length of the command line arg </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="197" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="197" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="212" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1ae7ca9a9df9fffcbae0e183eec60c59ca" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -26,11 +25,10 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the command line arguments </para>
-        </detaileddescription>
+<para>the command line arguments </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="198" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="198" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="213" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="213" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -40,19 +38,17 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>pointer to an object that can be passed between unit tests </para>
-        </detaileddescription>
+<para>pointer to an object that can be passed between unit tests </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="199" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="199" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="214" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="214" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>The test instance that contains the command line argument length and values, with void* pointer that can be used to share data between unit tests. </para>
-    </detaileddescription>
-    <location file="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" line="196" column="1" bodyfile="C:/Users/azeez/Documents/OPEN_SOURCE/EXOTICLIBRARIES/libcester/include/exotic/cester.h" bodystart="196" bodyend="200"/>
+<para>The test instance that contains the command line argument length and values, with void* pointer that can be used to share data between unit tests. </para>    </detaileddescription>
+    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="211" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="211" bodyend="215"/>
     <listofallmembers>
       <member refid="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" virt="non-virtual"><scope>test_instance</scope><name>arg</name></member>
       <member refid="structtest__instance_1ab0cfc2d5ca1218d74a73fe412640bdad" prot="public" virt="non-virtual"><scope>test_instance</scope><name>argc</name></member>

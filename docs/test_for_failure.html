@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Testing for failures &#8212; libcester  documentation</title>
@@ -30,9 +30,9 @@
             
             <a href="../index.html" class="title">libcester</a>
             
-                <a href="/docs/">Docs</a> <!-- class="active" -->
+                <a href="/libcester/docs/">Docs</a> <!-- class="active" -->
             
-                <a href="/reference/">Reference</a> <!-- class="active" -->
+                <a href="/libcester/reference/">Reference</a> <!-- class="active" -->
             
                 <a href="https://github.com/exoticlibraries/libcester/">Contribute on Github</a> <!-- class="active" -->
             
@@ -56,7 +56,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
@@ -141,6 +141,61 @@ Synthesis: SUCCESS Tests: <span class="m">1</span> <span class="p">|</span> Pass
 the test will fail. The line <cite>CESTER_TEST_SHOULD_SEGFAULT(definitely_crahses);</cite> can also be
 explicitly re written as <cite>CESTER_TEST_SHOULD(definitely_crahses, CESTER_RESULT_SEGFAULT)</cite>.</p>
 </div>
+<div class="section" id="example-2">
+<h2>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h2>
+<p>The following test cases fails for different reason but the test is marked as passed because they
+are expected to fail.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">this_should_segfault</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_char_eq</span><span class="p">(((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">)[</span><span class="mi">12</span><span class="p">],</span> <span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">)[</span><span class="mi">2109</span><span class="p">]);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">this_should_fail</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">this_should_pass</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">this_should_segfault_also_fail</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_char_eq</span><span class="p">(((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">)[</span><span class="mi">12</span><span class="p">],</span> <span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">)[</span><span class="mi">2109</span><span class="p">]);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">this_should_leak_memory</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+        <span class="n">CESTER_TEST_SHOULD_SEGFAULT</span><span class="p">(</span><span class="n">this_should_segfault</span><span class="p">);</span>
+        <span class="n">CESTER_TEST_SHOULD_FAIL</span><span class="p">(</span><span class="n">this_should_fail</span><span class="p">);</span>
+        <span class="n">CESTER_TEST_SHOULD_LEAK_MEMORY</span><span class="p">(</span><span class="n">this_should_leak_memory</span><span class="p">);</span>
+        <span class="n">CESTER_TEST_SHOULD</span><span class="p">(</span><span class="n">this_should_segfault_also_fail</span><span class="p">,</span> <span class="n">CESTER_RESULT_FAILURE</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc test.c -I. -o <span class="nb">test</span>
+./test --cester-minimal
+
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> this should segfault
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> this should fail
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> this should pass
++ <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span> this should segfault also fail
++ <span class="o">(</span><span class="m">0</span>.01s<span class="o">)</span> this should leak memory
+
+Passed crash_test.c:5: in <span class="s1">&#39;this_should_segfault&#39;</span> <span class="o">=</span>&gt; Segfault as expected
+AssertionError crash_test.c:10: in <span class="s1">&#39;this_should_fail&#39;</span> <span class="o">=</span>&gt; not expecting <span class="s1">&#39;NULL&#39;</span>, received <span class="s1">&#39;((void*)0)&#39;</span>
+Passed crash_test.c:9: in <span class="s1">&#39;this_should_fail&#39;</span> <span class="o">=</span>&gt; Failed as expected
+Passed crash_test.c:17: in <span class="s1">&#39;this_should_segfault_also_fail&#39;</span> <span class="o">=</span>&gt; Failed as expected
+MemoryLeakError crash_test.c:22: in <span class="s1">&#39;this_should_leak_memory&#39;</span> <span class="o">=</span>&gt; Memory allocated in line <span class="s1">&#39;22&#39;</span> not freed. Leaking <span class="s1">&#39;12&#39;</span> Bytes
+Passed crash_test.c:21: in <span class="s1">&#39;this_should_leak_memory&#39;</span> <span class="o">=</span>&gt; Leaked memory as expected
+
+Ran <span class="m">5</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.02 Seconds
+Synthesis: SUCCESS Tests: <span class="m">5</span> <span class="p">|</span> Passing: <span class="m">5</span> <span class="p">|</span> Failing: <span class="m">0</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -173,6 +228,7 @@ explicitly re written as <cite>CESTER_TEST_SHOULD(definitely_crahses, CESTER_RES
                         <ul>
 <li><a class="reference internal" href="#">Testing for failures</a><ul>
 <li><a class="reference internal" href="#example-1">Example 1</a></li>
+<li><a class="reference internal" href="#example-2">Example 2</a></li>
 </ul>
 </li>
 </ul>
@@ -214,7 +270,7 @@ explicitly re written as <cite>CESTER_TEST_SHOULD(definitely_crahses, CESTER_RES
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2020, Adewale Azeez, GNU GPLv3.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.0
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.0.3
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

@@ -13,8 +13,8 @@ before_install:
   - sudo apt-get install -y clang doxygen make
   - sudo apt remove --purge --auto-remove cmake
   - sudo mkdir /opt/cmake
-  - wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh
-  - sudo sh cmake-3.17.2-Linux-x86_64.sh --prefix=/opt/cmake
+  - sudo wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh
+  - sudo sh cmake-3.17.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
   - sudo ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
 
 script:

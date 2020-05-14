@@ -18,9 +18,11 @@ before_install:
   - sudo sh cmake-3.17.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
   - sudo ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
   - sudo ln -s /opt/cmake/bin/cmake /usr/bin/cmake
+  - sudo ln -s /opt/cmake/bin/cmake /bin/cmake
   - pip3 install themata
 
 script:
+  - /opt/cmake/bin/cmake --version
   - cmake --version
   - cd ./docs/ 
   - bash ./make.sh

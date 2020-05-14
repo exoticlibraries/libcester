@@ -3,6 +3,10 @@
     font-size: 17px;
 }
 
+h2 {
+    margin-top: 15px;
+}
+
 .header {
     position: absolute;
     background-image: url('https://github.com/exoticlibraries/exoticlibraries.github.io/raw/master/assets/images/libcester/dosbox_output.png');

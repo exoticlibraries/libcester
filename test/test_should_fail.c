@@ -25,6 +25,6 @@ CESTER_TEST(this_should_leak_memory, test_instance,
 CESTER_OPTIONS(
     CESTER_TEST_SHOULD_SEGFAULT(this_should_segfault);
     CESTER_TEST_SHOULD_FAIL(this_should_fail);
-    CESTER_TEST_SHOULD_FAIL(this_should_segfault_also_fail);
     CESTER_TEST_SHOULD_LEAK_MEMORY(this_should_leak_memory);
+    CESTER_TEST_SHOULD(this_should_segfault_also_fail, CESTER_RESULT_FAILURE);
 )

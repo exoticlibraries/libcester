@@ -1,4 +1,4 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out*/
+/*!gcc {0} -I. -I../include/ -o out; ./out*/
 
 #define CESTER_NO_MAIN
 #include <exotic/cester.h>

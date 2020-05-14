@@ -164,12 +164,14 @@ jmp_buf buf;
     whether a test passes of fails. And also enable the 
     detection of the reason if a test fail.
 */
-enum cheat_test_status {
+enum cester_test_status {
     CESTER_RESULT_SUCCESS,        /**< the test case passed                                                       */
     CESTER_RESULT_FAILURE,        /**< the test case failes dues to various reason mostly AssertionError          */
     CESTER_RESULT_TERMINATED,     /**< in isolated test, the test case was termiated by a user or another program */
     CESTER_RESULT_SEGFAULT,       /**< the test case crahses or causes segmentation fault                         */
+#ifndef CESTER_NO_MEM_TEST
     CESTER_RESULT_MEMORY_LEAK,    /**< the test case passes or fails but failed to free allocated memory          */
+#endif
     CESTER_RESULT_TIMED_OUT,      /**< cester terminated the test case because it running for too long            */
     CESTER_RESULT_UNKNOWN         /**< the test case was never ran                                                */
 };
@@ -217,7 +219,7 @@ typedef void (*cester_void)();
 typedef struct test_case {
     unsigned execution_status;                        /**< the test execution result status. For internal use only.                                      */
     unsigned line_num;                                /**< the line number where the test case is created. For internal use only.                        */
-    enum cheat_test_status expected_result;           /**< The expected result for the test case. For internal use only.                                 */
+    enum cester_test_status expected_result;           /**< The expected result for the test case. For internal use only.                                 */
     double start_tic;                            /**< the time taken for the test case to complete. For internal use only.                          */
     double execution_time;                            /**< the time taken for the test case to complete. For internal use only.                          */
     char* execution_output;                           /**< the test execution output in string. For internal use only.                                   */
@@ -439,6 +441,11 @@ SuperTestInstance superTestInstance = {
     allocation will be validated in all the other test case that follows.
 **/
 #define CESTER_DO_MEMTEST() (superTestInstance.mem_test_active = 1)
+
+/**
+    Change the output format to text
+*/
+#define CESTER_OUTPUT_TEXT() superTestInstance.output_format = (char*) "text";
 
 /**
     Change the output format to junitxml
@@ -762,7 +769,9 @@ static __CESTER_INLINE__ void cester_print_version() {
 }
 
 static __CESTER_INLINE__ void cester_print_help() {
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Usage: ./testfile [-options] [args...]\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Usage: ./");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), cester_extract_name_only(superTestInstance.test_file_path));
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " [-options] [args...]\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal         print minimal info into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose         print as much info as possible into the output stream\n");
@@ -2786,30 +2795,46 @@ static TestCase cester_test_cases[] = {
 #define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", NULL, NULL, (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
 
 /**
+    Set the expected result of a test case. 
+    
+    \param x the test case name
+    \param y the expected result. Can be one of the ::cester_test_status enum
+*/
+#define CESTER_TEST_SHOULD(x,y) cester_expected_test_result(#x, y);
+
+/**
     Change the expected result of a test case to Segfault. 
     If the test segfault then it passes. If it does not segfault 
     it is marked as failed.
+    
+    \param x the test case name
 */
-#define CESTER_TEST_SHOULD_SEGFAULT(x) cester_expected_test_result(#x, CESTER_RESULT_SEGFAULT);
+#define CESTER_TEST_SHOULD_SEGFAULT(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_SEGFAULT);
 
 /**
     Change the expected result of a test case to failure. 
     If the test case passed then it marked as failure. If it failed 
     then it consider as passed.
+    
+    \param x the test case name
 */
-#define CESTER_TEST_SHOULD_FAIL(x) cester_expected_test_result(#x, CESTER_RESULT_FAILURE);
+#define CESTER_TEST_SHOULD_FAIL(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_FAILURE);
 
 /**
     Change the expected test case result. If the test case is terminated by user 
     or another program then it passes ortherwise it fails.
 */
-#define CESTER_TEST_SHOULD_BE_TERMINATED(x) cester_expected_test_result(#x, CESTER_RESULT_TERMINATED);
+#define CESTER_TEST_SHOULD_BE_TERMINATED(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_TERMINATED);
 
+#ifndef CESTER_NO_MEM_TEST
 /**
     Change the expected test case result to leak memory. If the test case does not 
     leak any memory then the test case is marked as failure.
+    
+    \param x the test case name
 */
-#define CESTER_TEST_SHOULD_LEAK_MEMORY(x) cester_expected_test_result(#x, CESTER_RESULT_MEMORY_LEAK);
+#define CESTER_TEST_SHOULD_LEAK_MEMORY(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_MEMORY_LEAK);
+#endif
 
 /**
     Manually register a test case
@@ -2848,7 +2873,7 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
     }
 }
 
-static __CESTER_INLINE__ void cester_expected_test_result(const char* const test_name, enum cheat_test_status expected_result) {
+static __CESTER_INLINE__ void cester_expected_test_result(const char* const test_name, enum cester_test_status expected_result) {
     unsigned i,index;
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {

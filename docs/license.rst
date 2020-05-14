@@ -2,7 +2,7 @@
 .. index::
 	single: license
 
-LICENSE
+License
 ==========
 	
 		GNU GENERAL PUBLIC LICENSE

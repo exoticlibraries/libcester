@@ -1331,6 +1331,14 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 
 /* Assertions, Tests */
 
+
+/**
+    Does nothing just an empty placeholder. Can be used in the 
+    CESTER_SKIP_TEST and CESTER_TODO_TEST when compiling with 
+    -ansi and -pedantic-errors flag
+*/
+#define cester_assert_nothing() 
+
 /**
     Compare two argument using the provided operator
     Prints the expression as in the source code
@@ -3466,9 +3474,11 @@ than 2 crashes
 void cester_recover_on_signal(int sig_num) {
     cester_claim_signals();
     switch (sig_num) {
+#ifndef CESTER_NO_MEM_TEST
         case SIGILL:
             superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
             break;
+#endif
         case SIGSEGV:
             superTestInstance.current_execution_status = CESTER_RESULT_SEGFAULT;
             break;

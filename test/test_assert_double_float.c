@@ -10,7 +10,7 @@ typedef struct param_arg {
 } Param;
 )
 
-CESTER_BEFORE_EACH(test_instance, name, index,
+CESTER_BEFORE_ALL(test_instance, 
     Param* param = (Param*) malloc(sizeof(Param));
     param->f = 121.898000f;
     param->d = 121.898000;
@@ -78,4 +78,7 @@ CESTER_TEST(test_long_double_assertion_literal, test_instance,
     cester_assert_ldouble_le(number, number);
 )
 
+CESTER_OPTIONS(
+    CESTER_NO_ISOLATION();
+)
 

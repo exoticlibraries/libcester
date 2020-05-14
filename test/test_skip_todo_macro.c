@@ -10,7 +10,7 @@ CESTER_SKIP_TEST(skip_this_test_it_fails, test_instance,
 )
 
 CESTER_TODO_TEST(a_test_to_implement, test_instance,
-    
+    cester_assert_nothing();
 )
 
 CESTER_TEST(test_assert_false, test_instance, 
@@ -18,7 +18,7 @@ CESTER_TEST(test_assert_false, test_instance,
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
-    
+    cester_assert_nothing();
 )
 
 CESTER_SKIP_TEST(skip_this_test_it_breaks, test_instance,

@@ -15,7 +15,7 @@ typedef struct a_struct {
 )
 
 CESTER_BEFORE_ALL(test_instance,
-    AStruct* arg_value = malloc(sizeof(AStruct*));
+    AStruct* arg_value = (AStruct*) malloc(sizeof(AStruct*));
     arg_value->index = 20;
     arg_value->value = "A string";
     test_instance->arg = arg_value;
@@ -29,7 +29,7 @@ CESTER_TEST(modify_test_instance, test_instance,
 )
 
 CESTER_TODO_TEST(after_we_write_the_array_struct, test_instance,
-    
+    cester_assert_nothing();
 )
 
 CESTER_TEST(test_direct_variables, test_instance,
@@ -39,7 +39,7 @@ CESTER_TEST(test_direct_variables, test_instance,
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
-    
+    cester_assert_nothing();
 )
 
 CESTER_SKIP_TEST(skip_this_test_it_breaks, test_instance,

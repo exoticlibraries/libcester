@@ -1,9 +1,9 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
 
 CESTER_BEFORE_ALL(test_instance,
-    test_instance->arg = "libcester";
+    test_instance->arg = (void*) "libcester";
 )
 
 CESTER_TEST(test_assert_cmp_char, test_instance, 
@@ -50,4 +50,8 @@ CESTER_TEST(test_uchar_assertion_literal, test_instance,
     cester_assert_uchar_ge(((char*)test_instance->arg)[2], ((char*)test_instance->arg)[2]);
     cester_assert_uchar_lt(((char*)test_instance->arg)[3], 'z');
     cester_assert_uchar_le('a', 'b');
+)
+
+CESTER_OPTIONS(
+    CESTER_NO_ISOLATION();
 )

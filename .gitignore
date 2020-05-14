@@ -63,7 +63,12 @@ dist/
 # CMake
 */CMakeFiles/
 *CMakeCache.txt
+*CMakeFiles/
+*.vcx*
+*.sln
+*CMakeCache*
 *.cmake
+*Makefile*
 
 # IDE Folders
 *.vscode/

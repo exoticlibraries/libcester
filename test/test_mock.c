@@ -20,3 +20,7 @@ CESTER_BEFORE_ALL(test_instance,
     FILE* output = fopen("./result.txt", "w+");
     CESTER_CHANGE_STREAM(output);
 )
+
+CESTER_OPTIONS(
+    CESTER_NO_ISOLATION();
+)

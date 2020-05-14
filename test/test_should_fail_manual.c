@@ -20,7 +20,7 @@ CESTER_TEST(this_should_segfault_also_fail, test_instance,
 )
 
 CESTER_TEST(this_should_leak_memory, test_instance,
-   char* str = malloc(sizeof(char) * 12);
+   char* str = (char*) malloc(sizeof(char) * 12);
 )
 
 CESTER_OPTIONS(

@@ -3,7 +3,7 @@
 #define ORIGINALS
 #include "originals.h"
 
-char *the_original_field = "Adewale Azeez";
+char *the_original_field = (char*) "Adewale Azeez";
 
 int multiply_by() {
     return 2;

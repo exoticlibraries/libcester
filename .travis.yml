@@ -16,18 +16,13 @@ before_install:
   - sudo mkdir /opt/cmake
   - sudo wget https://github.com/Kitware/CMake/releases/download/v3.17.2/cmake-3.17.2-Linux-x86_64.sh
   - sudo sh cmake-3.17.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
-  - sudo ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
-  - sudo ln -s /opt/cmake/bin/cmake /usr/bin/cmake
-  - sudo ln -s /opt/cmake/bin/cmake /bin/cmake
   - pip3 install themata
 
 script:
-  - /opt/cmake/bin/cmake --version
-  - cmake --version
   - cd ./docs/ 
   - bash ./make.sh
   - cd ../test/
-  - cmake CMakeLists.txt -G"Unix Makefiles"
+  - /opt/cmake/bin/cmake CMakeLists.txt -G"Unix Makefiles"
   - make
   - cd build/
   - ls

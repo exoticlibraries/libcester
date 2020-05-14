@@ -36,13 +36,11 @@ foreach(filepath ${files})
         COMMAND ${echo_var} clang -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang${FILE_EXT}
         COMMAND ${echo_var} clang -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi${FILE_EXT}
         COMMAND ${echo_var} clang++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp${FILE_EXT}
-        COMMAND ${echo_var} clang++ -x c -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
     
         # gcc
         COMMAND gcc -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND gcc -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
         COMMAND ${echo_var} g++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
-        COMMAND ${echo_var} g++ -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT}
     )
     
     add_custom_command(TARGET cester_test
@@ -56,13 +54,11 @@ foreach(filepath ${files})
         COMMAND ${echo_var} ./build/${filenameonly}_clang${FILE_EXT}
         COMMAND ${echo_var} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
         COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT} --cester-output=tapV13
         
         # gcc
         COMMAND ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT} --cester-output=tapV13
+        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tapV13
     )
     
     add_dependencies(cester_test ${filenameonly}_others)

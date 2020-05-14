@@ -3185,7 +3185,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
 }
 
 #ifndef CESTER_NO_SIGNAL  
-void (*signal(int signum, void (*sighandler)(int)))(int);
+void (*signal(int , void (*)(int)))(int);
 void cester_claim_signals();
 void cester_recover_on_signal(int sig_num);
 #endif

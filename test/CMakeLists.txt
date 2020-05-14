@@ -15,6 +15,7 @@ ENDIF()
 # file(GLOB files "./test_mock_*.c")
 file(GLOB files "./test_*.c")
 foreach(filepath ${files})
+    message(STATUS "FilePath: " ${filepath}  )
     get_filename_component(filename ${filepath} NAME)
     get_filename_component(filenameonly ${filepath} NAME_WLE)
     

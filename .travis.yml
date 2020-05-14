@@ -24,9 +24,6 @@ script:
   - cd ../test/
   - /opt/cmake/bin/cmake CMakeLists.txt -G"Unix Makefiles"
   - make
-  - cd build/
-  - ls
-  - cd ../
   - cd ../
   
 deploy:

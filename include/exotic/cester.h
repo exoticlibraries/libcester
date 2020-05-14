@@ -34,6 +34,11 @@ extern "C" {
     keyword is ommited.
 */
 #ifndef __STDC_VERSION__
+#ifdef __cplusplus
+#define __STDC_VERSION__ __cplusplus
+#endif
+#endif
+#ifndef __STDC_VERSION__
     #define __CESTER_INLINE__ 
     #define __CESTER_LONG_LONG__ long
     #define __FUNCTION__ "<unknown>"
@@ -3094,7 +3099,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
             close(pipefd[0]);
             last_status = WEXITSTATUS(status);
             end_sub_process:
-                printf("kill it on linux \n");
+                /*printf("kill it on linux \n");*/
         }
 #else
         #pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")
@@ -3111,9 +3116,11 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
     check_isolation:
         last_status = superTestInstance.current_execution_status;
 #ifdef __STDC_VERSION__
+#ifndef __cplusplus
         if (superTestInstance.isolate_tests == 1) {
             goto end_sub_process;
         }
+#endif
 #endif
         goto resolve_test_result;
 }

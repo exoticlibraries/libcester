@@ -56,8 +56,8 @@ foreach(filepath ${files})
         COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
         
         # gcc
-        COMMAND ./build/${filenameonly}_gcc${FILE_EXT}
-        COMMAND ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
+        COMMAND ${echo_var} ./build/${filenameonly}_gcc${FILE_EXT}
+        COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
         COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tapV13
     )
     

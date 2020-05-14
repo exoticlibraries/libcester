@@ -893,7 +893,7 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
     #ifdef _WIN32
         unsigned print_color = CESTER_FOREGROUND_GRAY;
     #else 
-        char* print_color = CESTER_FOREGROUND_GRAY;
+        char* print_color = (char*)CESTER_FOREGROUND_GRAY;
     #endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "  ");
     if (test_case->test_type == CESTER_NORMAL_TODO_TEST || test_case->test_type == CESTER_NORMAL_SKIP_TEST) {
@@ -965,7 +965,7 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
     #ifdef _WIN32
         unsigned print_color = CESTER_FOREGROUND_YELLOW;
     #else 
-        char* print_color = CESTER_FOREGROUND_YELLOW;
+        char* print_color = (char*)CESTER_FOREGROUND_YELLOW;
     #endif
     if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
         a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 
@@ -1024,7 +1024,7 @@ static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char
     #ifdef _WIN32
         unsigned print_color = CESTER_FOREGROUND_YELLOW;
     #else 
-        char* print_color = CESTER_FOREGROUND_YELLOW;
+        char* print_color = (char*)CESTER_FOREGROUND_YELLOW;
     #endif
     if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
         a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 

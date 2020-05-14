@@ -4,7 +4,9 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(this_should_segfault, test_instance,
-   cester_assert_char_eq(((char*)test_instance->arg)[12], ((char*)test_instance->arg)[2109]);
+    int *p = NULL;
+    cester_assert_char_eq(((char*)test_instance->arg)[12], ((char*)test_instance->arg)[2109]);
+    *p=0xdead;
 )
 
 CESTER_TEST(this_should_fail, test_instance,

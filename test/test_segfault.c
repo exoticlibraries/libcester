@@ -17,16 +17,20 @@ CESTER_TEST(definitely_crahses, test_instance,
 )
 
 CESTER_TEST(segfault_test_null_ptr, test_instance,
+    int *p = NULL;
     AStruct* arg_value ;
     cester_assert_equal(arg_value->value, NULL);
     cester_assert_equal(arg_value->value[21], '~');
+    *p=0xdead;
 )
 
 CESTER_TEST(no_segfault, test_instance,
+    int *p = NULL;
     AStruct* arg_value = (AStruct*) malloc(sizeof(AStruct*));
     arg_value->index = 20;
     cester_assert_equal(arg_value, NULL);
     free(arg_value);
+    *p=0xdead;
 )
 
 CESTER_TEST(this_should_notbe_affected, test_instance,

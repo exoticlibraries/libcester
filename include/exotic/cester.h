@@ -48,6 +48,16 @@ extern "C" {
     #define __FUNCTION__ __func__
 #endif
 
+#ifdef __cplusplus
+#ifdef _WIN32
+    #define __CESTER_CAST_CHAR_ARRAY__ (unsigned)
+#else
+    #define __CESTER_CAST_CHAR_ARRAY__ (char*)
+#endif
+#else
+    #define __CESTER_CAST_CHAR_ARRAY__
+#endif
+
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -891,9 +901,9 @@ static __CESTER_INLINE__ void print_test_result(double time_spent) {
 
 static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
     #ifdef _WIN32
-        unsigned print_color = CESTER_FOREGROUND_GRAY;
+        unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GRAY;
     #else 
-        char* print_color = (char*)CESTER_FOREGROUND_GRAY;
+        char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GRAY;
     #endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "  ");
     if (test_case->test_type == CESTER_NORMAL_TODO_TEST || test_case->test_type == CESTER_NORMAL_SKIP_TEST) {
@@ -926,7 +936,7 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
             #endif
 	    #endif
-	    print_color = CESTER_FOREGROUND_RED;
+	    print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_RED;
 	}
 	CESTER_DELEGATE_FPRINT_STR((print_color), "(");
 	CESTER_DELEGATE_FPRINT_DOUBLE_2((print_color), (test_case->execution_time > 60 ? (test_case->execution_time / 60) : test_case->execution_time));
@@ -963,21 +973,21 @@ static __CESTER_INLINE__ void print_test_case_outputs(TestCase* test_case) {
 
 static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* file_name, int index) {
     #ifdef _WIN32
-        unsigned print_color = CESTER_FOREGROUND_YELLOW;
+        unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #else 
-        char* print_color = (char*)CESTER_FOREGROUND_YELLOW;
+        char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #endif
     if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
         a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 
         a_test_case->test_type == CESTER_NORMAL_TODO_TEST) {
             
         if (a_test_case->execution_status == CESTER_RESULT_SUCCESS) {
-            print_color = CESTER_FOREGROUND_GREEN;
+            print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GREEN;
         }
         CESTER_DELEGATE_FPRINT_STR((print_color), "ok ");
         
     } else {
-        print_color = CESTER_FOREGROUND_RED;
+        print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_RED;
         CESTER_DELEGATE_FPRINT_STR((print_color), "not ok ");
     }
     CESTER_DELEGATE_FPRINT_INT((print_color), index);
@@ -1022,21 +1032,21 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
 
 static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char* file_name, int index) {
     #ifdef _WIN32
-        unsigned print_color = CESTER_FOREGROUND_YELLOW;
+        unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #else 
-        char* print_color = (char*)CESTER_FOREGROUND_YELLOW;
+        char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #endif
     if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
         a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 
         a_test_case->test_type == CESTER_NORMAL_TODO_TEST) {
             
         if (a_test_case->execution_status == CESTER_RESULT_SUCCESS) {
-            print_color = CESTER_FOREGROUND_GREEN;
+            print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GREEN;
         }
         CESTER_DELEGATE_FPRINT_STR((print_color), "ok ");
         
     } else {
-        print_color = CESTER_FOREGROUND_RED;
+        print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_RED;
         CESTER_DELEGATE_FPRINT_STR((print_color), "not ok ");
     }
     CESTER_DELEGATE_FPRINT_INT((print_color), index);

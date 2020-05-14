@@ -3099,7 +3099,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
             close(pipefd[0]);
             last_status = WEXITSTATUS(status);
             end_sub_process:
-                /*printf("kill it on linux \n");*/
+                kill(pid, SIGTERM);
         }
 #else
         #pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")

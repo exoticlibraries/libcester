@@ -86,7 +86,7 @@ h2 {
 }
 
 .two-sided .left-side {
-    width: 30%;
+    width: 50%;
     padding: 5%;
     padding-top: 1%;
     padding-left: 0;
@@ -97,7 +97,7 @@ h2 {
 }
 
 .two-sided .right-side {
-    width: 70%;
+    width: 50%;
 }
 
 .two-sided pre {

@@ -10,7 +10,7 @@
 
 * {
     font-family: "Segoe UI","Helvetica Neue","Helvetica",Arial,sans-serif;
-    color: #4a4a4a ; /* theme_text_color */
+    color: rgb(205,202,194) ; /* theme_text_color */
 }
 
 body {
@@ -18,23 +18,23 @@ body {
     font-size: 100%;
     padding: 0;
     margin: 0;
-    background: white; /* theme_background_color */
+    background: rgb(24,26,27); /* theme_background_color */
 }
 
 a {
-    color: #727273 !important; /* theme_link_color */
+    color: rgb(205,202,194) !important; /* theme_link_color */
     text-decoration: none;
 }
 
 a:hover {
-    color: #34aeeb !important; /* theme_highlight_color */
+    color: rgb(15,110,157) !important; /* theme_highlight_color */
     text-decoration: underline;
 }
 
 header {
     overflow: hidden;
-    background-color: #33373b; /* theme_header_background_color */
-    box-shadow: 1px 2px 1px #34aeeb; /* theme_highlight_color */
+    background-color: rgb(52,55,58); /* theme_header_background_color */
+    box-shadow: 1px 2px 1px rgb(15,110,157); /* theme_highlight_color */
     position: fixed;
     top: 0px;
     width: 100vw;
@@ -68,13 +68,13 @@ table {
 }
 
 table thead th, table thead td {
-    background-color: white; /* theme_background_color */
+    background-color: rgb(24,26,27); /* theme_background_color */
     padding: 5px;
     margin: 1px;
 }
 
 table tbody th, table tbody td {
-    background-color: white; /* theme_background_color */
+    background-color: rgb(24,26,27); /* theme_background_color */
     padding: 2px;
 }
 
@@ -86,9 +86,9 @@ pre {
 }
 
 .highlight {
-    background-color: white!important; /* theme_pre_background_color */
+    background-color: rgb(24,26,27)!important; /* theme_pre_background_color */
     filter: brightness(98%);
-    border: #33373b 1px solid; /* theme_pre_border_color */
+    border: rgb(84,91,98) 1px solid; /* theme_pre_border_color */
     border-radius: 5px;
     font-size: 0.8em;
     margin: 5px;
@@ -127,7 +127,7 @@ pre {
 }
 
 .topnavbar a:hover {
-    color: #34aeeb !important; /* theme_highlight_color */
+    color: rgb(15,110,157) !important; /* theme_highlight_color */
 }
 
 .topnavbar a.title {
@@ -217,38 +217,9 @@ pre {
 }
 
 
-   
+
 .sidebar-left .caption {
-    cursor: pointer;
-    padding: 10px;
-    padding-left: 1px;
-    padding-bottom: 5px;
-    width: 90%;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #4a4a4a; /* theme_text_color */
-    text-align: left;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-}
-
-.sidebar-left .caption-text:after {
-    content: "\2BC6"; 
-    font-family: FontAwesome;
-    float: right;
-    top:0;
-    color: #4a4a4a; /* theme_text_color */
- }
-
-.sidebar-left .caption-text {
-    color: #4a4a4a !important; /* theme_text_color */
-    font-size: 17px;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 
@@ -337,7 +308,7 @@ pre {
     padding: 10px;
     margin-right: 10px;
     border-radius: 5px;
-    color: #4a4a4a !important; /* theme_text_color */
+    color: rgb(205,202,194) !important; /* theme_text_color */
 }
 
 .bodywrapper .navigator-none {
@@ -433,8 +404,8 @@ div.viewcode-block:target {
 /* -- footer styles ----------------------------------------------------------- */
 
 .footer {
-    background-color: #33373b; /* theme_header_background_color */
-    box-shadow: 0px 0px 5px #34aeeb; /* theme_highlight_color */
+    background-color: rgb(52,55,58); /* theme_header_background_color */
+    box-shadow: 0px 0px 5px rgb(15,110,157); /* theme_highlight_color */
     color: white !important; /* theme_menu_item_color */
     width: 100%;
     padding: 13px 0;
@@ -445,7 +416,7 @@ div.viewcode-block:target {
 }
 
 .footer a {
-    color: #34aeeb !important; /* theme_highlight_color */
+    color: rgb(15,110,157) !important; /* theme_highlight_color */
 }
 
 .doc-sphinx-info {
@@ -472,7 +443,7 @@ div.viewcode-block:target {
 }
 
 .footer-col2 a:hover {
-    color: #34aeeb !important; /* theme_highlight_color */
+    color: rgb(15,110,157) !important; /* theme_highlight_color */
     text-decoration: none;
 }
 
@@ -503,7 +474,7 @@ div.viewcode-block:target {
 }
 
 .footer .social > a > i:hover {
-    color: #34aeeb !important; /* theme_highlight_color */
+    color: rgb(15,110,157) !important; /* theme_highlight_color */
 }
 
 

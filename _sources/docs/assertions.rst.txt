@@ -278,5 +278,1179 @@ of this macro is that it display the actual values of the two pointers.
 
 	x - a pointer to compare |br|
 	y - another pointer to compare with the first pointer |br|
-	
 
+
+cester_assert_cmp_char
+-----------------------------
+
+Compare two characters using the provided operator. This macro prints out the actual values of 
+the two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_cmp_char('a', ==, 'a', "verify that a is same as a");
+	)
+
+**Parameters**
+
+    w - a char |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another char |br|
+    z - the string formated for output |br|
+
+
+cester_assert_char_eq
+-----------------------------
+
+Check if the two characters are the same. This macro prints out the actual values of the 
+two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_eq('i', 'i');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_char_ne
+-----------------------------
+
+Check if the two characters are not the same. This macro prints out the actual values of the 
+two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_ne('i', 'j');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_char_gt
+-----------------------------
+
+Check if the a char is greater than the other. This macro prints out the actual values of the 
+two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_gt('z', 's');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_char_ge
+-----------------------------
+
+Check if the a char is greater than or equal to the other. This macro prints out the actual 
+values of the two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_ge('k', 'k');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_char_lt
+-----------------------------
+
+Check if the a char is lesser than the other. This macro prints out the actual values of the 
+two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_lt('r', 's');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_char_le
+-----------------------------
+
+Check if the a char is lesser than or equal to the other. This macro prints out the actual 
+values of the two characters.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_char_le('a', 'b');
+	)
+
+**Parameters**
+
+	x - a char |br|
+	y - another char |br|
+
+
+cester_assert_cmp_uchar
+-----------------------------
+
+Compare two unsigned chars using the provided operator. This macro prints out the actual values of 
+the two unsigned characters.
+
+**Parameters**
+
+    w - a unsigned char |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another unsigned char |br|
+    z - the string formated for output |br|
+
+
+cester_assert_uchar_eq
+-----------------------------
+
+Check if the two unsigned characters are the same. This macro prints out the actual values of the 
+two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_uchar_ne
+-----------------------------
+
+Check if the two unsigned characters are not the same. This macro prints out the actual values of the 
+two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_uchar_gt
+-----------------------------
+
+Check if the a unsigned char is greater than the other. This macro prints out the actual values of the 
+two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_uchar_ge
+-----------------------------
+
+Check if the a unsigned char is greater than or equal to the other. This macro prints out the actual 
+values of the two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_uchar_lt
+-----------------------------
+
+Check if the a unsigned char is lesser than the other. This macro prints out the actual values of the 
+two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_uchar_le
+-----------------------------
+
+Check if the a unsigned char is lesser than or equal to the other. This macro prints out the actual 
+values of the two unsigned characters.
+
+**Parameters**
+
+	x - a unsigned char |br|
+	y - another unsigned char |br|
+
+
+cester_assert_cmp_short
+-----------------------------
+
+Compare two short using the provided operator. This macro prints out the actual values of 
+the two shorts.
+
+**Parameters**
+
+    w - a short |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another short |br|
+    z - the string formated for output |br|
+
+
+cester_assert_short_eq
+-----------------------------
+
+Check if the two short are the same. This macro prints out the actual values of the 
+two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_short_ne
+-----------------------------
+
+Check if the two shorts are not the same. This macro prints out the actual values of the 
+two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_short_gt
+-----------------------------
+
+Check if the a short is greater than the other. This macro prints out the actual values of the 
+two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_short_ge
+-----------------------------
+
+Check if the a short is greater than or equal to the other. This macro prints out the actual 
+values of the two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_short_lt
+-----------------------------
+
+Check if the a short is lesser than the other. This macro prints out the actual values of the 
+two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_short_le
+-----------------------------
+
+Check if the a short is lesser than or equal to the other. This macro prints out the actual 
+values of the two shorts.
+
+**Parameters**
+
+	x - a short |br|
+	y - another short |br|
+
+
+cester_assert_cmp_ushort
+-----------------------------
+
+Compare two unsigned shorts using the provided operator. This macro prints out the actual values of 
+the two unsigned shorts.
+
+**Parameters**
+
+    w - a unsigned short |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another unsigned short |br|
+    z - the string formated for output |br|
+
+
+cester_assert_ushort_eq
+-----------------------------
+
+Check if the two unsigned shorts are the same. This macro prints out the actual values of the 
+two unsigned short.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_ushort_ne
+-----------------------------
+
+Check if the two unsigned shorts are not the same. This macro prints out the actual values of the 
+two unsigned shorts.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_ushort_gt
+-----------------------------
+
+Check if the a unsigned short is greater than the other. This macro prints out the actual values of the 
+two unsigned shorts.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_ushort_ge
+-----------------------------
+
+Check if the a unsigned short is greater than or equal to the other. This macro prints out the actual 
+values of the two unsigned shorts.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_ushort_lt
+-----------------------------
+
+Check if the a unsigned short is lesser than the other. This macro prints out the actual values of the 
+two unsigned shorts.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_ushort_le
+-----------------------------
+
+Check if the a unsigned short is lesser than or equal to the other. This macro prints out the actual 
+values of the two unsigned shorts.
+
+**Parameters**
+
+	x - a unsigned short |br|
+	y - another unsigned short |br|
+
+
+cester_assert_cmp_int
+-----------------------------
+
+Compare two int using the provided operator. This macro prints out the actual values of 
+the two ints.
+
+**Parameters**
+
+    w - a int |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another int |br|
+    z - the string formated for output |br|
+
+
+cester_assert_int_eq
+-----------------------------
+
+Check if the two int are the same. This macro prints out the actual values of the 
+two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_int_ne
+-----------------------------
+
+Check if the two ints are not the same. This macro prints out the actual values of the 
+two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_int_gt
+-----------------------------
+
+Check if the a int is greater than the other. This macro prints out the actual values of the 
+two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_int_ge
+-----------------------------
+
+Check if the a int is greater than or equal to the other. This macro prints out the actual 
+values of the two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_int_lt
+-----------------------------
+
+Check if the a int is lesser than the other. This macro prints out the actual values of the 
+two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_int_le
+-----------------------------
+
+Check if the a int is lesser than or equal to the other. This macro prints out the actual 
+values of the two ints.
+
+**Parameters**
+
+	x - a int |br|
+	y - another int |br|
+
+
+cester_assert_cmp_uint
+-----------------------------
+
+Compare two unsigned ints using the provided operator. This macro prints out the actual values of 
+the two unsigned ints.
+
+**Parameters**
+
+    w - a unsigned int |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another unsigned int |br|
+    z - the string formated for output |br|
+
+
+cester_assert_uint_eq
+-----------------------------
+
+Check if the two unsigned ints are the same. This macro prints out the actual values of the 
+two unsigned int.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_uint_ne
+-----------------------------
+
+Check if the two unsigned ints are not the same. This macro prints out the actual values of the 
+two unsigned ints.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_uint_gt
+-----------------------------
+
+Check if the a unsigned int is greater than the other. This macro prints out the actual values of the 
+two unsigned ints.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_uint_ge
+-----------------------------
+
+Check if the a unsigned int is greater than or equal to the other. This macro prints out the actual 
+values of the two unsigned ints.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_uint_lt
+-----------------------------
+
+Check if the a unsigned int is lesser than the other. This macro prints out the actual values of the 
+two unsigned ints.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_uint_le
+-----------------------------
+
+Check if the a unsigned int is lesser than or equal to the other. This macro prints out the actual 
+values of the two unsigned ints.
+
+**Parameters**
+
+	x - a unsigned int |br|
+	y - another unsigned int |br|
+
+
+cester_assert_cmp_long
+-----------------------------
+
+Compare two long using the provided operator. This macro prints out the actual values of 
+the two longs.
+
+**Parameters**
+
+    w - a long |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another long |br|
+    z - the string formated for output |br|
+
+
+cester_assert_long_eq
+-----------------------------
+
+Check if the two long are the same. This macro prints out the actual values of the 
+two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_long_ne
+-----------------------------
+
+Check if the two longs are not the same. This macro prints out the actual values of the 
+two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_long_gt
+-----------------------------
+
+Check if the a long is greater than the other. This macro prints out the actual values of the 
+two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_long_ge
+-----------------------------
+
+Check if the a long is greater than or equal to the other. This macro prints out the actual 
+values of the two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_long_lt
+-----------------------------
+
+Check if the a long is lesser than the other. This macro prints out the actual values of the 
+two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_long_le
+-----------------------------
+
+Check if the a long is lesser than or equal to the other. This macro prints out the actual 
+values of the two longs.
+
+**Parameters**
+
+	x - a long |br|
+	y - another long |br|
+
+
+cester_assert_cmp_ulong
+-----------------------------
+
+Compare two unsigned longs using the provided operator. This macro prints out the actual values of 
+the two unsigned longs.
+
+**Parameters**
+
+    w - a unsigned long |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another unsigned long |br|
+    z - the string formated for output |br|
+
+
+cester_assert_ulong_eq
+-----------------------------
+
+Check if the two unsigned longs are the same. This macro prints out the actual values of the 
+two unsigned long.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_ulong_ne
+-----------------------------
+
+Check if the two unsigned longs are not the same. This macro prints out the actual values of the 
+two unsigned longs.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_ulong_gt
+-----------------------------
+
+Check if the a unsigned long is greater than the other. This macro prints out the actual values of the 
+two unsigned longs.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_ulong_ge
+-----------------------------
+
+Check if the a unsigned long is greater than or equal to the other. This macro prints out the actual 
+values of the two unsigned longs.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_ulong_lt
+-----------------------------
+
+Check if the a unsigned long is lesser than the other. This macro prints out the actual values of the 
+two unsigned longs.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_ulong_le
+-----------------------------
+
+Check if the a unsigned long is lesser than or equal to the other. This macro prints out the actual 
+values of the two unsigned longs.
+
+**Parameters**
+
+	x - a unsigned long |br|
+	y - another unsigned long |br|
+
+
+cester_assert_cmp_llong
+-----------------------------
+
+Compare two long long using the provided operator. This macro prints out the actual values of 
+the two long long.
+
+**Parameters**
+
+    w - a long long |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another long long |br|
+    z - the string formated for output |br|
+
+
+cester_assert_llong_eq
+-----------------------------
+
+Check if the two long long are the same. This macro prints out the actual values of the 
+two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_llong_ne
+-----------------------------
+
+Check if the two long long are not the same. This macro prints out the actual values of the 
+two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_llong_gt
+-----------------------------
+
+Check if the a long long is greater than the other. This macro prints out the actual values of the 
+two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_llong_ge
+-----------------------------
+
+Check if the a long long is greater than or equal to the other. This macro prints out the actual 
+values of the two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_llong_lt
+-----------------------------
+
+Check if the a long long is lesser than the other. This macro prints out the actual values of the 
+two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_llong_le
+-----------------------------
+
+Check if the a long long is lesser than or equal to the other. This macro prints out the actual 
+values of the two long long.
+
+**Parameters**
+
+	x - a long long |br|
+	y - another long long |br|
+
+
+cester_assert_cmp_ullong
+-----------------------------
+
+Compare two unsigned long long using the provided operator. This macro prints out the actual values of 
+the two unsigned long long.
+
+**Parameters**
+
+    w - a unsigned long long |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another unsigned long long |br|
+    z - the string formated for output |br|
+
+
+cester_assert_ullong_eq
+-----------------------------
+
+Check if the two unsigned long long are the same. This macro prints out the actual values of the 
+two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_ullong_ne
+-----------------------------
+
+Check if the two unsigned long long are not the same. This macro prints out the actual values of the 
+two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_ullong_gt
+-----------------------------
+
+Check if the a unsigned long long is greater than the other. This macro prints out the actual values of the 
+two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_ullong_ge
+-----------------------------
+
+Check if the a unsigned long long is greater than or equal to the other. This macro prints out the actual 
+values of the two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_ullong_lt
+-----------------------------
+
+Check if the a unsigned long long is lesser than the other. This macro prints out the actual values of the 
+two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_ullong_le
+-----------------------------
+
+Check if the a unsigned long long is lesser than or equal to the other. This macro prints out the actual 
+values of the two unsigned long long.
+
+**Parameters**
+
+	x - a unsigned long long |br|
+	y - another unsigned long long |br|
+
+
+cester_assert_cmp_float
+-----------------------------
+
+Compare two float using the provided operator. This macro prints out the actual values of 
+the two double.
+
+**Parameters**
+
+    w - a float |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another float |br|
+    z - the string formated for output |br|
+
+
+cester_assert_float_eq
+-----------------------------
+
+Check if the two float are the same. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_float_ne
+-----------------------------
+
+Check if the two double are not the same. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_float_gt
+-----------------------------
+
+Check if the a float is greater than the other. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_float_ge
+-----------------------------
+
+Check if the a float is greater than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_float_lt
+-----------------------------
+
+Check if the a float is lesser than the other. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_float_le
+-----------------------------
+
+Check if the a float is lesser than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a float |br|
+	y - another float |br|
+
+
+cester_assert_cmp_double
+-----------------------------
+
+Compare two double using the provided operator. This macro prints out the actual values of 
+the two double.
+
+**Parameters**
+
+    w - a double |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another double |br|
+    z - the string formated for output |br|
+
+
+cester_assert_double_eq
+-----------------------------
+
+Check if the two double are the same. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_double_ne
+-----------------------------
+
+Check if the two double are not the same. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_double_gt
+-----------------------------
+
+Check if the a double is greater than the other. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_double_ge
+-----------------------------
+
+Check if the a double is greater than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_double_lt
+-----------------------------
+
+Check if the a double is lesser than the other. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_double_le
+-----------------------------
+
+Check if the a double is lesser than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a double |br|
+	y - another double |br|
+
+
+cester_assert_cmp_ldouble
+-----------------------------
+
+Compare two long double using the provided operator. This macro prints out the actual values of 
+the two double.
+
+**Parameters**
+
+    w - a long double |br|
+    x - the operator to use for the comparison. One of `==, !=, <, >, <=, >=` |br|
+    y - another long double |br|
+    z - the string formated for output |br|
+
+
+cester_assert_ldouble_eq
+-----------------------------
+
+Check if the two long double are the same. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+
+cester_assert_ldouble_ne
+-----------------------------
+
+Check if the two long double are not the same. This macro prints out the actual values of the 
+two long double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+
+cester_assert_ldouble_gt
+-----------------------------
+
+Check if the a long double is greater than the other. This macro prints out the actual values of the 
+two long double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+
+cester_assert_ldouble_ge
+-----------------------------
+
+Check if the a long double is greater than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+
+cester_assert_ldouble_lt
+-----------------------------
+
+Check if the a long double is lesser than the other. This macro prints out the actual values of the 
+two double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+
+cester_assert_ldouble_le
+-----------------------------
+
+Check if the a long double is lesser than or equal to the other. This macro prints out the actual 
+values of the two double.
+
+**Parameters**
+
+	x - a long double |br|
+	y - another long double |br|
+
+	

@@ -1334,7 +1334,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Check if the two char are the same. This macro prints out the actual values of the two chars.</para><para><parameterlist kind="param"><parameteritem>
+<para>Check if the two characters are the same. This macro prints out the actual values of the two characters.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>x</parametername>
 </parameternamelist>

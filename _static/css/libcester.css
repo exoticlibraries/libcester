@@ -7,6 +7,31 @@ h2 {
     margin-top: 15px;
 }
 
+pre {
+    overflow: hidden !important;
+}
+
+code {
+    overflow: hidden !important;
+}
+
+.topnavbar input[type=text] {
+    background: rgb(60,64,67);
+}
+
+.topnavbar .search-container button {
+    background: rgb(60,64,67);
+}
+
+.bodywrapper h1,
+.bodywrapper h2,
+.bodywrapper h3,
+.bodywrapper h4,
+.bodywrapper h5,
+.bodywrapper h6 {
+    text-shadow: 0px 0px 0 white !important;
+}
+
 .header {
     position: absolute;
     background-image: url('https://github.com/exoticlibraries/exoticlibraries.github.io/raw/master/assets/images/libcester/dosbox_output.png');
@@ -51,7 +76,7 @@ h2 {
     padding: 12px;
     padding-left: 15px;
     padding-right: 15px;
-    background: #1484c9;
+    background: rgb(15,110,157);
     color: white !important;
     text-decoration: none;
     border-radius: 5px;
@@ -60,8 +85,8 @@ h2 {
 
 .header .link:hover {
     text-decoration: none;
-    background: #d2e9f7;
-    color: #01263d !important;
+    background: rgb(60,64,67);
+    color: #d2e9f7 !important;
 }
 
 .header p {

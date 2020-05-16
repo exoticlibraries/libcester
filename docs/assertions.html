@@ -319,6 +319,991 @@ of this macro is that it display the actual values of the two pointers.</p>
 y - another pointer to compare with the first pointer <br /></p>
 </div></blockquote>
 </div>
+<div class="section" id="cester-assert-cmp-char">
+<h2>cester_assert_cmp_char<a class="headerlink" href="#cester-assert-cmp-char" title="Permalink to this headline">¶</a></h2>
+<p>Compare two characters using the provided operator. This macro prints out the actual values of
+the two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_cmp_char</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="o">==</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="s">&quot;verify that a is same as a&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a char <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another char <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-eq">
+<h2>cester_assert_char_eq<a class="headerlink" href="#cester-assert-char-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two characters are the same. This macro prints out the actual values of the
+two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_eq</span><span class="p">(</span><span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-ne">
+<h2>cester_assert_char_ne<a class="headerlink" href="#cester-assert-char-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two characters are not the same. This macro prints out the actual values of the
+two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_ne</span><span class="p">(</span><span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;j&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-gt">
+<h2>cester_assert_char_gt<a class="headerlink" href="#cester-assert-char-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a char is greater than the other. This macro prints out the actual values of the
+two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_gt</span><span class="p">(</span><span class="sc">&#39;z&#39;</span><span class="p">,</span> <span class="sc">&#39;s&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-ge">
+<h2>cester_assert_char_ge<a class="headerlink" href="#cester-assert-char-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a char is greater than or equal to the other. This macro prints out the actual
+values of the two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_ge</span><span class="p">(</span><span class="sc">&#39;k&#39;</span><span class="p">,</span> <span class="sc">&#39;k&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-lt">
+<h2>cester_assert_char_lt<a class="headerlink" href="#cester-assert-char-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a char is lesser than the other. This macro prints out the actual values of the
+two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_lt</span><span class="p">(</span><span class="sc">&#39;r&#39;</span><span class="p">,</span> <span class="sc">&#39;s&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-char-le">
+<h2>cester_assert_char_le<a class="headerlink" href="#cester-assert-char-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a char is lesser than or equal to the other. This macro prints out the actual
+values of the two characters.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_char_le</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a char <br />
+y - another char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-uchar">
+<h2>cester_assert_cmp_uchar<a class="headerlink" href="#cester-assert-cmp-uchar" title="Permalink to this headline">¶</a></h2>
+<p>Compare two unsigned chars using the provided operator. This macro prints out the actual values of
+the two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a unsigned char <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another unsigned char <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-eq">
+<h2>cester_assert_uchar_eq<a class="headerlink" href="#cester-assert-uchar-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned characters are the same. This macro prints out the actual values of the
+two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-ne">
+<h2>cester_assert_uchar_ne<a class="headerlink" href="#cester-assert-uchar-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned characters are not the same. This macro prints out the actual values of the
+two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-gt">
+<h2>cester_assert_uchar_gt<a class="headerlink" href="#cester-assert-uchar-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned char is greater than the other. This macro prints out the actual values of the
+two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-ge">
+<h2>cester_assert_uchar_ge<a class="headerlink" href="#cester-assert-uchar-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned char is greater than or equal to the other. This macro prints out the actual
+values of the two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-lt">
+<h2>cester_assert_uchar_lt<a class="headerlink" href="#cester-assert-uchar-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned char is lesser than the other. This macro prints out the actual values of the
+two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uchar-le">
+<h2>cester_assert_uchar_le<a class="headerlink" href="#cester-assert-uchar-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned char is lesser than or equal to the other. This macro prints out the actual
+values of the two unsigned characters.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned char <br />
+y - another unsigned char <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-short">
+<h2>cester_assert_cmp_short<a class="headerlink" href="#cester-assert-cmp-short" title="Permalink to this headline">¶</a></h2>
+<p>Compare two short using the provided operator. This macro prints out the actual values of
+the two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a short <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another short <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-eq">
+<h2>cester_assert_short_eq<a class="headerlink" href="#cester-assert-short-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two short are the same. This macro prints out the actual values of the
+two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-ne">
+<h2>cester_assert_short_ne<a class="headerlink" href="#cester-assert-short-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two shorts are not the same. This macro prints out the actual values of the
+two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-gt">
+<h2>cester_assert_short_gt<a class="headerlink" href="#cester-assert-short-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a short is greater than the other. This macro prints out the actual values of the
+two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-ge">
+<h2>cester_assert_short_ge<a class="headerlink" href="#cester-assert-short-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a short is greater than or equal to the other. This macro prints out the actual
+values of the two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-lt">
+<h2>cester_assert_short_lt<a class="headerlink" href="#cester-assert-short-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a short is lesser than the other. This macro prints out the actual values of the
+two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-short-le">
+<h2>cester_assert_short_le<a class="headerlink" href="#cester-assert-short-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a short is lesser than or equal to the other. This macro prints out the actual
+values of the two shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a short <br />
+y - another short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-ushort">
+<h2>cester_assert_cmp_ushort<a class="headerlink" href="#cester-assert-cmp-ushort" title="Permalink to this headline">¶</a></h2>
+<p>Compare two unsigned shorts using the provided operator. This macro prints out the actual values of
+the two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a unsigned short <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another unsigned short <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-eq">
+<h2>cester_assert_ushort_eq<a class="headerlink" href="#cester-assert-ushort-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned shorts are the same. This macro prints out the actual values of the
+two unsigned short.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-ne">
+<h2>cester_assert_ushort_ne<a class="headerlink" href="#cester-assert-ushort-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned shorts are not the same. This macro prints out the actual values of the
+two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-gt">
+<h2>cester_assert_ushort_gt<a class="headerlink" href="#cester-assert-ushort-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned short is greater than the other. This macro prints out the actual values of the
+two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-ge">
+<h2>cester_assert_ushort_ge<a class="headerlink" href="#cester-assert-ushort-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned short is greater than or equal to the other. This macro prints out the actual
+values of the two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-lt">
+<h2>cester_assert_ushort_lt<a class="headerlink" href="#cester-assert-ushort-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned short is lesser than the other. This macro prints out the actual values of the
+two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ushort-le">
+<h2>cester_assert_ushort_le<a class="headerlink" href="#cester-assert-ushort-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned short is lesser than or equal to the other. This macro prints out the actual
+values of the two unsigned shorts.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned short <br />
+y - another unsigned short <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-int">
+<h2>cester_assert_cmp_int<a class="headerlink" href="#cester-assert-cmp-int" title="Permalink to this headline">¶</a></h2>
+<p>Compare two int using the provided operator. This macro prints out the actual values of
+the two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a int <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another int <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-eq">
+<h2>cester_assert_int_eq<a class="headerlink" href="#cester-assert-int-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two int are the same. This macro prints out the actual values of the
+two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-ne">
+<h2>cester_assert_int_ne<a class="headerlink" href="#cester-assert-int-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two ints are not the same. This macro prints out the actual values of the
+two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-gt">
+<h2>cester_assert_int_gt<a class="headerlink" href="#cester-assert-int-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a int is greater than the other. This macro prints out the actual values of the
+two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-ge">
+<h2>cester_assert_int_ge<a class="headerlink" href="#cester-assert-int-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a int is greater than or equal to the other. This macro prints out the actual
+values of the two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-lt">
+<h2>cester_assert_int_lt<a class="headerlink" href="#cester-assert-int-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a int is lesser than the other. This macro prints out the actual values of the
+two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-int-le">
+<h2>cester_assert_int_le<a class="headerlink" href="#cester-assert-int-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a int is lesser than or equal to the other. This macro prints out the actual
+values of the two ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a int <br />
+y - another int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-uint">
+<h2>cester_assert_cmp_uint<a class="headerlink" href="#cester-assert-cmp-uint" title="Permalink to this headline">¶</a></h2>
+<p>Compare two unsigned ints using the provided operator. This macro prints out the actual values of
+the two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a unsigned int <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another unsigned int <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-eq">
+<h2>cester_assert_uint_eq<a class="headerlink" href="#cester-assert-uint-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned ints are the same. This macro prints out the actual values of the
+two unsigned int.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-ne">
+<h2>cester_assert_uint_ne<a class="headerlink" href="#cester-assert-uint-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned ints are not the same. This macro prints out the actual values of the
+two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-gt">
+<h2>cester_assert_uint_gt<a class="headerlink" href="#cester-assert-uint-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned int is greater than the other. This macro prints out the actual values of the
+two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-ge">
+<h2>cester_assert_uint_ge<a class="headerlink" href="#cester-assert-uint-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned int is greater than or equal to the other. This macro prints out the actual
+values of the two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-lt">
+<h2>cester_assert_uint_lt<a class="headerlink" href="#cester-assert-uint-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned int is lesser than the other. This macro prints out the actual values of the
+two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-uint-le">
+<h2>cester_assert_uint_le<a class="headerlink" href="#cester-assert-uint-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned int is lesser than or equal to the other. This macro prints out the actual
+values of the two unsigned ints.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned int <br />
+y - another unsigned int <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-long">
+<h2>cester_assert_cmp_long<a class="headerlink" href="#cester-assert-cmp-long" title="Permalink to this headline">¶</a></h2>
+<p>Compare two long using the provided operator. This macro prints out the actual values of
+the two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a long <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another long <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-eq">
+<h2>cester_assert_long_eq<a class="headerlink" href="#cester-assert-long-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two long are the same. This macro prints out the actual values of the
+two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-ne">
+<h2>cester_assert_long_ne<a class="headerlink" href="#cester-assert-long-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two longs are not the same. This macro prints out the actual values of the
+two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-gt">
+<h2>cester_assert_long_gt<a class="headerlink" href="#cester-assert-long-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long is greater than the other. This macro prints out the actual values of the
+two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-ge">
+<h2>cester_assert_long_ge<a class="headerlink" href="#cester-assert-long-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long is greater than or equal to the other. This macro prints out the actual
+values of the two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-lt">
+<h2>cester_assert_long_lt<a class="headerlink" href="#cester-assert-long-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long is lesser than the other. This macro prints out the actual values of the
+two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-long-le">
+<h2>cester_assert_long_le<a class="headerlink" href="#cester-assert-long-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long is lesser than or equal to the other. This macro prints out the actual
+values of the two longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long <br />
+y - another long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-ulong">
+<h2>cester_assert_cmp_ulong<a class="headerlink" href="#cester-assert-cmp-ulong" title="Permalink to this headline">¶</a></h2>
+<p>Compare two unsigned longs using the provided operator. This macro prints out the actual values of
+the two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a unsigned long <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another unsigned long <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-eq">
+<h2>cester_assert_ulong_eq<a class="headerlink" href="#cester-assert-ulong-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned longs are the same. This macro prints out the actual values of the
+two unsigned long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-ne">
+<h2>cester_assert_ulong_ne<a class="headerlink" href="#cester-assert-ulong-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned longs are not the same. This macro prints out the actual values of the
+two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-gt">
+<h2>cester_assert_ulong_gt<a class="headerlink" href="#cester-assert-ulong-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long is greater than the other. This macro prints out the actual values of the
+two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-ge">
+<h2>cester_assert_ulong_ge<a class="headerlink" href="#cester-assert-ulong-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long is greater than or equal to the other. This macro prints out the actual
+values of the two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-lt">
+<h2>cester_assert_ulong_lt<a class="headerlink" href="#cester-assert-ulong-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long is lesser than the other. This macro prints out the actual values of the
+two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ulong-le">
+<h2>cester_assert_ulong_le<a class="headerlink" href="#cester-assert-ulong-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long is lesser than or equal to the other. This macro prints out the actual
+values of the two unsigned longs.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long <br />
+y - another unsigned long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-llong">
+<h2>cester_assert_cmp_llong<a class="headerlink" href="#cester-assert-cmp-llong" title="Permalink to this headline">¶</a></h2>
+<p>Compare two long long using the provided operator. This macro prints out the actual values of
+the two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a long long <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another long long <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-eq">
+<h2>cester_assert_llong_eq<a class="headerlink" href="#cester-assert-llong-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two long long are the same. This macro prints out the actual values of the
+two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-ne">
+<h2>cester_assert_llong_ne<a class="headerlink" href="#cester-assert-llong-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two long long are not the same. This macro prints out the actual values of the
+two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-gt">
+<h2>cester_assert_llong_gt<a class="headerlink" href="#cester-assert-llong-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long long is greater than the other. This macro prints out the actual values of the
+two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-ge">
+<h2>cester_assert_llong_ge<a class="headerlink" href="#cester-assert-llong-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long long is greater than or equal to the other. This macro prints out the actual
+values of the two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-lt">
+<h2>cester_assert_llong_lt<a class="headerlink" href="#cester-assert-llong-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long long is lesser than the other. This macro prints out the actual values of the
+two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-llong-le">
+<h2>cester_assert_llong_le<a class="headerlink" href="#cester-assert-llong-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long long is lesser than or equal to the other. This macro prints out the actual
+values of the two long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long long <br />
+y - another long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-ullong">
+<h2>cester_assert_cmp_ullong<a class="headerlink" href="#cester-assert-cmp-ullong" title="Permalink to this headline">¶</a></h2>
+<p>Compare two unsigned long long using the provided operator. This macro prints out the actual values of
+the two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a unsigned long long <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another unsigned long long <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-eq">
+<h2>cester_assert_ullong_eq<a class="headerlink" href="#cester-assert-ullong-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned long long are the same. This macro prints out the actual values of the
+two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-ne">
+<h2>cester_assert_ullong_ne<a class="headerlink" href="#cester-assert-ullong-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two unsigned long long are not the same. This macro prints out the actual values of the
+two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-gt">
+<h2>cester_assert_ullong_gt<a class="headerlink" href="#cester-assert-ullong-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long long is greater than the other. This macro prints out the actual values of the
+two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-ge">
+<h2>cester_assert_ullong_ge<a class="headerlink" href="#cester-assert-ullong-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long long is greater than or equal to the other. This macro prints out the actual
+values of the two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-lt">
+<h2>cester_assert_ullong_lt<a class="headerlink" href="#cester-assert-ullong-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long long is lesser than the other. This macro prints out the actual values of the
+two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ullong-le">
+<h2>cester_assert_ullong_le<a class="headerlink" href="#cester-assert-ullong-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a unsigned long long is lesser than or equal to the other. This macro prints out the actual
+values of the two unsigned long long.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a unsigned long long <br />
+y - another unsigned long long <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-float">
+<h2>cester_assert_cmp_float<a class="headerlink" href="#cester-assert-cmp-float" title="Permalink to this headline">¶</a></h2>
+<p>Compare two float using the provided operator. This macro prints out the actual values of
+the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a float <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another float <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-eq">
+<h2>cester_assert_float_eq<a class="headerlink" href="#cester-assert-float-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two float are the same. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-ne">
+<h2>cester_assert_float_ne<a class="headerlink" href="#cester-assert-float-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two double are not the same. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-gt">
+<h2>cester_assert_float_gt<a class="headerlink" href="#cester-assert-float-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a float is greater than the other. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-ge">
+<h2>cester_assert_float_ge<a class="headerlink" href="#cester-assert-float-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a float is greater than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-lt">
+<h2>cester_assert_float_lt<a class="headerlink" href="#cester-assert-float-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a float is lesser than the other. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-float-le">
+<h2>cester_assert_float_le<a class="headerlink" href="#cester-assert-float-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a float is lesser than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a float <br />
+y - another float <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-double">
+<h2>cester_assert_cmp_double<a class="headerlink" href="#cester-assert-cmp-double" title="Permalink to this headline">¶</a></h2>
+<p>Compare two double using the provided operator. This macro prints out the actual values of
+the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a double <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another double <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-eq">
+<h2>cester_assert_double_eq<a class="headerlink" href="#cester-assert-double-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two double are the same. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-ne">
+<h2>cester_assert_double_ne<a class="headerlink" href="#cester-assert-double-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two double are not the same. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-gt">
+<h2>cester_assert_double_gt<a class="headerlink" href="#cester-assert-double-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a double is greater than the other. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-ge">
+<h2>cester_assert_double_ge<a class="headerlink" href="#cester-assert-double-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a double is greater than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-lt">
+<h2>cester_assert_double_lt<a class="headerlink" href="#cester-assert-double-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a double is lesser than the other. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-double-le">
+<h2>cester_assert_double_le<a class="headerlink" href="#cester-assert-double-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a double is lesser than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a double <br />
+y - another double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-cmp-ldouble">
+<h2>cester_assert_cmp_ldouble<a class="headerlink" href="#cester-assert-cmp-ldouble" title="Permalink to this headline">¶</a></h2>
+<p>Compare two long double using the provided operator. This macro prints out the actual values of
+the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>w - a long double <br />
+x - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+y - another long double <br />
+z - the string formated for output <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-eq">
+<h2>cester_assert_ldouble_eq<a class="headerlink" href="#cester-assert-ldouble-eq" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two long double are the same. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-ne">
+<h2>cester_assert_ldouble_ne<a class="headerlink" href="#cester-assert-ldouble-ne" title="Permalink to this headline">¶</a></h2>
+<p>Check if the two long double are not the same. This macro prints out the actual values of the
+two long double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-gt">
+<h2>cester_assert_ldouble_gt<a class="headerlink" href="#cester-assert-ldouble-gt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long double is greater than the other. This macro prints out the actual values of the
+two long double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-ge">
+<h2>cester_assert_ldouble_ge<a class="headerlink" href="#cester-assert-ldouble-ge" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long double is greater than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-lt">
+<h2>cester_assert_ldouble_lt<a class="headerlink" href="#cester-assert-ldouble-lt" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long double is lesser than the other. This macro prints out the actual values of the
+two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ldouble-le">
+<h2>cester_assert_ldouble_le<a class="headerlink" href="#cester-assert-ldouble-le" title="Permalink to this headline">¶</a></h2>
+<p>Check if the a long double is lesser than or equal to the other. This macro prints out the actual
+values of the two double.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a long double <br />
+y - another long double <br /></p>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -363,6 +1348,97 @@ y - another pointer to compare with the first pointer <br /></p>
 <li><a class="reference internal" href="#cester-assert-str-not-equal">cester_assert_str_not_equal</a></li>
 <li><a class="reference internal" href="#cester-assert-ptr-equal">cester_assert_ptr_equal</a></li>
 <li><a class="reference internal" href="#cester-assert-ptr-not-equal">cester_assert_ptr_not_equal</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-char">cester_assert_cmp_char</a></li>
+<li><a class="reference internal" href="#cester-assert-char-eq">cester_assert_char_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-char-ne">cester_assert_char_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-char-gt">cester_assert_char_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-char-ge">cester_assert_char_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-char-lt">cester_assert_char_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-char-le">cester_assert_char_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-uchar">cester_assert_cmp_uchar</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-eq">cester_assert_uchar_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-ne">cester_assert_uchar_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-gt">cester_assert_uchar_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-ge">cester_assert_uchar_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-lt">cester_assert_uchar_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-uchar-le">cester_assert_uchar_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-short">cester_assert_cmp_short</a></li>
+<li><a class="reference internal" href="#cester-assert-short-eq">cester_assert_short_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-short-ne">cester_assert_short_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-short-gt">cester_assert_short_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-short-ge">cester_assert_short_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-short-lt">cester_assert_short_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-short-le">cester_assert_short_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-ushort">cester_assert_cmp_ushort</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-eq">cester_assert_ushort_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-ne">cester_assert_ushort_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-gt">cester_assert_ushort_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-ge">cester_assert_ushort_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-lt">cester_assert_ushort_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-ushort-le">cester_assert_ushort_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-int">cester_assert_cmp_int</a></li>
+<li><a class="reference internal" href="#cester-assert-int-eq">cester_assert_int_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-int-ne">cester_assert_int_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-int-gt">cester_assert_int_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-int-ge">cester_assert_int_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-int-lt">cester_assert_int_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-int-le">cester_assert_int_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-uint">cester_assert_cmp_uint</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-eq">cester_assert_uint_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-ne">cester_assert_uint_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-gt">cester_assert_uint_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-ge">cester_assert_uint_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-lt">cester_assert_uint_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-uint-le">cester_assert_uint_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-long">cester_assert_cmp_long</a></li>
+<li><a class="reference internal" href="#cester-assert-long-eq">cester_assert_long_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-long-ne">cester_assert_long_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-long-gt">cester_assert_long_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-long-ge">cester_assert_long_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-long-lt">cester_assert_long_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-long-le">cester_assert_long_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-ulong">cester_assert_cmp_ulong</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-eq">cester_assert_ulong_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-ne">cester_assert_ulong_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-gt">cester_assert_ulong_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-ge">cester_assert_ulong_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-lt">cester_assert_ulong_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-ulong-le">cester_assert_ulong_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-llong">cester_assert_cmp_llong</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-eq">cester_assert_llong_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-ne">cester_assert_llong_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-gt">cester_assert_llong_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-ge">cester_assert_llong_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-lt">cester_assert_llong_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-llong-le">cester_assert_llong_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-ullong">cester_assert_cmp_ullong</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-eq">cester_assert_ullong_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-ne">cester_assert_ullong_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-gt">cester_assert_ullong_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-ge">cester_assert_ullong_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-lt">cester_assert_ullong_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-ullong-le">cester_assert_ullong_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-float">cester_assert_cmp_float</a></li>
+<li><a class="reference internal" href="#cester-assert-float-eq">cester_assert_float_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-float-ne">cester_assert_float_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-float-gt">cester_assert_float_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-float-ge">cester_assert_float_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-float-lt">cester_assert_float_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-float-le">cester_assert_float_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-double">cester_assert_cmp_double</a></li>
+<li><a class="reference internal" href="#cester-assert-double-eq">cester_assert_double_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-double-ne">cester_assert_double_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-double-gt">cester_assert_double_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-double-ge">cester_assert_double_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-double-lt">cester_assert_double_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-double-le">cester_assert_double_le</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp-ldouble">cester_assert_cmp_ldouble</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-eq">cester_assert_ldouble_eq</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-ne">cester_assert_ldouble_ne</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-gt">cester_assert_ldouble_gt</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-ge">cester_assert_ldouble_ge</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-lt">cester_assert_ldouble_lt</a></li>
+<li><a class="reference internal" href="#cester-assert-ldouble-le">cester_assert_ldouble_le</a></li>
 </ul>
 </li>
 </ul>
@@ -408,23 +1484,6 @@ y - another pointer to compare with the first pointer <br /></p>
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>
-    
-        <script>
-            var coll = document.getElementsByClassName("caption");
-            var i;
-
-            for (i = 0; i < coll.length; i++) {
-              coll[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                  content.style.display = "none";
-                } else {
-                  content.style.display = "block";
-                }
-              });
-            }
-            </script>
     
 
   </body>

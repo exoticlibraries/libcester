@@ -4,7 +4,7 @@
     <compoundname>index</compoundname>
     <title>libcester</title>
     <detaileddescription>
-<para><image type="html" name="cester.png"></image>
+<para><image type="html" name="libcester.png"></image>
 </para><para><heading level="1">libcester</heading>
 </para><para>A robust header only unit testing framework for C programming language. Support function mocking, memory leak detection, crash report.</para><para>cester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately. Works on various platorms including embedded systems and compatible with various compilers. Allows shared instance <computeroutput>TestInstance</computeroutput> object in which each test cases can use to share data and access the command line arguments.</para><para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="cester_8h" kindref="compound">exotic/cester.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>

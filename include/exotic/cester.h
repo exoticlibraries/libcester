@@ -1487,9 +1487,9 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 #define cester_assert_cmp_char(w,x,y,z) CESTER_CONCAT(cester_compare_char, __internal_cester_assert_cmp(w,x,y,z))
 
 /**
-    Check if the two char are the same.
+    Check if the two characters are the same.
     This macro prints out the actual values of the two 
-    chars.
+    characters.
     
     \param x a char
     \param y another char

@@ -13,9 +13,10 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="next" title="Documentation" href="index.html" />
     <link rel="prev" title="Screenshots" href="../screenshots.html" />
    
   
@@ -27,6 +28,8 @@
     <div class="document">
     <header>
         <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
             
             <a href="../index.html" class="title">libcester</a>
             
@@ -62,7 +65,6 @@
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Assertion Macros</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
@@ -88,13 +90,29 @@
   <div class="section" id="assertion-macros">
 <span id="index-0"></span><h1>Assertion Macros<a class="headerlink" href="#assertion-macros" title="Permalink to this headline">¶</a></h1>
 <p>All assertion macros are in lowercase and starts with <cite>cester_assert_</cite></p>
-<div class="section" id="cester-assert-cmp-msg">
-<h2>cester_assert_cmp_msg<a class="headerlink" href="#cester-assert-cmp-msg" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define cester_assert_cmp_msg(w,x,y,z)</span>
+<div class="section" id="cester-assert-nothing">
+<h2>cester_assert_nothing<a class="headerlink" href="#cester-assert-nothing" title="Permalink to this headline">¶</a></h2>
+<p>Does nothing just an empty placeholder. Can be used in the CESTER_SKIP_TEST and
+CESTER_TODO_TEST when compiling with -ansi and -pedantic-errors flag</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TODO_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="cester-assert-cmp-msg">
+<h2>cester_assert_cmp_msg<a class="headerlink" href="#cester-assert-cmp-msg" title="Permalink to this headline">¶</a></h2>
 <p>Compare two values using the specified operator. The custom msg value is printed in output
 after the evaluation. The operator determines if the asserion fails or passes.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_cmp_msg</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">&gt;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;is 10 greater than 2&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p><strong>Parameters</strong></p>
 <blockquote>
 <div><p>w - a value to compare to y <br />
@@ -103,39 +121,88 @@ y - a value to compare to w <br />
 z - the expression to print in output <br /></p>
 </div></blockquote>
 </div>
+<div class="section" id="cester-assert-cmp">
+<h2>cester_assert_cmp<a class="headerlink" href="#cester-assert-cmp" title="Permalink to this headline">¶</a></h2>
+<p>Compare two argument using the provided operator. Prints the expression as in the source code</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_cmp</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="o">==</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a value to compare to z <br />
+y - the operator to use for the comparison. One of <cite>==, !=, &lt;, &gt;, &lt;=, &gt;=</cite> <br />
+z - a value to compare to x</p>
+</div></blockquote>
+</div>
 <div class="section" id="cester-assert-true">
 <h2>cester_assert_true<a class="headerlink" href="#cester-assert-true" title="Permalink to this headline">¶</a></h2>
 <p>Check if the argument, expression evaluates to true. It accepts one parameter which is the
 expression to evaluate. It prints out the expression as it in the source code no formating
 is applied.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_true</span><span class="p">(</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_true</span><span class="p">(</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if true</p>
+</div></blockquote>
 </div>
 <div class="section" id="cester-assert-false">
 <h2>cester_assert_false<a class="headerlink" href="#cester-assert-false" title="Permalink to this headline">¶</a></h2>
 <p>Check if the argument, expression evaluates to false. It accepts one parameter which is the
 expression to evaluate. It prints out the expression as it in the source code no formating
 is applied.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_false</span><span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_false</span><span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if false</p>
+</div></blockquote>
 </div>
 <div class="section" id="cester-assert-null">
 <h2>cester_assert_null<a class="headerlink" href="#cester-assert-null" title="Permalink to this headline">¶</a></h2>
 <p>Check if the expression or argument is NULL. Pass if argument is NULL otherwise it fails.
 It prints out the expression as it in the source code no formating is applied.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_null</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_null</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if it NULL.</p>
+</div></blockquote>
 </div>
 <div class="section" id="cester-assert-not-null">
 <h2>cester_assert_not_null<a class="headerlink" href="#cester-assert-not-null" title="Permalink to this headline">¶</a></h2>
-<p>Check if the expression or argument is not NULL. Pass if argument is not NULL otherwise it fails.
+<p>Check if the expression or argument is not NULL. Pass if argument is NULL otherwise it passes.
 It prints out the expression as it in the source code no formating is applied.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_not_null</span><span class="p">(</span><span class="s">&quot;NotNull&quot;</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_not_null</span><span class="p">(</span><span class="s">&quot;NotNull&quot;</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if it not NULL.</p>
+</div></blockquote>
 </div>
 <div class="section" id="cester-assert-equal">
 <h2>cester_assert_equal<a class="headerlink" href="#cester-assert-equal" title="Permalink to this headline">¶</a></h2>
@@ -145,18 +212,112 @@ the follwoing expression <cite>cester_assert_equal(1, “Test”);</cite> C comp
 comparison between integer and char* while in C++ compiler it will fail to compile at all. Only
 data of possibly same type that can be compared with <cite>==</cite> operator should be used with this macro
 else use the designated assertion macro for the types.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the first expression to compare <br />
+y - the second expression to compare to the first expression <br /></p>
+</div></blockquote>
 </div>
 <div class="section" id="cester-assert-not-equal">
 <h2>cester_assert_not_equal<a class="headerlink" href="#cester-assert-not-equal" title="Permalink to this headline">¶</a></h2>
 <p>Passed if the two parameters are different. The two parameters are compared with the operator
 <cite>!=</cite>, therefore there can be compile time warning or error on comparison between two very
 different type.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;NotEqual&quot;</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;NotEqual&quot;</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the first expression to compare <br />
+y - the second expression to compare to the first expression <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-str-equal">
+<h2>cester_assert_str_equal<a class="headerlink" href="#cester-assert-str-equal" title="Permalink to this headline">¶</a></h2>
+<p>Compare two strings. If the comparison passes the test case is marked as failed. The advantage
+of this macro is that it display the actual values of the two strings.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;exoticlibs&quot;</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_str_equal</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s">&quot;exoticlibs&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a string to compare <br />
+y - another string to compare with the first string <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-str-not-equal">
+<h2>cester_assert_str_not_equal<a class="headerlink" href="#cester-assert-str-not-equal" title="Permalink to this headline">¶</a></h2>
+<p>Compare two strings. If the comparison passes the test case is marked as failed. The advantage
+of this macro is that it display the actual values of the two strings.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;exoticlibs&quot;</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_str_not_equal</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a string to compare <br />
+y - another string to compare with the first string <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ptr-equal">
+<h2>cester_assert_ptr_equal<a class="headerlink" href="#cester-assert-ptr-equal" title="Permalink to this headline">¶</a></h2>
+<p>Compare two pointers. If the comparison fails the test case is marked as failed. The advantage
+of this macro is that it display the actual values of the two pointers.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_ptr_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a pointer to compare <br />
+y - another pointer to compare with the first pointer <br /></p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-ptr-not-equal">
+<h2>cester_assert_ptr_not_equal<a class="headerlink" href="#cester-assert-ptr-not-equal" title="Permalink to this headline">¶</a></h2>
+<p>Compare two pointers. If the comparison passes the test case is marked as failed. The advantage
+of this macro is that it display the actual values of the two pointers.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_ptr_not_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - a pointer to compare <br />
+y - another pointer to compare with the first pointer <br /></p>
+</div></blockquote>
 </div>
 </div>
 
@@ -172,7 +333,7 @@ different type.</p>
                             <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
                             
                             
-                                <a class="reference navigator" style="float:right;" href="examples.html">Examples<i class="fa fa-arrow-right"></i></a> 
+                                <a class="reference navigator" style="float:right;" href="index.html">Documentation<i class="fa fa-arrow-right"></i></a> 
                             
                             
                                 <a class="reference navigator" style="float:right;" href="../screenshots.html"><i class="fa fa-arrow-left"></i>Screenshots</a>
@@ -189,13 +350,19 @@ different type.</p>
                         <h2>Page Contents</h2>
                         <ul>
 <li><a class="reference internal" href="#">Assertion Macros</a><ul>
+<li><a class="reference internal" href="#cester-assert-nothing">cester_assert_nothing</a></li>
 <li><a class="reference internal" href="#cester-assert-cmp-msg">cester_assert_cmp_msg</a></li>
+<li><a class="reference internal" href="#cester-assert-cmp">cester_assert_cmp</a></li>
 <li><a class="reference internal" href="#cester-assert-true">cester_assert_true</a></li>
 <li><a class="reference internal" href="#cester-assert-false">cester_assert_false</a></li>
 <li><a class="reference internal" href="#cester-assert-null">cester_assert_null</a></li>
 <li><a class="reference internal" href="#cester-assert-not-null">cester_assert_not_null</a></li>
 <li><a class="reference internal" href="#cester-assert-equal">cester_assert_equal</a></li>
 <li><a class="reference internal" href="#cester-assert-not-equal">cester_assert_not_equal</a></li>
+<li><a class="reference internal" href="#cester-assert-str-equal">cester_assert_str_equal</a></li>
+<li><a class="reference internal" href="#cester-assert-str-not-equal">cester_assert_str_not_equal</a></li>
+<li><a class="reference internal" href="#cester-assert-ptr-equal">cester_assert_ptr_equal</a></li>
+<li><a class="reference internal" href="#cester-assert-ptr-not-equal">cester_assert_ptr_not_equal</a></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +373,7 @@ different type.</p>
                         
                         
                             <h2>Next topic</h2>
-                            <a href="examples.html">Examples</a>
+                            <a href="index.html">Documentation</a>
                         
                         <h2>This Page</h2>
                         <a href="../_sources/docs/assertions.rst.txt">Show source</a>

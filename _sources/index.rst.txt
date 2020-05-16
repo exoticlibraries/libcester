@@ -44,6 +44,7 @@
     </style>
     <div class="header">
         <div class="overlay">
+            <img src="_static/libcester.png" alt="libcester logo"><br/><br/>
             <span class="title">libcester</span><br/>
             <p class="brief">
                 A robust header only unit testing framework for C and C++ programming language. <br/>
@@ -159,15 +160,37 @@
         </div>
     </div>
 
-    <!--<div class="two-sided">
+    <div class="two-sided">
         <div class="left-side">
-            <h3 class="title">Function mocking</h3>
+            <h3 class="title">Intuitive APIs</h3>
             <br/>
 
-            LEave the template here please
+            Cester provides clean macros to write your unit tests. You don't have to worry about 
+            test case registration it all taken care of at compile time. Optionally you can 
+            manually register specific test cases.
+
+            <br/><br/>
+            There are various <a href="./docs/assertions.html">assertion macros</a>
+            available for use in your test. 
         </div>
         <div class="right-side">
-            
+            <div class="highlight-c notranslate"><div class="highlight"><pre>
+    #include &lt;exotic/cester.h>
+
+    CESTER_BEFORE_ALL(test_instance, 
+        test_instance->arg = (void*) "exoticlibs";
+    )
+
+    CESTER_TEST(test_assert_cmp_msg, test_instance, 
+        cester_assert_cmp_msg(NULL, ==, ((void*)0), "Check if NULL is same as ((void*)0)");
+        cester_assert_cmp_msg(NULL, !=, "String", "is NULL equal to 'String'");
+    )
+
+    CESTER_TEST(test_string, test_instance, 
+        cester_assert_str_equal((char*)test_instance->arg, "exoticlibs");
+        cester_assert_str_not_equal((char*)test_instance->arg, NULL);
+    )</pre></div>
+            </div>
         </div>
-    </div>-->
+    </div>
 

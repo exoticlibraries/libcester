@@ -25,12 +25,17 @@ h2 {
     font-size: 50px;
 }
 
+.header img {
+    width: 90px;
+    height: 110px;
+}
+
 .overlay {
     top: 0;
     background: rgba(51, 55, 59, 0.95);
     width: 100%;
-    padding-top: 180px;
-    height: 320px;
+    padding-top: 110px;
+    height: 430px;
 }
 
 .header .brief {
@@ -86,7 +91,7 @@ h2 {
 }
 
 .two-sided .left-side {
-    width: 30%;
+    width: 50%;
     padding: 5%;
     padding-top: 1%;
     padding-left: 0;
@@ -97,7 +102,7 @@ h2 {
 }
 
 .two-sided .right-side {
-    width: 70%;
+    width: 50%;
 }
 
 .two-sided pre {

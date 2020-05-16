@@ -13,10 +13,11 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mocking" href="mocking.html" />
-    <link rel="prev" title="Examples" href="examples.html" />
+    <link rel="prev" title="Assertion Macros" href="assertions.html" />
    
   
   
@@ -27,6 +28,8 @@
     <div class="document">
     <header>
         <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
             
             <a href="../index.html" class="title">libcester</a>
             
@@ -62,7 +65,6 @@
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
@@ -90,13 +92,19 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-nothing">cester_assert_nothing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-cmp-msg">cester_assert_cmp_msg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-cmp">cester_assert_cmp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-true">cester_assert_true</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-false">cester_assert_false</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-null">cester_assert_null</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-not-null">cester_assert_not_null</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-equal">cester_assert_equal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-not-equal">cester_assert_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-str-equal">cester_assert_str_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-str-not-equal">cester_assert_str_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ptr-equal">cester_assert_ptr_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ptr-not-equal">cester_assert_ptr_not_equal</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a><ul>
@@ -157,7 +165,6 @@
 <li class="toctree-l2"><a class="reference internal" href="output_formats.html#tap-version-13">TAP Version 13</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="testing_in_various_ide.html#terminal-and-any-text-editor">Terminal and any text editor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="testing_in_various_ide.html#visual-studio">Visual Studio</a></li>
@@ -183,7 +190,7 @@
                                 <a class="reference navigator" style="float:right;" href="mocking.html">Mocking<i class="fa fa-arrow-right"></i></a> 
                             
                             
-                                <a class="reference navigator" style="float:right;" href="examples.html"><i class="fa fa-arrow-left"></i>Examples</a>
+                                <a class="reference navigator" style="float:right;" href="assertions.html"><i class="fa fa-arrow-left"></i>Assertion Macros</a>
                             
                         </div>
                     
@@ -201,7 +208,7 @@
 
                         
                             <h2>Previous topic</h2>
-                            <a href="examples.html">Examples</a>
+                            <a href="assertions.html">Assertion Macros</a>
                         
                         
                             <h2>Next topic</h2>

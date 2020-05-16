@@ -1035,7 +1035,7 @@
 <parametername>y</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the second expression to compare </para></parameterdescription>
+<para>the second expression to compare to the first expression </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
@@ -1063,7 +1063,7 @@
 <parametername>y</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the second expression to compare </para></parameterdescription>
+<para>the second expression to compare to the first expression </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
@@ -1135,7 +1135,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Compare two pointers. If the comparison fails the test case is marked as failed. The advantage of this macro is that it display the actual values of the two strings.</para><para><parameterlist kind="param"><parameteritem>
+<para>Compare two pointers. If the comparison fails the test case is marked as failed. The advantage of this macro is that it display the actual values of the two pointers.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>x</parametername>
 </parameternamelist>
@@ -1163,7 +1163,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Compare two pointers. If the comparison passes the test case is marked as failed. The advantage of this macro is that it display the actual values of the two strings.</para><para><parameterlist kind="param"><parameteritem>
+<para>Compare two pointers. If the comparison passes the test case is marked as failed. The advantage of this macro is that it display the actual values of the two pointers.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>x</parametername>
 </parameternamelist>

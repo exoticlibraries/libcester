@@ -44,6 +44,7 @@
     </style>
     <div class="header">
         <div class="overlay">
+            <img src="_static/libcester.png" alt="libcester logo"><br/><br/>
             <span class="title">libcester</span><br/>
             <p class="brief">
                 A robust header only unit testing framework for C and C++ programming language. <br/>

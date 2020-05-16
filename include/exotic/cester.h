@@ -1412,7 +1412,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     Prints the expression as in the source code
     
     \param x the first expression to compare
-    \param y the second expression to compare
+    \param y the second expression to compare to the first expression
 */
 #define cester_assert_equal(x,y) cester_evaluate_expect_actual(x==y, 1, #x, #y, __FILE__, __LINE__)
 
@@ -1421,7 +1421,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     Prints the expression as in the source code
     
     \param x the first expression to compare
-    \param y the second expression to compare
+    \param y the second expression to compare to the first expression
 */
 #define cester_assert_not_equal(x,y) cester_evaluate_expect_actual(x!=y, 0, #x, #y, __FILE__, __LINE__)
 
@@ -1448,7 +1448,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 /**
     Compare two pointers. If the comparison fails the test case 
     is marked as failed. The advantage of this macro is that it display 
-    the actual values of the two strings.
+    the actual values of the two pointers.
     
     \param x a pointer to compare
     \param y another pointer to compare with the first pointer
@@ -1458,7 +1458,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 /**
     Compare two pointers. If the comparison passes the test case 
     is marked as failed. The advantage of this macro is that it display 
-    the actual values of the two strings.
+    the actual values of the two pointers.
     
     \param x a pointer to compare
     \param y another pointer to compare with the first pointer

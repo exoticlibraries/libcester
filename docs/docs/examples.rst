@@ -1,8 +1,0 @@
-
-.. index::
-	single: examples
-
-Examples
-===============
-
-

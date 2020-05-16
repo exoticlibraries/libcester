@@ -1,15 +1,7 @@
 /*!gcc {0} -I. -I../include/ -o out; ./out */
 
-#define CESTER_NO_MAIN
 #include <exotic/cester.h>
 
-CESTER_TEST(test1, test_instance,
-	cester_assert_equal(NULL, NULL);
-)
-
-CESTER_BODY(
-int main(int argc, char** argv) {
-	CESTER_REGISTER_TEST(test1);
-	return CESTER_RUN_ALL_TESTS(argc, argv);
-}
+CESTER_TEST(test_example, _, 
+    cester_assert_cmp_msg(10, >, 2, "is 10 greater than 2");
 )

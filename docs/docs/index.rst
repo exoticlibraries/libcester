@@ -16,5 +16,4 @@ Documentation
    manual_test_registration
    test_for_failure
    output_formats
-   examples
    testing_in_various_ide

@@ -16,7 +16,7 @@ html_context = {
 html_theme_options = {
     'index_is_single': False,
     'show_navigators_in_index': False,
-    'collapsible_sidebar': True,
+    'collapsible_sidebar': False,
     'collapsible_sidebar_display': 'block',
     'navbar_links': [
         ('Docs', '/libcester/docs/'),
@@ -36,7 +36,11 @@ html_theme_options = {
     ],
     "source_root": "https://github.com/exoticlibraries/libcester/edit/master/docs",
     "document_font_size": "17px",
-    "text_color": "#4a4a4a",
-    "header_background_color": "#33373b",
-    "pre_border_color": "#33373b"
+    "text_color": "rgb(205,202,194)",
+    "link_color": "rgb(205,202,194)",
+    "highlight_color": "rgb(15,110,157)",
+    "header_background_color": "rgb(52,55,58)",
+    "background_color": "rgb(24,26,27)",
+    "pre_background_color": "rgb(24,26,27)",
+    "pre_border_color": "rgb(84,91,98)"
 }

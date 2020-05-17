@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How it works" href="index.html" />
+    <link rel="next" title="How test registration works" href="how_test_registration_works.html" />
     <link rel="prev" title="How the assertion macros works" href="how_assertion_macro.html" />
    
   
@@ -76,7 +76,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="how_assertion_macro.html">How the assertion macros works</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How the mocking works</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">How it works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How it works</a></li>
 </ul>
 
                 </div>
@@ -87,9 +88,51 @@
                 
   <div class="section" id="how-the-mocking-works">
 <span id="index-0"></span><h1>How the mocking works<a class="headerlink" href="#how-the-mocking-works" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="two">
-<h2>Two<a class="headerlink" href="#two" title="Permalink to this headline">¶</a></h2>
+<p>The macro CESTER_MOCK_FUNCTION declares a weak reference of the function to mock,
+declares a __real_ function signature and at the last expansion stage declares and initialize
+a __weak_ wrapper function.</p>
+<p>The following example mock a function</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_MOCK_FUNCTION(power_of(int* num1, int num2), int,
+        int return_val = *num1;
+        while (num2--&gt;1) {
+                return_val *= *num1;
+        }
+        return return_val;
+)
+</pre></div>
 </div>
+<p>First macro expansion we have</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__attribute__((weak)) int power_of(int* num1, int num2);
+extern int __real_power_of(int* num1, int num2);
+</pre></div>
+</div>
+<p>In the final expansion</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int __real_power_of(int* num1, int num2) {
+        int return_val = *num1;
+        while (num2--&gt;1) {
+                return_val *= *num1;
+        }
+        return return_val;
+}
+</pre></div>
+</div>
+<p>At the end of the macro expansion we have</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__attribute__((weak)) int power_of(int* num1, int num2);
+extern int __real_power_of(int* num1, int num2);
+
+int __real_power_of(int* num1, int num2) {
+        int return_val = *num1;
+        while (num2--&gt;1) {
+                return_val *= *num1;
+        }
+        return return_val;
+}
+</pre></div>
+</div>
+<p>The function <strong>power_of</strong> will then be mocked if compiled with the <cite>-Wl,–wrap=power_of</cite>
+option.</p>
+<p>The same logic applies to CESTER_MOCK_SIMPLE_FUNCTION macro except it returns the last
+parameter.</p>
 </div>
 
 
@@ -104,7 +147,7 @@
                             <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
                             
                             
-                                <a class="reference navigator" style="float:right;" href="index.html">How it works<i class="fa fa-arrow-right"></i></a> 
+                                <a class="reference navigator" style="float:right;" href="how_test_registration_works.html">How test registration works<i class="fa fa-arrow-right"></i></a> 
                             
                             
                                 <a class="reference navigator" style="float:right;" href="how_assertion_macro.html"><i class="fa fa-arrow-left"></i>How the assertion macros works</a>
@@ -120,10 +163,7 @@
                     
                         <h2>Page Contents</h2>
                         <ul>
-<li><a class="reference internal" href="#">How the mocking works</a><ul>
-<li><a class="reference internal" href="#two">Two</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">How the mocking works</a></li>
 </ul>
 
                         
@@ -132,7 +172,7 @@
                         
                         
                             <h2>Next topic</h2>
-                            <a href="index.html">How it works</a>
+                            <a href="how_test_registration_works.html">How test registration works</a>
                         
                         <h2>This Page</h2>
                         <a href="../_sources/how_it_works/how_mocking.rst.txt">Show source</a>

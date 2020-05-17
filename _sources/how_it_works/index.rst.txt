@@ -11,3 +11,4 @@ How it works
 
    how_mocking
    how_assertion_macro
+   how_test_registration_works

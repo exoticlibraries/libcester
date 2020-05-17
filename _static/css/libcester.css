@@ -8,11 +8,11 @@ h2 {
 }
 
 pre {
-    overflow: hidden !important;
+    overflow-y: hidden !important;
 }
 
 code {
-    overflow: hidden !important;
+    overflow-y: hidden !important;
 }
 
 .topnavbar input[type=text] {
@@ -145,6 +145,10 @@ code {
 
 .warning {
     background: rgb(24,26,27) !important;
+}
+
+.bodywrapper {
+    min-height: 100vh;
 }
 
 

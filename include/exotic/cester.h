@@ -160,6 +160,11 @@ jmp_buf buf;
 #define CESTER_VERSION "0.2"
 
 /**
+    Cester current version
+*/
+#define CESTER_VERSION_NUM 0.2
+
+/**
     Cester License
 */
 #define CESTER_LICENSE "GNU General Public License v3.0"
@@ -2749,10 +2754,10 @@ static TestCase cester_test_cases[] = {
 #define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z  } 
 #define CESTER_TODO_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z }
 #define CESTER_SKIP_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z } 
-#define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y } 
-#define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, unsigned y) { z }
-#define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y } 
-#define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { z }
+#define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y CESTER_NO_ISOLATION(); } 
+#define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
+#define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y CESTER_NO_ISOLATION(); }
+#define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 #define CESTER_BODY(x) x
 #ifndef CESTER_NO_MOCK
@@ -2846,6 +2851,8 @@ static TestCase cester_test_cases[] = {
 /**
     Change the expected test case result. If the test case is terminated by user 
     or another program then it passes ortherwise it fails.
+    
+    \param x the test case name
 */
 #define CESTER_TEST_SHOULD_BE_TERMINATED(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_TERMINATED);
 

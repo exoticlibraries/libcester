@@ -93,7 +93,7 @@ test_instance is shared between each test process in isolated test only *arg* da
 
 .. note::
 
-	Using the `--cester-noisolation` prevent cester from recovering from a test segfault or critical
+	Using the `--cester-noisolation` cester will rely on signal to recover from critical 
 	crash.
 
 The example below recreates the problem and provides a solution.
@@ -154,4 +154,4 @@ to use a single process for all the tests.
 
 
 
-.. _Manual test registration: https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html
+.. _Manual test registration: ./docs/manual_test_registration.html

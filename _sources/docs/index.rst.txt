@@ -16,4 +16,3 @@ Documentation
    output_formats
    macros
    assertions
-   testing_in_various_ide

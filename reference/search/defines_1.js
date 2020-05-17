@@ -189,5 +189,6 @@ var searchData=
   ['cester_5ftotal_5ftests_5fskipped',['CESTER_TOTAL_TESTS_SKIPPED',['../cester_8h.html#a1ee3507e6dc71e47e93f8a181d3886d6',1,'cester.h']]],
   ['cester_5ftotal_5ftodo_5ftests',['CESTER_TOTAL_TODO_TESTS',['../cester_8h.html#af44061d47a11ee1696be62022674aed5',1,'cester.h']]],
   ['cester_5fverbose',['CESTER_VERBOSE',['../cester_8h.html#a6fa58ee11340e1315ba71ffe53c325f5',1,'cester.h']]],
-  ['cester_5fversion',['CESTER_VERSION',['../cester_8h.html#a3f7175f8b89d015d5361d140be50e076',1,'cester.h']]]
+  ['cester_5fversion',['CESTER_VERSION',['../cester_8h.html#a3f7175f8b89d015d5361d140be50e076',1,'cester.h']]],
+  ['cester_5fversion_5fnum',['CESTER_VERSION_NUM',['../cester_8h.html#a91a6d8fd77b79a18a599b141082e5899',1,'cester.h']]]
 ];

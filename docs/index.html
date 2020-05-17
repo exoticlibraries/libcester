@@ -59,7 +59,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
@@ -72,7 +71,6 @@
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
 <ul>
@@ -129,6 +127,27 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test">CESTER_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-todo-test">CESTER_TODO_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-skip-test">CESTER_SKIP_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-before-all">CESTER_BEFORE_ALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-before-each">CESTER_BEFORE_EACH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-after-each">CESTER_AFTER_EACH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-after-all">CESTER_AFTER_ALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-options">CESTER_OPTIONS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-test">CESTER_REGISTER_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-skip-test">CESTER_REGISTER_SKIP_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-todo-test">CESTER_REGISTER_TODO_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-before-all">CESTER_REGISTER_BEFORE_ALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-after-all">CESTER_REGISTER_AFTER_ALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-before-each">CESTER_REGISTER_BEFORE_EACH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-after-each">CESTER_REGISTER_AFTER_EACH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-register-options">CESTER_REGISTER_OPTIONS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should">CESTER_TEST_SHOULD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-segfault">CESTER_TEST_SHOULD_SEGFAULT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-fail">CESTER_TEST_SHOULD_FAIL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-be-terminated">CESTER_TEST_SHOULD_BE_TERMINATED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-leak-memory">CESTER_TEST_SHOULD_LEAK_MEMORY</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mock">#define CESTER_NO_MOCK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-mock-simple-function">CESTER_MOCK_SIMPLE_FUNCTION</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-mock-function">CESTER_MOCK_FUNCTION</a></li>
@@ -145,7 +164,19 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-no-isolation">CESTER_NO_ISOLATION</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-no-memtest">CESTER_NO_MEMTEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-do-memtest">CESTER_DO_MEMTEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-text">CESTER_OUTPUT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-junitxml">CESTER_OUTPUT_JUNITXML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-tap">CESTER_OUTPUT_TAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-tapv13">CESTER_OUTPUT_TAPV13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-format-testname">CESTER_FORMAT_TESTNAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-dont-format-testname">CESTER_DONT_FORMAT_TESTNAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-total-tests-count">CESTER_TOTAL_TESTS_COUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-total-failed-tests-count">CESTER_TOTAL_FAILED_TESTS_COUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-total-tests-skipped">CESTER_TOTAL_TESTS_SKIPPED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-total-passed-tests-count">CESTER_TOTAL_PASSED_TESTS_COUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-total-todo-tests">CESTER_TOTAL_TODO_TESTS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-version">CESTER_VERSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-version-num">CESTER_VERSION_NUM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-license">CESTER_LICENSE</a></li>
 </ul>
 </li>
@@ -254,12 +285,6 @@
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-ge">cester_assert_ldouble_ge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-lt">cester_assert_ldouble_lt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-le">cester_assert_ldouble_le</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="testing_in_various_ide.html">Testing in various IDE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="testing_in_various_ide.html#terminal-and-any-text-editor">Terminal and any text editor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing_in_various_ide.html#visual-studio">Visual Studio</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing_in_various_ide.html#eclipse">Eclipse</a></li>
 </ul>
 </li>
 </ul>

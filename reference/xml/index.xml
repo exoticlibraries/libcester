@@ -87,6 +87,7 @@
     <member refid="cester_8h_1ac051657c5bbcc2c791f858fd89add80a" kind="define"><name>CESTER_BACKGROUND_WHITE</name></member>
     <member refid="cester_8h_1aa655a3d67eafec9a020162b4329a620b" kind="define"><name>CESTER_RESET_TERMINAL_ATTR</name></member>
     <member refid="cester_8h_1a3f7175f8b89d015d5361d140be50e076" kind="define"><name>CESTER_VERSION</name></member>
+    <member refid="cester_8h_1a91a6d8fd77b79a18a599b141082e5899" kind="define"><name>CESTER_VERSION_NUM</name></member>
     <member refid="cester_8h_1a5600857cd20a51acba3241d695f117e2" kind="define"><name>CESTER_LICENSE</name></member>
     <member refid="cester_8h_1a295bfc0bb98f055fbf7ee87f93011bf8" kind="define"><name>CESTER_HASH_SIGN</name></member>
     <member refid="cester_8h_1ac63c535f180a00d4a8a3f9d970486a1d" kind="define"><name>CESTER_CONCAT</name></member>

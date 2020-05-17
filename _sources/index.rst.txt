@@ -7,7 +7,6 @@
 
    /download
    /faq
-   /license
    /screenshots
 
 

@@ -139,8 +139,13 @@ code {
     font-weight: bold;
 }
 
+.note {
+    background: rgb(24,26,27) !important;
+}
 
-
+.warning {
+    background: rgb(24,26,27) !important;
+}
 
 
 

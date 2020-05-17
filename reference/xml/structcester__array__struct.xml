@@ -15,7 +15,7 @@
 <para>the size of the item in the array </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="274" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="274" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="279" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="279" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcester__array__struct_1aecb870362b8d6f79a3c1e12b37485a2e" prot="public" static="no" mutable="no">
         <type>size_t</type>
@@ -28,7 +28,7 @@
 <para>the number of item the array can contain before expanding </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="275" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="275" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="280" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="280" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcester__array__struct_1ae53682c19ff37319c0ba19aec4c11b86" prot="public" static="no" mutable="no">
         <type>void **</type>
@@ -41,14 +41,14 @@
 <para>pointer to the pointers of items added to the array </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="276" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="276" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="281" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="281" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="273" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="273" bodyend="277"/>
+    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="278" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="278" bodyend="282"/>
     <listofallmembers>
       <member refid="structcester__array__struct_1ae53682c19ff37319c0ba19aec4c11b86" prot="public" virt="non-virtual"><scope>cester_array_struct</scope><name>buffer</name></member>
       <member refid="structcester__array__struct_1aecb870362b8d6f79a3c1e12b37485a2e" prot="public" virt="non-virtual"><scope>cester_array_struct</scope><name>capacity</name></member>

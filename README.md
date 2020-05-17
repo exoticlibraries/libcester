@@ -11,7 +11,7 @@ cester is a header only automated testing framework for the C programming langua
 #include <exotic/cester.h>
 
 CESTER_TEST(test_one, inst,
-	cester_assert_equal(NULL, ((void*)0));	
+    cester_assert_equal(NULL, ((void*)0));    
 )
 ```
 
@@ -21,18 +21,18 @@ ___
 ## Table of content
 - [Standards Compliance and Portability](#standards-compliance-and-portability)
 - [Installation](#installation)
-	- [Install](#install)
-		- [Windows](#windows)
-		- [Linux](#linux)
-		- [Other platforms](#other-platforms)
+    - [Install](#install)
+        - [Windows](#windows)
+        - [Linux](#linux)
+        - [Other platforms](#other-platforms)
 - [Documentation](#documentation)
 - [Usage](#usage)
     - [Writing and Running test](#writing-test)
     - [Cester options](#cester-options)
-	- [Macros](#macros)
+    - [Macros](#macros)
 - [Mocking](#mocking)
 - [FAQ](#faq)
-	- [No test case detected](#no-test-case-detected)
+    - [No test case detected](#no-test-case-detected)
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [References](#references)
@@ -96,11 +96,11 @@ The macro CESTER_TEST is used to create a test case, the first parameter is the 
 #include <exotic/cester.h>
 
 CESTER_TEST(test_one, inst,
-	cester_assert_equal(NULL, ((void*)0));	
+    cester_assert_equal(NULL, ((void*)0));    
 )
 
 CESTER_TEST(test_two, inst,
-	cester_assert_ptr_equal(inst, NULL);	
+    cester_assert_ptr_equal(inst, NULL);    
 )
 ```
 
@@ -139,11 +139,11 @@ The following test mocks a funtion that accept no parameter and return a value:
 #define ORIGINALS
 
 int multiply_by() {
-	return 2;
+    return 2;
 }
 
 int multiply_a_number(int a) {
-	return a * multiply_by() ;
+    return a * multiply_by() ;
 }
 #endif
 ```
@@ -159,7 +159,7 @@ CESTER_MOCK_FUNCTION(multiply_by(), int, {
 })
 
 CESTER_TEST(check_mocked_function, test_instance,
-	cester_assert_equal(multiply_a_number(2), 10);
+    cester_assert_equal(multiply_a_number(2), 10);
 )
 ```
 
@@ -214,7 +214,7 @@ path to the test file. E.g for the test file test.c:
 #include <exotic/cester.h>
 
 CESTER_TEST(test1, test_instance,
-	cester_assert_equal(NULL, NULL);
+    cester_assert_equal(NULL, NULL);
 )
 ```
 
@@ -225,13 +225,13 @@ Alternatively the test cases should be manually registered in the main method, y
 #include <exotic/cester.h>
 
 CESTER_TEST(test1, test_instance,
-	cester_assert_equal(NULL, NULL);
+    cester_assert_equal(NULL, NULL);
 )
 
 CESTER_BODY(
 int main(int argc, char** argv) {
-	CESTER_REGISTER_TEST(test1);
-	return CESTER_RUN_ALL_TESTS(argc, argv);
+    CESTER_REGISTER_TEST(test1);
+    return CESTER_RUN_ALL_TESTS(argc, argv);
 }
 )
 ```
@@ -244,7 +244,9 @@ The base file which is the file that contains the tests is included more than tw
 
 > Imagine a source file including a header file. Then imagine the header file including the source file that included it. Now imagine doing that three times in a row within the same header file. Proceed to imagine redefining all of the identifiers each time. Finally imagine doing all of that with preprocessor directives. What you ended up with is CHEAT - Sampsa Kiiskinen
 
-Yes the project uses the same approach used by the [cheat](http://users.jyu.fi/~sapekiis/cheat/index.html) project. The project makes a very tricky use of the C preprocessor directive to achieve test cases registration so the developer can concentrate on writing the test only while cester manages the test registration, execution and analysis.
+The project uses the same approach used by the [cheat](https://github.com/Tuplanolla/cheat) project. It makes a very tricky use of the C preprocessor directive to achieve test cases registration so the developer can concentrate on writing the test only while cester manages the test registration, execution and analysis.
+
+See the pages at [how it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html) for more explanation.
 
 ## Contributing
 
@@ -253,7 +255,7 @@ If you have any issue or you want to request a feature you can open a request [h
 ## References
 
  - [ANSI C](https://en.wikipedia.org/wiki/ANSI_C)
- - [CHEAT](http://users.jyu.fi/~sapekiis/cheat/index.html)
+ - [CHEAT](https://github.com/Tuplanolla/cheat)
  - [Exotic Libraries](https://exoticlibraries.github.io/)
  - [Author](https://thecarisma.github.io/)
 

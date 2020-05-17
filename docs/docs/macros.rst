@@ -219,21 +219,132 @@ using `--cester-printversion`.
 CESTER_SINGLE_OUPUT_ONLY
 -------------------------
 
+.. code:: c
+
+    CESTER_SINGLE_OUPUT_ONLY()
+
+Display test for a single test case only, skip syntesis and summary. This option can also be 
+set from the command line with `--cester-singleoutput`
+
 CESTER_NO_ISOLATION
 ---------------------
+
+.. code:: c
+
+    CESTER_NO_ISOLATION()
+
+Do not isolate the tests, run each of the test cases in a single process. The drawback is 
+if a test case causes segfault or crash the entire test crashes and no summary is displayed. 
+No isolation causes a crash one crash all scenerio.
+    
+This option can also be set from the command line with `--cester-noisolation`
 
 CESTER_NO_MEMTEST
 ---------------------
 
+.. code:: c
+
+    CESTER_NO_MEMTEST()
+
+Disable memory leak detection test. This option can also be set from the command line 
+with `--cester-nomemtest`
+
 CESTER_DO_MEMTEST
 ---------------------
 
+.. code:: c
+
+    CESTER_SINGLE_OUPUT_ONLY()
+
+Enable memory allocation. The combination of CESTER_NO_MEMTEST() and  CESTER_DO_MEMTEST() 
+is valid only in non isolated tests. 
+
+This togle combined with `CESTER_NO_MEMTEST()` can be used to selectively test memory 
+allocation in a test e.g. Calling CESTER_NO_MEMTEST() before a test case will prevent memory 
+test from the beginning of that function and calling CESTER_DO_MEMTEST() at the end of the 
+test case will ensure memory allocation will be validated in all the other test case that follows.
+
+CESTER_OUTPUT_TEXT
+---------------------
+
+.. code:: c
+
+    CESTER_OUTPUT_TEXT()
+
+Change the output format to text. This option can also be set from the command line 
+with `--cester-format=text`
+
+
+CESTER_OUTPUT_JUNITXML
+-----------------------
+
+.. code:: c
+
+    CESTER_OUTPUT_JUNITXML()
+
+Change the output format to junitxml. This option can also be set from the command line 
+with `--cester-format=junitxml`
+
+
+CESTER_OUTPUT_TAP
+-----------------------
+
+.. code:: c
+
+    CESTER_OUTPUT_TAP()
+
+Change the output format to TAP (Test Anything Protocol). This option can also be set from 
+the command line with `--cester-format=tap`
+
+
+CESTER_OUTPUT_TAPV13
+-----------------------
+
+.. code:: c
+
+    CESTER_OUTPUT_TAPV13()
+
+Change the output format to TAP (Test Anything Protocol) Version 13. This option can also 
+be set from the command line with `--cester-format=tapV13`
+
+
+CESTER_FORMAT_TESTNAME
+-----------------------
+
+.. code:: c
+
+    CESTER_FORMAT_TESTNAME()
+
+Format the test case name for output. E.g the test name  `modify_test_instance` becomes 
+`modify test instance`. This does not apply to junitxml as the test name remain the way it declared in the test 
+source.
+
+
+CESTER_DONT_FORMAT_TESTNAME
+-----------------------------
+
+.. code:: c
+
+    CESTER_DONT_FORMAT_TESTNAME()
+
+Do not format the test case name, it remain the way it declared in the test source. 
+This option can also be set from the command line with `--cester-dontformatname`
+
+
 CESTER_VERSION
 ---------------
+
+.. code:: c
+
+    printf("v%s", CESTER_VERSION);
 
 Current cester version 
 
 CESTER_LICENSE
 ---------------
+
+.. code:: c
+
+    printf("%s", CESTER_LICENSE);
 
 cester licence **GNU General Public License v3.0**

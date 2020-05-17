@@ -439,7 +439,7 @@ SuperTestInstance superTestInstance = {
 #define CESTER_NO_ISOLATION() (superTestInstance.isolate_tests = 0)
 
 /**
-    Disable memory allocation.
+    Disable memory leak detection test.
     
     This option can also be set from the command line with `--cester-nomemtest`
 **/

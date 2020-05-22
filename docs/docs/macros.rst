@@ -877,4 +877,4 @@ CESTER_LICENSE
 
     printf("%s", CESTER_LICENSE);
 
-cester licence **GNU General Public License v3.0**
+cester licence **MIT License**

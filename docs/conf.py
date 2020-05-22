@@ -1,7 +1,7 @@
 import themata
 
 project = 'libcester'
-copyright = '2020, Adewale Azeez, GNU GPLv3'
+copyright = '2020, Adewale Azeez, MIT License'
 author = 'Adewale Azeez'
 
 html_theme_path = [themata.get_html_theme_path()]

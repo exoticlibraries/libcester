@@ -1,6 +1,6 @@
 
 /**
-    \copyright GNU General Public License v3.0 Copyright (c) 2020, Adewale Azeez 
+    \copyright MIT License Copyright (c) 2020, Adewale Azeez 
     \author Adewale Azeez <azeezadewale98@gmail.com>
     \date 10 April 2020
     \file cester.h
@@ -88,15 +88,19 @@ jmp_buf buf;
 #undef _WIN32_WINNT
 #endif
 #define _WIN32_WINNT 0x502
-#define LIBOTYPES_WINDLLEXPORT 1
+#define EXOTICTYPES_WINDLLEXPORT 1
 /* Linux */
 #else
-#define LIBOTYPES_WINDLLEXPORT 0             /**< the platform is windows use windows export keyword __declspec(dllexport). NOT USED. IGNORED */ 
+#define EXOTICTYPES_WINDLLEXPORT 0
 #endif
-#if LIBOTYPES_WINDLLEXPORT
-#define LIBEXOTIC_API __declspec(dllexport)
+#ifndef __cplusplus
+    #if EXOTICTYPES_WINDLLEXPORT
+        #define EXOTIC_API __declspec(dllexport) /**< the platform is windows use windows export keyword __declspec(dllexport) */ 
+    #else
+        #define EXOTIC_API extern                /**< Keyword to export the functions to allow ussage dynamically. NOT USED. IGNORED  */
+    #endif
 #else
-#define LIBEXOTIC_API extern                 /**< Keyword to export the functions to allow ussage dynamically. NOT USED. IGNORED              */
+    #define EXOTIC_API
 #endif
 
 #ifdef unix
@@ -157,17 +161,17 @@ jmp_buf buf;
 /**
     Cester current version
 */
-#define CESTER_VERSION "0.2"
+#define CESTER_VERSION "0.3"
 
 /**
     Cester current version
 */
-#define CESTER_VERSION_NUM 0.2
+#define CESTER_VERSION_NUM 0.3
 
 /**
     Cester License
 */
-#define CESTER_LICENSE "GNU General Public License v3.0"
+#define CESTER_LICENSE "MIT License"
 
 /**
     The hash # symbol for macro directive

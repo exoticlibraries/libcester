@@ -261,5 +261,5 @@ If you have any issue or you want to request a feature you can open a request [h
 
 ## License
 
-GNU General Public License v3.0 Copyright (c) 2020, Adewale Azeez 
+MIT License Copyright (c) 2020, Adewale Azeez 
 

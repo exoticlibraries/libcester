@@ -150,11 +150,11 @@
             </p>
         </div>
         <div class="project main-project" style="display: block;">
-            <span class="title">GNU General Public License v3.0</span><br>
+            <span class="title">MIT License</span><br>
             <p class="description">
                 This allows you to use the library freely in your open or closed source project. 
                 You also have the freedom to modify your version so far it provides the freedom 
-                GNU GPLv3 stated.
+                MIT License stated.
             </p>
         </div>
     </div>

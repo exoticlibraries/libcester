@@ -63,8 +63,8 @@
     <member refid="cester_8h_1a6405ac2e364bfb49385d93f50c1ea3e9" kind="define"><name>__CESTER_LONG_LONG__</name></member>
     <member refid="cester_8h_1a828bb1dfda1afd67ca795075903d227d" kind="define"><name>__FUNCTION__</name></member>
     <member refid="cester_8h_1ab84f56f39c77569225b79823a1cce112" kind="define"><name>__CESTER_CAST_CHAR_ARRAY__</name></member>
-    <member refid="cester_8h_1a35493261af2a67e0079c5b30e8b39539" kind="define"><name>LIBOTYPES_WINDLLEXPORT</name></member>
-    <member refid="cester_8h_1a5aa30089ef265d7da768b63bdcc3015b" kind="define"><name>LIBEXOTIC_API</name></member>
+    <member refid="cester_8h_1a07fa1c9bc563510fa197df308772b4b3" kind="define"><name>EXOTICTYPES_WINDLLEXPORT</name></member>
+    <member refid="cester_8h_1adb89038ec025478b6b628899e7e7146f" kind="define"><name>EXOTIC_API</name></member>
     <member refid="cester_8h_1a694ad0cd5307d272e3e3ca64612176fb" kind="define"><name>CESTER_RESET_TERMINAL</name></member>
     <member refid="cester_8h_1a7eacf5e6c62d2a9420675b2eb57fecfc" kind="define"><name>CESTER_BOLD</name></member>
     <member refid="cester_8h_1ac5448195125c27dd34a571a9e78d48d7" kind="define"><name>CESTER_FOREGROUND_BLACK</name></member>

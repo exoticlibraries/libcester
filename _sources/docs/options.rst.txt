@@ -11,7 +11,7 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 .. code:: text
 
 	CESTER v0.2
-	GNU General Public License v3.0
+	MIT License
 	Usage: ./testfile [-options] [args...]
 
 	where options include:

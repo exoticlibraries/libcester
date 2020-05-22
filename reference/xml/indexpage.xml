@@ -118,6 +118,6 @@
 </para><para><itemizedlist>
 <listitem><para><ulink url="https://en.wikipedia.org/wiki/ANSI_C">ANSI C</ulink></para></listitem><listitem><para><ulink url="https://github.com/Tuplanolla/cheat">CHEAT</ulink></para></listitem><listitem><para><ulink url="https://exoticlibraries.github.io/">Exotic Libraries</ulink></para></listitem><listitem><para><ulink url="https://thecarisma.github.io/">Author</ulink></para></listitem></itemizedlist>
 </para><para><heading level="2">License</heading>
-</para><para>GNU General Public License v3.0 Copyright (c) 2020, Adewale Azeez </para>    </detaileddescription>
+</para><para>MIT License Copyright (c) 2020, Adewale Azeez </para>    </detaileddescription>
   </compounddef>
 </doxygen>

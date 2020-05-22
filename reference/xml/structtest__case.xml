@@ -15,7 +15,7 @@
 <para>the test execution result status. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="240" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="240" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="244" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="244" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1ae8cb1680656e536386976c71ec2e2caa" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -28,7 +28,7 @@
 <para>the line number where the test case is created. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="241" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="241" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="245" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="245" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1a9c3fac97789112c1487d64183070c960" prot="public" static="no" mutable="no">
         <type>enum <ref refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345" kindref="member">cester_test_status</ref></type>
@@ -41,7 +41,7 @@
 <para>The expected result for the test case. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="241" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="242" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="245" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="246" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1adcf1da5ed10b099d309884affbb04d5d" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -54,7 +54,7 @@
 <para>the time taken for the test case to complete. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="243" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="243" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="247" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1ac2aa175fa3efd20971c2be05a30e9586" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -67,7 +67,7 @@
 <para>the time taken for the test case to complete. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="244" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="244" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="248" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="248" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1ac7262cf2814fda9c7bf154de5ce0d6ba" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -80,7 +80,7 @@
 <para>the test execution output in string. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="245" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="245" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="249" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="249" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1a206e39b0afd5e7c8bb4e2ed93cc9444b" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -93,7 +93,7 @@
 <para>the test function name. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="246" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="246" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="250" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="250" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1ab59b81808bb6b0a06be72bd4d981d23b" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a400de0160bf119dca9330f842ee9cc9f" kindref="member">cester_test</ref></type>
@@ -106,7 +106,7 @@
 <para>the function that enclosed the tests. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="247" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="247" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="251" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="251" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1ac9030449f6bb9761768753c76dba310a" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a3c85b40298baa6fe95cfe326ef321eca" kindref="member">cester_before_after_each</ref></type>
@@ -119,7 +119,7 @@
 <para>the function that enclosed the tests. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="248" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="248" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="252" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="252" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1a0c04f1c5db7affd2c45e647e7e4071aa" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a0824f9d2bee725592bd334ff16d6bc47" kindref="member">cester_void</ref></type>
@@ -132,7 +132,7 @@
 <para>the function that enclosed the tests. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="249" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="249" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="253" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="253" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__case_1aeb5f7c42572866e903a2b4343e4fd4d1" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1ae2b502c266a25e61afd49a92601e0200" kindref="member">TestType</ref></type>
@@ -145,7 +145,7 @@
 <para>the type of the test function. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="250" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="250" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="254" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="254" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -166,7 +166,7 @@
         <link refid="structtest__instance"/>
       </node>
     </collaborationgraph>
-    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="239" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="239" bodyend="251"/>
+    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="243" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="243" bodyend="255"/>
     <listofallmembers>
       <member refid="structtest__case_1ac7262cf2814fda9c7bf154de5ce0d6ba" prot="public" virt="non-virtual"><scope>test_case</scope><name>execution_output</name></member>
       <member refid="structtest__case_1a994234332a7abb41ecbaa299a1b573e5" prot="public" virt="non-virtual"><scope>test_case</scope><name>execution_status</name></member>

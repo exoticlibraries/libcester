@@ -2532,79 +2532,79 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
 
 static __CESTER_INLINE__ void cester_compare_char(int eval_result, char const* const expr, char first, char second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] = "";
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_uchar(int eval_result, char const* const expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_int(int eval_result, char const* const expr, int first, int second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_uint(int eval_result, char const* const expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_short(int eval_result, char const* const expr, short first, short second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_ushort(int eval_result, char const* const expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_long(int eval_result, char const* const expr, long first, long second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_ulong(int eval_result, char const* const expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_llong(int eval_result, char const* const expr, __CESTER_LONG_LONG__ first, __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_ullong(int eval_result, char const* const expr, unsigned __CESTER_LONG_LONG__ first, unsigned __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_float(int eval_result, char const* const expr, float first, float second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_double(int eval_result, char const* const expr, double first, double second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
 static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const* const expr, long double first, long double second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
-    cester_sprintf3(expression, 2048, expr, first, op, second);
+    cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 

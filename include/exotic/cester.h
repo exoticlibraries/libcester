@@ -1476,7 +1476,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 
 /* document the following, add 'compile time only' */
 #define __internal_cester_assert_cmp(w,x,y,z) (w x y, z, w, y, #x, __FILE__, __LINE__)
-#define __internal_cester_assert_eq(x,y,z) (x == y, "expected " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_eq(x,y,z) (x == y, "expected " #z ",%s received " #z, y, x, "", __FILE__, __LINE__)
 #define __internal_cester_assert_ne(x,y,z) (x != y, "not expecting " #z ",%s found " #z, x, y, "", __FILE__, __LINE__)
 #define __internal_cester_assert_gt(x,y,z) (x > y, "expected value to be greater than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
 #define __internal_cester_assert_ge(x,y,z) (x >= y, "expected value to be greater than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
@@ -2608,6 +2608,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
+#ifndef __STDC_VERSION__
 /**
     Create a test case, this uses the first arguments as the test
     case name and identifier and the body of the test.
@@ -2705,6 +2706,27 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #define CESTER_MOCK_FUNCTION(x,y,z)
 #endif
 
+#else
+    
+#define CESTER_TEST(x,y,...) static void cester_test_##x(TestInstance* y);
+#define CESTER_TODO_TEST(x,y,...) static void cester_test_##x(TestInstance* y);
+#define CESTER_SKIP_TEST(x,y,...) static void cester_test_##x(TestInstance* y);
+#define CESTER_BEFORE_ALL(x,...) void cester_before_all_test(TestInstance* x);
+#define CESTER_BEFORE_EACH(w,x,y,...) void cester_before_each_test(TestInstance* w, char * const x, unsigned y);
+#define CESTER_AFTER_ALL(x,...) void cester_after_all_test(TestInstance* x);
+#define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y);
+#define CESTER_OPTIONS(...) void cester_options_before_main();
+#define CESTER_BODY(...)
+#define CESTER_COMMENT(...)
+#ifndef CESTER_NO_MOCK
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...)  __attribute__((weak)) y x; y __real_##x;
+#define CESTER_MOCK_FUNCTION(x,y,...) __attribute__((weak)) y x; extern y __real_##x;
+#else 
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...)
+#define CESTER_MOCK_FUNCTION(x,y,...)
+#endif
+#endif
+
 #ifdef __BASE_FILE__
     #include __BASE_FILE__
 #else 
@@ -2723,7 +2745,19 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
-
+#ifdef __STDC_VERSION__
+#define CESTER_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TEST },
+#define CESTER_TODO_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TODO_TEST },
+#define CESTER_SKIP_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_SKIP_TEST },
+#define CESTER_BEFORE_ALL(x,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_before_all_test", (cester_before_all_test), NULL, NULL, CESTER_BEFORE_ALL_TEST },
+#define CESTER_BEFORE_EACH(w,x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) (char*) "", (char*) "cester_before_each_test", NULL, (cester_before_each_test), NULL, CESTER_BEFORE_EACH_TEST },
+#define CESTER_AFTER_ALL(x,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_all_test", (cester_after_all_test), NULL, NULL, CESTER_AFTER_ALL_TEST },
+#define CESTER_AFTER_EACH(w,x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_each_test", NULL, (cester_after_each_test), NULL, CESTER_AFTER_EACH_TEST },
+#define CESTER_OPTIONS(...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_options_before_main", NULL, NULL, (cester_options_before_main), CESTER_OPTIONS_FUNCTION },
+#define CESTER_BODY(...)
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) 
+#define CESTER_MOCK_FUNCTION(x,y,...)
+#else
 #define CESTER_TEST(x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TEST },
 #define CESTER_TODO_TEST(x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TODO_TEST },
 #define CESTER_SKIP_TEST(x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_SKIP_TEST },
@@ -2735,6 +2769,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #define CESTER_BODY(x)
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
 #define CESTER_MOCK_FUNCTION(x,y,z)
+#endif
 
 static TestCase cester_test_cases[] = {
 #ifdef __BASE_FILE__
@@ -2755,7 +2790,27 @@ static TestCase cester_test_cases[] = {
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
-#define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z  } 
+#ifdef __STDC_VERSION__
+#define CESTER_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__  } 
+#define CESTER_TODO_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__ }
+#define CESTER_SKIP_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__ } 
+#define CESTER_BEFORE_ALL(x,...) void cester_before_all_test(TestInstance* x) { __VA_ARGS__ CESTER_NO_ISOLATION(); } 
+#define CESTER_BEFORE_EACH(w,x,y,...) void cester_before_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
+#define CESTER_AFTER_ALL(x,...) void cester_after_all_test(TestInstance* x) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
+#define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
+#define CESTER_OPTIONS(...) void cester_options_before_main() { __VA_ARGS__ }
+#define CESTER_BODY(...) __VA_ARGS__
+#ifndef CESTER_NO_MOCK
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) y __wrap_##x { return __VA_ARGS__; }
+#define CESTER_MOCK_FUNCTION(x,y,...) y __wrap_##x { __VA_ARGS__ }
+#else
+#define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) 
+#define CESTER_MOCK_FUNCTION(x,y,...) 
+#endif
+
+#else
+    
+#define CESTER_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z } 
 #define CESTER_TODO_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z }
 #define CESTER_SKIP_TEST(x,y,z) static void cester_test_##x(TestInstance* y) { z } 
 #define CESTER_BEFORE_ALL(x,y) void cester_before_all_test(TestInstance* x) { y CESTER_NO_ISOLATION(); } 
@@ -2770,6 +2825,7 @@ static TestCase cester_test_cases[] = {
 #else
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
 #define CESTER_MOCK_FUNCTION(x,y,z) 
+#endif
 #endif
 
 /**

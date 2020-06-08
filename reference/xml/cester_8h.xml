@@ -4723,7 +4723,7 @@
 <para>Override the default malloc function for mem test </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3733" column="9" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3733" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3736" column="9" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3736" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="cester_8h_1affb9fc32698fab7f7b36e0cf8e64c83e" prot="public" static="no">
         <name>free</name>
@@ -4735,7 +4735,7 @@
 <para>Override the default free function for mem test </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3734" column="9" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3734" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3737" column="9" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3737" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -5062,7 +5062,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3272" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3272" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3275" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3275" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -5081,7 +5081,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="331" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3591" bodyend="3607"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="331" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3594" bodyend="3610"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a89af02d2d2b853ef2eacc264142eae59" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> unsigned</type>
@@ -5102,7 +5102,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="332" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3609" bodyend="3631"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="332" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3612" bodyend="3634"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a6aede05d4d63ce173a9b57933622322d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void *</type>
@@ -5123,7 +5123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="333" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3633" bodyend="3642"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="333" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3636" bodyend="3645"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a940cdb335ac7818c70faada9d5d66bff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> unsigned</type>
@@ -5144,7 +5144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="335" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3373" bodyend="3533"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="335" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3376" bodyend="3536"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a2bf65d12370ce2f91870d1c6b5d928bf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void</type>
@@ -6401,7 +6401,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="2992" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3205" bodyend="3269"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="2992" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3208" bodyend="3272"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a27c2010d25d0bd1513cf977fb93d9f9a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void</type>
@@ -6447,7 +6447,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3043" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3043" bodyend="3203"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3043" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3043" bodyend="3206"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1aed7892372cdd63383cf15b5de50eb126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6460,7 +6460,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3273" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3542" bodyend="3549"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3276" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3545" bodyend="3552"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a1a68fa19aaa51f8b3d7b3fc564751d62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -6477,7 +6477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3274" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3558" bodyend="3586"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3277" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3561" bodyend="3589"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1ae526b39cd608657444c4092a9d2fa338" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void</type>
@@ -6494,7 +6494,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3279" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3279" bodyend="3371"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3282" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3282" bodyend="3374"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a3c04138a5bfe5d72780bb7e82a18e627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -6515,7 +6515,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3536" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3536" bodyend="3538"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3539" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3539" bodyend="3541"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a02a7792da51f3228121f21a5753818c7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void *</type>
@@ -6544,7 +6544,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3648" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3648" bodyend="3687"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3651" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3651" bodyend="3690"/>
       </memberdef>
       <memberdef kind="function" id="cester_8h_1a419e9ee8a8b0331bec2fdf58b63bd2c9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="cester_8h_1ab5b83a0b9327495ccb1df5cfb348d91c" kindref="member">__CESTER_INLINE__</ref> void</type>
@@ -6573,7 +6573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3689" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3689" bodyend="3731"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="3692" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="3692" bodyend="3734"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

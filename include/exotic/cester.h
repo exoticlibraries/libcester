@@ -3620,7 +3620,7 @@ static __CESTER_INLINE__ unsigned cester_array_add(CesterArray* array, void* ite
         array->capacity = array->capacity + CESTER_ARRAY_INITIAL_CAPACITY;
         new_buffer = (void**) malloc(sizeof(void*) * array->capacity);
         if (!new_buffer) {
-            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to expand the memoray allocation array. Further Memory test disabled.\n");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to expand the memory allocation array. Further Memory test disabled.\n");
             superTestInstance.mem_test_active = 0;
             return 0;
         }

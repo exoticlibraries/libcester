@@ -3181,6 +3181,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 #else
         #pragma message("Isolated tests not supported in this environment. The tests will be run on the main process")
         last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
+#define CASTER_NO_SUBPROCESS 1
 #endif
 #endif
     } else if (last_status == CESTER_RESULT_UNKNOWN) {
@@ -3194,9 +3195,11 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
         last_status = superTestInstance.current_execution_status;
 #ifdef __STDC_VERSION__
 #ifndef __cplusplus
+#ifndef CASTER_NO_SUBPROCESS
         if (superTestInstance.isolate_tests == 1) {
             goto end_sub_process;
         }
+#endif
 #endif
 #endif
         goto resolve_test_result;

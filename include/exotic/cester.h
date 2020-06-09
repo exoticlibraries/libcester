@@ -972,9 +972,9 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
 	        CESTER_DELEGATE_FPRINT_DOUBLE_2((print_color), (test_case->execution_time > 60 ? (test_case->execution_time / 60) : test_case->execution_time));
 	        CESTER_DELEGATE_FPRINT_STR((print_color), (test_case->execution_time > 60 ? "m" : "s"));
             CESTER_DELEGATE_FPRINT_STR((print_color), ") ");
+        #endif
             CESTER_DELEGATE_FPRINT_STR((print_color), (superTestInstance.format_test_name == 1 ? cester_str_replace(test_case->name, '_', ' ') : test_case->name ));
             CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
-        #endif
     }
 }
 

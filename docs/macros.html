@@ -65,7 +65,7 @@
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
@@ -597,6 +597,14 @@ This is not a predefined macro it has to be defined in the test source before in
 <h2>#define CESTER_NO_SIGNAL<a class="headerlink" href="#define-cester-no-signal" title="Permalink to this headline">¶</a></h2>
 <p>Disable error handling with signal.h</p>
 </div>
+<div class="section" id="define-cester-no-time">
+<h2>#define CESTER_NO_TIME<a class="headerlink" href="#define-cester-no-time" title="Permalink to this headline">¶</a></h2>
+<p>Define the macro CESTER_NO_TIME to disable time keeping and floating point in your test. This comes
+handy in microcontrollers which does not have a proper time keeping library and has no floating
+point types support (but likely using compiler older than C90).</p>
+<p>This macro was added in <a class="reference external" href="https://github.com/exoticlibraries/libcester/pull/14">PR 14</a> by
+<a class="reference external" href="https://github.com/nicolasnoble">nicolasnoble</a>.</p>
+</div>
 <div class="section" id="cester-change-stream">
 <h2>CESTER_CHANGE_STREAM<a class="headerlink" href="#cester-change-stream" title="Permalink to this headline">¶</a></h2>
 <p>Change the stream where the ouput is written to, the default value is the standard output
@@ -849,6 +857,7 @@ This option can also be set from the command line with <cite>–cester-dontforma
 <li><a class="reference internal" href="#cester-body">CESTER_BODY</a></li>
 <li><a class="reference internal" href="#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
 <li><a class="reference internal" href="#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
+<li><a class="reference internal" href="#define-cester-no-time">#define CESTER_NO_TIME</a></li>
 <li><a class="reference internal" href="#cester-change-stream">CESTER_CHANGE_STREAM</a></li>
 <li><a class="reference internal" href="#cester-nocolor">CESTER_NOCOLOR</a></li>
 <li><a class="reference internal" href="#cester-minimal">CESTER_MINIMAL</a></li>

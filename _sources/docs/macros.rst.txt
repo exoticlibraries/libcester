@@ -609,7 +609,6 @@ Any code written inside the *CESTER_BODY* macro will be dumb in the file global 
 should not contain other `CESTER_` macros.
 
 
-
 #define CESTER_NO_MEM_TEST
 ---------------------------
 
@@ -622,6 +621,17 @@ This is not a predefined macro it has to be defined in the test source before in
 --------------------------
 
 Disable error handling with signal.h
+
+
+#define CESTER_NO_TIME
+---------------------------
+
+Define the macro CESTER_NO_TIME to disable time keeping and floating point in your test. This comes 
+handy in microcontrollers which does not have a proper time keeping library and has no floating 
+point types support (but likely using compiler older than C90). 
+
+This macro was added in `PR 14 <https://github.com/exoticlibraries/libcester/pull/14>`_ by 
+`nicolasnoble <https://github.com/nicolasnoble>`_.
 
 
 CESTER_CHANGE_STREAM

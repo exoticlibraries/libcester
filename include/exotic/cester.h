@@ -2770,7 +2770,13 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #endif
 
 #ifdef __BASE_FILE__
+#ifdef __cplusplus
+}
+#endif
     #include __BASE_FILE__
+#ifdef __cplusplus
+extern "C" {
+#endif
 #else 
     
 #endif
@@ -2835,6 +2841,9 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #define CESTER_MOCK_FUNCTION(x,y,z)
 #endif
 
+#ifdef __cplusplus
+}
+#endif
 static TestCase cester_test_cases[] = {
 #ifdef __BASE_FILE__
     #include __BASE_FILE__
@@ -2845,6 +2854,9 @@ static TestCase cester_test_cases[] = {
 { CESTER_RESULT_UNKNOWN, 0, CESTER_RESULT_SUCCESS, NULL, NULL, NULL, NULL, NULL, CESTER_TESTS_TERMINATOR }
 #endif
 };
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #undef CESTER_TEST
 #undef CESTER_TODO_TEST

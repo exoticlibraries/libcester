@@ -33,12 +33,14 @@ extern "C" {
     for compilation targeting C89 or C99 the inline 
     keyword is ommited.
 */
-#ifndef __STDC_VERSION__
-#ifdef __cplusplus
-#define __STDC_VERSION__ __cplusplus
+#ifdef __STDC_VERSION__
+    #define __CESTER_STDC_VERSION__ __STDC_VERSION__
+#else
+    #ifdef __cplusplus
+        #define __CESTER_STDC_VERSION__ __cplusplus
+    #endif
 #endif
-#endif
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
     #define __CESTER_INLINE__ 
     #define __CESTER_LONG_LONG__ long
     #define __FUNCTION__ "<unknown>"
@@ -814,7 +816,7 @@ static __CESTER_INLINE__ void cester_print_help() {
 #ifndef CESTER_NO_MEM_TEST
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest       disable memory leak detection in the tests\n");
 #endif
-#ifdef __STDC_VERSION__
+#ifdef __CESTER_STDC_VERSION__
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-noisolation     run all the test on a single process. Prevents recovery from crash.\n");
 #endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-printversion    display cester version before running the tests\n");
@@ -949,7 +951,7 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
 	        #ifdef _WIN32
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "+ ");
 	        #else
-                #ifdef __STDC_VERSION__
+                #ifdef __CESTER_STDC_VERSION__
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "\u2713 ");
                 #else
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GREEN), "+ ");
@@ -959,7 +961,7 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
 	        #ifdef _WIN32
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
 	        #else
-                #ifdef __STDC_VERSION__
+                #ifdef __CESTER_STDC_VERSION__
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "X ");
                 #else
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "- ");
@@ -2121,7 +2123,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_eq(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_eq(x,y,%li))
 #else
 #define cester_assert_llong_eq(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_eq(x,y,%lli))
@@ -2135,7 +2137,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_ne(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ne(x,y,%li))
 #else
 #define cester_assert_llong_ne(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ne(x,y,%lli))
@@ -2149,7 +2151,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_gt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_gt(x,y,%li))
 #else
 #define cester_assert_llong_gt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_gt(x,y,%lli))
@@ -2163,7 +2165,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_ge(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ge(x,y,%li))
 #else
 #define cester_assert_llong_ge(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ge(x,y,%lli))
@@ -2177,7 +2179,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_lt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_lt(x,y,%li))
 #else
 #define cester_assert_llong_lt(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_lt(x,y,%lli))
@@ -2191,7 +2193,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a long long
     \param y another long long
 */
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 #define cester_assert_llong_le(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ge(x,y,%li))
 #else
 #define cester_assert_llong_le(x,y) CESTER_CONCAT(cester_compare_llong, __internal_cester_assert_ge(x,y,%lli))
@@ -2650,7 +2652,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
 /**
     Create a test case, this uses the first arguments as the test
     case name and identifier and the body of the test.
@@ -2793,7 +2795,7 @@ extern "C" {
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
-#ifdef __STDC_VERSION__
+#ifdef __CESTER_STDC_VERSION__
 #ifndef CESTER_NO_TIME
 #define CESTER_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TEST },
 #define CESTER_TODO_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TODO_TEST },
@@ -2870,7 +2872,7 @@ extern "C" {
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
-#ifdef __STDC_VERSION__
+#ifdef __CESTER_STDC_VERSION__
 #define CESTER_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__  } 
 #define CESTER_TODO_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__ }
 #define CESTER_SKIP_TEST(x,y,...) static void cester_test_##x(TestInstance* y) { __VA_ARGS__ } 
@@ -3137,12 +3139,12 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 #ifndef CESTER_NO_TIME
     a_test_case->start_tic = clock();
 #endif
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
     #pragma message("Isolated tests not supported in C version less than C99. cester will rely of signal for crash reporting")
     superTestInstance.isolate_tests = 0;
 #endif
     if (superTestInstance.isolate_tests == 1 && last_status == CESTER_RESULT_UNKNOWN) {
-#ifdef __STDC_VERSION__
+#ifdef __CESTER_STDC_VERSION__
 #ifdef _WIN32
         SECURITY_ATTRIBUTES sa;
         sa.nLength = sizeof(SECURITY_ATTRIBUTES);
@@ -3279,7 +3281,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
     
     check_isolation:
         last_status = superTestInstance.current_execution_status;
-#ifdef __STDC_VERSION__
+#ifdef __CESTER_STDC_VERSION__
 #ifndef __cplusplus
 #ifndef CESTER_NO_SUBPROCESS
         if (superTestInstance.isolate_tests == 1) {
@@ -3741,7 +3743,7 @@ static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, unsign
 static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, unsigned line, const char *func) {
     void* p;
     const char* actual_function_name;
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
     if (superTestInstance.current_test_case != NULL) {
         actual_function_name = superTestInstance.current_test_case->name;
     } else {
@@ -3782,7 +3784,7 @@ static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, un
 static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsigned line, const char *func) {
     unsigned index;
     const char* actual_function_name;
-#ifndef __STDC_VERSION__
+#ifndef __CESTER_STDC_VERSION__
     if (superTestInstance.current_test_case != NULL) {
         actual_function_name = superTestInstance.current_test_case->name;
     } else {

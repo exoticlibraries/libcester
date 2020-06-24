@@ -65,7 +65,7 @@
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
@@ -749,6 +749,14 @@ This option can also be set from the command line with <cite>–cester-dontforma
 </div>
 <p>The total number of test that is registered at the time.</p>
 </div>
+<div class="section" id="cester-total-tests-ran">
+<h2>CESTER_TOTAL_TESTS_RAN<a class="headerlink" href="#cester-total-tests-ran" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Current Total Test Ran %d&quot;, CESTER_TOTAL_TESTS_RAN);
+</pre></div>
+</div>
+<p>The total number of test that was executed. In cases where specific test cases is selected from the cli it value might not be equal the value of CESTER_TOTAL_TESTS_COUNT.
+If specific test cases is selected, if any of the selected test cases does not exist it will not count only the executed test cases counts.</p>
+</div>
 <div class="section" id="cester-total-failed-tests-count">
 <h2>CESTER_TOTAL_FAILED_TESTS_COUNT<a class="headerlink" href="#cester-total-failed-tests-count" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Failed Test %d&quot;, CESTER_TOTAL_FAILED_TESTS_COUNT);
@@ -874,6 +882,7 @@ This option can also be set from the command line with <cite>–cester-dontforma
 <li><a class="reference internal" href="#cester-format-testname">CESTER_FORMAT_TESTNAME</a></li>
 <li><a class="reference internal" href="#cester-dont-format-testname">CESTER_DONT_FORMAT_TESTNAME</a></li>
 <li><a class="reference internal" href="#cester-total-tests-count">CESTER_TOTAL_TESTS_COUNT</a></li>
+<li><a class="reference internal" href="#cester-total-tests-ran">CESTER_TOTAL_TESTS_RAN</a></li>
 <li><a class="reference internal" href="#cester-total-failed-tests-count">CESTER_TOTAL_FAILED_TESTS_COUNT</a></li>
 <li><a class="reference internal" href="#cester-total-tests-skipped">CESTER_TOTAL_TESTS_SKIPPED</a></li>
 <li><a class="reference internal" href="#cester-total-passed-tests-count">CESTER_TOTAL_PASSED_TESTS_COUNT</a></li>

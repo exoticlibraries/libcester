@@ -15,6 +15,7 @@
   <compound refid="structsuper__test__instance" kind="struct"><name>super_test_instance</name>
     <member refid="structsuper__test__instance_1a63061bc69c9d2d4429bb9b2d7ebf206e" kind="variable"><name>no_color</name></member>
     <member refid="structsuper__test__instance_1a4a0c435b304ea1b2104c47f40e20bd3e" kind="variable"><name>total_tests_count</name></member>
+    <member refid="structsuper__test__instance_1add7d34d6238df54c83d69a14a4c5d7f6" kind="variable"><name>total_tests_ran</name></member>
     <member refid="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" kind="variable"><name>total_failed_tests_count</name></member>
     <member refid="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" kind="variable"><name>total_passed_tests_count</name></member>
     <member refid="structsuper__test__instance_1a633f4efc8dc7359e57c13c21bfe0e6e7" kind="variable"><name>verbose</name></member>
@@ -114,6 +115,7 @@
     <member refid="cester_8h_1aed89b67a97e0abb2000724110a40d489" kind="define"><name>CESTER_FORMAT_TESTNAME</name></member>
     <member refid="cester_8h_1a7d7d6e062944036b6d40007e99a98647" kind="define"><name>CESTER_DONT_FORMAT_TESTNAME</name></member>
     <member refid="cester_8h_1adce014b0eb340f3ee8ea2a760f240f70" kind="define"><name>CESTER_TOTAL_TESTS_COUNT</name></member>
+    <member refid="cester_8h_1a39a964ef52e5a41fd123c32c30717b02" kind="define"><name>CESTER_TOTAL_TESTS_RAN</name></member>
     <member refid="cester_8h_1aab31a97d79a6bd7ba538143df992adda" kind="define"><name>CESTER_TOTAL_FAILED_TESTS_COUNT</name></member>
     <member refid="cester_8h_1a1ee3507e6dc71e47e93f8a181d3886d6" kind="define"><name>CESTER_TOTAL_TESTS_SKIPPED</name></member>
     <member refid="cester_8h_1ac5dc441bd557fee801cda28038342e66" kind="define"><name>CESTER_TOTAL_PASSED_TESTS_COUNT</name></member>

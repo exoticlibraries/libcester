@@ -820,6 +820,17 @@ CESTER_TOTAL_TESTS_COUNT
 The total number of test that is registered at the time.
 
 
+CESTER_TOTAL_TESTS_RAN
+-------------------------
+
+.. code:: text
+
+    printf("Current Total Test Ran %d", CESTER_TOTAL_TESTS_RAN);
+
+The total number of test that was executed. In cases where specific test cases is selected from the cli it value might not be equal the value of CESTER_TOTAL_TESTS_COUNT. 
+If specific test cases is selected, if any of the selected test cases does not exist it will not count only the executed test cases counts.
+
+
 CESTER_TOTAL_FAILED_TESTS_COUNT
 ---------------------------------
 

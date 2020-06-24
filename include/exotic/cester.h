@@ -303,6 +303,7 @@ typedef struct cester_array_struct {
 typedef struct super_test_instance {
     unsigned no_color;                                    /**< Do not print to the console with color if one. For internal use only.                                                            */
     unsigned total_tests_count;                           /**< the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT                          */
+    unsigned total_tests_ran;                             /**< the total number of tests that was run e.t.c. To use in your code call CESTER_TOTAL_TESTS_RAN                                    */
     unsigned total_failed_tests_count;                    /**< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT                                  */
     unsigned total_passed_tests_count;                    /**< the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT                                  */
     unsigned verbose;                                     /**< prints as much info as possible into the output stream                                                                           */
@@ -343,6 +344,7 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *, char, char**)
 
 
 SuperTestInstance superTestInstance = { 
+    0,
     0,
     0,
     0,
@@ -511,9 +513,14 @@ SuperTestInstance superTestInstance = {
 /* test counts */
 
 /**
-    The total number of tests that will be run.
+    The total number of tests that is present in the test file.
 */
 #define CESTER_TOTAL_TESTS_COUNT (superTestInstance.total_tests_count)
+
+/**
+    The total number of tests that was ran.
+*/
+#define CESTER_TOTAL_TESTS_RAN (superTestInstance.total_tests_ran)
 
 /**
     The total number of tests that failed.
@@ -900,7 +907,7 @@ static __CESTER_INLINE__ void print_test_result(double time_spent) {
 static __CESTER_INLINE__ void print_test_result() {
 #endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nRan ");
-    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), superTestInstance.total_tests_count);
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
     #ifndef CESTER_NO_TIME
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test(s) in ");
         CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_WHITE), (time_spent > 60 ? (time_spent / 60) : time_spent) );
@@ -1223,7 +1230,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
         if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml") == 1) {
             CESTER_DELEGATE_FPRINT_STR((default_color), "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
             CESTER_DELEGATE_FPRINT_STR((default_color), "<testsuite tests=\"");
-            CESTER_DELEGATE_FPRINT_INT((default_color), superTestInstance.total_tests_count);
+            CESTER_DELEGATE_FPRINT_INT((default_color), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" failures=\"");
             CESTER_DELEGATE_FPRINT_INT((default_color), superTestInstance.total_failed_tests_count);
             CESTER_DELEGATE_FPRINT_STR((default_color), "\" name=\"");
@@ -1252,7 +1259,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
         } else if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
             CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), 1);
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "..");
-            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
+            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
             index_sub = 1;
             if (superTestInstance.registered_test_cases->size == 0) {
@@ -1283,7 +1290,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# Failed ");
                 CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_FAILED_TESTS_COUNT);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " of ");
-                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
                 #ifndef CESTER_NO_TIME
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " tests\n# Time ");
                     CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? (time_spent / 60) : time_spent));
@@ -1298,7 +1305,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "\n");
             CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_CYAN), 1);
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "..");
-            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_CYAN), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
+            CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_CYAN), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_CYAN), "\n");
             index_sub = 1;
             if (superTestInstance.registered_test_cases->size == 0) {
@@ -1329,7 +1336,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# Failed ");
                 CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_FAILED_TESTS_COUNT);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " of ");
-                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : superTestInstance.selected_test_cases_size));
+                CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), (superTestInstance.selected_test_cases_size == 0 ? CESTER_TOTAL_TESTS_COUNT : CESTER_TOTAL_TESTS_RAN));
                 #ifndef CESTER_NO_TIME
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " tests\n# Time ");
                     CESTER_DELEGATE_FPRINT_DOUBLE_2((CESTER_FOREGROUND_GRAY), (time_spent > 60 ? (time_spent / 60) : time_spent));
@@ -3324,6 +3331,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
            ((cester_before_after_each)((TestCase*)test_case)->test_ba_function)(test_instance, a_test_case->name, index);
         }
     })
+    ++superTestInstance.total_tests_ran;
 #ifndef CESTER_NO_MEM_TEST
     if (superTestInstance.mem_test_active == 1) {
         unsigned leaked_bytes = 0;

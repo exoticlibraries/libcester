@@ -1,4 +1,4 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out */
+/*!gcc -DHAVE_CONFIG_H -I. -I.. -DUTC_OFFSET=+0000  -g -O2 -Wall -MD -Wpointer-arith -Wshadow -Wwrite-strings -Wcast-align -Wredundant-decls -Wdisabled-optimization -Wfloat-equal -Wmultichar -Wmissing-noreturn -Wstrict-null-sentinel -Woverloaded-virtual -Wsign-promo -Wno-deprecated-declarations -Wno-unknown-warning-option -funit-at-a-time -Weffc++ {0} -I. -I../include/ -o out; ./out */
 
 #include <exotic/cester.h>
 

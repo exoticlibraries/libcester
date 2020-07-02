@@ -320,7 +320,6 @@
     <member refid="cester_8h_1a3fe6cc19b68201d2eb34b35f3667ebd7" kind="variable"><name>superTestInstance</name></member>
     <member refid="cester_8h_1af052f00f77d318e4ceb4c5240dabf2e8" kind="variable"><name>default_color</name></member>
     <member refid="cester_8h_1a8b63902b13dfba286b05aac61490ab0c" kind="variable"><name>cester_test_cases</name></member>
-    <member refid="cester_8h_1a6fc82cd60ac4b31003cf10983a4d5cde" kind="variable"><name>signal</name></member>
     <member refid="cester_8h_1ada020c27350cdf742781f6dc56e6df87" kind="function"><name>cester_array_init</name></member>
     <member refid="cester_8h_1a89af02d2d2b853ef2eacc264142eae59" kind="function"><name>cester_array_add</name></member>
     <member refid="cester_8h_1a6aede05d4d63ce173a9b57933622322d" kind="function"><name>cester_array_remove_at</name></member>

@@ -80,7 +80,7 @@ CESTER_TEST(segfault_test_5, test_instance,
 )
 
 CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_SEGFAULT(segfault_test);
+    CESTER_TEST_SHOULD_FAIL(segfault_test);
     CESTER_TEST_SHOULD_SEGFAULT(segfault_test_2);
     CESTER_TEST_SHOULD_SEGFAULT(segfault_test_3);
     CESTER_TEST_SHOULD_SEGFAULT(segfault_test_4);

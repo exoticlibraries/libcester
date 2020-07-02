@@ -105,7 +105,7 @@ jmp_buf buf;
     #define EXOTIC_API
 #endif
 
-#ifdef unix
+#ifdef defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
 #include <unistd.h>
 #include <sys/wait.h>
 #endif

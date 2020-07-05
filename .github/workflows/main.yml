@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-20.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest, windows-latest]
         platform: [x86, x64]
         compiler: [gnu, clang]
 
@@ -36,4 +36,5 @@ jobs:
             test_assert_double_float+
             test_assert_long_long+
             crash_test.c
+            test_shared_data.c
         

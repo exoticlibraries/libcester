@@ -29,3 +29,5 @@ jobs:
         uses: exoticlibraries/exotic-action@master
         with:
           download-exotic-libraries: false
+          test-folders: |
+            test/

@@ -33,8 +33,17 @@ jobs:
             test/
           test-exclude-file-pattern:  |
             mock+
+            crash_test.c
+          test-exclude-file-pattern-x86:  |
             test_assert_double_float+
             test_assert_long_long+
-            crash_test.c
-            test_shared_data.c
+          test-exclude-file-pattern-macos:  |
+            test_expect_actual
+            test_junitxml_output
+            test_junitxml_output_no_time
+            test_tap_output
+            test_tap_output_no_time
+            test_tap_v13_output
+            test_tap_v13_output_no_time
+            
         

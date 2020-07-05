@@ -35,4 +35,5 @@ jobs:
             mock+
             test_assert_double_float+
             test_assert_long_long+
+            crash_test.c
         

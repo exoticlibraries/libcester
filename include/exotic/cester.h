@@ -3243,7 +3243,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
             last_status = cester_run_test_no_isolation(test_instance, a_test_case, index);
 
         } else if (pid == 0) {
-	    selected_test_unix = (char*) "";
+            selected_test_unix = (char*) "";
             cester_concat_str(&selected_test_unix, "--cester-test=");
             cester_concat_str(&selected_test_unix, a_test_case->name);
             close(pipefd[0]);

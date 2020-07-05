@@ -14,7 +14,7 @@ CESTER_BEFORE_ALL(test_instance,
     Param* param = (Param*) malloc(sizeof(Param));
     param->f = 121.898000f;
     param->d = 121.898000;
-    param->ld = 12453564564641.898002340;
+    param->ld = 124545641.234;
     test_instance->arg = param;
 )
 
@@ -70,7 +70,7 @@ CESTER_TEST(test_long_double_assertion, test_instance,
 
 CESTER_TEST(test_long_double_assertion_literal, test_instance, 
     long double number = ((Param*)test_instance->arg)->ld;
-    cester_assert_ldouble_eq(12453564564641.898002340, number);
+    cester_assert_ldouble_eq(124545641.234, number);
     cester_assert_ldouble_ne(3234340.7424676, number);
     cester_assert_ldouble_gt(number, 1434320.334231);
     cester_assert_ldouble_ge(number, 1223431.01133);

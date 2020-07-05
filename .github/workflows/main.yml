@@ -31,3 +31,8 @@ jobs:
           download-exotic-libraries: false
           test-folders: |
             test/
+          test-exclude-file-pattern:  |
+            mock+
+            test_assert_double_float+
+            test_assert_long_long+
+        

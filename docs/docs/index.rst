@@ -15,4 +15,5 @@ Documentation
    test_for_failure
    output_formats
    macros
+   fixtures
    assertions

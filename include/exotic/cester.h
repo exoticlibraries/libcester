@@ -1438,12 +1438,32 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 #define cester_assert_true(x) cester_assert_cmp_msg(x, ==, 1, "(" #x ")")
 
 /**
+    Check if the expression evaluates to true. 
+    Prints the second argument to the macro as the 
+    expression in output.
+    
+    \param x the expression to check if true
+    \param y the text to print out in output
+*/
+#define cester_assert_true_msg(x,y) cester_assert_cmp_msg(x, ==, 1, y)
+
+/**
     Check if the expression evaluates to false. 
     Prints the expression as in the source code.
     
     \param x the expression to check if false
 */
 #define cester_assert_false(x) cester_assert_cmp_msg(x, ==, 0, "(" #x ")")
+
+/**
+    Check if the expression evaluates to false. 
+    Prints the second argument to the macro as the 
+    expression in output.
+    
+    \param x the expression to check if false
+    \param y the text to print out in output
+*/
+#define cester_assert_false_msg(x,y) cester_assert_cmp_msg(x, ==, 0, y)
 
 /**
     Assertion macro that passes if an expression is NULL. 

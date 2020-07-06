@@ -1,5 +1,5 @@
 
-name: CI with C/C++ Exotic Action
+name: CI
 
 on:
   push:

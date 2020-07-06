@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Documentation" href="index.html" />
+    <link rel="next" title="Test Fixtures" href="fixtures.html" />
     <link rel="prev" title="Screenshots" href="../screenshots.html" />
    
   
@@ -65,6 +65,7 @@
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
@@ -155,6 +156,23 @@ is applied.</p>
 <div><p>x - the expression to check if true</p>
 </div></blockquote>
 </div>
+<div class="section" id="cester-assert-true-msg">
+<h2>cester_assert_true_msg<a class="headerlink" href="#cester-assert-true-msg" title="Permalink to this headline">¶</a></h2>
+<p>Check if the argument, expression evaluates to true. It accepts one parameter which is the
+expression to evaluate. It prints out the the second arguments as expression in the output.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_true</span><span class="p">(</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;is 2 greater than 1?&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if true <br />
+y - the text to print in the output</p>
+</div></blockquote>
+</div>
 <div class="section" id="cester-assert-false">
 <h2>cester_assert_false<a class="headerlink" href="#cester-assert-false" title="Permalink to this headline">¶</a></h2>
 <p>Check if the argument, expression evaluates to false. It accepts one parameter which is the
@@ -170,6 +188,23 @@ is applied.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
 <div><p>x - the expression to check if false</p>
+</div></blockquote>
+</div>
+<div class="section" id="cester-assert-false-msg">
+<h2>cester_assert_false_msg<a class="headerlink" href="#cester-assert-false-msg" title="Permalink to this headline">¶</a></h2>
+<p>Check if the argument, expression evaluates to false. It accepts one parameter which is the
+expression to evaluate. It prints out the the second arguments as expression in the output.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">example_case</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>
+        <span class="n">cester_assert_false</span><span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><p>x - the expression to check if false <br />
+y - the text to print in the output</p>
 </div></blockquote>
 </div>
 <div class="section" id="cester-assert-null">
@@ -1318,7 +1353,7 @@ y - another long double <br /></p>
                             <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
                             
                             
-                                <a class="reference navigator" style="float:right;" href="index.html">Documentation<i class="fa fa-arrow-right"></i></a> 
+                                <a class="reference navigator" style="float:right;" href="fixtures.html">Test Fixtures<i class="fa fa-arrow-right"></i></a> 
                             
                             
                                 <a class="reference navigator" style="float:right;" href="../screenshots.html"><i class="fa fa-arrow-left"></i>Screenshots</a>
@@ -1339,7 +1374,9 @@ y - another long double <br /></p>
 <li><a class="reference internal" href="#cester-assert-cmp-msg">cester_assert_cmp_msg</a></li>
 <li><a class="reference internal" href="#cester-assert-cmp">cester_assert_cmp</a></li>
 <li><a class="reference internal" href="#cester-assert-true">cester_assert_true</a></li>
+<li><a class="reference internal" href="#cester-assert-true-msg">cester_assert_true_msg</a></li>
 <li><a class="reference internal" href="#cester-assert-false">cester_assert_false</a></li>
+<li><a class="reference internal" href="#cester-assert-false-msg">cester_assert_false_msg</a></li>
 <li><a class="reference internal" href="#cester-assert-null">cester_assert_null</a></li>
 <li><a class="reference internal" href="#cester-assert-not-null">cester_assert_not_null</a></li>
 <li><a class="reference internal" href="#cester-assert-equal">cester_assert_equal</a></li>
@@ -1449,7 +1486,7 @@ y - another long double <br /></p>
                         
                         
                             <h2>Next topic</h2>
-                            <a href="index.html">Documentation</a>
+                            <a href="fixtures.html">Test Fixtures</a>
                         
                         <h2>This Page</h2>
                         <a href="../_sources/docs/assertions.rst.txt">Show source</a>

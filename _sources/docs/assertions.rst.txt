@@ -89,6 +89,26 @@ is applied.
     x - the expression to check if true
 
 
+cester_assert_true_msg
+-----------------------
+
+Check if the argument, expression evaluates to true. It accepts one parameter which is the 
+expression to evaluate. It prints out the the second arguments as expression in the output. 
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_true(2 > 1, "is 2 greater than 1?"); 
+	)
+
+**Parameters**
+
+    x - the expression to check if true |br|
+    y - the text to print in the output
+
+
 cester_assert_false
 -----------------------
 
@@ -107,6 +127,26 @@ is applied.
 **Parameters**
 
     x - the expression to check if false
+
+
+cester_assert_false_msg
+------------------------
+
+Check if the argument, expression evaluates to false. It accepts one parameter which is the 
+expression to evaluate. It prints out the the second arguments as expression in the output.
+
+.. code:: c
+
+	#include <exotic/cester.h>
+
+	CESTER_TEST(example_case, _,
+		cester_assert_false(2 < 1); 
+	)
+
+**Parameters**
+
+    x - the expression to check if false |br|
+    y - the text to print in the output
 
 
 cester_assert_null

@@ -272,8 +272,12 @@ Macros</h2></td></tr>
 <tr class="separator:a51ca2f11f7def928a95a0b3cdd5c7ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae04382401adcf49e05bcca467774fb8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ae04382401adcf49e05bcca467774fb8f">cester_assert_true</a>(x)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 1, &quot;(&quot; #x &quot;)&quot;)</td></tr>
 <tr class="separator:ae04382401adcf49e05bcca467774fb8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8e5028dd3bfa28dcaaae44cd1bbfad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a5f8e5028dd3bfa28dcaaae44cd1bbfad">cester_assert_true_msg</a>(x,  y)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 1, y)</td></tr>
+<tr class="separator:a5f8e5028dd3bfa28dcaaae44cd1bbfad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad8a6cbab6a3d0963e7eb389a65cebfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aad8a6cbab6a3d0963e7eb389a65cebfc">cester_assert_false</a>(x)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 0, &quot;(&quot; #x &quot;)&quot;)</td></tr>
 <tr class="separator:aad8a6cbab6a3d0963e7eb389a65cebfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a844bb98598ae9c9edb77e43236a07ab7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a844bb98598ae9c9edb77e43236a07ab7">cester_assert_false_msg</a>(x,  y)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 0, y)</td></tr>
+<tr class="separator:a844bb98598ae9c9edb77e43236a07ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27b38d55d249ffef9b43c287174c0555"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a27b38d55d249ffef9b43c287174c0555">cester_assert_null</a>(x)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, NULL, &quot;(&quot; #x &quot;)&quot;)</td></tr>
 <tr class="separator:a27b38d55d249ffef9b43c287174c0555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8577212e198bc735ed42e00bfbed71aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a8577212e198bc735ed42e00bfbed71aa">cester_assert_not_null</a>(x)&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, !=, NULL, &quot;!(&quot; #x &quot;)&quot;)</td></tr>
@@ -2380,6 +2384,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a844bb98598ae9c9edb77e43236a07ab7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define cester_assert_false_msg</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 0, y)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if the expression evaluates to false. Prints the second argument to the macro as the expression in output.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>the expression to check if false </td></tr>
+    <tr><td class="paramname">y</td><td>the text to print out in output </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a9f3c6601356e77880498bc9aa00533bb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -3853,6 +3891,40 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>the expression to check if true </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5f8e5028dd3bfa28dcaaae44cd1bbfad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define cester_assert_true_msg</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="cester_8h.html#a668c72299b1bb7748dc502a6b073ad7f">cester_assert_cmp_msg</a>(x, ==, 1, y)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if the expression evaluates to true. Prints the second argument to the macro as the expression in output.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>the expression to check if true </td></tr>
+    <tr><td class="paramname">y</td><td>the text to print out in output </td></tr>
   </table>
   </dd>
 </dl>

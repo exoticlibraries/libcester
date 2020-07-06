@@ -133,7 +133,9 @@
     <member refid="cester_8h_1a668c72299b1bb7748dc502a6b073ad7f" kind="define"><name>cester_assert_cmp_msg</name></member>
     <member refid="cester_8h_1a51ca2f11f7def928a95a0b3cdd5c7ec0" kind="define"><name>cester_assert_cmp</name></member>
     <member refid="cester_8h_1ae04382401adcf49e05bcca467774fb8f" kind="define"><name>cester_assert_true</name></member>
+    <member refid="cester_8h_1a5f8e5028dd3bfa28dcaaae44cd1bbfad" kind="define"><name>cester_assert_true_msg</name></member>
     <member refid="cester_8h_1aad8a6cbab6a3d0963e7eb389a65cebfc" kind="define"><name>cester_assert_false</name></member>
+    <member refid="cester_8h_1a844bb98598ae9c9edb77e43236a07ab7" kind="define"><name>cester_assert_false_msg</name></member>
     <member refid="cester_8h_1a27b38d55d249ffef9b43c287174c0555" kind="define"><name>cester_assert_null</name></member>
     <member refid="cester_8h_1a8577212e198bc735ed42e00bfbed71aa" kind="define"><name>cester_assert_not_null</name></member>
     <member refid="cester_8h_1a46a752bc620dbdfbc4f5f851307b0d72" kind="define"><name>cester_assert_equal</name></member>

@@ -15,7 +15,7 @@ typedef struct a_struct {
 CESTER_TEST(skip_mem_test, test_instance,
     AStruct* arg_value;
     CESTER_NO_MEMTEST();
-    arg_value = (AStruct*) malloc(sizeof(AStruct*));
+    arg_value = (AStruct*) malloc(sizeof(AStruct));
     cester_assert_not_equal(arg_value, NULL);
     CESTER_DO_MEMTEST();
 )

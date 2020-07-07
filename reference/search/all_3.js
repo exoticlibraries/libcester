@@ -116,6 +116,7 @@ var searchData=
   ['cester_5fassert_5fushort_5fle',['cester_assert_ushort_le',['../cester_8h.html#a1b57a4124f1b0ea2e37b49c255ced7f7',1,'cester.h']]],
   ['cester_5fassert_5fushort_5flt',['cester_assert_ushort_lt',['../cester_8h.html#a3d7f400c6e3c79c3b03bc9ffdf7968e1',1,'cester.h']]],
   ['cester_5fassert_5fushort_5fne',['cester_assert_ushort_ne',['../cester_8h.html#a50e27c266bf419340f5df6571b6be3b5',1,'cester.h']]],
+  ['cester_5fauthor',['CESTER_AUTHOR',['../cester_8h.html#a51ca65388920803f90aba2ba64f97e8e',1,'cester.h']]],
   ['cester_5fbackground_5fblack',['CESTER_BACKGROUND_BLACK',['../cester_8h.html#a25a9b3e0d491f071edb9d9439c6b4311',1,'cester.h']]],
   ['cester_5fbackground_5fblue',['CESTER_BACKGROUND_BLUE',['../cester_8h.html#a9c06d3e2ef9ed7bc79c70d79802f1026',1,'cester.h']]],
   ['cester_5fbackground_5fcyan',['CESTER_BACKGROUND_CYAN',['../cester_8h.html#aee3386155a13e9d802e699291ec75a55',1,'cester.h']]],

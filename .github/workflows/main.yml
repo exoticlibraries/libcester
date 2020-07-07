@@ -36,6 +36,7 @@ jobs:
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+
+            test_shared_data+
           test-exclude-file-pattern-macos:  |
             test_expect_actual
             test_junitxml_output

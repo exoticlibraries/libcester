@@ -168,12 +168,17 @@ jmp_buf buf;
 /**
     Cester current version
 */
-#define CESTER_VERSION_NUM 0.3
+#define CESTER_VERSION_NUM 0.4
 
 /**
     Cester License
 */
 #define CESTER_LICENSE "MIT License"
+
+/**
+    Cester Authors
+*/
+#define CESTER_AUTHOR "Adewale Azeez and contributors"
 
 /**
     The hash # symbol for macro directive
@@ -673,9 +678,9 @@ static __CESTER_INLINE__ void unpack_selected_extra_args(char *arg, char*** out,
     unsigned i = 0;
     unsigned size = 0, current_index = 0;
     char* prefix = (char*) "test=";
-    (*out) = (char**) malloc(sizeof(char**));
+    (*out) = (char**) malloc(sizeof(char*));
     
-    (*out)[size] = (char*) malloc(sizeof(char*) * 200);
+    (*out)[size] = (char*) malloc(sizeof(char) * 200);
     while (1) {
         if (arg[i] == '\0') {
             ++size;
@@ -688,7 +693,7 @@ static __CESTER_INLINE__ void unpack_selected_extra_args(char *arg, char*** out,
             (*out)[size][current_index] = '\0';
             current_index = 0;
             ++size;
-            (*out)[size] = (char*) malloc(sizeof(char*) * 200);
+            (*out)[size] = (char*) malloc(sizeof(char) * 200);
             goto continue_loop;
         }
         if (i >= 5) {
@@ -798,11 +803,11 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #endif
 
 static __CESTER_INLINE__ void cester_print_version() {
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "CESTER v");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "cester ");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_VERSION);
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " by ");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_AUTHOR);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ".\n");
 }
 
 static __CESTER_INLINE__ void cester_print_help() {
@@ -3603,7 +3608,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
         CESTER_RESET_TERMINAL_ATTR();
     }
 
-    superTestInstance.test_instance = (TestInstance*) malloc(sizeof(TestInstance*));
+    superTestInstance.test_instance = (TestInstance*) malloc(sizeof(TestInstance));
     superTestInstance.test_instance->argc = argc;
     superTestInstance.test_instance->argv = argv;
 

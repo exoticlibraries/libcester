@@ -32,7 +32,7 @@ jobs:
           run-regression: true
           test-folders: |
             test/
-          test-exclude-file-pattern:  |
+          test-exclude-file-pattern: |
             mock+
             crash_test.c
             test_assert_double_float+

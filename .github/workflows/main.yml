@@ -23,12 +23,13 @@ jobs:
       - name: Setup Exotic Libraries
         uses: exoticlibraries/exotic-action@master
         with:
-          run-cester-regression: false
+          run-regression: false
         
       - name: Run Regression
         uses: exoticlibraries/exotic-action@master
         with:
           download-exotic-libraries: false
+          run-regression: true
           test-folders: |
             test/
           test-exclude-file-pattern:  |

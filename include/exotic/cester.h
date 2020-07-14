@@ -37,7 +37,9 @@ extern "C" {
     #define __CESTER_STDC_VERSION__ __STDC_VERSION__
 #else
     #ifdef __cplusplus
-        #define __CESTER_STDC_VERSION__ __cplusplus
+        #if __cplusplus > 199711L
+            #define __CESTER_STDC_VERSION__ __cplusplus
+        #endif
     #endif
 #endif
 #ifndef __CESTER_STDC_VERSION__
@@ -3166,7 +3168,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
     a_test_case->start_tic = clock();
 #endif
 #ifndef __CESTER_STDC_VERSION__
-    #pragma message("Isolated tests not supported in C version less than C99. cester will rely of signal for crash reporting")
+    #pragma message("Isolated tests not supported in C version less than C99 and C++ version less than C++11. cester will rely of signal for crash reporting")
     superTestInstance.isolate_tests = 0;
 #endif
     if (superTestInstance.isolate_tests == 1 && last_status == CESTER_RESULT_UNKNOWN) {
@@ -3174,6 +3176,12 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 #ifdef _WIN32
         HANDLE stdout_pipe_read;
         HANDLE stdout_pipe_write;
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+        sa.bInheritHandle = TRUE;
+        sa.lpSecurityDescriptor = NULL;
+
+        CreatePipe(&stdout_pipe_read, &stdout_pipe_write, &sa, 0);
 #ifdef __cplusplus
         PROCESS_INFORMATION pi;
         STARTUPINFO si;
@@ -3191,12 +3199,6 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
         };
         PROCESS_INFORMATION pi = {0};
 #endif
-        SECURITY_ATTRIBUTES sa;
-        sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-        sa.bInheritHandle = TRUE;
-        sa.lpSecurityDescriptor = NULL;
-
-        CreatePipe(&stdout_pipe_read, &stdout_pipe_write, &sa, 0);
 
         
 

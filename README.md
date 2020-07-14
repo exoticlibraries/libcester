@@ -250,7 +250,7 @@ See the pages at [how it works](https://exoticlibraries.github.io/libcester/how_
 
 ## Contributing
 
-If you have any issue or you want to request a feature you can open a request [here](https://github.com/exoticlibraries/libcester/issues/new/choose) anytime and if you made some changes that should be added to the main project send in a [pull request](https://github.com/Thecarisma/Cronux/compare). 
+If you have any issue or you want to request a feature you can open a request [here](https://github.com/exoticlibraries/libcester/issues/new/choose) anytime and if you made some changes that should be added to the main project send in a [pull request](https://github.com/exoticlibraries/libcester/compare). 
 
 ## References
 

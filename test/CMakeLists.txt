@@ -58,7 +58,7 @@ foreach(filepath ${files})
         # gcc
         COMMAND ${echo_var} ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tapV13
+        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tap
     )
     
     add_dependencies(cester_test ${filenameonly}_others)

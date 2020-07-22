@@ -26,7 +26,7 @@ foreach(filepath ${files})
         set(echo_var "echo")
     endif()
     
-    add_custom_target(${filenameonly}_others
+    add_custom_target(${filenameonly}__
         
         COMMAND echo -------------------------------------------
         COMMAND echo Compiling ${filenameonly} 
@@ -40,7 +40,7 @@ foreach(filepath ${files})
         # gcc
         COMMAND gcc -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND gcc -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
-        COMMAND ${echo_var} g++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
+        #COMMAND ${echo_var} g++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
     )
     
     add_custom_command(TARGET cester_test
@@ -58,10 +58,10 @@ foreach(filepath ${files})
         # gcc
         COMMAND ${echo_var} ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tap
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tapV13
     )
     
-    add_dependencies(cester_test ${filenameonly}_others)
+    add_dependencies(cester_test ${filenameonly}__)
 endforeach()
 
 #cmake CMakeLists.txt -G"Unix Makefiles"

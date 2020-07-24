@@ -66,7 +66,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
@@ -99,6 +99,13 @@ supported.</p>
 <li><p><a class="reference internal" href="#tap">Tap</a></p></li>
 <li><p><a class="reference internal" href="#tap-version-13">Tap Version 13</a></p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the output of the tests is directed to a file on a unix, linux variant OS the color
+bytes will be written into the file along with the test outputs. Use the flag
+<strong>–cester-nocolor</strong> to disable colored output. Colored output can also be disabled from
+within the source using the macro <strong>CESTER_NOCOLOR()</strong>.</p>
+</div>
 <p>Various output format can be generated for the snippet below.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">//test.c</span>
 <span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>

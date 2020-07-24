@@ -14,6 +14,13 @@ supported.
 - `Tap`_
 - `Tap Version 13`_
 
+.. warning::
+
+	If the output of the tests is directed to a file on a unix, linux variant OS the color 
+	bytes will be written into the file along with the test outputs. Use the flag 
+	**--cester-nocolor** to disable colored output. Colored output can also be disabled from 
+	within the source using the macro **CESTER_NOCOLOR()**.
+
 Various output format can be generated for the snippet below.
 
 .. code:: c

@@ -41,6 +41,5 @@ html_theme_options = {
     "highlight_color": "rgb(15,110,157)",
     "header_background_color": "rgb(52,55,58)",
     "background_color": "rgb(24,26,27)",
-    "pre_background_color": "rgb(24,26,27)",
-    "pre_border_color": "rgb(84,91,98)"
+    "code_background_color": "rgb(38, 37, 37)"
 }

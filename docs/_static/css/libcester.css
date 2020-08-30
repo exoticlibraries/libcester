@@ -34,7 +34,7 @@ code {
 
 .header {
     position: absolute;
-    background-image: url('https://github.com/exoticlibraries/exoticlibraries.github.io/raw/master/assets/images/libcester/dosbox_output.png');
+    background-image: url('https://github.com/exoticlibraries/exoticlibraries.github.io/raw/gh-pages/assets/images/libcester/test_passing.png');
     color: white;
     top: 0;
     left: 0;
@@ -57,7 +57,7 @@ code {
 
 .overlay {
     top: 0;
-    background: rgba(51, 55, 59, 0.95);
+    background: rgba(51, 55, 59, 0.92);
     width: 100%;
     padding-top: 110px;
     height: 430px;

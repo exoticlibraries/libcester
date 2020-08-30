@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME=cester
-DOWNLOAD_PATH=https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h
+DOWNLOAD_PATH=https://raw.githubusercontent.com/exoticlibraries/libcester/main/include/exotic/cester.h
 INSTALL_PATH=/usr/include/exotic/
 AFTER_INSTALL_TEXT="compile your test like 'gcc -I. test.c', don't forget the -I. option"
 

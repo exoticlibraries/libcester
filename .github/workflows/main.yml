@@ -3,9 +3,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -37,5 +37,7 @@ jobs:
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+
+          regression-cli-options: |
+            --cester-printversion
             
         

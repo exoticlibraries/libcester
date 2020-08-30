@@ -3111,7 +3111,9 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
         tok = clock();
         a_test_case->execution_time = (double)(((double)tok) - ((double)a_test_case->start_tic)) / CLOCKS_PER_SEC;
     #endif
-    if ((a_test_case->expected_result == last_status || a_test_case->expected_result == CESTER_RESULT_FAILURE) && last_status != CESTER_RESULT_SUCCESS) {
+    if ((a_test_case->expected_result == last_status || a_test_case->expected_result == CESTER_RESULT_FAILURE) && 
+        (last_status != CESTER_RESULT_SUCCESS)) {
+            
         a_test_case->execution_status = CESTER_RESULT_SUCCESS;
         cester_concat_str(&a_test_case->execution_output, "Passed ");
         cester_concat_str(&a_test_case->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
@@ -3144,6 +3146,40 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
                 break;
         }
         cester_concat_str(&a_test_case->execution_output, "\n");
+        
+    } else if (a_test_case->expected_result != last_status) {
+        a_test_case->execution_status = CESTER_RESULT_FAILURE;
+        cester_concat_str(&a_test_case->execution_output, "ResultError ");
+        cester_concat_str(&a_test_case->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+        cester_concat_str(&a_test_case->execution_output, ":");
+        cester_concat_int(&a_test_case->execution_output, a_test_case->line_num);
+        cester_concat_str(&a_test_case->execution_output, ":");
+        cester_concat_str(&a_test_case->execution_output, " in '");
+        cester_concat_str(&a_test_case->execution_output, a_test_case->name);
+        cester_concat_str(&a_test_case->execution_output, "' => ");
+        switch (a_test_case->expected_result) {
+            case CESTER_RESULT_FAILURE:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Fail but passed");
+                break;
+            case CESTER_RESULT_SEGFAULT:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Segfault but passed");
+                break;
+            case CESTER_RESULT_TERMINATED:
+                cester_concat_str(&a_test_case->execution_output, "Expected to be Prematurely terminated but exit gracefully");
+                break;
+            case CESTER_RESULT_TIMED_OUT:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Time out but ends in time");
+                break;
+#ifndef CESTER_NO_MEM_TEST
+            case CESTER_RESULT_MEMORY_LEAK:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Leak memory but no memory was leaked");
+                break;
+#endif
+            case CESTER_RESULT_SUCCESS:
+            case CESTER_RESULT_UNKNOWN:
+                break;
+        }
+        cester_concat_str(&a_test_case->execution_output, "\n");
     } else {
         a_test_case->execution_status = last_status;
     }
@@ -3152,7 +3188,7 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
     } else {
         ++superTestInstance.total_failed_tests_count;
     }
-    superTestInstance.current_execution_status = a_test_case->execution_status;
+    superTestInstance.current_execution_status = last_status;
 }
 
 static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, unsigned index) {

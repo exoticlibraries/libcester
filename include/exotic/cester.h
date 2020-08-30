@@ -219,6 +219,7 @@ typedef enum cester_test_type {
     CESTER_AFTER_ALL_TEST,          /**< test to run after all normal tests in global or test suite. For internal use only.                       */
     CESTER_AFTER_EACH_TEST,         /**< test to run after each normal tests in global or test suite. For internal use only.                      */
     CESTER_OPTIONS_FUNCTION,        /**< the cester function for test, this wil be excuted before running the tests. For internal use only.       */
+    CESTER_TEST_FILE_COMMENT,       /**< The function that holds the text defined in the CESTER_COMMENT macro. For internal use only.              */
     CESTER_TESTS_TERMINATOR         /**< the last value in the test cases to terminates the tests. For internal use only.                         */
 } TestType;
 
@@ -2749,10 +2750,16 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #define CESTER_BODY(x)
 
 /**
-    A multiline comment macro everything in the macro is totally 
-    ignored during macro expansion.
+    A multiline comment macro everything in the macro is printed 
+    out at the beginning of the test.
+
+    Comma in the content will cause issue in the macro expansion 
+    when the code is compiled with C version less than C99.
+
+    It should not begin or end in quote, escape characters is 
+    expanded when printed out
 */
-#define CESTER_COMMENT(x)
+#define CESTER_COMMENT(x) void cester_test_file_comment_function();
 
 #ifndef CESTER_NO_MOCK
 /**
@@ -2790,7 +2797,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const
 #define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y);
 #define CESTER_OPTIONS(...) void cester_options_before_main();
 #define CESTER_BODY(...)
-#define CESTER_COMMENT(...)
+#define CESTER_COMMENT(...) void cester_test_file_comment_function();
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...)  __attribute__((weak)) y x; y __real_##x;
 #define CESTER_MOCK_FUNCTION(x,y,...) __attribute__((weak)) y x; extern y __real_##x;
@@ -2821,6 +2828,7 @@ extern "C" {
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
 #undef CESTER_BODY
+#undef CESTER_COMMENT
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
@@ -2834,6 +2842,7 @@ extern "C" {
 #define CESTER_AFTER_ALL(x,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_all_test", (cester_after_all_test), NULL, NULL, CESTER_AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_each_test", NULL, (cester_after_each_test), NULL, CESTER_AFTER_EACH_TEST },
 #define CESTER_OPTIONS(...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_options_before_main", NULL, NULL, (cester_options_before_main), CESTER_OPTIONS_FUNCTION },
+#define CESTER_COMMENT(...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_test_file_comment_function", NULL, NULL, (cester_test_file_comment_function), CESTER_TEST_FILE_COMMENT },
 #else
 #define CESTER_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TEST },
 #define CESTER_TODO_TEST(x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TODO_TEST },
@@ -2843,6 +2852,7 @@ extern "C" {
 #define CESTER_AFTER_ALL(x,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_after_all_test", (cester_after_all_test), NULL, NULL, CESTER_AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_after_each_test", NULL, (cester_after_each_test), NULL, CESTER_AFTER_EACH_TEST },
 #define CESTER_OPTIONS(...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_options_before_main", NULL, NULL, (cester_options_before_main), CESTER_OPTIONS_FUNCTION },
+#define CESTER_COMMENT(...) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_test_file_comment_function", NULL, NULL, (cester_test_file_comment_function), CESTER_TEST_FILE_COMMENT },
 #endif
 #define CESTER_BODY(...)
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) 
@@ -2857,6 +2867,7 @@ extern "C" {
 #define CESTER_AFTER_ALL(x,y) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_all_test", (cester_after_all_test), NULL, NULL, CESTER_AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_after_each_test", NULL, (cester_after_each_test), NULL, CESTER_AFTER_EACH_TEST },
 #define CESTER_OPTIONS(x) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_options_before_main", NULL, NULL, (cester_options_before_main), CESTER_OPTIONS_FUNCTION },
+#define CESTER_COMMENT(x) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) "", (char*) "cester_test_file_comment_function", NULL, NULL, (cester_test_file_comment_function), CESTER_TEST_FILE_COMMENT },
 #else
 #define CESTER_TEST(x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TEST },
 #define CESTER_TODO_TEST(x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) #x, (cester_test_##x), NULL, NULL, CESTER_NORMAL_TODO_TEST },
@@ -2866,6 +2877,7 @@ extern "C" {
 #define CESTER_AFTER_ALL(x,y) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_after_all_test", (cester_after_all_test), NULL, NULL, CESTER_AFTER_ALL_TEST },
 #define CESTER_AFTER_EACH(w,x,y,z) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_after_each_test", NULL, (cester_after_each_test), NULL, CESTER_AFTER_EACH_TEST },
 #define CESTER_OPTIONS(x) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_options_before_main", NULL, NULL, (cester_options_before_main), CESTER_OPTIONS_FUNCTION },
+#define CESTER_COMMENT(x) { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, (char*) "", (char*) "cester_test_file_comment_function", NULL, NULL, (cester_test_file_comment_function), CESTER_TEST_FILE_COMMENT },
 #endif
 #define CESTER_BODY(x)
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) 
@@ -2898,6 +2910,7 @@ extern "C" {
 #undef CESTER_AFTER_EACH
 #undef CESTER_OPTIONS
 #undef CESTER_BODY
+#undef CESTER_COMMENT
 #undef CESTER_MOCK_SIMPLE_FUNCTION
 #undef CESTER_MOCK_FUNCTION
 
@@ -2911,6 +2924,7 @@ extern "C" {
 #define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
 #define CESTER_OPTIONS(...) void cester_options_before_main() { __VA_ARGS__ }
 #define CESTER_BODY(...) __VA_ARGS__
+#define CESTER_COMMENT(...) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((default_color), #__VA_ARGS__); CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) y __wrap_##x { return __VA_ARGS__; }
 #define CESTER_MOCK_FUNCTION(x,y,...) y __wrap_##x { __VA_ARGS__ }
@@ -2930,6 +2944,7 @@ extern "C" {
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 #define CESTER_BODY(x) x
+#define CESTER_COMMENT(x) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((default_color), #x); CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) y __wrap_##x { return z; }
 #define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
@@ -2992,6 +3007,12 @@ extern "C" {
     the tests.
 */
 #define CESTER_REGISTER_OPTIONS() cester_register_test("cester_options_before_main", NULL, NULL, (cester_options_before_main), __LINE__, CESTER_OPTIONS_FUNCTION)
+
+/**
+    Manually notify cester to print the CESTER_COMMENT content before running 
+    the tests.
+*/
+#define CESTER_REGISTER_COMMENT() cester_register_test("cester_test_file_comment_function", NULL, NULL, (cester_test_file_comment_function), __LINE__, CESTER_OPTIONS_FUNCTION)
 
 /**
     Set the expected result of a test case. 
@@ -3657,7 +3678,8 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 
     /* execute options */
     for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
-        if (cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION && superTestInstance.single_output_only == 0) {
+        if ((cester_test_cases[i].test_type == CESTER_OPTIONS_FUNCTION || cester_test_cases[i].test_type == CESTER_TEST_FILE_COMMENT) && 
+            superTestInstance.single_output_only == 0) {
             ((cester_void)cester_test_cases[i].test_void_function)();
 
         } else if ((cester_test_cases[i].test_type == CESTER_NORMAL_TEST ||
@@ -3671,7 +3693,8 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
     }
 
     CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
-        if (((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION && superTestInstance.single_output_only == 0) {
+        if ((((TestCase*)test_case)->test_type == CESTER_OPTIONS_FUNCTION || ((TestCase*)test_case)->test_type == CESTER_TEST_FILE_COMMENT) && 
+            superTestInstance.single_output_only == 0) {
             ((cester_void)((TestCase*)test_case)->test_void_function)();
 
         } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST ||

@@ -10,10 +10,9 @@ CESTER_TEST(test_assert_false, test_instance,
 )
 
 CESTER_COMMENT(
-    This is a multiline comment in 
-    the source code it is completely 
-    ignored during macro expansion 
-    level.
+    This is a multiline comment in \n
+    the source code this text is printed out \n
+    before any test cases is executed.
 )
 
 #ifndef __BASE_FILE__

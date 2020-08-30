@@ -209,6 +209,22 @@ before any of the setup functions and the test case.
     )
 
 
+CESTER_COMMENT
+---------------
+
+A multiline comment macro everything in the macro is printed out at the beginning of the test. 
+Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99. 
+It should not begin or end in quote, escape characters is expanded when printed out
+
+.. code:: text
+
+    CESTER_COMMENT(
+        This is a multiline comment in \n
+        the source code this text is printed out \n
+        before any test cases is executed.
+    )
+
+
 CESTER_REGISTER_TEST
 ----------------------
 

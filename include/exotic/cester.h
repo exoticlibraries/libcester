@@ -3188,7 +3188,11 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
     } else {
         ++superTestInstance.total_failed_tests_count;
     }
-    superTestInstance.current_execution_status = last_status;
+    if (superTestInstance.single_output_only == 1) {
+        superTestInstance.current_execution_status = last_status;
+    } else {
+        superTestInstance.current_execution_status = a_test_case->execution_status;
+    }
 }
 
 static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestCase *a_test_case, unsigned index) {

@@ -7,7 +7,7 @@ author = 'Adewale Azeez'
 html_theme_path = [themata.get_html_theme_path()]
 html_theme = 'milkish'
 html_favicon = 'libcester.png'
-master_doc = 'index'
+main_doc = 'index'
 html_static_path = ['_static']
 html_context = {
     'css_files': ['_static/css/libcester.css'],
@@ -34,12 +34,6 @@ html_theme_options = {
     'no_sidebar': [
         'index'
     ],
-    "source_root": "https://github.com/exoticlibraries/libcester/edit/master/docs",
-    "document_font_size": "17px",
-    "text_color": "rgb(205,202,194)",
-    "link_color": "rgb(205,202,194)",
-    "highlight_color": "rgb(15,110,157)",
-    "header_background_color": "rgb(52,55,58)",
-    "background_color": "rgb(24,26,27)",
-    "code_background_color": "rgb(38, 37, 37)"
+    "source_root": "https://github.com/exoticlibraries/libcester/edit/main/docs",
+    "document_font_size": "17px"
 }

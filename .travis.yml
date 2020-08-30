@@ -2,7 +2,7 @@ language: sh
 
 branches:
   only:
-  - master
+  - main
 
 os:
   - linux
@@ -31,4 +31,4 @@ deploy:
     skip_cleanup: true
     script: bash ./docs/deploy.sh
     on:
-       branch: master
+       branch: main

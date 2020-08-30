@@ -1,5 +1,5 @@
 
-![](https://github.com/exoticlibraries/libcester/raw/master/docs/libcester.png)
+![](https://github.com/exoticlibraries/libcester/raw/main/docs/libcester.png)
 
 # libcester
 

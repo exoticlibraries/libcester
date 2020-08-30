@@ -21,12 +21,12 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Setup Exotic Libraries
-        uses: exoticlibraries/exotic-action@dev
+        uses: exoticlibraries/exotic-action@master
         with:
           run-regression: false
         
       - name: Run Regression
-        uses: exoticlibraries/exotic-action@dev
+        uses: exoticlibraries/exotic-action@master
         with:
           download-exotic-libraries: false
           run-regression: true

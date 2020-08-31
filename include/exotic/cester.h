@@ -3456,6 +3456,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
             ((cester_before_after_each)((TestCase*)test_case)->test_ba_function)(test_instance, a_test_case->name, index);
         }
     })
+    superTestInstance.current_cester_function_type = CESTER_NORMAL_TEST;
     superTestInstance.current_test_case = a_test_case;
     ((cester_test)a_test_case->test_function)(test_instance);
     check_memory_allocated_for_functions(a_test_case->name, NULL);
@@ -3875,22 +3876,21 @@ static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, un
     if (superTestInstance.current_test_case != NULL) {
         actual_function_name = superTestInstance.current_test_case->name;
     } else {
-        if (superTestInstance.current_cester_function_type == CESTER_BEFORE_ALL_TEST) {
-            actual_function_name = "CESTER_BEFORE_ALL";
-            
-        } else if (superTestInstance.current_cester_function_type == CESTER_OPTIONS_FUNCTION) {
-            actual_function_name = "CESTER_OPTIONS";
-            
-        } else if (superTestInstance.current_cester_function_type == CESTER_BEFORE_EACH_TEST) {
-            actual_function_name = "CESTER_BEFORE_EACH";
-            
-        } else {
-            actual_function_name = func;
-        }        
+        actual_function_name = func;
     }
 #else 
     actual_function_name = func;
 #endif
+    if (superTestInstance.current_cester_function_type == CESTER_BEFORE_ALL_TEST) {
+        actual_function_name = "CESTER_BEFORE_ALL";
+        
+    } else if (superTestInstance.current_cester_function_type == CESTER_OPTIONS_FUNCTION) {
+        actual_function_name = "CESTER_OPTIONS";
+        
+    } else if (superTestInstance.current_cester_function_type == CESTER_BEFORE_EACH_TEST) {
+        actual_function_name = "CESTER_BEFORE_EACH";
+        
+    }
     if (superTestInstance.mem_test_active == 1) {
         if (superTestInstance.mem_alloc_manager == NULL) {
             if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {

@@ -20,6 +20,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: Setup Exotic Libraries
+        uses: exoticlibraries/exotic-action@v1.1
+        with:
+          run-regression: false
+        
       - name: Run Regression
         uses: exoticlibraries/exotic-action@v1.1
         with:

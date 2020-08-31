@@ -922,7 +922,8 @@ static __CESTER_INLINE__ void print_test_result() {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " test(s)\n");
     #endif
     
-    superTestInstance.total_failed_tests_count = superTestInstance.current_execution_status == CESTER_RESULT_SUCCESS ? 0 : 1;
+    superTestInstance.total_failed_tests_count = superTestInstance.current_execution_status == CESTER_RESULT_SUCCESS && 
+                                                 superTestInstance.total_failed_tests_count == 0 ? 0 : 1;
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "Synthesis: ");
     CESTER_DELEGATE_FPRINT_STR(CESTER_GET_RESULT_AGGR_COLOR, CESTER_GET_RESULT_AGGR);
     superTestInstance.total_failed_tests_count = cached_total_failed_tests_count;
@@ -1264,7 +1265,6 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
             if (cester_test_cases[i].test_type == CESTER_AFTER_ALL_TEST && superTestInstance.single_output_only == 0) {
                 superTestInstance.current_cester_function_type = CESTER_AFTER_ALL_TEST;
                 ((cester_test)cester_test_cases[i].test_function)(test_instance);
-                check_memory_allocated_for_functions((char *)"CESTER_BEFORE_ALL", (char *)"CESTER_OPTIONS");
             }
         }
     }
@@ -1272,9 +1272,9 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
         if (((TestCase*)test_case)->test_type == CESTER_AFTER_ALL_TEST && superTestInstance.single_output_only == 0) {
             superTestInstance.current_cester_function_type = CESTER_AFTER_ALL_TEST;
             ((cester_test)((TestCase*)test_case)->test_function)(test_instance);
-            check_memory_allocated_for_functions((char *)"CESTER_BEFORE_ALL", (char *)"CESTER_OPTIONS");
         }
     })
+    check_memory_allocated_for_functions((char *)"CESTER_BEFORE_ALL", (char *)"CESTER_OPTIONS");
     if (superTestInstance.single_output_only == 0) {
         if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml") == 1) {
             CESTER_DELEGATE_FPRINT_STR((default_color), "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
@@ -3440,7 +3440,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 }
 
 static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *test_instance, TestCase *a_test_case, unsigned index) {
-    unsigned i, index1, index2, mem_index;
+    unsigned i, index1, index2, mem_index, cached_current_execution_status;
     superTestInstance.current_execution_status = CESTER_RESULT_SUCCESS;
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
@@ -3458,12 +3458,12 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
     })
     superTestInstance.current_test_case = a_test_case;
     ((cester_test)a_test_case->test_function)(test_instance);
+    check_memory_allocated_for_functions(a_test_case->name, NULL);
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
             if (cester_test_cases[i].test_type == CESTER_AFTER_EACH_TEST) {
                 superTestInstance.current_cester_function_type = CESTER_AFTER_EACH_TEST;
                 ((cester_before_after_each)cester_test_cases[i].test_ba_function)(test_instance, a_test_case->name, index);
-                check_memory_allocated_for_functions((char *)"CESTER_BEFORE_EACH", NULL);
             }
         }
     }
@@ -3471,11 +3471,12 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
         if (((TestCase*)test_case)->test_type == CESTER_AFTER_EACH_TEST) {
             superTestInstance.current_cester_function_type = CESTER_AFTER_EACH_TEST;
            ((cester_before_after_each)((TestCase*)test_case)->test_ba_function)(test_instance, a_test_case->name, index);
-           check_memory_allocated_for_functions((char *)"CESTER_BEFORE_EACH", NULL);
         }
     })
+    cached_current_execution_status = superTestInstance.current_execution_status;
+    check_memory_allocated_for_functions((char *)"CESTER_BEFORE_EACH", NULL);
+    superTestInstance.current_execution_status = cached_current_execution_status;
     ++superTestInstance.total_tests_ran;
-    check_memory_allocated_for_functions(a_test_case->name, NULL);
     if (superTestInstance.single_output_only == 1) {
         CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
     }

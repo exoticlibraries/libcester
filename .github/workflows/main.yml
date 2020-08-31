@@ -20,11 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Setup Exotic Libraries
-        uses: exoticlibraries/exotic-action@v1.1
-        with:
-          run-regression: false
-        
       - name: Run Regression
         uses: exoticlibraries/exotic-action@v1.1
         with:
@@ -37,6 +32,8 @@ jobs:
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+
+          compiler-options-for-tests: |
+            -I../include -I./include
           regression-cli-options: |
             --cester-printversion
             

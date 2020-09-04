@@ -224,6 +224,28 @@ It should not begin or end in quote, escape characters is expanded when printed 
         before any test cases is executed.
     )
 
+CESTER_REPORT_SUCCESS_REGARDLESS
+---------------------------------
+
+Always mark the test as success even if the test cases failed or an error occur while running the test.
+
+.. code:: c
+
+    CESTER_OPTIONS(
+        CESTER_REPORT_SUCCESS_REGARDLESS();
+    )
+
+CESTER_REPORT_FAILURE_REGARDLESS
+---------------------------------
+
+Always mark the test as failure even if the test cases passes and no error occur.
+
+.. code:: c
+
+    CESTER_OPTIONS(
+        CESTER_REPORT_FAILURE_REGARDLESS();
+    )
+
 
 CESTER_REGISTER_TEST
 ----------------------
@@ -834,6 +856,20 @@ CESTER_TOTAL_TESTS_COUNT
     printf("Current Total Test %d", CESTER_TOTAL_TESTS_COUNT);
 
 The total number of test that is registered at the time.
+
+
+CESTER_TOTAL_TEST_ERRORS_COUNT
+-------------------------------
+
+.. code:: text
+
+    printf("Total Test Error %d", CESTER_TOTAL_TEST_ERRORS_COUNT);
+
+The total number of errors that occur during the test. The errors is not tied to the test 
+cases, the error is tied to cester fixtures, environment error and error that occur
+outside a test case. 
+    
+Error that occur within a test case is reported for that test case
 
 
 CESTER_TOTAL_TESTS_RAN

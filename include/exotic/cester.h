@@ -987,7 +987,10 @@ static __CESTER_INLINE__ void print_test_result() {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " | Todo: ");
         CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), CESTER_TOTAL_TODO_TESTS);
     }
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n"); 
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\n");
+    if (superTestInstance.report_failure_regardless == 1 || superTestInstance.report_success_regardless == 1) {
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Avoid using the CESTER_REPORT_*_REGARDLESS macros, they hides the actual result of the test\n");
+    }
 }
 
 static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {

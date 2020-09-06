@@ -13,6 +13,7 @@ var searchData=
   ['todo_5ftests_5fcount',['todo_tests_count',['../structsuper__test__instance.html#a89d96c1fc13f272ac790b4050b6feb64',1,'super_test_instance']]],
   ['total_5ffailed_5ftests_5fcount',['total_failed_tests_count',['../structsuper__test__instance.html#ab2b2a788a564c9de80a186c983cc65b7',1,'super_test_instance']]],
   ['total_5fpassed_5ftests_5fcount',['total_passed_tests_count',['../structsuper__test__instance.html#a0dd954b41085f997a48a1f0cf78b32f3',1,'super_test_instance']]],
+  ['total_5ftest_5ferrors_5fcount',['total_test_errors_count',['../structsuper__test__instance.html#aff5d1a7b9ae163407bdd8512e1611c65',1,'super_test_instance']]],
   ['total_5ftests_5fcount',['total_tests_count',['../structsuper__test__instance.html#a4a0c435b304ea1b2104c47f40e20bd3e',1,'super_test_instance']]],
   ['total_5ftests_5fran',['total_tests_ran',['../structsuper__test__instance.html#add7d34d6238df54c83d69a14a4c5d7f6',1,'super_test_instance']]]
 ];

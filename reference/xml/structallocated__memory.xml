@@ -15,7 +15,7 @@
 <para>the line number where the memory was allocated. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="272" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="272" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="273" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="273" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -28,7 +28,7 @@
 <para>the number of allocated bytes. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="273" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="273" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="274" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="274" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -41,7 +41,7 @@
 <para>the allocated pointer address. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="274" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="274" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="275" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="275" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structallocated__memory_1a39adabacc0245837f6e9d1c26cb3e953" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -54,7 +54,7 @@
 <para>the function where the memory is allocated in. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="275" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="275" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="276" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="276" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structallocated__memory_1a0461a06bf32054523f24c0e7534cd330" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -67,14 +67,14 @@
 <para>the file name where the memory is allocated. For internal use only. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="276" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="276" bodyend="-1"/>
+        <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="277" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="277" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="271" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="271" bodyend="277"/>
+    <location file="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" line="272" column="1" bodyfile="/home/travis/build/exoticlibraries/libcester/include/exotic/cester.h" bodystart="272" bodyend="278"/>
     <listofallmembers>
       <member refid="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>address</name></member>
       <member refid="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" prot="public" virt="non-virtual"><scope>allocated_memory</scope><name>allocated_bytes</name></member>

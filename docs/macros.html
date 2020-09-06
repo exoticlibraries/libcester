@@ -22,7 +22,29 @@
    
   
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/docs/macros.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@iamthecarisma" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
 
   </head><body>
 
@@ -251,6 +273,37 @@ before any of the setup functions and the test case.</p>
     CESTER_NO_ISOLATION();
     CESTER_OUTPUT_JUNITXML();
 )
+</pre></div>
+</div>
+</div>
+<div class="section" id="cester-comment">
+<h2>CESTER_COMMENT<a class="headerlink" href="#cester-comment" title="Permalink to this headline">¶</a></h2>
+<p>A multiline comment macro everything in the macro is printed out at the beginning of the test.
+Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99.
+It should not begin or end in quote, escape characters is expanded when printed out</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_COMMENT(
+    This is a multiline comment in \n
+    the source code this text is printed out \n
+    before any test cases is executed.
+)
+</pre></div>
+</div>
+</div>
+<div class="section" id="cester-report-success-regardless">
+<h2>CESTER_REPORT_SUCCESS_REGARDLESS<a class="headerlink" href="#cester-report-success-regardless" title="Permalink to this headline">¶</a></h2>
+<p>Always mark the test as success even if the test cases failed or an error occur while running the test.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_REPORT_SUCCESS_REGARDLESS</span><span class="p">();</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cester-report-failure-regardless">
+<h2>CESTER_REPORT_FAILURE_REGARDLESS<a class="headerlink" href="#cester-report-failure-regardless" title="Permalink to this headline">¶</a></h2>
+<p>Always mark the test as failure even if the test cases passes and no error occur.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_REPORT_FAILURE_REGARDLESS</span><span class="p">();</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -750,6 +803,16 @@ This option can also be set from the command line with <cite>–cester-dontforma
 </div>
 <p>The total number of test that is registered at the time.</p>
 </div>
+<div class="section" id="cester-total-test-errors-count">
+<h2>CESTER_TOTAL_TEST_ERRORS_COUNT<a class="headerlink" href="#cester-total-test-errors-count" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Total Test Error %d&quot;, CESTER_TOTAL_TEST_ERRORS_COUNT);
+</pre></div>
+</div>
+<p>The total number of errors that occur during the test. The errors is not tied to the test
+cases, the error is tied to cester fixtures, environment error and error that occur
+outside a test case.</p>
+<p>Error that occur within a test case is reported for that test case</p>
+</div>
 <div class="section" id="cester-total-tests-ran">
 <h2>CESTER_TOTAL_TESTS_RAN<a class="headerlink" href="#cester-total-tests-ran" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Current Total Test Ran %d&quot;, CESTER_TOTAL_TESTS_RAN);
@@ -816,7 +879,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                     
                         <div class="navigation">
                             
-                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/macros.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/macros.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
                             <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
                             
@@ -846,6 +909,9 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-after-each">CESTER_AFTER_EACH</a></li>
 <li><a class="reference internal" href="#cester-after-all">CESTER_AFTER_ALL</a></li>
 <li><a class="reference internal" href="#cester-options">CESTER_OPTIONS</a></li>
+<li><a class="reference internal" href="#cester-comment">CESTER_COMMENT</a></li>
+<li><a class="reference internal" href="#cester-report-success-regardless">CESTER_REPORT_SUCCESS_REGARDLESS</a></li>
+<li><a class="reference internal" href="#cester-report-failure-regardless">CESTER_REPORT_FAILURE_REGARDLESS</a></li>
 <li><a class="reference internal" href="#cester-register-test">CESTER_REGISTER_TEST</a></li>
 <li><a class="reference internal" href="#cester-register-skip-test">CESTER_REGISTER_SKIP_TEST</a></li>
 <li><a class="reference internal" href="#cester-register-todo-test">CESTER_REGISTER_TODO_TEST</a></li>
@@ -883,6 +949,7 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-format-testname">CESTER_FORMAT_TESTNAME</a></li>
 <li><a class="reference internal" href="#cester-dont-format-testname">CESTER_DONT_FORMAT_TESTNAME</a></li>
 <li><a class="reference internal" href="#cester-total-tests-count">CESTER_TOTAL_TESTS_COUNT</a></li>
+<li><a class="reference internal" href="#cester-total-test-errors-count">CESTER_TOTAL_TEST_ERRORS_COUNT</a></li>
 <li><a class="reference internal" href="#cester-total-tests-ran">CESTER_TOTAL_TESTS_RAN</a></li>
 <li><a class="reference internal" href="#cester-total-failed-tests-count">CESTER_TOTAL_FAILED_TESTS_COUNT</a></li>
 <li><a class="reference internal" href="#cester-total-tests-skipped">CESTER_TOTAL_TESTS_SKIPPED</a></li>
@@ -906,7 +973,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                         <h2>This Page</h2>
                         <a href="../_sources/docs/macros.rst.txt">Show source</a>
                         
-                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/master/docs/docs/macros.rst">Edit this page</a>
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/macros.rst">Edit this page</a>
                         
                     
                 </div>

@@ -18,6 +18,7 @@
     <member refid="structsuper__test__instance_1add7d34d6238df54c83d69a14a4c5d7f6" kind="variable"><name>total_tests_ran</name></member>
     <member refid="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" kind="variable"><name>total_failed_tests_count</name></member>
     <member refid="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" kind="variable"><name>total_passed_tests_count</name></member>
+    <member refid="structsuper__test__instance_1aff5d1a7b9ae163407bdd8512e1611c65" kind="variable"><name>total_test_errors_count</name></member>
     <member refid="structsuper__test__instance_1a633f4efc8dc7359e57c13c21bfe0e6e7" kind="variable"><name>verbose</name></member>
     <member refid="structsuper__test__instance_1ac12f371eae0498b75792c17bd897f546" kind="variable"><name>minimal</name></member>
     <member refid="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" kind="variable"><name>print_version</name></member>
@@ -30,7 +31,11 @@
     <member refid="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" kind="variable"><name>skipped_test_count</name></member>
     <member refid="structsuper__test__instance_1a89d96c1fc13f272ac790b4050b6feb64" kind="variable"><name>todo_tests_count</name></member>
     <member refid="structsuper__test__instance_1aec18d447f7671387a7d904f64796fc97" kind="variable"><name>format_test_name</name></member>
+    <member refid="structsuper__test__instance_1aaed1bcb6fee26f079d626522b5f728c0" kind="variable"><name>report_success_regardless</name></member>
+    <member refid="structsuper__test__instance_1ab5d77df6a5cfaac7f7b0a11210607888" kind="variable"><name>report_failure_regardless</name></member>
+    <member refid="structsuper__test__instance_1ab1edf511da96f9597431b46a2f34a709" kind="variable"><name>current_cester_function_type</name></member>
     <member refid="structsuper__test__instance_1a4e5c74b3d8053fea28beab23f4ebacfd" kind="variable"><name>start_tic</name></member>
+    <member refid="structsuper__test__instance_1aa613428bf93a5e95766e6b2163083ffd" kind="variable"><name>main_execution_output</name></member>
     <member refid="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" kind="variable"><name>flattened_cmd_argv</name></member>
     <member refid="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" kind="variable"><name>test_file_path</name></member>
     <member refid="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" kind="variable"><name>output_format</name></member>
@@ -118,10 +123,13 @@
     <member refid="cester_8h_1adce014b0eb340f3ee8ea2a760f240f70" kind="define"><name>CESTER_TOTAL_TESTS_COUNT</name></member>
     <member refid="cester_8h_1a39a964ef52e5a41fd123c32c30717b02" kind="define"><name>CESTER_TOTAL_TESTS_RAN</name></member>
     <member refid="cester_8h_1aab31a97d79a6bd7ba538143df992adda" kind="define"><name>CESTER_TOTAL_FAILED_TESTS_COUNT</name></member>
+    <member refid="cester_8h_1a95a2b3e3a92602260926e0acbeec8623" kind="define"><name>CESTER_TOTAL_TEST_ERRORS_COUNT</name></member>
     <member refid="cester_8h_1a1ee3507e6dc71e47e93f8a181d3886d6" kind="define"><name>CESTER_TOTAL_TESTS_SKIPPED</name></member>
     <member refid="cester_8h_1ac5dc441bd557fee801cda28038342e66" kind="define"><name>CESTER_TOTAL_PASSED_TESTS_COUNT</name></member>
     <member refid="cester_8h_1af44061d47a11ee1696be62022674aed5" kind="define"><name>CESTER_TOTAL_TODO_TESTS</name></member>
     <member refid="cester_8h_1ae1c1f1eb8354492276bdbf70d8875f92" kind="define"><name>CESTER_RUN_ALL_TESTS</name></member>
+    <member refid="cester_8h_1a10319efcc5418b6db45c924bd8128142" kind="define"><name>CESTER_REPORT_SUCCESS_REGARDLESS</name></member>
+    <member refid="cester_8h_1aaa41dbea734c299545a9af2c26fb3266" kind="define"><name>CESTER_REPORT_FAILURE_REGARDLESS</name></member>
     <member refid="cester_8h_1afe4bfd863665d2636d28b13afaf1f43e" kind="define"><name>CESTER_SELECTCOLOR</name></member>
     <member refid="cester_8h_1ab550ea2f5b51069a052158993e14d357" kind="define"><name>CESTER_GET_RESULT_AGGR</name></member>
     <member refid="cester_8h_1a2cd3160101fb7fd13d8f12b83100ff3f" kind="define"><name>CESTER_GET_RESULT_AGGR_COLOR</name></member>
@@ -263,6 +271,7 @@
     <member refid="cester_8h_1a48332e850b348b1b1b5717a5da05eb1d" kind="define"><name>CESTER_AFTER_ALL</name></member>
     <member refid="cester_8h_1a6e5096c3c7b5f3dd5f853d3ee2d6b235" kind="define"><name>CESTER_AFTER_EACH</name></member>
     <member refid="cester_8h_1ad2920057513f349bbb4b5461a410d718" kind="define"><name>CESTER_OPTIONS</name></member>
+    <member refid="cester_8h_1aadb3f12517f4d0ec821ff3173a0b9d44" kind="define"><name>CESTER_COMMENT</name></member>
     <member refid="cester_8h_1af6fdfc1a7963f6b2bf1196a5d75ceeec" kind="define"><name>CESTER_BODY</name></member>
     <member refid="cester_8h_1aaa498d9e9f601d5b584f702ee592e4d9" kind="define"><name>CESTER_MOCK_SIMPLE_FUNCTION</name></member>
     <member refid="cester_8h_1a8a6a76440950a47f00c288af35260b8f" kind="define"><name>CESTER_MOCK_FUNCTION</name></member>
@@ -275,6 +284,7 @@
     <member refid="cester_8h_1a6e5096c3c7b5f3dd5f853d3ee2d6b235" kind="define"><name>CESTER_AFTER_EACH</name></member>
     <member refid="cester_8h_1ad2920057513f349bbb4b5461a410d718" kind="define"><name>CESTER_OPTIONS</name></member>
     <member refid="cester_8h_1af6fdfc1a7963f6b2bf1196a5d75ceeec" kind="define"><name>CESTER_BODY</name></member>
+    <member refid="cester_8h_1aadb3f12517f4d0ec821ff3173a0b9d44" kind="define"><name>CESTER_COMMENT</name></member>
     <member refid="cester_8h_1aaa498d9e9f601d5b584f702ee592e4d9" kind="define"><name>CESTER_MOCK_SIMPLE_FUNCTION</name></member>
     <member refid="cester_8h_1a8a6a76440950a47f00c288af35260b8f" kind="define"><name>CESTER_MOCK_FUNCTION</name></member>
     <member refid="cester_8h_1a5d12fa79c77dfe56918e813950e1b96e" kind="define"><name>CESTER_REGISTER_TEST</name></member>
@@ -285,6 +295,7 @@
     <member refid="cester_8h_1ae9e08d0b24a10dd23a8d8714cf808a48" kind="define"><name>CESTER_REGISTER_AFTER_ALL</name></member>
     <member refid="cester_8h_1a3bb3e8a71f0708741d30ea09a4e6e5e5" kind="define"><name>CESTER_REGISTER_AFTER_EACH</name></member>
     <member refid="cester_8h_1ac8cdd14cb932cee08dc68fcb3bbb41e7" kind="define"><name>CESTER_REGISTER_OPTIONS</name></member>
+    <member refid="cester_8h_1a7e8ab4d8f4dc2a64f061e8166fe331ce" kind="define"><name>CESTER_REGISTER_COMMENT</name></member>
     <member refid="cester_8h_1aac2231402f3558f6cc17f1be6ac5da99" kind="define"><name>CESTER_TEST_SHOULD</name></member>
     <member refid="cester_8h_1a4bbf495dfab6f7d245bdab8ba08bc57c" kind="define"><name>CESTER_TEST_SHOULD_SEGFAULT</name></member>
     <member refid="cester_8h_1a4a9cafebfe3c5620b1d4151b01ff14fa" kind="define"><name>CESTER_TEST_SHOULD_FAIL</name></member>
@@ -309,6 +320,7 @@
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a58ac3fc8c71100848235437bc1fb49d1" kind="enumvalue"><name>CESTER_AFTER_ALL_TEST</name></member>
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984" kind="enumvalue"><name>CESTER_AFTER_EACH_TEST</name></member>
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f" kind="enumvalue"><name>CESTER_OPTIONS_FUNCTION</name></member>
+    <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a" kind="enumvalue"><name>CESTER_TEST_FILE_COMMENT</name></member>
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4" kind="enumvalue"><name>CESTER_TESTS_TERMINATOR</name></member>
     <member refid="cester_8h_1ae2b502c266a25e61afd49a92601e0200" kind="typedef"><name>TestType</name></member>
     <member refid="cester_8h_1abfd2a6d8c09aa2c747f283a947084609" kind="typedef"><name>TestInstance</name></member>
@@ -350,6 +362,7 @@
     <member refid="cester_8h_1a595c67a3f8261d43cae076c7b49ba489" kind="function"><name>write_testcase_tap</name></member>
     <member refid="cester_8h_1a23b0dbf55300af1a3dead3a70cce6e39" kind="function"><name>write_testcase_tap_v13</name></member>
     <member refid="cester_8h_1a1c18fb94068931ec24757a214975b1df" kind="function"><name>write_testcase_junitxml</name></member>
+    <member refid="cester_8h_1ac4ebdd71e35f5c81821679c8ab66c92e" kind="function"><name>check_memory_allocated_for_functions</name></member>
     <member refid="cester_8h_1abffff1119ce46a44eee27d95ef6b974f" kind="function"><name>cester_print_result</name></member>
     <member refid="cester_8h_1ad5fefdda7fe2e21023a0c22a8291120a" kind="function"><name>cester_evaluate_expression</name></member>
     <member refid="cester_8h_1ad205ac079eb12c9b6d1aa8ee6e4b8487" kind="function"><name>cester_evaluate_expect_actual</name></member>

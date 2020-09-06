@@ -15,5 +15,6 @@ var searchData=
   ['cester_5fresult_5fterminated',['CESTER_RESULT_TERMINATED',['../cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345ac35451ef21484398f5117ce05feec1a5',1,'cester.h']]],
   ['cester_5fresult_5ftimed_5fout',['CESTER_RESULT_TIMED_OUT',['../cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a4bb5e03c6ff510be176a4148690ade14',1,'cester.h']]],
   ['cester_5fresult_5funknown',['CESTER_RESULT_UNKNOWN',['../cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a64d06d0e4b203370998b22f6d5bf9b6c',1,'cester.h']]],
+  ['cester_5ftest_5ffile_5fcomment',['CESTER_TEST_FILE_COMMENT',['../cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a',1,'cester.h']]],
   ['cester_5ftests_5fterminator',['CESTER_TESTS_TERMINATOR',['../cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4',1,'cester.h']]]
 ];

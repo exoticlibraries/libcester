@@ -1,6 +1,6 @@
 
 $NAME="cester"
-$DOWNLOAD_PATH="https://raw.githubusercontent.com/exoticlibraries/libcester/master/include/exotic/cester.h"
+$DOWNLOAD_PATH="https://raw.githubusercontent.com/exoticlibraries/libcester/main/include/exotic/cester.h"
 $Global:IncludePaths = New-Object System.Collections.Generic.List[System.Object]
 $AFTER_INSTALL_TEXT="compile your test like 'gcc -I. test.c', don't forget the -I. option"
 

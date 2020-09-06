@@ -8,5 +8,5 @@ var searchData=
   ['skipped_5ftest_5fcount',['skipped_test_count',['../structsuper__test__instance.html#a07f27c3cd0b7054c700a148013876922',1,'super_test_instance']]],
   ['start_5ftic',['start_tic',['../structtest__case.html#adcf1da5ed10b099d309884affbb04d5d',1,'test_case::start_tic()'],['../structsuper__test__instance.html#a4e5c74b3d8053fea28beab23f4ebacfd',1,'super_test_instance::start_tic()']]],
   ['super_5ftest_5finstance',['super_test_instance',['../structsuper__test__instance.html',1,'']]],
-  ['supertestinstance',['superTestInstance',['../cester_8h.html#a3fe6cc19b68201d2eb34b35f3667ebd7',1,'superTestInstance():&#160;cester.h'],['../cester_8h.html#a4201385d22afbfdd009562909b03fb0f',1,'SuperTestInstance():&#160;cester.h']]]
+  ['supertestinstance',['SuperTestInstance',['../cester_8h.html#a4201385d22afbfdd009562909b03fb0f',1,'SuperTestInstance():&#160;cester.h'],['../cester_8h.html#a3fe6cc19b68201d2eb34b35f3667ebd7',1,'superTestInstance():&#160;cester.h']]]
 ];

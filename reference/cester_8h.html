@@ -242,6 +242,8 @@ Macros</h2></td></tr>
 <tr class="separator:a39a964ef52e5a41fd123c32c30717b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab31a97d79a6bd7ba538143df992adda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aab31a97d79a6bd7ba538143df992adda">CESTER_TOTAL_FAILED_TESTS_COUNT</a>&#160;&#160;&#160;(superTestInstance.total_failed_tests_count)</td></tr>
 <tr class="separator:aab31a97d79a6bd7ba538143df992adda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a2b3e3a92602260926e0acbeec8623"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a95a2b3e3a92602260926e0acbeec8623">CESTER_TOTAL_TEST_ERRORS_COUNT</a>&#160;&#160;&#160;(superTestInstance.total_test_errors_count)</td></tr>
+<tr class="separator:a95a2b3e3a92602260926e0acbeec8623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ee3507e6dc71e47e93f8a181d3886d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a1ee3507e6dc71e47e93f8a181d3886d6">CESTER_TOTAL_TESTS_SKIPPED</a>&#160;&#160;&#160;(superTestInstance.skipped_test_count)</td></tr>
 <tr class="separator:a1ee3507e6dc71e47e93f8a181d3886d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5dc441bd557fee801cda28038342e66"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ac5dc441bd557fee801cda28038342e66">CESTER_TOTAL_PASSED_TESTS_COUNT</a>&#160;&#160;&#160;(superTestInstance.total_passed_tests_count)</td></tr>
@@ -250,6 +252,10 @@ Macros</h2></td></tr>
 <tr class="separator:af44061d47a11ee1696be62022674aed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1c1f1eb8354492276bdbf70d8875f92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ae1c1f1eb8354492276bdbf70d8875f92">CESTER_RUN_ALL_TESTS</a>(x,  y)&#160;&#160;&#160;cester_run_all_test(x,y)</td></tr>
 <tr class="separator:ae1c1f1eb8354492276bdbf70d8875f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10319efcc5418b6db45c924bd8128142"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a10319efcc5418b6db45c924bd8128142">CESTER_REPORT_SUCCESS_REGARDLESS</a>()&#160;&#160;&#160;(superTestInstance.report_failure_regardless = 0); (superTestInstance.report_success_regardless = 1)</td></tr>
+<tr class="separator:a10319efcc5418b6db45c924bd8128142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa41dbea734c299545a9af2c26fb3266"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa41dbea734c299545a9af2c26fb3266">CESTER_REPORT_FAILURE_REGARDLESS</a>()&#160;&#160;&#160;(superTestInstance.report_success_regardless = 0); (superTestInstance.report_failure_regardless = 1)</td></tr>
+<tr class="separator:aaa41dbea734c299545a9af2c26fb3266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe4bfd863665d2636d28b13afaf1f43e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#afe4bfd863665d2636d28b13afaf1f43e">CESTER_SELECTCOLOR</a>(x)&#160;&#160;&#160;(superTestInstance.no_color == 1 ? &quot;&quot; : x)</td></tr>
 <tr class="separator:afe4bfd863665d2636d28b13afaf1f43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab550ea2f5b51069a052158993e14d357"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ab550ea2f5b51069a052158993e14d357">CESTER_GET_RESULT_AGGR</a>&#160;&#160;&#160;(superTestInstance.total_failed_tests_count == 0 ? &quot;SUCCESS&quot; : &quot;FAILURE&quot;)</td></tr>
@@ -510,7 +516,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad2920057513f349bbb4b5461a410d718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a>(x)</td></tr>
 <tr class="separator:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)</td></tr>
+<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function();</td></tr>
 <tr class="separator:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa498d9e9f601d5b584f702ee592e4d9">CESTER_MOCK_SIMPLE_FUNCTION</a>(x,  y,  z)&#160;&#160;&#160;__attribute__((weak)) y x; y __real_##x;</td></tr>
 <tr class="separator:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -532,6 +538,8 @@ Macros</h2></td></tr>
 <tr class="separator:a6e5096c3c7b5f3dd5f853d3ee2d6b235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2920057513f349bbb4b5461a410d718"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ad2920057513f349bbb4b5461a410d718">CESTER_OPTIONS</a>(x)&#160;&#160;&#160;{ <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a64d06d0e4b203370998b22f6d5bf9b6c">CESTER_RESULT_UNKNOWN</a>, __LINE__, <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a2d2cd6b7d1d88a8d8e74cf5578ff128d">CESTER_RESULT_SUCCESS</a>, 0.000, 0.000, (char*) &quot;&quot;, (char*) &quot;cester_options_before_main&quot;, NULL, NULL, (cester_options_before_main), <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a> },</td></tr>
 <tr class="separator:ad2920057513f349bbb4b5461a410d718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;{ <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a64d06d0e4b203370998b22f6d5bf9b6c">CESTER_RESULT_UNKNOWN</a>, __LINE__, <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a2d2cd6b7d1d88a8d8e74cf5578ff128d">CESTER_RESULT_SUCCESS</a>, 0.000, 0.000, (char*) &quot;&quot;, (char*) &quot;cester_test_file_comment_function&quot;, NULL, NULL, (cester_test_file_comment_function), <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a">CESTER_TEST_FILE_COMMENT</a> },</td></tr>
+<tr class="separator:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a>(x)</td></tr>
 <tr class="separator:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa498d9e9f601d5b584f702ee592e4d9">CESTER_MOCK_SIMPLE_FUNCTION</a>(x,  y,  z)</td></tr>
@@ -556,6 +564,8 @@ Macros</h2></td></tr>
 <tr class="separator:ad2920057513f349bbb4b5461a410d718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a>(x)&#160;&#160;&#160;x</td></tr>
 <tr class="separator:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), &quot;\n&quot;); } }</td></tr>
+<tr class="separator:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa498d9e9f601d5b584f702ee592e4d9">CESTER_MOCK_SIMPLE_FUNCTION</a>(x,  y,  z)&#160;&#160;&#160;y __wrap_##x { return z; }</td></tr>
 <tr class="separator:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a6a76440950a47f00c288af35260b8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a8a6a76440950a47f00c288af35260b8f">CESTER_MOCK_FUNCTION</a>(x,  y,  z)&#160;&#160;&#160;y __wrap_##x { z }</td></tr>
@@ -576,6 +586,8 @@ Macros</h2></td></tr>
 <tr class="separator:a3bb3e8a71f0708741d30ea09a4e6e5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8cdd14cb932cee08dc68fcb3bbb41e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ac8cdd14cb932cee08dc68fcb3bbb41e7">CESTER_REGISTER_OPTIONS</a>()&#160;&#160;&#160;cester_register_test(&quot;cester_options_before_main&quot;, NULL, NULL, (cester_options_before_main), __LINE__, <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a>)</td></tr>
 <tr class="separator:ac8cdd14cb932cee08dc68fcb3bbb41e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e8ab4d8f4dc2a64f061e8166fe331ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a7e8ab4d8f4dc2a64f061e8166fe331ce">CESTER_REGISTER_COMMENT</a>()&#160;&#160;&#160;cester_register_test(&quot;cester_test_file_comment_function&quot;, NULL, NULL, (cester_test_file_comment_function), __LINE__, <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a>)</td></tr>
+<tr class="separator:a7e8ab4d8f4dc2a64f061e8166fe331ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac2231402f3558f6cc17f1be6ac5da99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aac2231402f3558f6cc17f1be6ac5da99">CESTER_TEST_SHOULD</a>(x,  y)&#160;&#160;&#160;cester_expected_test_result(#x, y);</td></tr>
 <tr class="separator:aac2231402f3558f6cc17f1be6ac5da99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bbf495dfab6f7d245bdab8ba08bc57c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a4bbf495dfab6f7d245bdab8ba08bc57c">CESTER_TEST_SHOULD_SEGFAULT</a>(x)&#160;&#160;&#160;<a class="el" href="cester_8h.html#aac2231402f3558f6cc17f1be6ac5da99">CESTER_TEST_SHOULD</a>(x, <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a3f9226d700d55073f12c68fccdfa5735">CESTER_RESULT_SEGFAULT</a>);</td></tr>
@@ -637,7 +649,8 @@ Enumerations</h2></td></tr>
 <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984">CESTER_AFTER_EACH_TEST</a>, 
 <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a>, 
 <br />
-&#160;&#160;<a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4">CESTER_TESTS_TERMINATOR</a>
+&#160;&#160;<a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a">CESTER_TEST_FILE_COMMENT</a>, 
+<a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4">CESTER_TESTS_TERMINATOR</a>
 <br />
  }</td></tr>
 <tr class="separator:a0d3b94e7c3af7e5d5e24eb90ef224c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -5375,11 +5388,51 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td></td>
+          <td>&#160;&#160;&#160;void cester_test_file_comment_function();</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A multiline comment macro everything in the macro is totally ignored during macro expansion. </p>
+<p>A multiline comment macro everything in the macro is printed out at the beginning of the test.</p>
+<p>Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99.</p>
+<p>It should not begin or end in quote, escape characters is expanded when printed out </p>
+
+</div>
+</div>
+<a class="anchor" id="aadb3f12517f4d0ec821ff3173a0b9d44"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_COMMENT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;{ <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a64d06d0e4b203370998b22f6d5bf9b6c">CESTER_RESULT_UNKNOWN</a>, __LINE__, <a class="el" href="cester_8h.html#a79d2dcbdd3ffa0fb191935efec322345a2d2cd6b7d1d88a8d8e74cf5578ff128d">CESTER_RESULT_SUCCESS</a>, 0.000, 0.000, (char*) &quot;&quot;, (char*) &quot;cester_test_file_comment_function&quot;, NULL, NULL, (cester_test_file_comment_function), <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a">CESTER_TEST_FILE_COMMENT</a> },</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A multiline comment macro everything in the macro is printed out at the beginning of the test.</p>
+<p>Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99.</p>
+<p>It should not begin or end in quote, escape characters is expanded when printed out </p>
+
+</div>
+</div>
+<a class="anchor" id="aadb3f12517f4d0ec821ff3173a0b9d44"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_COMMENT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8">default_color</a>), &quot;\n&quot;); } }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A multiline comment macro everything in the macro is printed out at the beginning of the test.</p>
+<p>Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99.</p>
+<p>It should not begin or end in quote, escape characters is expanded when printed out </p>
 
 </div>
 </div>
@@ -6221,6 +6274,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7e8ab4d8f4dc2a64f061e8166fe331ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_REGISTER_COMMENT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;cester_register_test(&quot;cester_test_file_comment_function&quot;, NULL, NULL, (cester_test_file_comment_function), __LINE__, <a class="el" href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Manually notify cester to print the CESTER_COMMENT content before running the tests. </p>
+
+</div>
+</div>
 <a class="anchor" id="ac8cdd14cb932cee08dc68fcb3bbb41e7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -6287,6 +6356,38 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Manually register a test case that is yet to be implemented so it will be skipped but it will be reported in result and logged under todo tests. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaa41dbea734c299545a9af2c26fb3266"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_REPORT_FAILURE_REGARDLESS</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;(superTestInstance.report_success_regardless = 0); (superTestInstance.report_failure_regardless = 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Always mark the test as failure even if the test cases passes and no error occur. </p>
+
+</div>
+</div>
+<a class="anchor" id="a10319efcc5418b6db45c924bd8128142"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_REPORT_SUCCESS_REGARDLESS</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;(superTestInstance.report_failure_regardless = 0); (superTestInstance.report_success_regardless = 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Always mark the test as success even if the test cases failed or an error occur while running the test. </p>
 
 </div>
 </div>
@@ -7010,6 +7111,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a95a2b3e3a92602260926e0acbeec8623"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_TOTAL_TEST_ERRORS_COUNT&#160;&#160;&#160;(superTestInstance.total_test_errors_count)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The total number of errors that occur during the test.</p>
+<p>The errors is not tied to the test cases, the error is tied to cester fixtures, environment error and error that occur outside a test case.</p>
+<p>Error that occur within a test case is reported for that test case </p>
+
+</div>
+</div>
 <a class="anchor" id="adce014b0eb340f3ee8ea2a760f240f70"></a>
 <div class="memitem">
 <div class="memproto">
@@ -7059,7 +7175,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The total number of tests that passed. CESTER_TOTAL_TESTS_COUNT - CESTER_TOTAL_FAILED_TESTS_COUNT </p>
+<p>The number of test that was marked as todo and skipped.</p>
+<p>If the selected test_cases_size is 0 then no test was skipped else the number of executed selected test cases minus the total number of test cases is the number of test that was skipped. </p>
 
 </div>
 </div>
@@ -7349,6 +7466,9 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f"></a>CESTER_OPTIONS_FUNCTION&#160;</td><td class="fielddoc">
 <p>the cester function for test, this wil be excuted before running the tests. For internal use only. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a"></a>CESTER_TEST_FILE_COMMENT&#160;</td><td class="fielddoc">
+<p>The function that holds the text defined in the CESTER_COMMENT macro. For internal use only. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4"></a>CESTER_TESTS_TERMINATOR&#160;</td><td class="fielddoc">
 <p>the last value in the test cases to terminates the tests. For internal use only. </p>

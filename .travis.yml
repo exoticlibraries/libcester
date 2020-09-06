@@ -1,9 +1,5 @@
 language: sh
 
-branches:
-  only:
-  - main
-
 os:
   - linux
   

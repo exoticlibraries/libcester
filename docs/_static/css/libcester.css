@@ -131,20 +131,11 @@ code {
 }
 
 .two-sided pre {
-    max-height: 20pc; 
     overflow-y: scroll;
 }
 
 .bold {
     font-weight: bold;
-}
-
-.note {
-    background: rgb(24,26,27) !important;
-}
-
-.warning {
-    background: rgb(24,26,27) !important;
 }
 
 .bodywrapper {

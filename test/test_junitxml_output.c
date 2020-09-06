@@ -39,6 +39,10 @@ CESTER_OPTIONS(
     CESTER_NO_ISOLATION();
 )
 
+CESTER_AFTER_ALL(test_instance,
+    free(test_instance->arg);
+)
+
 #ifndef __BASE_FILE__
 CESTER_BODY(
 int main(int argc, char** argv) {

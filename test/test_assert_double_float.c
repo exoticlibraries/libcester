@@ -1,4 +1,4 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
 
@@ -76,6 +76,10 @@ CESTER_TEST(test_long_double_assertion_literal, test_instance,
     cester_assert_ldouble_ge(number, 1223431.01133);
     cester_assert_ldouble_lt(92340.2324324, number);
     cester_assert_ldouble_le(number, number);
+)
+
+CESTER_AFTER_ALL(test_instance,
+    free(test_instance->arg);
 )
 
 CESTER_OPTIONS(

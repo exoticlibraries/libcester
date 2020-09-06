@@ -40,6 +40,10 @@ CESTER_TEST(test_direct_variables, test_instance,
     cester_assert_equal(((AStruct*)test_instance->arg)->value, "Unknown");
 )
 
+CESTER_AFTER_ALL(inst,
+    free(inst->arg);
+)
+
 CESTER_OPTIONS(
     CESTER_NO_ISOLATION();
 )

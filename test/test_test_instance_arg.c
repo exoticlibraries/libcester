@@ -24,6 +24,10 @@ CESTER_TEST(test_int_assertion_literal, test_instance,
     cester_assert_int_le(number, number);
 )
 
+CESTER_AFTER_ALL(test_instance,
+    free(test_instance->arg);
+)
+
 CESTER_TEST(test_unsigned_int_assertion_literal, test_instance, 
     unsigned int number = ((Arg*)(test_instance->arg))->number;
     cester_assert_uint_eq(21, number);

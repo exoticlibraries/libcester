@@ -35,5 +35,24 @@ html_theme_options = {
         'index'
     ],
     "source_root": "https://github.com/exoticlibraries/libcester/edit/main/docs",
-    "document_font_size": "17px"
+    "document_font_size": "17px",
+    "metadata": {
+        "enable": True,
+        "url": "https://exoticlibraries.github.io/libcester/",
+        "type": "website",
+        "title": "A robust header only unit testing framework for C programming language.",
+        "description": "libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.",
+        "image": "https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png",
+        "keywords": "thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test",
+        "author": "Adewale Azeez"
+    },
+    "twitter_metadata": {
+        "enable": True,
+        "card": "summary",
+        "site": "@iamthecarisma",
+        "creator": "@iamthecarisma",
+        "title": "A robust header only unit testing framework for C programming language.",
+        "description": "libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.",
+        "image": "https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png",
+    }
 }

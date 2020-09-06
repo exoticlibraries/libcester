@@ -14,6 +14,8 @@ to set a test case result:
 - `CESTER_TEST_SHOULD_FAIL <./macros.html#cester-test-should-fail>`_
 - `CESTER_TEST_SHOULD_BE_TERMINATED <./macros.html#cester-test-should-be-terminated>`_
 - `CESTER_TEST_SHOULD_LEAK_MEMORY <./macros.html#cester-test-should-leak-memory>`_
+- `CESTER_REPORT_SUCCESS_REGARDLESS <./macros.html#cester-report-success-regardless>`_
+- `CESTER_REPORT_FAILURE_REGARDLESS <./macros.html#cester-report-failure-regardless>`_
 
 The macro CESTER_TEST_SHOULD accepts the test case name as the first parameter and the expected 
 result as the second parameter. By default the expected result for the test cases is 
@@ -53,7 +55,7 @@ the expected result of the test case.
 	gcc test.c -I. -o test
 	./test --cester-minimal
 		
-	+ (0.01s) definitely crahses
+		+ (0.01s) definitely crahses
 
 	Passed crash_test.c:5: in 'definitely_crahses' => Segfault as expected
 
@@ -107,11 +109,11 @@ are expected to fail.
 	gcc test.c -I. -o test
 	./test --cester-minimal
 	
-	+ (0.00s) this should segfault
-	+ (0.00s) this should fail
-	+ (0.00s) this should pass
-	+ (0.00s) this should segfault also fail
-	+ (0.01s) this should leak memory
+		+ (0.00s) this should segfault
+		+ (0.00s) this should fail
+		+ (0.00s) this should pass
+		+ (0.00s) this should segfault also fail
+		+ (0.01s) this should leak memory
 
 	Passed crash_test.c:5: in 'this_should_segfault' => Segfault as expected
 	AssertionError crash_test.c:10: in 'this_should_fail' => not expecting 'NULL', received '((void*)0)'
@@ -122,3 +124,86 @@ are expected to fail.
 
 	Ran 5 test(s) in 0.02 Seconds
 	Synthesis: SUCCESS Tests: 5 | Passing: 5 | Failing: 0
+
+
+Example 3
+'''''''''' 
+
+The test case in the example below will fail and memory error will be reported. But the test 
+will still be reported as success since the option CESTER_REPORT_SUCCESS_REGARDLESS() is specified.
+
+.. code:: c
+
+	//test.c
+	#include <exotic/cester.h>
+
+	CESTER_BEFORE_ALL(test_instance,
+		char *str = (char *) malloc(20);
+	)
+
+	CESTER_TEST(test_assert_true, test_instance, 
+		cester_assert_false(2 > 1); 
+		cester_assert_false(test_instance != NULL); 
+		cester_assert_false(test_instance->argc > 0);
+	)
+
+	CESTER_OPTIONS(
+		CESTER_REPORT_SUCCESS_REGARDLESS();
+	)
+
+
+.. code:: bash
+
+	gcc test.c -I. -o test
+	./test --cester-minimal
+		
+		- (0.00s) test assert true
+
+	EvaluationError test_always_success.c:10: in 'test_assert_true' expr => '(2 > 1)'
+	EvaluationError test_always_success.c:11: in 'test_assert_true' expr => '(test_instance != NULL)'
+	EvaluationError test_always_success.c:12: in 'test_assert_true' expr => '(test_instance->argc > 0)'
+	MemoryLeakError test_always_success.c:6: in 'CESTER_BEFORE_ALL' => Memory allocated in line '6' not freed. Leaking '20' Bytes
+
+	Ran 1 test(s) in 0.00 Seconds
+	Synthesis: SUCCESS Tests: 1 | Passing: 0 | Failing: 1 | Errors: 1
+
+	echo $?
+	0
+
+
+Example 4
+'''''''''' 
+
+The test case in the example below will pass with no error . But the test be reported as failure 
+since the option CESTER_REPORT_FAILURE_REGARDLESS() is specified.
+
+.. code:: c
+
+	//test.c
+	#include <exotic/cester.h>
+
+	CESTER_TEST(test_assert_true, test_instance, 
+		cester_assert_true(2 > 1); 
+		cester_assert_true(test_instance != NULL); 
+		cester_assert_true(test_instance->argc > 0);
+	)
+
+	CESTER_OPTIONS(
+		CESTER_REPORT_FAILURE_REGARDLESS();
+	)
+
+
+.. code:: bash
+
+	gcc test.c -I. -o test
+	./test --cester-minimal
+		
+		+ (0.00s) test assert true
+
+
+	Ran 1 test(s) in 0.00 Seconds
+	Synthesis: FAILURE Tests: 1 | Passing: 1 | Failing: 0
+
+	echo $?
+	1
+

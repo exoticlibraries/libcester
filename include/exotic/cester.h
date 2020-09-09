@@ -62,12 +62,18 @@ extern "C" {
     #define __CESTER_CAST_CHAR_ARRAY__
 #endif
 
+#if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+#define _POSIX_SOURCE
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#endif
+
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
 #ifndef CESTER_NO_SIGNAL
-#include <signal.h>
 #include <signal.h>
 #include <setjmp.h>
 jmp_buf buf;
@@ -105,12 +111,6 @@ jmp_buf buf;
     #endif
 #else
     #define EXOTIC_API
-#endif
-
-#if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
 #endif
 
 #ifdef _WIN32

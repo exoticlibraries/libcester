@@ -171,7 +171,7 @@ jmp_buf buf;
 /**
     Cester current version
 */
-#define CESTER_VERSION_NUM 0.4
+#define CESTER_VERSION_NUM 0.3
 
 /**
     Cester License

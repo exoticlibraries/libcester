@@ -1,8 +1,8 @@
 import themata
 
 project = 'libcester'
-copyright = '2020, Adewale Azeez, MIT License'
-author = 'Adewale Azeez'
+copyright = '2020, Exotic Libraries - MIT License'
+author = 'Exotic Libraries Contributors'
 
 html_theme_path = [themata.get_html_theme_path()]
 html_theme = 'milkish'
@@ -21,8 +21,9 @@ html_theme_options = {
     'navbar_links': [
         ('Docs', '/libcester/docs/'),
         ('Reference', '/libcester/reference/'),
-        ('Contribute on Github', 'https://github.com/exoticlibraries/libcester/'),
-        ('Exotic Libraries', 'https://exoticlibraries.github.io/')
+        ('Github', 'https://github.com/exoticlibraries/libcester/'),
+        ('Exotic Libraries', 'https://exoticlibraries.github.io/'),
+        ('Support', 'https://exoticlibraries.github.io/pages/support.html')
     ],
     'has_left_sidebar': True,
     'has_right_sidebar': True,
@@ -49,7 +50,7 @@ html_theme_options = {
     "twitter_metadata": {
         "enable": True,
         "card": "summary",
-        "site": "@iamthecarisma",
+        "site": "@exoticlibs",
         "creator": "@iamthecarisma",
         "title": "A robust header only unit testing framework for C programming language.",
         "description": "libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.",

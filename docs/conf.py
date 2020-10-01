@@ -2,7 +2,7 @@ import themata
 
 project = 'libcester'
 copyright = '2020, Exotic Libraries - MIT License'
-author = 'Exotic Libraries Contributors'
+author = 'Adewale Azeez and Other Contributors'
 
 html_theme_path = [themata.get_html_theme_path()]
 html_theme = 'milkish'
@@ -19,9 +19,9 @@ html_theme_options = {
     'collapsible_sidebar': False,
     'collapsible_sidebar_display': 'block',
     'navbar_links': [
-        ('Docs', '/libcester/docs/'),
-        ('Reference', '/libcester/reference/'),
-        ('Github', 'https://github.com/exoticlibraries/libcester/'),
+        ('Doc', 'docs/index'),
+        ('Reference', 'reference/index'),
+        ('Contribute', 'https://github.com/exoticlibraries/libcester/'),
         ('Exotic Libraries', 'https://exoticlibraries.github.io/'),
         ('Support', 'https://exoticlibraries.github.io/pages/support.html')
     ],

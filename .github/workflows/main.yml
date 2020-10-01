@@ -3,27 +3,22 @@ name: CI
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, dev ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-20.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
         platform: [x86, x64]
         compiler: [gnu, clang]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: Setup Exotic Libraries
-        uses: exoticlibraries/exotic-action@v1.1
-        with:
-          run-regression: false
         
       - name: Run Regression
         uses: exoticlibraries/exotic-action@v1.1

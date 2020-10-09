@@ -20,3 +20,4 @@ CESTER_TEST(test_assert_not_equal, test_instance,
 CESTER_OPTIONS(
     CESTER_VERBOSE_LEVEL(3);
 )
+

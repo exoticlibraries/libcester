@@ -3574,6 +3574,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
         pid_t pid;
         int pipefd[2];
         char *selected_test_unix;
+        char *verbose_level_str;
 
         pipe(pipefd);
         pid = fork();
@@ -3586,8 +3587,12 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 
         } else if (pid == 0) {
             selected_test_unix = (char*) "";
+            verbose_level_str = (char *) "";
             cester_concat_str(&selected_test_unix, "--cester-test=");
             cester_concat_str(&selected_test_unix, a_test_case->name);
+            cester_concat_str(&verbose_level_str, "--cester-verbose-level=");
+            cester_concat_int(&verbose_level_str, superTestInstance.verbose_level);
+
             close(pipefd[0]);
             dup2(pipefd[1], STDOUT_FILENO);
             execl(test_instance->argv[0],
@@ -3595,8 +3600,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     selected_test_unix,
                     "--cester-singleoutput",
                     "--cester-noisolation",
-                    "--cester-verbose-level=",
-                    (superTestInstance.verbose_level),
+                    verbose_level_str,
                     (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
                     (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
                     (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),

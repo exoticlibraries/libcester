@@ -619,7 +619,7 @@ SuperTestInstance superTestInstance = {
 
 static __CESTER_INLINE__ char *cester_extract_name(char const* const file_path) {
     unsigned i = 0, j = 0;
-    char *file_name_only = (char*) malloc (sizeof (char) * 30);
+    char *file_name_only = (char*) malloc (sizeof (char) * 200);
     while (file_path[i] != '\0') {
         if (file_path[i] == '\\' || file_path[i] == '/') {
             j = 0;
@@ -2836,7 +2836,7 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
     } else {
         cester_ptr_to_str(&expected, ptr1);
         cester_ptr_to_str(&actual, ptr2);
-    }    
+    }
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
         

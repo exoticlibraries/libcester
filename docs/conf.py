@@ -6,6 +6,7 @@ author = 'Adewale Azeez and Other Contributors'
 
 html_theme_path = [themata.get_html_theme_path()]
 html_theme = 'milkish'
+master_doc = 'index'
 html_favicon = 'libcester.png'
 main_doc = 'index'
 html_static_path = ['_static']

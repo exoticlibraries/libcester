@@ -23,7 +23,7 @@ jobs:
       - name: Run Regression
         uses: exoticlibraries/exotic-action@v1.1
         with:
-          download-exotic-libraries: true
+          download-exotic-libraries: false
           run-regression: true
           test-folders: |
             test/

@@ -316,7 +316,8 @@ typedef struct super_test_instance {
     unsigned total_failed_tests_count;                    /**< the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT */
     unsigned total_passed_tests_count;                    /**< the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT */
     unsigned total_test_errors_count;                     /**< the total number of errors that occurs. To use in your code call CESTER_TOTAL_TEST_ERRORS_COUNT */
-    unsigned verbose_level;                               /**< the level of cester verbosity for how much information is printed in the terminal */
+    unsigned verbose;                                     /**< prints as much info as possible into the output stream */
+    unsigned minimal;                                     /**< prints minimal output into the output stream */
     unsigned print_version;                               /**< prints cester version before running tests */
     unsigned selected_test_cases_size;                    /**< the number of selected test casses from command line. For internal use only. */
     unsigned selected_test_cases_found;                   /**< the number of selected test casses from command line that is found in the test file. For internal use only. */
@@ -357,6 +358,7 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *, char, char**)
 
 
 SuperTestInstance superTestInstance = { 
+    0,
     0,
     0,
     0,
@@ -438,27 +440,17 @@ SuperTestInstance superTestInstance = {
     Print minimal info into the output stream. With this option set the 
     expression evaluated will not be printed in the result output. 
     
-    This option can also be set from the command line with `--cester-minimal` 
-    or `--cester-verbose-level=0`
+    This option can also be set from the command line with `--cester-minimal`
 */
-#define CESTER_MINIMAL() (superTestInstance.verbose_level = 0)
+#define CESTER_MINIMAL() (superTestInstance.minimal = 1)
 
 /**
     Print as much info as possible into the output stream. With this option set  
     both passed and failed expression evaluated will be printed in the result. 
     
-    This option can also be set from the command line with `--cester-verbose` or 
-    `--cester-verbose-level=1`
+    This option can also be set from the command line with `--cester-verbose`
 */
-#define CESTER_VERBOSE() (superTestInstance.verbose_level = 1)
-
-/**
-    Change the verbose level of the output, the higher the velue the more 
-    the information printed into the terminal. 0 value means no output 
-    apart from the testcase's and value 4 and above prints the full path 
-    to the test file.
-*/
-#define CESTER_VERBOSE_LEVEL(x) (superTestInstance.verbose_level = x)
+#define CESTER_VERBOSE() (superTestInstance.verbose = 1)
 
 /**
     Print cester version before running any test. 
@@ -646,29 +638,6 @@ static __CESTER_INLINE__ char *cester_extract_name_only(char const* const file_p
     return file_name;
 }
 
-static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra);
-
-/* For some wierd reasons sprintf clears old array first 
-before concatenatng in old compiler e.g Turbo C. 
-So we first convert int to str then concat it to str*/
-
-static __CESTER_INLINE__ void cester_concat_char(char **out, char extra) {
-    char tmp[5] ;
-    cester_sprintf1(tmp, 5, "%c", extra);
-    cester_concat_str(out, tmp);
-}
-
-static __CESTER_INLINE__ void cester_concat_int(char **out, int extra) {
-    char tmp[30];
-    cester_sprintf1(tmp, 30, "%d", extra);
-    cester_concat_str(out, tmp);
-}
-
-static __CESTER_INLINE__ void cester_ptr_to_str(char **out, void* extra) {
-    (*out) = (char*) malloc(sizeof(char) * 30 );
-    cester_sprintf1((*out), (30), "%p", extra);
-}
-
 static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char* prefix, unsigned prefix_size, char** out) {
     unsigned i = 0;
     *out = (char*) malloc (sizeof (char) * 200);
@@ -821,25 +790,25 @@ static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra) 
     (*out)[index] = '\0';
 }
 
-static __CESTER_INLINE__ void cester_concat_ptr(char **out, void *ptr) {
-    char *extra;
-    size_t i = 0, index = strlen(*out);
-    cester_ptr_to_str(&extra, ptr);
-    if (index == 0) {
-        (*out) = (char*) malloc(sizeof(char) * 80000 );
-    }
-    if (extra == NULL) {
-        extra = "(null)";
-    }
-    while (1) {
-        if (extra[i] == '\0') {
-            break;
-        }
-        (*out)[index] = extra[i];
-        ++index;
-        ++i;
-    }
-    (*out)[index] = '\0';
+/* For some wierd reasons sprintf clears old array first 
+before concatenatng in old compiler e.g Turbo C. 
+So we first convert int to str then concat it to str*/
+
+static __CESTER_INLINE__ void cester_concat_char(char **out, char extra) {
+    char tmp[5] ;
+    cester_sprintf1(tmp, 5, "%c", extra);
+    cester_concat_str(out, tmp);
+}
+
+static __CESTER_INLINE__ void cester_concat_int(char **out, int extra) {
+    char tmp[30];
+    cester_sprintf1(tmp, 30, "%d", extra);
+    cester_concat_str(out, tmp);
+}
+
+static __CESTER_INLINE__ void cester_ptr_to_str(char **out, void* extra) {
+    (*out) = (char*) malloc(sizeof(char) * 30 );
+    cester_sprintf1((*out), (30), "%p", extra);
 }
 
 static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_option) {
@@ -913,44 +882,50 @@ static __CESTER_INLINE__ void cester_print_help() {
 }
 
 static __CESTER_INLINE__ void cester_print_assertion(char const* const expression, char const* const file_path, unsigned const line_num) {
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose_level >= 4 ? file_path : cester_extract_name(file_path) ));
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
-    if (superTestInstance.verbose_level >= 2) {
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' expr => '");
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expression);
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-    }
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' expr => '");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expression);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
+    
+    /*CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " in '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), (superTestInstance.current_test_case)->name);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "' expr => '");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expression);
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "'");**/
 }
 
 static __CESTER_INLINE__ void cester_print_expect_actual(unsigned expecting, char const* const expect, char const* const received, char const* const file_path, unsigned const line_num) {
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose_level >= 4 ? file_path : cester_extract_name(file_path) ));
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? file_path : cester_extract_name(file_path) ));
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line_num);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
-    if (superTestInstance.verbose_level >= 2) {
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' =>");
-        if (expecting == 0) {
-            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " not expecting ");
-        } else {
-            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " expected ");
-        }
-
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expect);
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ", received ");
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, received);
-        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' =>");
+    if (expecting == 0) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " not expecting ");
+    } else {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " expected ");
     }
+
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, expect);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ", received ");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, received);
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     
-    /*CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose_level >= 4 ? file_path : cester_extract_name(file_path) ));
+    /*CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose == 1 ? file_path : cester_extract_name(file_path) ));
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_YELLOW), line_num);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
@@ -1077,7 +1052,7 @@ static __CESTER_INLINE__ void print_test_case_outputs(TestCase* test_case) {
         } else {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "PrematureTermination ");
         }
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ":");
         CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_WHITE), test_case->line_num);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ": ");
@@ -1148,7 +1123,7 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
             break;
     }
     CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
-    if (superTestInstance.verbose_level >= 1) {
+    if (superTestInstance.verbose == 1) {
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->execution_output);
     }
 }
@@ -1183,15 +1158,15 @@ static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char
     }
     CESTER_DELEGATE_FPRINT_STR((print_color), (superTestInstance.format_test_name == 1 ? cester_str_replace(a_test_case->name, '_', ' ') : a_test_case->name ));
     CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
-    if (superTestInstance.verbose_level >= 1 && a_test_case->test_type != CESTER_NORMAL_SKIP_TEST && 
+    if (superTestInstance.verbose == 1 && a_test_case->test_type != CESTER_NORMAL_SKIP_TEST && 
         a_test_case->test_type != CESTER_NORMAL_TODO_TEST) {
-        if (a_test_case->execution_status == CESTER_RESULT_SUCCESS && superTestInstance.verbose_level == 0) {
+        if (a_test_case->execution_status == CESTER_RESULT_SUCCESS && superTestInstance.minimal == 1) {
             return;
         }
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "  ---\n");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "  at:\n");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "    file: ");
-        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path)));
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path)));
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "\n    test_case: ");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->name);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "\n    line: ");
@@ -1256,7 +1231,7 @@ static __CESTER_INLINE__ void write_testcase_junitxml(TestCase *a_test_case, cha
                 CESTER_DELEGATE_FPRINT_STR((default_color), ">\n        <failure message=\"the test case was terminated\" type=\"PrematureTermination\">");
                 CESTER_DELEGATE_FPRINT_STR((default_color), "PrematureTermination ");
             }
-            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path)));
+            CESTER_DELEGATE_FPRINT_STR((default_color), (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path)));
             CESTER_DELEGATE_FPRINT_STR((default_color), ":");
             CESTER_DELEGATE_FPRINT_INT((default_color), a_test_case->line_num);
             CESTER_DELEGATE_FPRINT_STR((default_color), ": ");
@@ -1300,19 +1275,17 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
                 if (superTestInstance.current_test_case != NULL) {
                     cester_concat_str(write_string, prefix);
                     cester_concat_str(write_string, "MemoryLeakError ");
-                    cester_concat_str(write_string, (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+                    cester_concat_str(write_string, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
                     cester_concat_str(write_string, ":");
                     cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->line_num);
                     cester_concat_str(write_string, ": ");
                     cester_concat_str(write_string, "in '");
                     cester_concat_str(write_string, (char*)((AllocatedMemory*)alloc_mem)->function_name);
-                    if (superTestInstance.verbose_level >= 2) {
-                        cester_concat_str(write_string, "' => Memory allocated in line '");
-                        cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->line_num);
-                        cester_concat_str(write_string, "' not freed. Leaking '");
-                        cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->allocated_bytes);
-                        cester_concat_str(write_string, "' Bytes \n");
-                    }
+                    cester_concat_str(write_string, "' => Memory allocated in line '");
+                    cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->line_num);
+                    cester_concat_str(write_string, "' not freed. Leaking '");
+                    cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->allocated_bytes);
+                    cester_concat_str(write_string, "' Bytes \n");
                 }
             }
         })
@@ -1419,7 +1392,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
                 }
             })
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), superTestInstance.main_execution_output);
-            if (superTestInstance.verbose_level >= 1) {
+            if (superTestInstance.verbose == 1) {
                 if (CESTER_TOTAL_TEST_ERRORS_COUNT > 0) {
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# ");
                     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_TEST_ERRORS_COUNT);
@@ -1481,7 +1454,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
                 }
             })
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), superTestInstance.main_execution_output);
-            if (superTestInstance.verbose_level >= 1) {
+            if (superTestInstance.verbose == 1) {
                 if (CESTER_TOTAL_TEST_ERRORS_COUNT > 0) {
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "# ");
                     CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_GRAY), CESTER_TOTAL_TEST_ERRORS_COUNT);
@@ -1683,7 +1656,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a string to compare
     \param y another string to compare with the first string
 */
-#define cester_assert_str_equal(x,y) cester_evaluate_expect_actual_str(x, y, #x, #y, 1, __FILE__, __LINE__)
+#define cester_assert_str_equal(x,y) cester_evaluate_expect_actual_str(x, y, 1, __FILE__, __LINE__)
 
 /**
     Compare two strings. If the comparison passes the test case 
@@ -1693,7 +1666,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a string to compare
     \param y another string to compare with the first string
 */
-#define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, #x, #y, 0, __FILE__, __LINE__)
+#define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, 0, __FILE__, __LINE__)
 
 /**
     Compare two pointers. If the comparison fails the test case 
@@ -1703,7 +1676,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a pointer to compare
     \param y another pointer to compare with the first pointer
 */
-#define cester_assert_ptr_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, #x, #y, 1, __FILE__, __LINE__)
+#define cester_assert_ptr_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, 1, __FILE__, __LINE__)
 
 /**
     Compare two pointers. If the comparison passes the test case 
@@ -1713,7 +1686,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param x a pointer to compare
     \param y another pointer to compare with the first pointer
 */
-#define cester_assert_ptr_not_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, #x, #y, 0, __FILE__, __LINE__)
+#define cester_assert_ptr_not_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, 0, __FILE__, __LINE__)
 
 /* document the following, add 'compile time only' */
 #define __internal_cester_assert_cmp(w,x,y,z) (w x y, z, w, y, #x, __FILE__, __LINE__)
@@ -2694,10 +2667,10 @@ static __CESTER_INLINE__ void cester_evaluate_expression(unsigned eval_result, c
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "EvaluationError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }
-    if (eval_result == 0 || superTestInstance.verbose_level >= 1) {
+    if (eval_result == 0 || superTestInstance.verbose == 1) {
         cester_print_assertion(expression, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
@@ -2716,36 +2689,17 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual(unsigned eval_result
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }
-    if (eval_result == 0 || superTestInstance.verbose_level >= 1) {
+    if (eval_result == 0 || superTestInstance.verbose == 1) {
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
 }
 
-static __CESTER_INLINE__ void cester_evaluate_expect_actual_str(char const* const expected_in, char const* const actual_in, char const* const expected_expr, 
-                                                                char const* const actual_expr, unsigned expecting, char const* const file_path, unsigned const line_num) {
-                                                                    
-    unsigned eval_result;
-    char *expected;
-    char *actual;
-    
-    
-    expected = (char*) "";
-    actual = (char*) "";
-    eval_result = cester_string_equals((char*)expected_in, (char*)actual_in);
-    if (superTestInstance.verbose_level >= 3) {
-        cester_concat_str(&expected, expected_expr);
-        cester_concat_str(&actual, actual_expr);
-        
-        cester_concat_char(&expected, '=');
-        cester_concat_char(&actual, '=');
-    }
-    cester_concat_str(&expected, expected_in);
-    cester_concat_str(&actual, actual_in);
-    
+static __CESTER_INLINE__ void cester_evaluate_expect_actual_str(char const* const expected, char const* const actual, unsigned expecting, char const* const file_path, unsigned const line_num) {
+    unsigned eval_result = cester_string_equals((char*)expected, (char*)actual);  
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
         
@@ -2755,38 +2709,23 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_str(char const* cons
     if (eval_result != expecting) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }  
-    if (eval_result != expecting || superTestInstance.verbose_level >= 1) {
+    if (eval_result != expecting || superTestInstance.verbose == 1) {
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
 }
 
-static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void* ptr2, char const* const expected_expr, char const* const actual_expr,
-                                                                unsigned expecting, char const* const file_path, unsigned const line_num) {
-                                                                    
+static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void* ptr2, unsigned expecting, char const* const file_path, unsigned const line_num) {
     unsigned eval_result;
-    char *expected;
-    char *actual;
+    char* expected;
+    char* actual;
     
     eval_result = ptr1 == ptr2; 
-    if (superTestInstance.verbose_level >= 3) {
-        expected = (char*) "";
-        actual = (char*) "";
-        cester_concat_str(&expected, expected_expr);
-        cester_concat_str(&actual, actual_expr);
-        
-        cester_concat_char(&expected, '=');
-        cester_concat_char(&actual, '=');
-        
-        cester_concat_ptr(&expected, ptr1);
-        cester_concat_ptr(&actual, ptr2);
-    } else {
-        cester_ptr_to_str(&expected, ptr1);
-        cester_ptr_to_str(&actual, ptr2);
-    }    
+    cester_ptr_to_str(&expected, ptr1);
+    cester_ptr_to_str(&actual, ptr2);
     if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
         
@@ -2796,10 +2735,10 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
     if (eval_result != expecting) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose == 1) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }  
-    if (eval_result != expecting || superTestInstance.verbose_level >= 1) {
+    if (eval_result != expecting || superTestInstance.verbose == 1) {
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
@@ -3338,72 +3277,68 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
             
         a_test_case->execution_status = CESTER_RESULT_SUCCESS;
         cester_concat_str(&a_test_case->execution_output, "Passed ");
-        cester_concat_str(&a_test_case->execution_output, (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+        cester_concat_str(&a_test_case->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_int(&a_test_case->execution_output, a_test_case->line_num);
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_str(&a_test_case->execution_output, " in '");
         cester_concat_str(&a_test_case->execution_output, a_test_case->name);
-        if (superTestInstance.verbose_level >= 2) {
-            cester_concat_str(&a_test_case->execution_output, "' => ");
-            switch (a_test_case->expected_result) {
-                case CESTER_RESULT_FAILURE:
-                    cester_concat_str(&a_test_case->execution_output, "Failed as expected");
-                    break;
-                case CESTER_RESULT_SEGFAULT:
-                    cester_concat_str(&a_test_case->execution_output, "Segfault as expected");
-                    break;
-                case CESTER_RESULT_TERMINATED:
-                    cester_concat_str(&a_test_case->execution_output, "Prematurely terminated as expected");
-                    break;
-                case CESTER_RESULT_TIMED_OUT:
-                    cester_concat_str(&a_test_case->execution_output, "Timed out as expected");
-                    break;
+        cester_concat_str(&a_test_case->execution_output, "' => ");
+        switch (a_test_case->expected_result) {
+            case CESTER_RESULT_FAILURE:
+                cester_concat_str(&a_test_case->execution_output, "Failed as expected");
+                break;
+            case CESTER_RESULT_SEGFAULT:
+                cester_concat_str(&a_test_case->execution_output, "Segfault as expected");
+                break;
+            case CESTER_RESULT_TERMINATED:
+                cester_concat_str(&a_test_case->execution_output, "Prematurely terminated as expected");
+                break;
+            case CESTER_RESULT_TIMED_OUT:
+                cester_concat_str(&a_test_case->execution_output, "Timed out as expected");
+                break;
 #ifndef CESTER_NO_MEM_TEST
-                case CESTER_RESULT_MEMORY_LEAK:
-                    cester_concat_str(&a_test_case->execution_output, "Leaked memory as expected");
-                    break;
+            case CESTER_RESULT_MEMORY_LEAK:
+                cester_concat_str(&a_test_case->execution_output, "Leaked memory as expected");
+                break;
 #endif
-                case CESTER_RESULT_SUCCESS:
-                case CESTER_RESULT_UNKNOWN:
-                    break;
-            }
+            case CESTER_RESULT_SUCCESS:
+            case CESTER_RESULT_UNKNOWN:
+                break;
         }
         cester_concat_str(&a_test_case->execution_output, "\n");
         
     } else if (a_test_case->expected_result != last_status && a_test_case->expected_result != CESTER_RESULT_SUCCESS) {
         a_test_case->execution_status = last_status;
         cester_concat_str(&a_test_case->execution_output, "ResultError ");
-        cester_concat_str(&a_test_case->execution_output, (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+        cester_concat_str(&a_test_case->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_int(&a_test_case->execution_output, a_test_case->line_num);
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_str(&a_test_case->execution_output, " in '");
         cester_concat_str(&a_test_case->execution_output, a_test_case->name);
-        if (superTestInstance.verbose_level >= 2) {
-            cester_concat_str(&a_test_case->execution_output, "' => ");
-            switch (a_test_case->expected_result) {
-                case CESTER_RESULT_FAILURE:
-                    cester_concat_str(&a_test_case->execution_output, "Expected to Fail but passed");
-                    break;
-                case CESTER_RESULT_SEGFAULT:
-                    cester_concat_str(&a_test_case->execution_output, "Expected to Segfault but passed");
-                    break;
-                case CESTER_RESULT_TERMINATED:
-                    cester_concat_str(&a_test_case->execution_output, "Expected to be Prematurely terminated but exit gracefully");
-                    break;
-                case CESTER_RESULT_TIMED_OUT:
-                    cester_concat_str(&a_test_case->execution_output, "Expected to Time out but ends in time");
-                    break;
-    #ifndef CESTER_NO_MEM_TEST
-                case CESTER_RESULT_MEMORY_LEAK:
-                    cester_concat_str(&a_test_case->execution_output, "Expected to Leak memory but no memory was leaked");
-                    break;
-    #endif
-                case CESTER_RESULT_SUCCESS:
-                case CESTER_RESULT_UNKNOWN:
-                    break;
-            }
+        cester_concat_str(&a_test_case->execution_output, "' => ");
+        switch (a_test_case->expected_result) {
+            case CESTER_RESULT_FAILURE:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Fail but passed");
+                break;
+            case CESTER_RESULT_SEGFAULT:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Segfault but passed");
+                break;
+            case CESTER_RESULT_TERMINATED:
+                cester_concat_str(&a_test_case->execution_output, "Expected to be Prematurely terminated but exit gracefully");
+                break;
+            case CESTER_RESULT_TIMED_OUT:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Time out but ends in time");
+                break;
+#ifndef CESTER_NO_MEM_TEST
+            case CESTER_RESULT_MEMORY_LEAK:
+                cester_concat_str(&a_test_case->execution_output, "Expected to Leak memory but no memory was leaked");
+                break;
+#endif
+            case CESTER_RESULT_SUCCESS:
+            case CESTER_RESULT_UNKNOWN:
+                break;
         }
         cester_concat_str(&a_test_case->execution_output, "\n");
     } else {
@@ -3469,11 +3404,12 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
         
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation --cester-verbose-level=%d %s %s %s %s %s %s %s",
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation %s %s %s %s %s %s %s",
                     test_instance->argv[0],
                     a_test_case->name,
-                    (superTestInstance.verbose_level),
                     (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+                    (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                     (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
@@ -3545,9 +3481,9 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     selected_test_unix,
                     "--cester-singleoutput",
                     "--cester-noisolation",
-                    "--cester-verbose-level=",
-                    (superTestInstance.verbose_level),
                     (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.minimal == 1 ? "--cester-minimal" : ""),
+                    (superTestInstance.verbose == 1 ? "--cester-verbose" : ""),
                     (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
                     (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
@@ -3748,7 +3684,7 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
                     }
                 })
                 if (found_test == 0) {
-                    if (superTestInstance.verbose_level > 0 && cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) {
+                    if (superTestInstance.minimal == 0 && cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) {
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Warning: the '");
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.selected_test_cases_names[j]);
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' was not found! \n");
@@ -3762,7 +3698,6 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
 static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv) {
     char* cester_option;
     char* arg;
-    char *extra;
     unsigned i, j, index, index1;
 #ifdef _WIN32
 	CONSOLE_SCREEN_BUFFER_INFO info;
@@ -3801,10 +3736,10 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
         arg = argv[j];
         if (cester_str_after_prefix(arg, (char*) "--cester-", 9, &cester_option) == 1) {
             if (cester_string_equals(cester_option, (char*) "minimal") == 1) {
-                superTestInstance.verbose_level = 0;
+                superTestInstance.minimal = 1;
 
             } else if (cester_string_equals(cester_option, (char*) "verbose") == 1) {
-                superTestInstance.verbose_level = 10;
+                superTestInstance.verbose = 1;
 
             } else if (cester_string_equals(cester_option, (char*) "nocolor") == 1) {
                 superTestInstance.no_color = 1;
@@ -3837,10 +3772,6 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 
             } else if (cester_string_starts_with(cester_option, (char*) "test=") == 1) {
                 unpack_selected_extra_args(cester_option, &superTestInstance.selected_test_cases_names, &superTestInstance.selected_test_cases_size);
-
-            } else if (cester_string_starts_with(cester_option, (char*) "verbose-level=") == 1) {
-                cester_str_value_after_first(cester_option, '=', &extra);
-                superTestInstance.verbose_level = atoi(extra);
 
             } else if (cester_string_starts_with(cester_option, (char*) "output=") == 1) {
                 cester_str_value_after_first(cester_option, '=', &superTestInstance.output_format);
@@ -4103,15 +4034,13 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
     if (pointer == NULL) {
         if (superTestInstance.mem_test_active == 1 && superTestInstance.current_test_case != NULL) {
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "InvalidOperation ");
-            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
+            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.minimal == 0 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path) ));
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
             cester_concat_int(&(superTestInstance.current_test_case)->execution_output, line);
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ": ");
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in '");
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
-            if (superTestInstance.verbose_level >= 2) {
-                cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Attempting to free a NULL pointer \n");
-            }
+            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Attempting to free a NULL pointer \n");
             superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
         }
         return;

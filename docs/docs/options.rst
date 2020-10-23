@@ -10,23 +10,24 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 
 .. code:: text
 
-	CESTER v0.2
+	cester v0.3 by Adewale Azeez and other contributors.
 	MIT License
-	Usage: ./testfile [-options] [args...]
+	Usage: ./test_assert_string [-options] [args...]
 
 	where options include:
-		--cester-minimal         print minimal info into the output stream
-		--cester-verbose         print as much info as possible into the output stream
-		--cester-nocolor         do not print info with coloring
-		--cester-singleoutput    display cester version and exit
-		--cester-nomemtest       disable memory leak detection in the tests
-		--cester-noisolation     run all the test on a single process. Prevents recovery from crash.
-		--cester-printversion    display cester version before running the tests
-		--cester-dontformatname  leave the test case name as declared in the source file in the output
-		--cester-test=Test1,...  run only selected tests. Seperate the test cases by comma
-		--cester-output=[FORMAT] change the format in which the test results are printed
-		--cester-version         display cester version and exit
-		--cester-help            display this help info version and exit
+		--cester-verbose-level=[LEVEL]  change how much information is printed in the terminal
+		--cester-minimal                print minimal info into the output stream
+		--cester-verbose                print as much info as possible into the output stream
+		--cester-nocolor                do not print info with coloring
+		--cester-singleoutput           display cester version and exit
+		--cester-nomemtest              disable memory leak detection in the tests
+		--cester-noisolation            run all the test on a single process. Prevents recovery from crash.
+		--cester-printversion           display cester version before running the tests
+		--cester-dontformatname         leave the test case name as declared in the source file in the output
+		--cester-test=Test1,...         run only selected tests. Seperate the test cases by comma
+		--cester-output=[FORMAT]        change the format in which the test results are printed
+		--cester-version                display cester version and exit
+		--cester-help                   display this help info version and exit
 	See https://exoticlibraries.github.io/libcester/docs/options.html for more details
 
 	Supported output formats. [FORMAT]:
@@ -34,6 +35,13 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 		junitxml
 		tap
 		tapV13
+
+	Verbose levels. [LEVEL]:
+		0 - No information alias of --cester-minimal
+		1,2
+		3 - Meaningful information
+		4,5,6,7,8,9
+		10 - Meaningful informations + garbage alias of --cester-verbose
 
 
 --cester-nocolor
@@ -104,12 +112,25 @@ the test file below, this option can be used to run only one test case.
 The option is used to select which test to run. Above we selected the test case `test_assert_equal` 
 to select the two test cases we can supply this option `--cester-test=test_assert_equal,test_assert_fail`.
 
---cester-output=
+--cester-output=?
 --------------------------
 
 Change the format in which the outpout is generated. Various format is supported, all the 
 supported format can be viewed at `output_formats <./output_formats.html>`_. E.g. to print the 
 output in JunitXML format you supply the option `--cester-output=junitxml`. 
+
+--cester-verbose-level=?
+--------------------------
+
+Change the verbose level of the output, the higher the velue the more the information 
+printed into the terminal. 0 value means no output apart from the testcase's and value 
+4 and above prints the full path to the test file. This can also be set within the code 
+using the macro CESTER_VERBOSE_LEVEL(?).
+
+The verbose level ranges from 0 to 10, zero being the lowest and 10 the highest. With 
+verbose level of zero no information is printed in the terminal, with 10 all possible 
+information is printed in the terminal. 3 is the best value to print out meaningful 
+details. E.g. `--cester-verbose-level=3`
 
 --cester-minimal
 --------------------------
@@ -118,12 +139,19 @@ Display minimal information in the output, this option combined with --cester-ve
 a fine output in the terminal. This can also be set within the code using the macro 
 CESTER_MINIMAL().
 
+This is equivaluent to setting the verbose level to the lowest value 
+`--cester-verbose-level=0`. No information is printed into the terminal.
+
 --cester-verbose
 --------------------------
 
 Display as much detail as possible in the output. This include expression and information of 
 assertion macro that passed, only failed assertion is displayed if this option is not supplied. 
 This can also be set within the code using the macro CESTER_VERBOSE().
+
+This is equivaluent to setting the verbose level to the highest value 
+`--cester-verbose-level=10`. All possible information is printed into the terminal with the 
+full path of the test file.
 
 --cester-dontformatname
 --------------------------

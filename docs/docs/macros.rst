@@ -701,6 +701,23 @@ Prevent displaying the output with colors. This option can prevent writing extra
 an output file in place of the color values. The option can also be set from the cli using 
 `--cester-nocolor`. 
 
+CESTER_VERBOSE_LEVEL
+---------------------
+
+.. code:: text
+
+    CESTER_VERBOSE_LEVEL(3)
+
+Change the verbose level of the output, the higher the velue the more the information 
+printed into the terminal. 0 value means no output apart from the testcase's and value 
+4 and above prints the full path to the test file. The option can also be set from the 
+cli using `--cester-verbose-level=3`. 
+
+The verbose level ranges from 0 to 10, zero being the lowest and 10 the highest. With 
+verbose level of zero no information is printed in the terminal, with 10 all possible 
+information is printed in the terminal. 3 is the best value to print out meaningful 
+details.
+
 CESTER_MINIMAL
 ---------------
 
@@ -712,6 +729,9 @@ Print minimal info into the output stream. With this option set the expression e
 will not be printed in the result output. The option can also be set from the cli using 
 `--cester-minimal`.
 
+This is equivaluent to setting the verbose level to the lowest value 
+`--cester-verbose-level=0`. No information is printed into the terminal.
+
 CESTER_VERBOSE
 ---------------
 
@@ -722,6 +742,10 @@ CESTER_VERBOSE
 Print as much info as possible into the output stream. With this option set both passed 
 and failed expression evaluated will be printed in the result. The option can also be set 
 from the cli using `--cester-verbose`. 
+
+This is equivaluent to setting the verbose level to the highest value 
+`--cester-verbose-level=10`. All possible information is printed into the terminal with the 
+full path of the test file.
 
 CESTER_PRINT_VERSION
 ---------------------

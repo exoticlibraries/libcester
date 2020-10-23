@@ -1,0 +1,250 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>How the mocking works &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How test registration works" href="how_test_registration_works.html" />
+    <link rel="prev" title="How the assertion macros works" href="how_assertion_macro.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/how_it_works/how_mocking.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="../docs/index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docs/assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/test_for_failure.html">Testing for failures</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="how-the-mocking-works">
+<span id="index-0"></span><h1>How the mocking works<a class="headerlink" href="#how-the-mocking-works" title="Permalink to this headline">¶</a></h1>
+<p>The macro CESTER_MOCK_FUNCTION declares a weak reference of the function to mock,
+declares a __real_ function signature and at the last expansion stage declares and initialize
+a __weak_ wrapper function.</p>
+<p>The following example mock a function</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>First macro expansion we have</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="n">extern</span> <span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the final expansion</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>At the end of the macro expansion we have</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="n">extern</span> <span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+
+<span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The function <strong>power_of</strong> will then be mocked if compiled with the <cite>-Wl,–wrap=power_of</cite>
+option.</p>
+<p>The same logic applies to CESTER_MOCK_SIMPLE_FUNCTION macro except it returns the last
+parameter.</p>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/how_it_works/how_mocking.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="how_test_registration_works.html">How test registration works<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="how_assertion_macro.html"><i class="fa fa-arrow-left"></i>How the assertion macros works</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">How the mocking works</a></li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="how_assertion_macro.html">How the assertion macros works</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="how_test_registration_works.html">How test registration works</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/how_it_works/how_mocking.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/how_it_works/how_mocking.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

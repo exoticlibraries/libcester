@@ -1,0 +1,256 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>How the assertion macros works &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How the mocking works" href="how_mocking.html" />
+    <link rel="prev" title="Helper Macros" href="../docs/macros.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/how_it_works/how_assertion_macro.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="../docs/index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docs/assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/test_for_failure.html">Testing for failures</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="how-the-assertion-macros-works">
+<span id="index-0"></span><h1>How the assertion macros works<a class="headerlink" href="#how-the-assertion-macros-works" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This describe internal working of some of the APIs only</p>
+</div>
+<p>The CESTER_CONCAT is used to combine various function with the same parameter signature
+enabling re-use of same code.</p>
+<p>The macro <strong>__internal_cester_assert_cmp</strong> is used to create the parameter signature for the
+compare asert functions. For the sample macro below</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__internal_cester_assert_cmp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">==</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameter signature above is then concatenated with the proper assert function e.g to
+assert if 1 equal to 2 the function <cite>cester_compare_int</cite> is concatenated with the macro
+above.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_cmp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">==</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The combination of the __internal_cester_assert_cmp with various type assert function reduces
+repeated code.</p>
+<p>The macro <cite>__internal_cester_assert_eq</cite> is used to generate the parameter signature and
+formated string for assertion. It accept the two values, the operator and the values
+format specifiers.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hence concating the parameter signature with the function name cester_compare_int result is</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+
+<span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_char</span><span class="p">,</span> <span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="o">%</span><span class="n">c</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_char</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%c</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The macros __internal_cester_assert_ne, __internal_cester_assert_gt, __internal_cester_assert_ge,
+__internal_cester_assert_lt, and __internal_cester_assert_le works just like
+__internal_cester_assert_eq.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_int_gt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_gt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;expected value to be greater than </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/how_it_works/how_assertion_macro.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="how_mocking.html">How the mocking works<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="../docs/macros.html"><i class="fa fa-arrow-left"></i>Helper Macros</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">How the assertion macros works</a></li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="../docs/macros.html">Helper Macros</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="how_mocking.html">How the mocking works</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/how_it_works/how_assertion_macro.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/how_it_works/how_assertion_macro.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

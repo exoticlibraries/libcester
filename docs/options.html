@@ -1,0 +1,367 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Cester Options &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Manual Tests Registration" href="manual_test_registration.html" />
+    <link rel="prev" title="Mocking" href="mocking.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/docs/options.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="cester-options">
+<span id="index-0"></span><h1>Cester Options<a class="headerlink" href="#cester-options" title="Permalink to this headline">¶</a></h1>
+<p>cester accepts various options to tune it functionalities. Any command line parameter that
+starts with –cester- is treated as cester option otherwise it is ignored.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cester</span> <span class="n">v0</span><span class="o">.</span><span class="mi">3</span> <span class="n">by</span> <span class="n">Adewale</span> <span class="n">Azeez</span> <span class="ow">and</span> <span class="n">other</span> <span class="n">contributors</span><span class="o">.</span>
+<span class="n">MIT</span> <span class="n">License</span>
+<span class="n">Usage</span><span class="p">:</span> <span class="o">./</span><span class="n">test_assert_string</span> <span class="p">[</span><span class="o">-</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="o">...</span><span class="p">]</span>
+
+<span class="n">where</span> <span class="n">options</span> <span class="n">include</span><span class="p">:</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">verbose</span><span class="o">-</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="n">LEVEL</span><span class="p">]</span>  <span class="n">change</span> <span class="n">how</span> <span class="n">much</span> <span class="n">information</span> <span class="ow">is</span> <span class="n">printed</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">terminal</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">minimal</span>                <span class="nb">print</span> <span class="n">minimal</span> <span class="n">info</span> <span class="n">into</span> <span class="n">the</span> <span class="n">output</span> <span class="n">stream</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">verbose</span>                <span class="nb">print</span> <span class="k">as</span> <span class="n">much</span> <span class="n">info</span> <span class="k">as</span> <span class="n">possible</span> <span class="n">into</span> <span class="n">the</span> <span class="n">output</span> <span class="n">stream</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">nocolor</span>                <span class="n">do</span> <span class="ow">not</span> <span class="nb">print</span> <span class="n">info</span> <span class="k">with</span> <span class="n">coloring</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">singleoutput</span>           <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">nomemtest</span>              <span class="n">disable</span> <span class="n">memory</span> <span class="n">leak</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">tests</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">noisolation</span>            <span class="n">run</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">test</span> <span class="n">on</span> <span class="n">a</span> <span class="n">single</span> <span class="n">process</span><span class="o">.</span> <span class="n">Prevents</span> <span class="n">recovery</span> <span class="kn">from</span> <span class="nn">crash.</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">printversion</span>           <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="n">before</span> <span class="n">running</span> <span class="n">the</span> <span class="n">tests</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">dontformatname</span>         <span class="n">leave</span> <span class="n">the</span> <span class="n">test</span> <span class="n">case</span> <span class="n">name</span> <span class="k">as</span> <span class="n">declared</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">source</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">output</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">test</span><span class="o">=</span><span class="n">Test1</span><span class="p">,</span><span class="o">...</span>         <span class="n">run</span> <span class="n">only</span> <span class="n">selected</span> <span class="n">tests</span><span class="o">.</span> <span class="n">Seperate</span> <span class="n">the</span> <span class="n">test</span> <span class="n">cases</span> <span class="n">by</span> <span class="n">comma</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">output</span><span class="o">=</span><span class="p">[</span><span class="n">FORMAT</span><span class="p">]</span>        <span class="n">change</span> <span class="n">the</span> <span class="nb">format</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">the</span> <span class="n">test</span> <span class="n">results</span> <span class="n">are</span> <span class="n">printed</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">version</span>                <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">help</span>                   <span class="n">display</span> <span class="n">this</span> <span class="n">help</span> <span class="n">info</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span>
+<span class="n">See</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">exoticlibraries</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">libcester</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">options</span><span class="o">.</span><span class="n">html</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span>
+
+<span class="n">Supported</span> <span class="n">output</span> <span class="n">formats</span><span class="o">.</span> <span class="p">[</span><span class="n">FORMAT</span><span class="p">]:</span>
+        <span class="n">text</span>
+        <span class="n">junitxml</span>
+        <span class="n">tap</span>
+        <span class="n">tapV13</span>
+
+<span class="n">Verbose</span> <span class="n">levels</span><span class="o">.</span> <span class="p">[</span><span class="n">LEVEL</span><span class="p">]:</span>
+        <span class="mi">0</span> <span class="o">-</span> <span class="n">No</span> <span class="n">information</span> <span class="n">alias</span> <span class="n">of</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">minimal</span>
+        <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
+        <span class="mi">3</span> <span class="o">-</span> <span class="n">Meaningful</span> <span class="n">information</span>
+        <span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span>
+        <span class="mi">10</span> <span class="o">-</span> <span class="n">Meaningful</span> <span class="n">informations</span> <span class="o">+</span> <span class="n">garbage</span> <span class="n">alias</span> <span class="n">of</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">verbose</span>
+</pre></div>
+</div>
+<div class="section" id="cester-nocolor">
+<h2>–cester-nocolor<a class="headerlink" href="#cester-nocolor" title="Permalink to this headline">¶</a></h2>
+<p>Disable colorfull output in the terminal. This option is useful when writing the test result to
+a file, it removes the color bytes that enable the color print in the terminal. This can also
+be set in the code within the CESTER_OPTIONS block with the macro CESTER_NOCOLOR().</p>
+</div>
+<div class="section" id="cester-singleoutput">
+<h2>–cester-singleoutput<a class="headerlink" href="#cester-singleoutput" title="Permalink to this headline">¶</a></h2>
+<p>Only print the assertion detail to the output. This is used within cester during
+isolation testing to capture the output from a single test case. This can also be set in the
+code within the CESTER_OPTIONS block with the macro CESTER_SINGLE_OUPUT_ONLY().</p>
+</div>
+<div class="section" id="cester-nomemtest">
+<h2>–cester-nomemtest<a class="headerlink" href="#cester-nomemtest" title="Permalink to this headline">¶</a></h2>
+<p>Disable memory leak detection and memory test. This option is available if the test source
+does not define the CESTER_NO_MEM_TEST macro.  If the macro CESTER_NO_MEM_TEST is defined in the
+test source memory leak detection is disabled at compile time and this option is not available
+at runtime. This can also be set within the code using the macro CESTER_NO_MEMTEST().</p>
+</div>
+<div class="section" id="cester-noisolation">
+<h2>–cester-noisolation<a class="headerlink" href="#cester-noisolation" title="Permalink to this headline">¶</a></h2>
+<p>Instruct cester to run all the test in one single process. With this option signal will be used
+for crash reporting but if the test is compiled with the macro <cite>CESTER_NO_SIGNAL</cite> defined,
+cester will not be able to recover from critical crash therefore if a test case segfault the
+tests will terminate immediately.</p>
+<p>If the test is compiled for C version less than C99, isolated test is disabled, in such case
+the signal is used to recover from a critical test case crash. This can also be set within
+the code using the macro CESTER_NO_ISOLATION().</p>
+</div>
+<div class="section" id="cester-test">
+<h2>–cester-test=<a class="headerlink" href="#cester-test" title="Permalink to this headline">¶</a></h2>
+<p>Select which test case you want to run. Each of the selected test case mush be seperated with
+a comma, if any of the selected test case is not found in the test file it is ignored. E.g. for
+the test file below, this option can be used to run only one test case.</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_assert_equal</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="p">((</span><span class="n">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_assert_fail</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span>
+        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="p">((</span><span class="n">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
+<span class="o">./</span><span class="n">test</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">test</span><span class="o">=</span><span class="n">test_assert_equal</span>
+
+<span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="n">s</span><span class="p">)</span> <span class="n">test</span> <span class="k">assert</span> <span class="n">equal</span>
+
+
+<span class="n">Ran</span> <span class="mi">2</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.00</span> <span class="n">Seconds</span>
+<span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tests</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The option is used to select which test to run. Above we selected the test case <cite>test_assert_equal</cite>
+to select the two test cases we can supply this option <cite>–cester-test=test_assert_equal,test_assert_fail</cite>.</p>
+</div>
+<div class="section" id="cester-output">
+<h2>–cester-output=?<a class="headerlink" href="#cester-output" title="Permalink to this headline">¶</a></h2>
+<p>Change the format in which the outpout is generated. Various format is supported, all the
+supported format can be viewed at <a class="reference external" href="./output_formats.html">output_formats</a>. E.g. to print the
+output in JunitXML format you supply the option <cite>–cester-output=junitxml</cite>.</p>
+</div>
+<div class="section" id="cester-verbose-level">
+<h2>–cester-verbose-level=?<a class="headerlink" href="#cester-verbose-level" title="Permalink to this headline">¶</a></h2>
+<p>Change the verbose level of the output, the higher the velue the more the information
+printed into the terminal. 0 value means no output apart from the testcase’s and value
+4 and above prints the full path to the test file. This can also be set within the code
+using the macro CESTER_VERBOSE_LEVEL(?).</p>
+<p>The verbose level ranges from 0 to 10, zero being the lowest and 10 the highest. With
+verbose level of zero no information is printed in the terminal, with 10 all possible
+information is printed in the terminal. 3 is the best value to print out meaningful
+details. E.g. <cite>–cester-verbose-level=3</cite></p>
+</div>
+<div class="section" id="cester-minimal">
+<h2>–cester-minimal<a class="headerlink" href="#cester-minimal" title="Permalink to this headline">¶</a></h2>
+<p>Display minimal information in the output, this option combined with –cester-verbose produces
+a fine output in the terminal. This can also be set within the code using the macro
+CESTER_MINIMAL().</p>
+<p>This is equivaluent to setting the verbose level to the lowest value
+<cite>–cester-verbose-level=0</cite>. No information is printed into the terminal.</p>
+</div>
+<div class="section" id="cester-verbose">
+<h2>–cester-verbose<a class="headerlink" href="#cester-verbose" title="Permalink to this headline">¶</a></h2>
+<p>Display as much detail as possible in the output. This include expression and information of
+assertion macro that passed, only failed assertion is displayed if this option is not supplied.
+This can also be set within the code using the macro CESTER_VERBOSE().</p>
+<p>This is equivaluent to setting the verbose level to the highest value
+<cite>–cester-verbose-level=10</cite>. All possible information is printed into the terminal with the
+full path of the test file.</p>
+</div>
+<div class="section" id="cester-dontformatname">
+<h2>–cester-dontformatname<a class="headerlink" href="#cester-dontformatname" title="Permalink to this headline">¶</a></h2>
+<p>Do not format the test case when displaying the output. E.g. the test case <cite>test_assert_equal</cite> in
+the output will be displayed as <cite>test assert equal</cite> but if this option is supplied it will be
+displayed as it declared in the source. This can also be set within the code using the macro
+CESTER_DONT_FORMAT_TESTNAME().</p>
+</div>
+<div class="section" id="cester-printversion">
+<h2>–cester-printversion<a class="headerlink" href="#cester-printversion" title="Permalink to this headline">¶</a></h2>
+<p>Display cester version and license before running the tests.</p>
+</div>
+<div class="section" id="cester-version">
+<h2>–cester-version<a class="headerlink" href="#cester-version" title="Permalink to this headline">¶</a></h2>
+<p>Display cester version and license and exit.</p>
+</div>
+<div class="section" id="cester-help">
+<h2>–cester-help<a class="headerlink" href="#cester-help" title="Permalink to this headline">¶</a></h2>
+<p>Display the help info version and exit.</p>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/options.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="manual_test_registration.html">Manual Tests Registration<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="mocking.html"><i class="fa fa-arrow-left"></i>Mocking</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Cester Options</a><ul>
+<li><a class="reference internal" href="#cester-nocolor">–cester-nocolor</a></li>
+<li><a class="reference internal" href="#cester-singleoutput">–cester-singleoutput</a></li>
+<li><a class="reference internal" href="#cester-nomemtest">–cester-nomemtest</a></li>
+<li><a class="reference internal" href="#cester-noisolation">–cester-noisolation</a></li>
+<li><a class="reference internal" href="#cester-test">–cester-test=</a></li>
+<li><a class="reference internal" href="#cester-output">–cester-output=?</a></li>
+<li><a class="reference internal" href="#cester-verbose-level">–cester-verbose-level=?</a></li>
+<li><a class="reference internal" href="#cester-minimal">–cester-minimal</a></li>
+<li><a class="reference internal" href="#cester-verbose">–cester-verbose</a></li>
+<li><a class="reference internal" href="#cester-dontformatname">–cester-dontformatname</a></li>
+<li><a class="reference internal" href="#cester-printversion">–cester-printversion</a></li>
+<li><a class="reference internal" href="#cester-version">–cester-version</a></li>
+<li><a class="reference internal" href="#cester-help">–cester-help</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="mocking.html">Mocking</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="manual_test_registration.html">Manual Tests Registration</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/options.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/options.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

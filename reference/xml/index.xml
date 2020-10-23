@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.11">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.13">
   <compound refid="structallocated__memory" kind="struct"><name>allocated_memory</name>
     <member refid="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" kind="variable"><name>line_num</name></member>
     <member refid="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" kind="variable"><name>allocated_bytes</name></member>
@@ -19,8 +19,7 @@
     <member refid="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" kind="variable"><name>total_failed_tests_count</name></member>
     <member refid="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" kind="variable"><name>total_passed_tests_count</name></member>
     <member refid="structsuper__test__instance_1aff5d1a7b9ae163407bdd8512e1611c65" kind="variable"><name>total_test_errors_count</name></member>
-    <member refid="structsuper__test__instance_1a633f4efc8dc7359e57c13c21bfe0e6e7" kind="variable"><name>verbose</name></member>
-    <member refid="structsuper__test__instance_1ac12f371eae0498b75792c17bd897f546" kind="variable"><name>minimal</name></member>
+    <member refid="structsuper__test__instance_1a6f1317eff9e036c5b7bf43fce37df196" kind="variable"><name>verbose_level</name></member>
     <member refid="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" kind="variable"><name>print_version</name></member>
     <member refid="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" kind="variable"><name>selected_test_cases_size</name></member>
     <member refid="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" kind="variable"><name>selected_test_cases_found</name></member>
@@ -109,6 +108,7 @@
     <member refid="cester_8h_1a46998535966dad5778d6c8112bc58345" kind="define"><name>CESTER_NOCOLOR</name></member>
     <member refid="cester_8h_1a8951bf8368f048537813fb14375e9ef0" kind="define"><name>CESTER_MINIMAL</name></member>
     <member refid="cester_8h_1a6fa58ee11340e1315ba71ffe53c325f5" kind="define"><name>CESTER_VERBOSE</name></member>
+    <member refid="cester_8h_1a961b9bdc64463c82465b5eda8f0cbb99" kind="define"><name>CESTER_VERBOSE_LEVEL</name></member>
     <member refid="cester_8h_1aaf35825f7303bc525aa18046af827f01" kind="define"><name>CESTER_PRINT_VERSION</name></member>
     <member refid="cester_8h_1aabbe067a2ed2679ca1c60ab7b4008959" kind="define"><name>CESTER_SINGLE_OUPUT_ONLY</name></member>
     <member refid="cester_8h_1a35fbc3061ecdc188a0d412b9dbb987ca" kind="define"><name>CESTER_NO_ISOLATION</name></member>
@@ -342,15 +342,16 @@
     <member refid="cester_8h_1a2bf65d12370ce2f91870d1c6b5d928bf" kind="function"><name>cester_str_value_after_first</name></member>
     <member refid="cester_8h_1a5bed9e5f772e262547db94f402a0c358" kind="function"><name>cester_extract_name</name></member>
     <member refid="cester_8h_1a48eddac0dcab1d922af1dddb6bfd6ca3" kind="function"><name>cester_extract_name_only</name></member>
+    <member refid="cester_8h_1aec0fea252e301581102bd68ff522210f" kind="function"><name>cester_concat_str</name></member>
+    <member refid="cester_8h_1a129a3a845847d3eac249adfe3f6523dd" kind="function"><name>cester_concat_char</name></member>
+    <member refid="cester_8h_1ad22b6f707b3e2d3c4401f8e87f476cc5" kind="function"><name>cester_concat_int</name></member>
+    <member refid="cester_8h_1af8e55ad20175b99e6c0daa95dbd1c0ca" kind="function"><name>cester_ptr_to_str</name></member>
     <member refid="cester_8h_1a1b18fc0fc447090febc5bd378ebd8265" kind="function"><name>cester_str_after_prefix</name></member>
     <member refid="cester_8h_1a6fd717d4c29095d4d4bc580177b95692" kind="function"><name>cester_str_replace</name></member>
     <member refid="cester_8h_1a00a1e3609f372c462a0408c16e3b2b0e" kind="function"><name>cester_string_equals</name></member>
     <member refid="cester_8h_1a9d90fb92ddc3b49500adf79aea869744" kind="function"><name>cester_string_starts_with</name></member>
     <member refid="cester_8h_1a60e8c664d3517575bb0eb31e958d304a" kind="function"><name>unpack_selected_extra_args</name></member>
-    <member refid="cester_8h_1aec0fea252e301581102bd68ff522210f" kind="function"><name>cester_concat_str</name></member>
-    <member refid="cester_8h_1a129a3a845847d3eac249adfe3f6523dd" kind="function"><name>cester_concat_char</name></member>
-    <member refid="cester_8h_1ad22b6f707b3e2d3c4401f8e87f476cc5" kind="function"><name>cester_concat_int</name></member>
-    <member refid="cester_8h_1af8e55ad20175b99e6c0daa95dbd1c0ca" kind="function"><name>cester_ptr_to_str</name></member>
+    <member refid="cester_8h_1aed4d3862625429ae77693e729ec27abb" kind="function"><name>cester_concat_ptr</name></member>
     <member refid="cester_8h_1a9adf548936e327b04ee947a49fd72c5d" kind="function"><name>cester_is_validate_output_option</name></member>
     <member refid="cester_8h_1a9aaeef94f525218c317d1297257b8745" kind="function"><name>cester_print_version</name></member>
     <member refid="cester_8h_1a57cb88de7613a2413db45aa79617e4ae" kind="function"><name>cester_print_help</name></member>
@@ -366,8 +367,8 @@
     <member refid="cester_8h_1abffff1119ce46a44eee27d95ef6b974f" kind="function"><name>cester_print_result</name></member>
     <member refid="cester_8h_1ad5fefdda7fe2e21023a0c22a8291120a" kind="function"><name>cester_evaluate_expression</name></member>
     <member refid="cester_8h_1ad205ac079eb12c9b6d1aa8ee6e4b8487" kind="function"><name>cester_evaluate_expect_actual</name></member>
-    <member refid="cester_8h_1ad7a7383eb0739bd69193332fb1bca149" kind="function"><name>cester_evaluate_expect_actual_str</name></member>
-    <member refid="cester_8h_1a28c1d6c0bac237d44aa7cc51ed204737" kind="function"><name>cester_evaluate_expect_actual_ptr</name></member>
+    <member refid="cester_8h_1a98e3b045a3e960952f1a383941397ca4" kind="function"><name>cester_evaluate_expect_actual_str</name></member>
+    <member refid="cester_8h_1a7f42a8bab4d2b431e6407d4e04be7389" kind="function"><name>cester_evaluate_expect_actual_ptr</name></member>
     <member refid="cester_8h_1a09f618649526f0899751a231c8b042ef" kind="function"><name>cester_compare_char</name></member>
     <member refid="cester_8h_1a8baad3b7278556a3908a36fbbcbc1d10" kind="function"><name>cester_compare_uchar</name></member>
     <member refid="cester_8h_1aaeccf9eb329390fdd3a24f3dfaab3d74" kind="function"><name>cester_compare_int</name></member>
@@ -395,9 +396,9 @@
   </compound>
   <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
   </compound>
-  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>/home/travis/build/exoticlibraries/libcester/include/exotic</name>
+  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>/home/runner/work/libcester/libcester/include/exotic</name>
   </compound>
-  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/travis/build/exoticlibraries/libcester/include</name>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/runner/work/libcester/libcester/include</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

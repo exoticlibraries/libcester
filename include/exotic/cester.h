@@ -1319,8 +1319,8 @@ static __CESTER_INLINE__ void write_testcase_junitxml(TestCase *a_test_case, cha
     
 }
 
-static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *funcname1, char *funcname2, char *prefix, char **write_string) {
 #ifndef CESTER_NO_MEM_TEST
+static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *funcname1, char *funcname2, char *prefix, char **write_string) {
     unsigned mem_index;
     unsigned leaked_memory_count = 0;
     if (superTestInstance.mem_test_active == 1) {
@@ -1349,9 +1349,9 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
             }
         })
     }
-#endif
     return leaked_memory_count;
 }
+#endif
 
 static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], TestInstance* test_instance) {
     unsigned index_sub, ret_val;
@@ -1383,11 +1383,15 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
         cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1) {
         prefix = (char *) "# ";
     }
+    
+#ifndef CESTER_NO_MEM_TEST
     ret_val = check_memory_allocated_for_functions((char *)"CESTER_BEFORE_ALL", (char *)"CESTER_OPTIONS", prefix, &superTestInstance.main_execution_output);
     if (ret_val > 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
         superTestInstance.total_test_errors_count += ret_val;
     }
+#endif
+
     if (superTestInstance.single_output_only == 0) {
         if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml") == 1) {
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "<?xml");
@@ -1632,7 +1636,13 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     CESTER_SKIP_TEST and CESTER_TODO_TEST when compiling with 
     -ansi and -pedantic-errors flag
 */
-#define cester_assert_nothing() 
+#define cester_assert_nothing()
+
+
+/**
+    Send the parameter into a black hole.
+*/
+#define cester_swallow(param) 
 
 /**
     Compare two argument using the provided operator
@@ -3307,6 +3317,8 @@ extern "C" {
     \param x the test case name
 */
 #define CESTER_TEST_SHOULD_LEAK_MEMORY(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_MEMORY_LEAK);
+#else
+#define CESTER_TEST_SHOULD_LEAK_MEMORY(x)
 #endif
 
 /**
@@ -3679,9 +3691,13 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
         prefix = (char *) "    - ";
         
     }
+
+#ifndef CESTER_NO_MEM_TEST
     if (check_memory_allocated_for_functions(a_test_case->name, NULL, prefix, &(superTestInstance.current_test_case)->execution_output) > 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
     }
+#endif
+
     if (superTestInstance.registered_test_cases->size == 0) {
         for (i=0;cester_test_cases[i].test_type != CESTER_TESTS_TERMINATOR;++i) {
             if (cester_test_cases[i].test_type == CESTER_AFTER_EACH_TEST) {
@@ -3700,10 +3716,14 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
         cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1) {
         prefix = (char *) "# ";
     }
+    
+#ifndef CESTER_NO_MEM_TEST
     ret_val = check_memory_allocated_for_functions((char *)"CESTER_BEFORE_EACH", NULL, prefix, &superTestInstance.main_execution_output);
     if (ret_val > 0) {
         superTestInstance.total_test_errors_count += ret_val;
     }
+#endif
+
     ++superTestInstance.total_tests_ran;
     if (superTestInstance.single_output_only == 1) {
         CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);

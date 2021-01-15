@@ -1,4 +1,4 @@
-/*!clang {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
 

@@ -194,6 +194,20 @@ jmp_buf buf;
 #define CESTER_CONCAT(x, y) x y
 
 /**
+    The type of caparison to perform on two values.
+
+    This is introduce to resolve the bug https://github.com/exoticlibraries/libcester/issues/30
+*/
+enum cester_assertion_caparator {
+    CESTER_COMPARATOR_EQUAL,                   /**< the comparisson operator is '==' */
+    CESTER_COMPARATOR_NOT_EQUAL,               /**< the comparisson operator is '!=' */
+    CESTER_COMPARATOR_GREATER_THAN,            /**< the comparisson operator is '>' */
+    CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL,   /**< the comparisson operator is '>=' */
+    CESTER_COMPARATOR_LESSER_THAN,             /**< the comparisson operator is '<' */
+    CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL     /**< the comparisson operator is '<=' */  
+};
+
+/**
     The execution status of a test case that indicates 
     whether a test passes of fails. And also enable the 
     detection of the reason if a test fail.
@@ -1777,12 +1791,12 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 
 /* document the following, add 'compile time only' */
 #define __internal_cester_assert_cmp(w,x,y,z) (w x y, z, w, y, #x, __FILE__, __LINE__)
-#define __internal_cester_assert_eq(x,y,z) (x == y, "expected " #z ",%s received " #z, y, x, "", __FILE__, __LINE__)
-#define __internal_cester_assert_ne(x,y,z) (x != y, "not expecting " #z ",%s found " #z, x, y, "", __FILE__, __LINE__)
-#define __internal_cester_assert_gt(x,y,z) (x > y, "expected value to be greater than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
-#define __internal_cester_assert_ge(x,y,z) (x >= y, "expected value to be greater than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
-#define __internal_cester_assert_lt(x,y,z) (x < y, "expected value to be lesser than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
-#define __internal_cester_assert_le(x,y,z) (x <= y, "expected value to be lesser than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_eq(x,y,z) (CESTER_COMPARATOR_EQUAL, "expected " #z ",%s received " #z, y, x, "", __FILE__, __LINE__)
+#define __internal_cester_assert_ne(x,y,z) (CESTER_COMPARATOR_NOT_EQUAL, "not expecting " #z ",%s found " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_gt(x,y,z) (CESTER_COMPARATOR_GREATER_THAN, "expected value to be greater than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_ge(x,y,z) (CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL, "expected value to be greater than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_lt(x,y,z) (CESTER_COMPARATOR_LESSER_THAN, "expected value to be lesser than " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
+#define __internal_cester_assert_le(x,y,z) (CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL, "expected value to be lesser than or equal to " #z ",%s received " #z, x, y, "", __FILE__, __LINE__)
 
 /**
     Compare two char using the provided operator
@@ -2865,80 +2879,128 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
     }
 }
 
-static __CESTER_INLINE__ void cester_compare_char(int eval_result, char const* const expr, char first, char second, char const* const op, char const* const file_path, unsigned const line_num) {
+/*
+    Use the cester_assertion_caparator type to determine what comparission 
+    operation to perform on the two values
+*/
+#define CESTER_INTERNAL_EVALUATE(comparator_type, x, y, result) {\
+    if (comparator_type == CESTER_COMPARATOR_EQUAL) {\
+        result = (x == y);\
+    } else if (comparator_type == CESTER_COMPARATOR_NOT_EQUAL) {\
+        result = (x != y);\
+    } else if (comparator_type == CESTER_COMPARATOR_GREATER_THAN) {\
+        result = (x > y);\
+    } else if (comparator_type == CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL) {\
+        result = (x >= y);\
+    } else if (comparator_type == CESTER_COMPARATOR_LESSER_THAN) {\
+        result = (x < y);\
+    } else if (comparator_type == CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL) {\
+        result = (x <= y);\
+    } else {\
+        result = (x == y);\
+    }\
+}
+
+static __CESTER_INLINE__ void cester_compare_char(enum cester_assertion_caparator comparator_type, char const* const expr, char first, char second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] = "";
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_uchar(int eval_result, char const* const expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_uchar(enum cester_assertion_caparator comparator_type, char const* const expr, unsigned char first, unsigned char second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_int(int eval_result, char const* const expr, int first, int second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_int(enum cester_assertion_caparator comparator_type, char const* const expr, int first, int second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_uint(int eval_result, char const* const expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_uint(enum cester_assertion_caparator comparator_type, char const* const expr, unsigned int first, unsigned int second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_short(int eval_result, char const* const expr, short first, short second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_short(enum cester_assertion_caparator comparator_type, char const* const expr, short first, short second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_ushort(int eval_result, char const* const expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_ushort(enum cester_assertion_caparator comparator_type, char const* const expr, unsigned short first, unsigned short second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_long(int eval_result, char const* const expr, long first, long second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_long(enum cester_assertion_caparator comparator_type, char const* const expr, long first, long second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_ulong(int eval_result, char const* const expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_ulong(enum cester_assertion_caparator comparator_type, char const* const expr, unsigned long first, unsigned long second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_llong(int eval_result, char const* const expr, __CESTER_LONG_LONG__ first, __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_llong(enum cester_assertion_caparator comparator_type, char const* const expr, __CESTER_LONG_LONG__ first, __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_ullong(int eval_result, char const* const expr, unsigned __CESTER_LONG_LONG__ first, unsigned __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_ullong(enum cester_assertion_caparator comparator_type, char const* const expr, unsigned __CESTER_LONG_LONG__ first, unsigned __CESTER_LONG_LONG__ second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_float(int eval_result, char const* const expr, float first, float second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_float(enum cester_assertion_caparator comparator_type, char const* const expr, float first, float second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_double(int eval_result, char const* const expr, double first, double second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_double(enum cester_assertion_caparator comparator_type, char const* const expr, double first, double second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }
 
-static __CESTER_INLINE__ void cester_compare_ldouble(int eval_result, char const* const expr, long double first, long double second, char const* const op, char const* const file_path, unsigned const line_num) {
+static __CESTER_INLINE__ void cester_compare_ldouble(enum cester_assertion_caparator comparator_type, char const* const expr, long double first, long double second, char const* const op, char const* const file_path, unsigned const line_num) {
     char expression[2048] ;
+    int eval_result = 0;
+    CESTER_INTERNAL_EVALUATE(comparator_type, first, second, eval_result);
     cester_sprintf3(expression, 2048, expr, second, op, first);
     cester_evaluate_expression(eval_result, (char*)expression, file_path, line_num);
 }

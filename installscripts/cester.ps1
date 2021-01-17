@@ -10,7 +10,7 @@ Function Find-Include-Folder-With-Command {
         [string]$command
     )
 
-    $CmdOutput = cmd /c $command -v '2>&1'
+    $CmdOutput = cmd /c $command '2>&1'
     ForEach ($Line in $CmdOutput) {
         if ($Line.Contains("/bin") -or $Line.Contains("\bin")) {
             $IncludePath, $x = $Line -split ("bin") + "bin"
@@ -61,12 +61,19 @@ Function Find-Include-Folder-With-Path {
 }
 
 "Downloading $NAME ..."
-Invoke-WebRequest $DOWNLOAD_PATH -OutFile ./cester.h
+New-Item -ItemType Directory -Path "./include/exotic/" -Force > $null
+If ( -not $?) {
+    "Failed to create the folder ./include/exotic/. Exiting..." 
+    continue
+}
+Invoke-WebRequest $DOWNLOAD_PATH -OutFile ./include/exotic/cester.h
 "Trying to detect headers paths ..."
-Find-Include-Folder-With-Command clang
-Find-Include-Folder-With-Command gcc
+Find-Include-Folder-With-Command "clang --version"
+Find-Include-Folder-With-Command "gcc -v"
 Find-Include-Folder-With-Path "C:\Program Files\Microsoft Visual Studio\"
 Find-Include-Folder-With-Path "C:\Program Files (x86)\Microsoft Visual Studio\"
+Find-Include-Folder-With-Path "C:\Program Files\LLVM\"
+Find-Include-Folder-With-Path "C:\Program Files (x86)\LLVM\"
 if ($($Global:IncludePaths).Length -eq 0) {
     "No compiler detected. cester.h downloaded into the current folder"
     Return
@@ -81,7 +88,7 @@ ForEach ($Path in $Global:IncludePaths) {
         }
     }
     " => Installing lib$NAME into $Path"
-    Copy-Item -Path ./cester.h -Destination $Path -Force
+    Copy-Item -Path ./include/exotic/cester.h -Destination $Path -Force
 }
 "A copy is downloaded into the current directory"
 $AFTER_INSTALL_TEXT

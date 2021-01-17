@@ -75,8 +75,9 @@ dist/
 
 # Others
 *.tmp
-*/expand.*
+*/expand
 *expand.*
+*installscripts/include*
 *result.txt
 *.swb
 *.swp

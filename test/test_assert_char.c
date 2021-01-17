@@ -1,4 +1,4 @@
-/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
 
@@ -54,4 +54,5 @@ CESTER_TEST(test_uchar_assertion_literal, test_instance,
 
 CESTER_OPTIONS(
     CESTER_NO_ISOLATION();
+    CESTER_PRINT_ERROR_ONLY(1);
 )

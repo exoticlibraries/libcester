@@ -331,6 +331,7 @@ typedef struct super_test_instance {
     unsigned total_passed_tests_count;                    /**< the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT */
     unsigned total_test_errors_count;                     /**< the total number of errors that occurs. To use in your code call CESTER_TOTAL_TEST_ERRORS_COUNT */
     unsigned verbose_level;                               /**< the level of cester verbosity for how much information is printed in the terminal */
+    unsigned print_error_only;                            /**< if false or 0 prints all t assertion evaluation result, default is 1/true */
     unsigned print_version;                               /**< prints cester version before running tests */
     unsigned selected_test_cases_size;                    /**< the number of selected test casses from command line. For internal use only. */
     unsigned selected_test_cases_found;                   /**< the number of selected test casses from command line that is found in the test file. For internal use only. */
@@ -378,6 +379,7 @@ SuperTestInstance superTestInstance = {
     0,
     0,
     0,
+    1,
     0,
     0,
     0,
@@ -449,6 +451,14 @@ SuperTestInstance superTestInstance = {
 #define CESTER_NOCOLOR() (superTestInstance.no_color = 1)
 
 /**
+    Change the option to print error only for the assertion. The default 
+    value is true. Change the value to false to print all the results.
+    
+    The macro CESTER_VERBOSE also modify the value to false.
+*/
+#define CESTER_PRINT_ERROR_ONLY(x) (superTestInstance.print_error_only = x)
+
+/**
     Print minimal info into the output stream. With this option set the 
     expression evaluated will not be printed in the result output. 
     
@@ -460,17 +470,25 @@ SuperTestInstance superTestInstance = {
 /**
     Print as much info as possible into the output stream. With this option set  
     both passed and failed expression evaluated will be printed in the result. 
+
+    This macro also set the value of print_error_only only to false to display 
+    output of all the assertions.
     
     This option can also be set from the command line with `--cester-verbose` or 
     `--cester-verbose-level=10`
 */
-#define CESTER_VERBOSE() (superTestInstance.verbose_level = 10)
+#define CESTER_VERBOSE() (superTestInstance.verbose_level = 10); (superTestInstance.print_error_only = 0)
 
 /**
     Change the verbose level of the output, the higher the velue the more 
     the information printed into the terminal. 0 value means no output 
     apart from the testcase's and value 4 and above prints the full path 
     to the test file.
+*/
+#define CESTER_DEBUG_LEVEL(x) (superTestInstance.verbose_level = x)
+
+/**
+    Deprecated. Use CESTER_DEBUG_LEVEL
 */
 #define CESTER_VERBOSE_LEVEL(x) (superTestInstance.verbose_level = x)
 
@@ -2768,10 +2786,11 @@ static __CESTER_INLINE__ void cester_evaluate_expression(unsigned eval_result, c
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "EvaluationError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose_level >= 1 && superTestInstance.print_error_only == 0) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }
-    if (eval_result == 0 || superTestInstance.verbose_level >= 1) {
+    /*my brain failed to work in this if condition. I beleive the if condition can be simplified*/
+    if ((superTestInstance.verbose_level >= 1 || eval_result == 0) && ((superTestInstance.print_error_only == 1 && eval_result == 0) || superTestInstance.print_error_only == 0)) {
         cester_print_assertion(expression, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
@@ -2790,10 +2809,10 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual(unsigned eval_result
     if (eval_result == 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_FAILURE;
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "AssertionError ");
-    } else if (superTestInstance.verbose_level >= 1) {
+    } else if (superTestInstance.verbose_level >= 1 && superTestInstance.print_error_only == 0) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "Passed ");
     }
-    if (eval_result == 0 || superTestInstance.verbose_level >= 1) {
+    if ((superTestInstance.verbose_level >= 1 || eval_result == 0) && ((superTestInstance.print_error_only == 1 && eval_result == 0) || superTestInstance.print_error_only == 0)) {
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
@@ -3993,6 +4012,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 
             } else if (cester_string_equals(cester_option, (char*) "verbose") == 1) {
                 superTestInstance.verbose_level = 10;
+                superTestInstance.print_error_only = 0;
 
             } else if (cester_string_equals(cester_option, (char*) "nocolor") == 1) {
                 superTestInstance.no_color = 1;

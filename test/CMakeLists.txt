@@ -1,3 +1,4 @@
+#!cmake CMakeLists.txt -G"Unix Makefiles"; make
 cmake_minimum_required(VERSION 3.17)
 project(libcester_tests VERSION 1.0)
 
@@ -64,4 +65,3 @@ foreach(filepath ${files})
     add_dependencies(cester_test ${filenameonly}__)
 endforeach()
 
-#cmake CMakeLists.txt -G"Unix Makefiles"

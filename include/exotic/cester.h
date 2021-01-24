@@ -1375,8 +1375,9 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
                         cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->line_num);
                         cester_concat_str(write_string, "' not freed. Leaking '");
                         cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->allocated_bytes);
-                        cester_concat_str(write_string, "' Bytes \n");
+                        cester_concat_str(write_string, "' Bytes ");
                     }
+                    cester_concat_str(write_string, "\n");
                 }
             }
         })
@@ -4255,7 +4256,7 @@ static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, unsign
 
 #ifndef CESTER_NO_MEM_TEST
 
-static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, unsigned line, const char *func) {
+static __CESTER_INLINE__ void* cester_allocator(size_t nitems, size_t size, unsigned type, const char *file, unsigned line, const char *func) {
     void* p;
     const char* actual_function_name;
 #ifndef __CESTER_STDC_VERSION__
@@ -4288,7 +4289,14 @@ static __CESTER_INLINE__ void* cester_malloc(unsigned size, const char *file, un
             }
         }
     }
-    p = malloc(size);
+    switch (type) {
+        case 1:
+            p = calloc(nitems, size);
+            break;
+        case 0:
+        default:
+            p = malloc(size);
+    }
     if (superTestInstance.mem_test_active == 1) {
         AllocatedMemory* allocated_mem = (AllocatedMemory*) malloc(sizeof(AllocatedMemory));
         allocated_mem->line_num = line;
@@ -4318,8 +4326,9 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "in '");
             cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
             if (superTestInstance.verbose_level >= 2) {
-                cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Attempting to free a NULL pointer \n");
+                cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' => Attempting to free a NULL pointer");
             }
+            cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
             superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
         }
         return;
@@ -4342,7 +4351,8 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
     free(pointer);
 }
 
-#define malloc(x) cester_malloc( x, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
+#define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
+#define calloc(x,y) cester_allocator( x, y, 1, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
 #define free(x) cester_free( x, __FILE__, __LINE__, __FUNCTION__)     /**< Override the default free function for mem test   */
 #endif
 

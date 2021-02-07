@@ -55,15 +55,15 @@ If you install the library file `cester.h` using any of the commands below, it c
 Install the library using powershell. It auto detect your insalled C and C++ compilers include directory and install libcester into the include folder. Execute the command in powershell as admin.
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://exoticlibraries.github.io/libcester/cester.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://exoticlibraries.github.io/magic/install.ps1')) libcester
 ```
 
 ### Linux
 
-Use the remote installation script to install libcester with bash. Before running this command ensure you are root `su` so it can move cester.h to the /usr/include/ folder. 
+Use the remote installation script to install libcester with bash. If the command is executes with super user priviledge (sudo) it will be installed in the folder /usr/include else it will be installed in the folder /usr/local/include. Or you can specify where to install it using the option `--installfolder=./` 
 
 ```bash
-bash <(curl -s https://exoticlibraries.github.io/libcester/cester.sh)
+bash <(curl -s https://exoticlibraries.github.io/magic/install.sh) libcester
 ```
 
 ### Other platforms

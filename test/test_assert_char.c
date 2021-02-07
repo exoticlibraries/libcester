@@ -54,5 +54,6 @@ CESTER_TEST(test_uchar_assertion_literal, test_instance,
 
 CESTER_OPTIONS(
     CESTER_NO_ISOLATION();
+    CESTER_VERBOSE_LEVEL(3);
     CESTER_PRINT_ERROR_ONLY(1);
 )

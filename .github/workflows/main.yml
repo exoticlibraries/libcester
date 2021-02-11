@@ -83,7 +83,7 @@ jobs:
           cd ../
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.6.1
+        uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_CI_CD }}
           BRANCH: gh-pages 

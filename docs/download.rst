@@ -17,7 +17,7 @@ powershell as admin to install cester for compiler like Visual C++.
 
 .. code:: powershell
 
-	Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://exoticlibraries.github.io/magic/install.ps1')) libcester
+	& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://exoticlibraries.github.io/magic/install.ps1"))) libcester
 
 If you have one of the following compilers in your system the library will be installed for each 
 of them 

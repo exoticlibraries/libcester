@@ -55,7 +55,7 @@ If you install the library file `cester.h` using any of the commands below, it c
 Install the library using powershell. It auto detect your insalled C and C++ compilers include directory and install libcester into the include folder. Execute the command in powershell as admin.
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://exoticlibraries.github.io/magic/install.ps1')) libcester
+& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://exoticlibraries.github.io/magic/install.ps1"))) libcester
 ```
 
 ### Linux

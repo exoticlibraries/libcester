@@ -982,7 +982,7 @@ static void cester_print_test_case_message(char const* const type, char const* c
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, ":");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " in '");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.current_test_case)->name);
-    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "' ");
+    cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "': ");
     if (superTestInstance.verbose_level >= 2) {
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, message);
     }
@@ -3557,6 +3557,22 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
          }
 }
 
+static void cester_release_captured_stream(FILE *stream, CapturedStream *captured_stream) {
+    printf("%p-%p  %p-%p\n", stream, *stream, captured_stream->replaced_stream_handle, *(captured_stream->replaced_stream_handle));
+    if (stream != NULL) {
+        fflush(stream);
+        fclose(captured_stream->replaced_stream_handle);
+        /*if (remove(captured_stream->replaced_stream_file_path)) {
+            cester_print_test_case_message("StreamCaptureCleanupWarning", "", file_path, line_num);
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to delete residual stream file '");
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->replaced_stream_file_path);
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, "' manually delete it from your file system.\n");
+        }*/
+    }
+    *stream = captured_stream->original_stream;
+    free(captured_stream);
+}
+
 /**
     Release already captured FILE handle, if the stream was not captured before 
     a warnning is printed. 
@@ -3581,18 +3597,7 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
                     }
-                    if (stream != NULL) {
-                        fflush(stream);
-                        fclose(captured_stream->replaced_stream_handle);
-                        /*if (remove(captured_stream->replaced_stream_file_path)) {
-                            cester_print_test_case_message("StreamCaptureCleanupWarning", "", file_path, line_num);
-                            cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to delete residual stream file '");
-                            cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->replaced_stream_file_path);
-                            cester_concat_str(&superTestInstance.current_test_case->execution_output, "' manually delete it from your file system.\n");
-                        }*/
-                    }
-                    *stream = captured_stream->original_stream;
-                    free(captured_stream);
+                    cester_release_captured_stream(stream, captured_stream);
                     captured_stream = NULL;
                     return;
                 }
@@ -3605,12 +3610,23 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
     cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is realeased \n");
 }
 
-void release_forgotten_captured_streams(char *test_case_name) {
+void release_forgotten_captured_streams(TestCase *test_case) {
     size_t index;
     CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
         CapturedStream *captured_stream = (CapturedStream *) captured_stream_;
-        if (captured_stream != NULL && cester_string_equals(captured_stream->function_name, test_case_name) == 1) {
-            
+        if (captured_stream != NULL && cester_string_equals(captured_stream->function_name, test_case->name) == 1) {
+            if (cester_array_remove_at(superTestInstance.captured_streams, index) == NULL) {
+                cester_print_test_case_message("StreamCaptureCleanupWarning", "", superTestInstance.test_file_path, test_case->line_num);
+                cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to remove captured stream with pointer address '");
+                cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->original_stream_ptr_str);
+                cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
+            }
+            cester_release_captured_stream(captured_stream->replaced_stream_handle, captured_stream);
+            captured_stream = NULL;
+            cester_print_test_case_message("StreamCaptureWarning", "", superTestInstance.test_file_path, test_case->line_num);
+            cester_concat_str(&test_case->execution_output, "You forgot to realease the captured stream '");
+            cester_concat_str(&test_case->execution_output, captured_stream->original_stream_ptr_str);
+            cester_concat_str(&test_case->execution_output, "' it will be released for you.\n");
         };
     })
 }
@@ -4040,7 +4056,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
         
     }
 
-    release_forgotten_captured_streams(a_test_case->name);
+    release_forgotten_captured_streams(a_test_case);
 #ifndef CESTER_NO_MEM_TEST
     if (check_memory_allocated_for_functions(a_test_case->name, NULL, prefix, &(superTestInstance.current_test_case)->execution_output) > 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;

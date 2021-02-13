@@ -79,7 +79,10 @@ jobs:
           pip install themata m2r2
           sudo apt-get install -y clang doxygen make
           cd ./docs/
-          sudo bash ./make.sh
+          rm -Rf build/
+          sphinx-build -b html -d build/doctrees  ./ build/html
+          doxygen
+          touch ./build/html/.nojekyll
           cd ../
 
       - name: Deploy 🚀

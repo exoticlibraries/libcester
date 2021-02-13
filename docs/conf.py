@@ -1,7 +1,7 @@
 import themata
 
 project = 'libcester'
-copyright = '2020, Exotic Libraries - MIT License'
+copyright = '2021, Exotic Libraries - MIT License'
 author = 'Adewale Azeez and Other Contributors'
 
 html_theme_path = [themata.get_html_theme_path()]

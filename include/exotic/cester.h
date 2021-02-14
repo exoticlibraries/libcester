@@ -73,6 +73,8 @@ extern "C" {
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #ifndef CESTER_NO_SIGNAL
 #include <signal.h>
 #include <setjmp.h>
@@ -89,6 +91,9 @@ jmp_buf buf;
 
 #ifdef _WIN32
 #include <windows.h>
+#include <direct.h>
+
+#define mkdir(x,y) _mkdir(x)
 /*
 **  Windows 
 **  Support Windows XP 
@@ -213,15 +218,16 @@ enum cester_assertion_caparator {
     detection of the reason if a test fail.
 */
 enum cester_test_status {
-    CESTER_RESULT_SUCCESS,        /**< the test case passed                                                       */
-    CESTER_RESULT_FAILURE,        /**< the test case failes dues to various reason mostly AssertionError          */
-    CESTER_RESULT_TERMINATED,     /**< in isolated test, the test case was termiated by a user or another program */
-    CESTER_RESULT_SEGFAULT,       /**< the test case crahses or causes segmentation fault                         */
+    CESTER_RESULT_SUCCESS,            /**< the test case passed */
+    CESTER_RESULT_FAILURE,            /**< the test case failes dues to various reason mostly AssertionError */
+    CESTER_RESULT_TERMINATED,         /**< in isolated test, the test case was termiated by a user or another program */
+    CESTER_RESULT_SEGFAULT,           /**< the test case crahses or causes segmentation fault */
+    CESTER_RESULT_UNRELEASED_STREAM,  /**< the test case has unreleased streams */
 #ifndef CESTER_NO_MEM_TEST
-    CESTER_RESULT_MEMORY_LEAK,    /**< the test case passes or fails but failed to free allocated memory          */
+    CESTER_RESULT_MEMORY_LEAK,         /**< the test case passes or fails but failed to free allocated memory */
 #endif
-    CESTER_RESULT_TIMED_OUT,      /**< cester terminated the test case because it running for too long            */
-    CESTER_RESULT_UNKNOWN         /**< the test case was never ran                                                */
+    CESTER_RESULT_TIMED_OUT,          /**< cester terminated the test case because it running for too long */
+    CESTER_RESULT_UNKNOWN             /**< the test case was never ran */
 };
 
 typedef enum cester_test_type {
@@ -246,12 +252,13 @@ typedef enum cester_test_type {
     can be properlly freed.
 */
 typedef struct captured_stream {
-    char *function_name;
-    char *original_stream_ptr_str;
-    char *replaced_stream_ptr_str;
-    const char *replaced_stream_file_path;
-    FILE original_stream;
-    FILE *replaced_stream_handle;
+    unsigned line_num;                      /**< the line number where the stream was captured. For internal use only. */
+    char *function_name;                    /**< The function name (test case) where the stream was catured. For internal use only.*/
+    char *original_stream_ptr_str;          /**< The captured stream pointer address as string. For internal use only.*/
+    char *replaced_stream_ptr_str;          /**< The stream to replace the captured stream pointer address as string. For internal use only.*/
+    const char *replaced_stream_file_path;  /**< The file path to the temporary file that replaces the stream. For internal use only.*/
+    FILE original_stream;                   /**< The actual address of the captured stream. For internal use only.*/
+    FILE *replaced_stream_handle;           /**< The opened file handle that replaces the captured stream. For internal use only.*/
 } CapturedStream;
 
 /**
@@ -369,7 +376,10 @@ typedef struct super_test_instance {
     char *flattened_cmd_argv;                           /**< Flattened command line argument for sub process. For internal use only. */
     char *test_file_path;                               /**< The main test file full path. For internal use only. */
     char *output_format;                                /**< The output format to print the test result in. For internal use only. */
+    char *output_stream_str;                            /**< The string value of the output stream pointer. For internal use only. */
+    char *captured_streams_tmp_folder;                  /**< The folder to store temporary file for captured streams. For internal use only. */
     TestInstance *test_instance ;                       /**< The test instance for sharing datas. For internal use only. */
+    FILE output_stream_address;                         /**< Output stream address. incase the output stream was captured in test it state can be reset. For internal use only. */
     FILE *output_stream;                                /**< Output stream to write message to, stdout by default. For internal use only. */
     char **selected_test_cases_names;                   /**< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1 */
     TestCase *current_test_case;                        /**< The currently running test case. For internal use only. */
@@ -422,14 +432,17 @@ SuperTestInstance superTestInstance = {
     (char*)__FILE__,
 #endif
     (char*)"text",
+    (char*)"",
+    (char*)"./build/libcester/captured_streams/",
     NULL,
     NULL,
+    0,
     NULL,
-    NULL,
-    NULL,
-    NULL,
+    0,
+    0,
+    0,
 #ifndef CESTER_NO_MEM_TEST
-    NULL
+    0
 #endif
 };
 
@@ -459,7 +472,7 @@ SuperTestInstance superTestInstance = {
     The code above changes the stream to a file test.txt, all the output from 
     the test will be written in the file.
 **/
-#define CESTER_CHANGE_STREAM(x) (superTestInstance.output_stream = x)
+#define CESTER_CHANGE_STREAM(x) { cester_ptr_to_str(&(superTestInstance.output_stream_str), x); superTestInstance.output_stream_address = *x; } (superTestInstance.output_stream = x)
 
 /**
     Do not print to the output stream with color. This should be 
@@ -780,6 +793,36 @@ static __CESTER_INLINE__ unsigned cester_string_equals(char* arg, char* arg1) {
     return 1;
 }
 
+static __CESTER_INLINE__ unsigned cester_string_contains(char* arg, char* arg1) {
+    unsigned i = 0, index = 0;
+    if (arg == NULL || arg1 == NULL) {
+        return 0;
+    }
+    while (1) {
+        if (arg[i] == '\0' || arg1[index] == '\0') {
+            return 0;
+        }
+        if (arg[i] == arg1[index]) {
+            i++;
+            index++;
+            while (arg[i] == arg1[index]) {
+                if (arg[i] == '\0') {
+                    break;
+                }
+                i++;
+                index++;
+            }
+            if (arg1[index] == '\0') {
+                return 1;
+            }
+            index = 0;
+            continue;
+        }
+        ++i;
+    }
+    return 1;
+}
+
 static __CESTER_INLINE__ unsigned cester_string_starts_with(char* arg, char* arg1) {
     unsigned i = 0;
     while (1) {
@@ -974,6 +1017,13 @@ static __CESTER_INLINE__ void cester_print_help() {
 }
 
 static void cester_print_test_case_message(char const* const type, char const* const message, char const* const file_path, unsigned const line_num) {
+    if (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "# ");
+
+    } else if (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1) {
+        cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "    - ");
+
+    }
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, type);
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, " ");
     cester_concat_str(&(superTestInstance.current_test_case)->execution_output, (superTestInstance.verbose_level >= 4 ? file_path : cester_extract_name(file_path) ));
@@ -1211,6 +1261,9 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
         case CESTER_RESULT_TERMINATED:
             CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Premature Termination ");
             break;
+        case CESTER_RESULT_UNRELEASED_STREAM:
+            CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Unreleased Stream ");
+            break;
 #ifndef CESTER_NO_MEM_TEST
         case CESTER_RESULT_MEMORY_LEAK:
             CESTER_DELEGATE_FPRINT_STR((print_color), "Failed: Memory leak");
@@ -1289,6 +1342,9 @@ static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char
             case CESTER_RESULT_TERMINATED:
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " failed: Premature termination ");
                 break;
+            case CESTER_RESULT_UNRELEASED_STREAM:
+                CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " failed: Unreleased stream ");
+                break;
 #ifndef CESTER_NO_MEM_TEST
             case CESTER_RESULT_MEMORY_LEAK:
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), " failed: Memory leak");
@@ -1361,6 +1417,16 @@ static __CESTER_INLINE__ void write_testcase_junitxml(TestCase *a_test_case, cha
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "' \n");
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->execution_output);
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "        </failure>\n    </testcase>\n");
+            break;
+        case CESTER_RESULT_UNRELEASED_STREAM:
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n        <failure");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " message=");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"the test case failed to release captured streams\"");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " type=");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"StreamCaptureError\"");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">");
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->execution_output);
+            CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "\n        </failure>\n    </testcase>\n");
             break;
 #ifndef CESTER_NO_MEM_TEST
         case CESTER_RESULT_MEMORY_LEAK:
@@ -3480,6 +3546,18 @@ extern "C" {
 */
 #define CESTER_TEST_SHOULD_BE_TERMINATED(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_TERMINATED);
 
+/**
+    Change the expected test case result. If the test case has any un released 
+    captured stream it passes. 
+
+    Dont ignore CESTER_RESULT_UNRELEASED_STREAM failure it can result in more 
+    erros in other test cases and will leave dangling pointers in memory with 
+    no way to tract and free them.
+    
+    \param x the test case name
+*/
+#define CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(x) CESTER_TEST_SHOULD(x, CESTER_RESULT_UNRELEASED_STREAM);
+
 #ifndef CESTER_NO_MEM_TEST
 /**
     Change the expected test case result to leak memory. If the test case does not 
@@ -3492,6 +3570,41 @@ extern "C" {
 #define CESTER_TEST_SHOULD_LEAK_MEMORY(x)
 #endif
 
+#if !defined(__unix__) && !defined(__unix) && !(defined(__APPLE__) && defined(__MACH__)) && !defined(_WIN32)
+    #pragma message("Stream capture not supported on this platform, open an issue on the github repo with the platform details")
+#endif
+
+/**
+    Change the folder to use to store the FILE handle for the captured 
+    streams.
+    
+    \param path1 the folder to used for captured stream
+    \param fallback_path the secpnd folder to used for captured stream if path1 is NULL
+*/
+static void cester_set_captured_streams_tmp_folder(char *path1, char *fallback_path) {
+    struct stat st = {0};
+    if (path1) {
+        superTestInstance.captured_streams_tmp_folder = path1;
+    } else {
+        superTestInstance.captured_streams_tmp_folder = fallback_path;
+    }
+#if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)) || defined(_WIN32)
+    if (mkdir(superTestInstance.captured_streams_tmp_folder, 0777) != 0 && stat(superTestInstance.captured_streams_tmp_folder, &st) == -1) {
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to create the temp folder '");
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), superTestInstance.captured_streams_tmp_folder);
+        CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' stream capture tests might fail\n");
+    }
+#endif
+}
+
+/**
+    Change the folder to use to store the FILE handle for the captured 
+    streams.
+    
+    \param x the new folder to used for captured stream
+*/
+#define CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER(x) cester_set_captured_streams_tmp_folder(x, NULL)
+
 /**
     Capture a FILE stream to test it behaviour in realtime.
     This simply opens a temporary file on the system then replaces the 
@@ -3501,22 +3614,48 @@ extern "C" {
     To return the stream back to th original state call the cester_release_stream 
     function. It important to release a stream immediately after assertions 
     else any output to that stream will be capturd also.
+    
+    \param stream the stream to capture
+    \param file_path the name of the file where the test case is written
+    \param line_num the line number where the stream is being captured
 */
 static void cester_capture_stream(FILE *stream, char const* const file_path, unsigned const line_num) {
     CapturedStream *captured_stream = (CapturedStream *) calloc(1, sizeof(CapturedStream));
     char *replaced_stream_file_path = (char *) "";
     FILE *replaced_stream = NULL;
+    struct stat st = {0};
 
     if (superTestInstance.captured_streams == NULL) {
 	    if (cester_array_init(&superTestInstance.captured_streams) == 0) {
+            if (superTestInstance.output_stream==NULL) {
+                superTestInstance.output_stream = stdout;
+                cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
+                superTestInstance.output_stream_address = *stdout;
+            }
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the captured stream array. Input and Output Stream test disabled.\n");
             return;
 	    }
-	}
-    cester_concat_str(&replaced_stream_file_path, "../../../");
+	}    
+#if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__)) || defined(_WIN32)
+    if (stat(superTestInstance.captured_streams_tmp_folder, &st) == -1) {
+        cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "Unable to capture the stream because temp folder '");
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, superTestInstance.captured_streams_tmp_folder);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "' cannot be created.\n");
+        return;
+    }
+#else
+    cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
+    cester_concat_str(&superTestInstance.current_test_case->execution_output, "Unable to capture the stream because this platform ");
+    cester_concat_str(&superTestInstance.current_test_case->execution_output, "is currently not supported, open an issue on the github ");
+    cester_concat_str(&superTestInstance.current_test_case->execution_output, "repo with this platform detail.\n");
+    return;
+#endif
+    cester_concat_str(&replaced_stream_file_path, superTestInstance.captured_streams_tmp_folder);
+    cester_concat_str(&replaced_stream_file_path, "/");
     cester_concat_ptr(&replaced_stream_file_path, stream);
     cester_concat_str(&replaced_stream_file_path, ".txt");
-    replaced_stream = fopen(replaced_stream_file_path, "w");
+    replaced_stream = fopen(replaced_stream_file_path, "w+");
     if (!captured_stream || replaced_stream == NULL) {
         cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
         cester_concat_str(&superTestInstance.current_test_case->execution_output, "Unable to capture the stream '");
@@ -3525,6 +3664,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
         goto cester_capture_stream_cleanup;
         return;
     }
+    captured_stream->line_num = line_num;
     captured_stream->original_stream = *stream;
     captured_stream->replaced_stream_handle = replaced_stream;
     captured_stream->replaced_stream_file_path = replaced_stream_file_path;
@@ -3557,33 +3697,140 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
          }
 }
 
-static void cester_release_captured_stream(FILE *stream, CapturedStream *captured_stream) {
-    printf("%p-%p  %p-%p\n", stream, *stream, captured_stream->replaced_stream_handle, *(captured_stream->replaced_stream_handle));
+/**
+    Release a single captured stream and specify the stream to set back to 
+    it original state. 
+
+    Care needs to be taken when using this function because if a captured_stream 
+    is specified for a stream the captured_stream will be freed and the stream 
+    set to the captured_stream cached stream, so if the stream is not actually 
+    for the captured_stream the stream is forecver lost in the memory as the 
+    address is compltely dropped.
+
+    \param stream the stream to release
+    \param captured_stream the CapturedStream stream object
+    \param file_path the name of the file where the test case is written
+    \param line_num the line number where the stream is being released
+*/
+static void cester_release_captured_stream(FILE *stream, CapturedStream *captured_stream, char const* const file_path, unsigned const line_num) {
     if (stream != NULL) {
         fflush(stream);
         fclose(captured_stream->replaced_stream_handle);
-        /*if (remove(captured_stream->replaced_stream_file_path)) {
+        if (remove(captured_stream->replaced_stream_file_path)) {
             cester_print_test_case_message("StreamCaptureCleanupWarning", "", file_path, line_num);
             cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to delete residual stream file '");
             cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->replaced_stream_file_path);
             cester_concat_str(&superTestInstance.current_test_case->execution_output, "' manually delete it from your file system.\n");
-        }*/
+        }
+        *stream = captured_stream->original_stream;
     }
-    *stream = captured_stream->original_stream;
     free(captured_stream);
+}
+
+/**
+    Reset a stream state and content. This does not return the stream to 
+    the original owner, it simply clear the content of the stream.
+
+    \param stream the stream to clear it content
+    \param file_path the name of the file where the test case is written
+    \param line_num the line number where the stream content is being cleared
+*/
+static void cester_reset_stream(FILE *stream, char const* const file_path, unsigned const line_num) {
+    size_t index;
+    char *stream_ptr_str;
+
+    if (superTestInstance.captured_streams == NULL) {
+        goto cester_reset_stream_cleanup;
+    }
+    cester_ptr_to_str(&stream_ptr_str, stream);
+    if (superTestInstance.captured_streams != NULL) {
+        CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
+            CapturedStream *captured_stream;
+            if (captured_stream_ != NULL) {
+                captured_stream = (CapturedStream *) captured_stream_;
+                if (cester_string_equals(captured_stream->original_stream_ptr_str, stream_ptr_str) == 1) {
+                    if (stream != NULL) {
+                        fclose(captured_stream->replaced_stream_handle);
+                        captured_stream->replaced_stream_handle = fopen(captured_stream->replaced_stream_file_path, "w+");
+                        *stream = *(captured_stream->replaced_stream_handle);
+                        captured_stream->line_num = line_num;
+                    }
+                    return;
+                }
+            }
+        })
+    }
+    cester_reset_stream_cleanup:
+        cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "No stream with the pointer address '");
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is reset \n");
+}
+
+/**
+    Get the content of the stream as string (char *), if the content of the stream 
+    is greater than 4GB this will fail.
+
+    Empty string is returned if the stream is not captured.
+
+    \param stream the stream to get it content
+    \param file_path the name of the file where the test case is written
+    \param line_num the line number where the stream content is being requested
+*/
+static char *cester_stream_content(FILE *stream, char const* const file_path, unsigned const line_num) {
+    size_t index;
+    long length;
+    char *stream_ptr_str;
+    char *buffer = 0;
+
+    if (superTestInstance.captured_streams == NULL) {
+        return (char *) "";
+    }
+    cester_ptr_to_str(&stream_ptr_str, stream);
+    if (superTestInstance.captured_streams != NULL) {
+        CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
+            CapturedStream *captured_stream;
+            if (captured_stream_ != NULL) {
+                captured_stream = (CapturedStream *) captured_stream_;
+                if (cester_string_equals(captured_stream->original_stream_ptr_str, stream_ptr_str) == 1) {
+                    if (stream != NULL) {
+                        fflush(stream);
+                        fseek(captured_stream->replaced_stream_handle, 0, SEEK_END);
+                        length = ftell(captured_stream->replaced_stream_handle);
+                        fseek(captured_stream->replaced_stream_handle, 0, SEEK_SET);
+                        buffer = (char *) malloc(length);
+                        if (buffer) {
+                            length = fread(buffer, 1, length, captured_stream->replaced_stream_handle);
+                            buffer[length] = '\0';
+                        }
+                        return buffer;
+                    }
+                    return (char *) "";
+                }
+            }
+        })
+    }
+    return (char *) "";
 }
 
 /**
     Release already captured FILE handle, if the stream was not captured before 
     a warnning is printed. 
 
-    The CapturedStream object is frred, the temporary file receiving the input 
+    when the CapturedStream object is released, the temporary file receiving the input 
     is closed and deleted. 
+
+    \param stream the stream to release
+    \param file_path the name of the file where the test case is written
+    \param line_num the line number where the stream is being released
 */
 static void cester_release_stream(FILE *stream, char const* const file_path, unsigned const line_num) {
     size_t index;
     char *stream_ptr_str;
 
+    if (superTestInstance.captured_streams == NULL) {
+        goto cester_release_stream_cleanup;
+    }
     cester_ptr_to_str(&stream_ptr_str, stream);
     if (superTestInstance.captured_streams != NULL) {
         CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
@@ -3597,38 +3844,54 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
                     }
-                    cester_release_captured_stream(stream, captured_stream);
+                    cester_release_captured_stream(stream, captured_stream, file_path, line_num);
                     captured_stream = NULL;
                     return;
                 }
             }
         })
     }
-    cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
-    cester_concat_str(&superTestInstance.current_test_case->execution_output, "No stream with the pointer address '");
-    cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
-    cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is realeased \n");
+    cester_release_stream_cleanup:
+        cester_print_test_case_message("StreamCaptureWarning", "", file_path, line_num);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "No stream with the pointer address '");
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
+        cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is realeased \n");
 }
 
-void release_forgotten_captured_streams(TestCase *test_case) {
+/**
+    Check the captured streams after a test case exeution completes and report 
+    error if the test case has any un release stream.
+
+    The single most important reason for this check is to release the output 
+    stream used to write the test result. stdout in most case.
+
+    \param test_case the test case which execution just end
+*/
+static unsigned release_forgotten_captured_streams(TestCase *test_case) {
     size_t index;
+    unsigned unreleased_stream_count = 0;
+
+    if (superTestInstance.captured_streams == NULL) {
+        goto release_forgotten_captured_streams_cleanup;
+    }
     CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
         CapturedStream *captured_stream = (CapturedStream *) captured_stream_;
+        if (cester_string_equals(captured_stream->original_stream_ptr_str, superTestInstance.output_stream_str) == 1) {
+            fflush(superTestInstance.output_stream);
+            *(superTestInstance.output_stream) = superTestInstance.output_stream_address;
+        }
         if (captured_stream != NULL && cester_string_equals(captured_stream->function_name, test_case->name) == 1) {
-            if (cester_array_remove_at(superTestInstance.captured_streams, index) == NULL) {
-                cester_print_test_case_message("StreamCaptureCleanupWarning", "", superTestInstance.test_file_path, test_case->line_num);
-                cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to remove captured stream with pointer address '");
-                cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->original_stream_ptr_str);
-                cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
-            }
-            cester_release_captured_stream(captured_stream->replaced_stream_handle, captured_stream);
-            captured_stream = NULL;
-            cester_print_test_case_message("StreamCaptureWarning", "", superTestInstance.test_file_path, test_case->line_num);
-            cester_concat_str(&test_case->execution_output, "You forgot to realease the captured stream '");
+            unreleased_stream_count++;
+            cester_print_test_case_message("StreamCaptureError", "", superTestInstance.test_file_path, captured_stream->line_num);
+            cester_concat_str(&test_case->execution_output, "You forgot to realease the stream '");
             cester_concat_str(&test_case->execution_output, captured_stream->original_stream_ptr_str);
-            cester_concat_str(&test_case->execution_output, "' it will be released for you.\n");
+            cester_concat_str(&test_case->execution_output, "' captured in line ");
+            cester_concat_int(&test_case->execution_output, captured_stream->line_num);
+            cester_concat_str(&test_case->execution_output, "\n");
         };
     })
+    release_forgotten_captured_streams_cleanup:
+        return unreleased_stream_count;
 }
 
 /**
@@ -3637,18 +3900,38 @@ void release_forgotten_captured_streams(TestCase *test_case) {
 #define CESTER_CAPTURE_STREAM(x) cester_capture_stream(x, __FILE__, __LINE__)
 
 /**
+    Alias for cester_stream_content function
+*/
+#define CESTER_STREAM_CONTENT(x) cester_stream_content(x, __FILE__, __LINE__)
+
+/**
+    Alias for cester_reset_stream function
+*/
+#define CESTER_RESET_STREAM(x) cester_reset_stream(x, __FILE__, __LINE__)
+
+/**
     Alias for cester_release_stream function
 */
 #define CESTER_RELEASE_STREAM(x) cester_release_stream(x, __FILE__, __LINE__)
 
 /**
-    Capture the stdin stream that receive th input for the active 
+    Capture the stdin stream that receive the input for the active 
     program
 */
 #define CESTER_CAPTURE_STDIN() CESTER_CAPTURE_STREAM(stdin)
 
 /**
-    Release the stdin stream that receive th input for the active 
+    Get the stdin content.
+*/
+#define CESTER_STDIN_CONTENT() CESTER_STREAM_CONTENT(stdin)
+
+/**
+    Clear the stdin content.
+*/
+#define CESTER_RESET_STDIN() CESTER_RESET_STREAM(stdin)
+
+/**
+    Release the stdin stream that receive the input for the active 
     program
 */
 #define CESTER_RELEASE_STDIN() CESTER_RELEASE_STREAM(stdin)
@@ -3658,6 +3941,16 @@ void release_forgotten_captured_streams(TestCase *test_case) {
     is written into
 */
 #define CESTER_CAPTURE_STDOUT() CESTER_CAPTURE_STREAM(stdout)
+
+/**
+    Get the stdout content.
+*/
+#define CESTER_STDOUT_CONTENT() CESTER_STREAM_CONTENT(stdout)
+
+/**
+    Clear the stdout content.
+*/
+#define CESTER_RESET_STDOUT() CESTER_RESET_STREAM(stdout)
 
 /**
     Release the stdout stream where everything sent to printf 
@@ -3671,9 +3964,131 @@ void release_forgotten_captured_streams(TestCase *test_case) {
 #define CESTER_CAPTURE_STDERR() CESTER_CAPTURE_STREAM(stderr)
 
 /**
+    Get the stderr content.
+*/
+#define CESTER_STDERR_CONTENT() CESTER_STREAM_CONTENT(stderr)
+
+/**
+    Clear the stderr content.
+*/
+#define CESTER_RESET_STDERR() CESTER_RESET_STREAM(stderr)
+
+/**
     Release the stderr stream
 */
 #define CESTER_RELEASE_STDERR() CESTER_RELEASE_STREAM(stderr)
+
+/**
+    Check whether the content of a stream equals a value
+
+    \param x the stream
+    \param y the string to check if it same as the stream content
+*/
+#define cester_assert_stream_content_equal(x,y) cester_assert_str_equal(CESTER_STREAM_CONTENT(x), y)
+
+/**
+    Check whether the content of a stream contains a value
+
+    \param x the stream
+    \param y the string to check if it present as the stream content
+*/
+#define cester_assert_stream_content_contain(x, y) cester_assert_true(cester_string_contains(CESTER_STREAM_CONTENT(x), y))
+
+/**
+    Check whether the content of a stream does not equal a value
+
+    \param x the stream
+    \param y the string to check if it not same as the stream content
+*/
+#define cester_assert_stream_content_not_equal(x,y) cester_assert_str_not_equal(CESTER_STREAM_CONTENT(x), y)
+
+/**
+    Check whether the content of a stream does not contains a value
+
+    \param x the stream
+    \param y the string to check if it not present as the stream content
+*/
+#define cester_assert_stream_content_not_contain(x, y) cester_assert_false(cester_string_contains(CESTER_STREAM_CONTENT(x), y))
+
+/**
+    
+*/
+#define cester_assert_stdin_stream_content_equal(y) cester_assert_str_equal(CESTER_STDIN_CONTENT(), y)
+
+/**
+    
+*/
+#define cester_assert_stdin_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDIN_CONTENT(), y))
+
+/**
+    
+*/
+#define cester_assert_stdin_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDIN_CONTENT(), y)
+
+/**
+    
+*/
+#define cester_assert_stdin_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDIN_CONTENT(), y))
+
+/**
+    
+*/
+#define cester_assert_stdout_stream_content_equal(y) cester_assert_str_equal(CESTER_STDOUT_CONTENT(), y)
+
+/**
+    Alias for cester_assert_stdout_stream_content_equal
+*/
+#define cester_assert_printf_equal cester_assert_stdout_stream_content_equal
+
+/**
+    
+*/
+#define cester_assert_stdout_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDOUT_CONTENT(), y))
+
+/**
+    Alias for cester_assert_stdout_stream_content_contain
+*/
+#define cester_assert_printf_contain cester_assert_stdout_stream_content_contain
+
+/**
+    
+*/
+#define cester_assert_stdout_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDOUT_CONTENT(), y)
+
+/**
+    Alias for cester_assert_stdout_stream_content_not_equal
+*/
+#define cester_assert_printf_not_equal cester_assert_stdout_stream_content_not_equal
+
+/**
+    
+*/
+#define cester_assert_stdout_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDOUT_CONTENT(), y))
+
+/**
+    Alias for cester_assert_stdout_stream_content_not_contain
+*/
+#define cester_assert_printf_not_contain cester_assert_stdout_stream_content_not_contain
+
+/**
+    
+*/
+#define cester_assert_stderr_stream_content_equal(y) cester_assert_str_equal(CESTER_STDERR_CONTENT(), y)
+
+/**
+    
+*/
+#define cester_assert_stderr_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDERR_CONTENT(), y))
+
+/**
+    
+*/
+#define cester_assert_stderr_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDERR_CONTENT(), y)
+
+/**
+    
+*/
+#define cester_assert_stderr_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDERR_CONTENT(), y))
 
 /**
     Manually register a test case
@@ -3684,6 +4099,8 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
 	if (cester_array_init(&superTestInstance.registered_test_cases) == 0) {
 	    if (superTestInstance.output_stream==NULL) {
             superTestInstance.output_stream = stdout;
+            cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
+            superTestInstance.output_stream_address = *stdout;
 	    }
 	    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the test cases array. Cannot run manually registered tests.\n");
 	    CESTER_RESET_TERMINAL_ATTR();
@@ -3714,6 +4131,8 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
     if (cester_array_add(superTestInstance.registered_test_cases, test_case) == 0) {
         if (superTestInstance.output_stream==NULL) {
             superTestInstance.output_stream = stdout;
+            cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
+            superTestInstance.output_stream_address = *stdout;
         }
         free(test_case);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to register '");
@@ -3785,6 +4204,9 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
                 case CESTER_RESULT_TIMED_OUT:
                     cester_concat_str(&a_test_case->execution_output, "Timed out as expected");
                     break;
+                case CESTER_RESULT_UNRELEASED_STREAM:
+                    cester_concat_str(&a_test_case->execution_output, "Have unreleased stream as expected (ARE YOU SERIOUS? BAD IDEA!!!!)");
+                    break;
 #ifndef CESTER_NO_MEM_TEST
                 case CESTER_RESULT_MEMORY_LEAK:
                     cester_concat_str(&a_test_case->execution_output, "Leaked memory as expected");
@@ -3820,6 +4242,9 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
                     break;
                 case CESTER_RESULT_TIMED_OUT:
                     cester_concat_str(&a_test_case->execution_output, "Expected to Time out but ends in time");
+                    break;
+                case CESTER_RESULT_UNRELEASED_STREAM:
+                    cester_concat_str(&a_test_case->execution_output, "Expected to have unreleased stream but all streams were released");
                     break;
     #ifndef CESTER_NO_MEM_TEST
                 case CESTER_RESULT_MEMORY_LEAK:
@@ -4056,7 +4481,9 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
         
     }
 
-    release_forgotten_captured_streams(a_test_case);
+    if (release_forgotten_captured_streams(a_test_case) > 0) {
+        superTestInstance.current_execution_status = CESTER_RESULT_UNRELEASED_STREAM;
+    }
 #ifndef CESTER_NO_MEM_TEST
     if (check_memory_allocated_for_functions(a_test_case->name, NULL, prefix, &(superTestInstance.current_test_case)->execution_output) > 0) {
         superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
@@ -4200,8 +4627,8 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
 }
 
 static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv) {
-    char* cester_option;
-    char* arg;
+    char *cester_option;
+    char *arg;
     char *extra;
     unsigned i, j, index, index1;
 #ifdef _WIN32
@@ -4210,6 +4637,9 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 	    default_color = info.wAttributes;
 	}
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    cester_set_captured_streams_tmp_folder(getenv("TEMP"), (char *)"C:/libcester_tmp/");
+#else
+    cester_set_captured_streams_tmp_folder(getenv("TMPDIR"), (char *)"/tmp/libcester_tmp/");
 #endif
 
 #ifndef CESTER_NO_SIGNAL    
@@ -4220,6 +4650,8 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
     j = 0;
     if (superTestInstance.output_stream==NULL) {
         superTestInstance.output_stream = stdout;
+        cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
+        superTestInstance.output_stream_address = *stdout;
     }
 #ifndef CESTER_NO_MEM_TEST
 	if (superTestInstance.mem_alloc_manager == NULL) {
@@ -4520,6 +4952,8 @@ static __CESTER_INLINE__ void* cester_allocator(size_t nitems, size_t size, unsi
             if (cester_array_init(&superTestInstance.mem_alloc_manager) == 0) {
                 if (superTestInstance.output_stream==NULL) {
                     superTestInstance.output_stream = stdout;
+                    cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
+                    superTestInstance.output_stream_address = *stdout;
                 }
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the memory management array. Memory test disabled.\n");
                 superTestInstance.mem_test_active = 0;

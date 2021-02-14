@@ -5,4 +5,5 @@
 Testing Output Streams
 =======================
 
-You cannot claim a stream outside a test case
+You cannot capture a stream outside a test case
+it uses the folder in the working directory ./build/libcester/captured_streams/ for captured streams

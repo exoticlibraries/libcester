@@ -4189,8 +4189,9 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_str(&a_test_case->execution_output, " in '");
         cester_concat_str(&a_test_case->execution_output, a_test_case->name);
+        cester_concat_str(&a_test_case->execution_output, "'");
         if (superTestInstance.verbose_level >= 2) {
-            cester_concat_str(&a_test_case->execution_output, "' => ");
+            cester_concat_str(&a_test_case->execution_output, " => ");
             switch (a_test_case->expected_result) {
                 case CESTER_RESULT_FAILURE:
                     cester_concat_str(&a_test_case->execution_output, "Failed as expected");

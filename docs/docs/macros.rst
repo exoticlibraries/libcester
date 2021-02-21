@@ -424,6 +424,7 @@ enum types
 - CESTER_RESULT_TERMINATED
 - CESTER_RESULT_SEGFAULT
 - CESTER_RESULT_MEMORY_LEAK
+- CESTER_RESULT_UNRELEASED_STREAM
 
 .. code:: text 
 
@@ -591,6 +592,41 @@ The macro above expands to the following code
         }
         return return_val;
     }
+
+CESTER_CAPTURE_STREAM
+-----------------------
+
+Use this macro to prepare a file stream to be captured by libcester, if a stream is not captured all 
+assertion will fail for that stream. This simply make the stream address to point to another stream 
+that is accessible and can be freely modified by cester.
+
+.. code:: text
+
+    CESTER_TEST(test_stream_capture, test_instance, 
+        CESTER_CAPTURE_STREAM(stdout);
+        //...
+        CESTER_RELEASE_STREAM(stdout);
+    )
+
+If the stream that the output is written into **(stdout by default)** is captured if it not released 
+at the end of the test case it will be forcefully released to libcester can continue writing the to the 
+stream to see the test results.
+
+CESTER_RELEASE_STREAM
+-----------------------
+
+Release a stream that has been captured by cester, this simply change the address of the stream to point 
+to the original stream value, and the temporary stream used for testing is deleted from the file system.
+It very important to release a captured stream else stream might not give expected output if used in 
+other test case, and if recaptured the original stream is lost forever in memory.
+
+Always write the release statement at the point o capture and place the code in between. If you fail to 
+release captured stream the test case will fail with `CESTER_RESULT_UNRELEASED_STREAM` error.
+
+CESTER_RESET_STREAM
+-----------------------
+
+Remove all the existing data written to a stream so new data is not appended.
 
 #define CESTER_NO_MAIN
 -----------------------

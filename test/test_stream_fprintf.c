@@ -1,4 +1,4 @@
-/*!cls; gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=3 */
+/*!cls; gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=1 */
 
 #include <exotic/cester.h>
 

@@ -100,15 +100,15 @@ are expected to fail.
 	)
 
 	CESTER_TEST(test_stream_capture, test_instance, 
-        CESTER_CAPTURE_STREAM(stdout);
-    )
+		CESTER_CAPTURE_STREAM(stdout);
+	)
 
 	CESTER_OPTIONS(
 		CESTER_TEST_SHOULD_SEGFAULT(this_should_segfault);
 		CESTER_TEST_SHOULD_FAIL(this_should_fail);
 		CESTER_TEST_SHOULD_LEAK_MEMORY(this_should_leak_memory);
 		CESTER_TEST_SHOULD(this_should_segfault_also_fail, CESTER_RESULT_FAILURE);
-    	CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(test_stream_capture);
+		CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(test_stream_capture);
 	)
 
 .. code:: bash
@@ -121,6 +121,7 @@ are expected to fail.
 		+ (0.00s) this should pass
 		+ (0.00s) this should segfault also fail
 		+ (0.01s) this should leak memory
+		+ (0.00s) test stream capture
 
 	Passed crash_test.c:5: in 'this_should_segfault' => Segfault as expected
 	AssertionError crash_test.c:10: in 'this_should_fail' => not expecting 'NULL', received '((void*)0)'

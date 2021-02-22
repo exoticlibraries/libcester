@@ -4011,27 +4011,27 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 #define cester_assert_stream_content_not_contain(x, y) cester_assert_false(cester_string_contains(CESTER_STREAM_CONTENT(x), y))
 
 /**
-    
+    Check whether the content of stdin stream equals a value
 */
 #define cester_assert_stdin_stream_content_equal(y) cester_assert_str_equal(CESTER_STDIN_CONTENT(), y)
 
 /**
-    
+    Check whether the content of stdin stream contains a value
 */
 #define cester_assert_stdin_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDIN_CONTENT(), y))
 
 /**
-    
+    Check whether the content of stdin stream does not equals a value
 */
 #define cester_assert_stdin_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDIN_CONTENT(), y)
 
 /**
-    
+    Check whether the content of stdin stream does not contains a value
 */
 #define cester_assert_stdin_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDIN_CONTENT(), y))
 
 /**
-    
+    Check whether the content of stdout stream equals a value
 */
 #define cester_assert_stdout_stream_content_equal(y) cester_assert_str_equal(CESTER_STDOUT_CONTENT(), y)
 
@@ -4041,7 +4041,7 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 #define cester_assert_printf_equal cester_assert_stdout_stream_content_equal
 
 /**
-    
+    Check whether the content of stdout stream contains a value
 */
 #define cester_assert_stdout_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDOUT_CONTENT(), y))
 
@@ -4051,7 +4051,7 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 #define cester_assert_printf_contain cester_assert_stdout_stream_content_contain
 
 /**
-    
+    Check whether the content of stdout stream does not equals a value
 */
 #define cester_assert_stdout_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDOUT_CONTENT(), y)
 
@@ -4061,7 +4061,7 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 #define cester_assert_printf_not_equal cester_assert_stdout_stream_content_not_equal
 
 /**
-    
+    Check whether the content of stdout stream does not contains a value
 */
 #define cester_assert_stdout_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDOUT_CONTENT(), y))
 
@@ -4071,22 +4071,22 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 #define cester_assert_printf_not_contain cester_assert_stdout_stream_content_not_contain
 
 /**
-    
+    Check whether the content of stderr stream equals a value
 */
 #define cester_assert_stderr_stream_content_equal(y) cester_assert_str_equal(CESTER_STDERR_CONTENT(), y)
 
 /**
-    
+    Check whether the content of stderr stream contains a value
 */
 #define cester_assert_stderr_stream_content_contain(y) cester_assert_true(cester_string_contains(CESTER_STDERR_CONTENT(), y))
 
 /**
-    
+    Check whether the content of stderr stream does not equals a value
 */
 #define cester_assert_stderr_stream_content_not_equal(y) cester_assert_str_not_equal(CESTER_STDERR_CONTENT(), y)
 
 /**
-    
+    Check whether the content of stderr stream does not contains a value
 */
 #define cester_assert_stderr_stream_content_not_contain(y) cester_assert_false(cester_string_contains(CESTER_STDERR_CONTENT(), y))
 

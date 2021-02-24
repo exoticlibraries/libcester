@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="structsuper__test__instance" kind="struct" language="C++" prot="public">
     <compoundname>super_test_instance</compoundname>
     <includes refid="cester_8h" local="no">cester.h</includes>
@@ -12,10 +12,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Do not print to the console with color if one. For internal use only. </para>        </detaileddescription>
+<para>Do not print to the console with color if one. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="313" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="313" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="352" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="352" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a4a0c435b304ea1b2104c47f40e20bd3e" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -25,10 +26,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT </para>        </detaileddescription>
+<para>the total number of tests to run, assert, eval e.t.c. To use in your code call CESTER_TOTAL_TESTS_COUNT </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="314" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="314" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="353" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="353" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1add7d34d6238df54c83d69a14a4c5d7f6" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -38,10 +40,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the total number of tests that was run e.t.c. To use in your code call CESTER_TOTAL_TESTS_RAN </para>        </detaileddescription>
+<para>the total number of tests that was run e.t.c. To use in your code call CESTER_TOTAL_TESTS_RAN </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="315" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="315" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="354" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="354" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -51,10 +54,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>        </detaileddescription>
+<para>the total number of tests that failed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="316" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="316" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="355" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="355" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -64,10 +68,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>        </detaileddescription>
+<para>the total number of tests that passed. To use in your code call CESTER_TOTAL_FAILED_TESTS_COUNT </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="317" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="317" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="356" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="356" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aff5d1a7b9ae163407bdd8512e1611c65" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -77,10 +82,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the total number of errors that occurs. To use in your code call CESTER_TOTAL_TEST_ERRORS_COUNT </para>        </detaileddescription>
+<para>the total number of errors that occurs. To use in your code call CESTER_TOTAL_TEST_ERRORS_COUNT </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="318" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="318" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="357" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="357" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a6f1317eff9e036c5b7bf43fce37df196" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -90,10 +96,25 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the level of cester verbosity for how much information is printed in the terminal </para>        </detaileddescription>
+<para>the level of cester verbosity for how much information is printed in the terminal </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="319" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="319" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="358" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1ac2bf5d70c87873e60377028e652f5e1c" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned super_test_instance::print_error_only</definition>
+        <argsstring></argsstring>
+        <name>print_error_only</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if false or 0 prints all t assertion evaluation result, default is 1/true </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="359" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="359" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -103,10 +124,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>prints cester version before running tests </para>        </detaileddescription>
+<para>prints cester version before running tests </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="320" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="320" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="360" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="360" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -116,10 +138,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the number of selected test casses from command line. For internal use only. </para>        </detaileddescription>
+<para>the number of selected test casses from command line. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="321" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="321" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="361" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="361" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -129,10 +152,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the number of selected test casses from command line that is found in the test file. For internal use only. </para>        </detaileddescription>
+<para>the number of selected test casses from command line that is found in the test file. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="322" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="322" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="362" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="362" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a20c6f80a327f4898508e0ef68900d490" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -142,10 +166,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>display the output for a single test only no summary and syntesis. For internal use only. </para>        </detaileddescription>
+<para>display the output for a single test only no summary and syntesis. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="323" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="323" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="363" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="363" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a31b4b2b5eb8a9436fe8c669037f736ee" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -155,10 +180,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Enable or disable memory test at runtime. Enabled by default. For internal use only. </para>        </detaileddescription>
+<para>Enable or disable memory test at runtime. Enabled by default. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="324" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="324" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="364" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="364" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -168,10 +194,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the current test case status. This is used when the test cases run on a single process. For internal use only. </para>        </detaileddescription>
+<para>the current test case status. This is used when the test cases run on a single process. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="325" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="325" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="365" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="365" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a04956eaa3ef1041dffeee727a165414d" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -181,10 +208,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only. </para>        </detaileddescription>
+<para>Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="326" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="326" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="366" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="366" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -194,10 +222,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The number of test cases to be skipped. For internal use only. </para>        </detaileddescription>
+<para>The number of test cases to be skipped. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="327" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="327" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="367" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="367" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a89d96c1fc13f272ac790b4050b6feb64" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -207,10 +236,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The number of test cases that would be implemented in future. For internal use only. </para>        </detaileddescription>
+<para>The number of test cases that would be implemented in future. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="328" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="328" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="368" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="368" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aec18d447f7671387a7d904f64796fc97" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -220,10 +250,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Format the test name for fine output e.g. &apos;test_file_exit&apos; becomes &apos;test file exist&apos;. For internal use only. </para>        </detaileddescription>
+<para>Format the test name for fine output e.g. &apos;test_file_exit&apos; becomes &apos;test file exist&apos;. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="329" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="329" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="369" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="369" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aaed1bcb6fee26f079d626522b5f728c0" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -233,10 +264,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>If the value is set to 1 the test will be mark as success even if it fails. For internal use only. </para>        </detaileddescription>
+<para>If the value is set to 1 the test will be mark as success even if it fails. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="330" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="330" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="370" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="370" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab5d77df6a5cfaac7f7b0a11210607888" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -246,23 +278,25 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>If the value is set to 1 the test will be mark as failure even if it passes. For internal use only. </para>        </detaileddescription>
+<para>If the value is set to 1 the test will be mark as failure even if it passes. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="331" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="331" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="371" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="371" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab1edf511da96f9597431b46a2f34a709" prot="public" static="no" mutable="no">
-        <type><ref refid="cester_8h_1ae2b502c266a25e61afd49a92601e0200" kindref="member">TestType</ref></type>
+        <type><ref refid="cester_8h_1a5d9988fccd173f2ebee324a8b800fd1d" kindref="member">TestType</ref></type>
         <definition>TestType super_test_instance::current_cester_function_type</definition>
         <argsstring></argsstring>
         <name>current_cester_function_type</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The current cester funtion type, this enable cester to properly track memory allocation in non test case functions. For internal use only. </para>        </detaileddescription>
+<para>The current cester funtion type, this enable cester to properly track memory allocation in non test case functions. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="332" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="332" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="372" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="372" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a4e5c74b3d8053fea28beab23f4ebacfd" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -272,10 +306,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The unix time when the tests starts. For internal use only. </para>        </detaileddescription>
+<para>The unix time when the tests starts. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="334" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="334" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="374" column="12" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="374" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa613428bf93a5e95766e6b2163083ffd" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -285,10 +320,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The main test execution output in string. For internal use only. . </para>        </detaileddescription>
+<para>The main test execution output in string. For internal use only. . </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="336" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="336" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="376" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="376" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -298,10 +334,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Flattened command line argument for sub process. For internal use only. </para>        </detaileddescription>
+<para>Flattened command line argument for sub process. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="337" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="337" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="377" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="377" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -311,10 +348,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The main test file full path. For internal use only. </para>        </detaileddescription>
+<para>The main test file full path. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="338" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="338" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="378" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="378" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -324,23 +362,67 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The output format to print the test result in. For internal use only. </para>        </detaileddescription>
+<para>The output format to print the test result in. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="339" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="339" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="379" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a449ade9c924abf0849f593c7a2694414" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* super_test_instance::output_stream_str</definition>
+        <argsstring></argsstring>
+        <name>output_stream_str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The string value of the output stream pointer. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="380" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1aad3b5126aaf12e96722b2eeb6c9c1e1b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* super_test_instance::captured_streams_tmp_folder</definition>
+        <argsstring></argsstring>
+        <name>captured_streams_tmp_folder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The folder to store temporary file for captured streams. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="381" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="381" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a81cbca2fadde792ea218afbc2f8131fe" prot="public" static="no" mutable="no">
-        <type><ref refid="cester_8h_1abfd2a6d8c09aa2c747f283a947084609" kindref="member">TestInstance</ref> *</type>
+        <type><ref refid="cester_8h_1a102088114e95fcf9270161db050ac719" kindref="member">TestInstance</ref> *</type>
         <definition>TestInstance* super_test_instance::test_instance</definition>
         <argsstring></argsstring>
         <name>test_instance</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The test instance for sharing datas. For internal use only. </para>        </detaileddescription>
+<para>The test instance for sharing datas. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="340" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="340" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="382" column="18" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a109667e9ff55fd6c7eec60babff7dff2" prot="public" static="no" mutable="no">
+        <type>FILE</type>
+        <definition>FILE super_test_instance::output_stream_address</definition>
+        <argsstring></argsstring>
+        <name>output_stream_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Output stream address. incase the output stream was captured in test it state can be reset. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="383" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="383" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" prot="public" static="no" mutable="no">
         <type>FILE *</type>
@@ -350,10 +432,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Output stream to write message to, stdout by default. For internal use only. </para>        </detaileddescription>
+<para>Output stream to write message to, stdout by default. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="341" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="341" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="384" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="384" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1acefe9ae1d777e134e6ea99a5cc9ced7f" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -363,89 +446,111 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>selected test cases from command line. For internal use only. e.g. <ndash/>cester-test=Test2,Test1 </para>        </detaileddescription>
+<para>selected test cases from command line. For internal use only. e.g. <ndash/>cester-test=Test2,Test1 </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="342" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="342" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="385" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="385" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" prot="public" static="no" mutable="no">
-        <type><ref refid="cester_8h_1a9fe713844062da45ba493e7ec829cbaf" kindref="member">TestCase</ref> *</type>
+        <type><ref refid="cester_8h_1a35d88e579b7ccac333a8515d4fd56f60" kindref="member">TestCase</ref> *</type>
         <definition>TestCase* super_test_instance::current_test_case</definition>
         <argsstring></argsstring>
         <name>current_test_case</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>The currently running test case. For internal use only. </para>        </detaileddescription>
+<para>The currently running test case. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="343" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="343" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="386" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="386" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" prot="public" static="no" mutable="no">
-        <type><ref refid="cester_8h_1a070259cacab7aadac6ed756f2565dc5e" kindref="member">CesterArray</ref> *</type>
+        <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
         <definition>CesterArray* super_test_instance::registered_test_cases</definition>
         <argsstring></argsstring>
         <name>registered_test_cases</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>all the manually registered test cases in the instance. For internal use only. </para>        </detaileddescription>
+<para>all the manually registered test cases in the instance. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="344" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="344" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="387" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsuper__test__instance_1a15a1a93f399ce1199e22e319dcfc1757" prot="public" static="no" mutable="no">
+        <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
+        <definition>CesterArray* super_test_instance::captured_streams</definition>
+        <argsstring></argsstring>
+        <name>captured_streams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>all the file stream captured for testing by cester. For internal use only. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="388" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="388" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a8339cc5c1db8285e7abebb1837d02aa1" prot="public" static="no" mutable="no">
-        <type><ref refid="cester_8h_1a070259cacab7aadac6ed756f2565dc5e" kindref="member">CesterArray</ref> *</type>
+        <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
         <definition>CesterArray* super_test_instance::mem_alloc_manager</definition>
         <argsstring></argsstring>
         <name>mem_alloc_manager</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>the array of allocated memory. For testing and detecting memory leaks. For internal use only. </para>        </detaileddescription>
+<para>the array of allocated memory. For testing and detecting memory leaks. For internal use only. </para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="346" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="346" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="390" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>This structure manages the <emphasis>BEFORE</emphasis> and <emphasis>AFTER</emphasis> functions for the test main <ref refid="structtest__instance" kindref="compound">test_instance</ref>. And also accounts for all the registered test cases. This is for Cester internal use only. </para>    </detaileddescription>
+<para>This structure manages the <emphasis>BEFORE</emphasis> and <emphasis>AFTER</emphasis> functions for the test main <ref refid="structtest__instance" kindref="compound">test_instance</ref>. And also accounts for all the registered test cases. This is for Cester internal use only. </para>
+    </detaileddescription>
     <collaborationgraph>
-      <node id="8">
+      <node id="4">
         <label>test_case</label>
         <link refid="structtest__case"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="2" relation="usage">
           <edgelabel>test_ba_function</edgelabel>
           <edgelabel>test_function</edgelabel>
         </childnode>
       </node>
-      <node id="5">
+      <node id="1">
         <label>super_test_instance</label>
         <link refid="structsuper__test__instance"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="2" relation="usage">
           <edgelabel>test_instance</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>registered_test_cases</edgelabel>
           <edgelabel>mem_alloc_manager</edgelabel>
+          <edgelabel>captured_streams</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>current_test_case</edgelabel>
         </childnode>
       </node>
-      <node id="6">
+      <node id="2">
         <label>test_instance</label>
         <link refid="structtest__instance"/>
       </node>
-      <node id="7">
+      <node id="3">
         <label>cester_array_struct</label>
         <link refid="structcester__array__struct"/>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="312" column="1" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="312" bodyend="348"/>
+    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="351" column="34" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="351" bodyend="392"/>
     <listofallmembers>
+      <member refid="structsuper__test__instance_1a15a1a93f399ce1199e22e319dcfc1757" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>captured_streams</name></member>
+      <member refid="structsuper__test__instance_1aad3b5126aaf12e96722b2eeb6c9c1e1b" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>captured_streams_tmp_folder</name></member>
       <member refid="structsuper__test__instance_1ab1edf511da96f9597431b46a2f34a709" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>current_cester_function_type</name></member>
       <member refid="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>current_execution_status</name></member>
       <member refid="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>current_test_case</name></member>
@@ -458,6 +563,9 @@
       <member refid="structsuper__test__instance_1a63061bc69c9d2d4429bb9b2d7ebf206e" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>no_color</name></member>
       <member refid="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_format</name></member>
       <member refid="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_stream</name></member>
+      <member refid="structsuper__test__instance_1a109667e9ff55fd6c7eec60babff7dff2" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_stream_address</name></member>
+      <member refid="structsuper__test__instance_1a449ade9c924abf0849f593c7a2694414" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>output_stream_str</name></member>
+      <member refid="structsuper__test__instance_1ac2bf5d70c87873e60377028e652f5e1c" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>print_error_only</name></member>
       <member refid="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>print_version</name></member>
       <member refid="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>registered_test_cases</name></member>
       <member refid="structsuper__test__instance_1ab5d77df6a5cfaac7f7b0a11210607888" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>report_failure_regardless</name></member>

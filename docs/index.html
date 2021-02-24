@@ -108,11 +108,13 @@
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
 </ul>
@@ -192,9 +194,23 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-fail">CESTER_TEST_SHOULD_FAIL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-be-terminated">CESTER_TEST_SHOULD_BE_TERMINATED</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-leak-memory">CESTER_TEST_SHOULD_LEAK_MEMORY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-test-should-not-release-stream">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mock">#define CESTER_NO_MOCK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-mock-simple-function">CESTER_MOCK_SIMPLE_FUNCTION</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-mock-function">CESTER_MOCK_FUNCTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-capture-stream">CESTER_CAPTURE_STREAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-release-stream">CESTER_RELEASE_STREAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-reset-stream">CESTER_RESET_STREAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-change-stream-capture-tm-folder">CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-capture-stdout">CESTER_CAPTURE_STDOUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-release-stdout">CESTER_RELEASE_STDOUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-reset-stdout">CESTER_RESET_STDOUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-capture-stderr">CESTER_CAPTURE_STDERR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-release-stderr">CESTER_RELEASE_STDERR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-reset-stderr">CESTER_RESET_STDERR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-capture-stdin">CESTER_CAPTURE_STDIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-release-stdin">CESTER_RELEASE_STDIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-reset-stdin">CESTER_RESET_STDIN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-main">#define CESTER_NO_MAIN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-body">CESTER_BODY</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
@@ -341,6 +357,28 @@
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-ge">cester_assert_ldouble_ge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-lt">cester_assert_ldouble_lt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-ldouble-le">cester_assert_ldouble_le</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stream-content-equal">cester_assert_stream_content_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stream-content-contain">cester_assert_stream_content_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stream-content-not-equal">cester_assert_stream_content_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stream-content-not-contain">cester_assert_stream_content_not_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdout-stream-content-equal">cester_assert_stdout_stream_content_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdout-stream-content-contain">cester_assert_stdout_stream_content_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdout-stream-content-not-equal">cester_assert_stdout_stream_content_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdout-stream-content-not-contain">cester_assert_stdout_stream_content_not_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stderr-stream-content-equal">cester_assert_stderr_stream_content_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stderr-stream-content-contain">cester_assert_stderr_stream_content_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stderr-stream-content-not-equal">cester_assert_stderr_stream_content_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stderr-stream-content-not-contain">cester_assert_stderr_stream_content_not_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdin-stream-content-equal">cester_assert_stdin_stream_content_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdin-stream-content-contain">cester_assert_stdin_stream_content_contain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdin-stream-content-not-equal">cester_assert_stdin_stream_content_not_equal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assertions.html#cester-assert-stdin-stream-content-not-contain">cester_assert_stdin_stream_content_not_contain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing_stream.html#stream-assertion-macros">Stream assertion macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing_stream.html#standard-streams-helper-macros">Standard streams helper macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing_stream.html#testing-stdout-stream">Testing stdout stream</a></li>
 </ul>
 </li>
 </ul>
@@ -414,7 +452,7 @@
         
         
         <div class="doc-sphinx-info">
-                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
                 Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>

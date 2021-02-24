@@ -101,18 +101,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
 </ul>
@@ -136,6 +138,7 @@ to set a test case result:</p>
 <li><a class="reference external" href="./macros.html#cester-test-should-leak-memory">CESTER_TEST_SHOULD_LEAK_MEMORY</a></li>
 <li><a class="reference external" href="./macros.html#cester-report-success-regardless">CESTER_REPORT_SUCCESS_REGARDLESS</a></li>
 <li><a class="reference external" href="./macros.html#cester-report-failure-regardless">CESTER_REPORT_FAILURE_REGARDLESS</a></li>
+<li><a class="reference external" href="./macros.html#cester-test-should-not-release-stream">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</a></li>
 </ul>
 <p>The macro CESTER_TEST_SHOULD accepts the test case name as the first parameter and the expected
 result as the second parameter. By default the expected result for the test cases is
@@ -148,6 +151,7 @@ it can be set in the CESTER_OPTIONS or inside the main method.</p>
 <li>CESTER_RESULT_TERMINATED</li>
 <li>CESTER_RESULT_SEGFAULT</li>
 <li>CESTER_RESULT_MEMORY_LEAK</li>
+<li>CESTER_RESULT_UNRELEASED_STREAM</li>
 </ul>
 <div class="section" id="example-1">
 <h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
@@ -207,11 +211,16 @@ are expected to fail.</p>
         <span class="n">char</span><span class="o">*</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">sizeof</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span><span class="p">);</span>
 <span class="p">)</span>
 
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">CESTER_CAPTURE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<span class="p">)</span>
+
 <span class="n">CESTER_OPTIONS</span><span class="p">(</span>
         <span class="n">CESTER_TEST_SHOULD_SEGFAULT</span><span class="p">(</span><span class="n">this_should_segfault</span><span class="p">);</span>
         <span class="n">CESTER_TEST_SHOULD_FAIL</span><span class="p">(</span><span class="n">this_should_fail</span><span class="p">);</span>
         <span class="n">CESTER_TEST_SHOULD_LEAK_MEMORY</span><span class="p">(</span><span class="n">this_should_leak_memory</span><span class="p">);</span>
         <span class="n">CESTER_TEST_SHOULD</span><span class="p">(</span><span class="n">this_should_segfault_also_fail</span><span class="p">,</span> <span class="n">CESTER_RESULT_FAILURE</span><span class="p">);</span>
+        <span class="n">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">);</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -223,6 +232,7 @@ are expected to fail.</p>
         <span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="n">s</span><span class="p">)</span> <span class="n">this</span> <span class="n">should</span> <span class="k">pass</span>
         <span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="n">s</span><span class="p">)</span> <span class="n">this</span> <span class="n">should</span> <span class="n">segfault</span> <span class="n">also</span> <span class="n">fail</span>
         <span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span><span class="n">s</span><span class="p">)</span> <span class="n">this</span> <span class="n">should</span> <span class="n">leak</span> <span class="n">memory</span>
+        <span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="n">s</span><span class="p">)</span> <span class="n">test</span> <span class="n">stream</span> <span class="n">capture</span>
 
 <span class="n">Passed</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;this_should_segfault&#39;</span> <span class="o">=&gt;</span> <span class="n">Segfault</span> <span class="k">as</span> <span class="n">expected</span>
 <span class="ne">AssertionError</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;this_should_fail&#39;</span> <span class="o">=&gt;</span> <span class="ow">not</span> <span class="n">expecting</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span> <span class="n">received</span> <span class="s1">&#39;((void*)0)&#39;</span>
@@ -230,6 +240,7 @@ are expected to fail.</p>
 <span class="n">Passed</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;this_should_segfault_also_fail&#39;</span> <span class="o">=&gt;</span> <span class="n">Failed</span> <span class="k">as</span> <span class="n">expected</span>
 <span class="n">MemoryLeakError</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;this_should_leak_memory&#39;</span> <span class="o">=&gt;</span> <span class="n">Memory</span> <span class="n">allocated</span> <span class="ow">in</span> <span class="n">line</span> <span class="s1">&#39;22&#39;</span> <span class="ow">not</span> <span class="n">freed</span><span class="o">.</span> <span class="n">Leaking</span> <span class="s1">&#39;12&#39;</span> <span class="n">Bytes</span>
 <span class="n">Passed</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;this_should_leak_memory&#39;</span> <span class="o">=&gt;</span> <span class="n">Leaked</span> <span class="n">memory</span> <span class="k">as</span> <span class="n">expected</span>
+<span class="n">Passed</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;test_stream_capture&#39;</span> <span class="o">=&gt;</span> <span class="n">Have</span> <span class="n">unreleased</span> <span class="n">stream</span> <span class="k">as</span> <span class="n">expected</span>
 
 <span class="n">Ran</span> <span class="mi">5</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.02</span> <span class="n">Seconds</span>
 <span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tests</span><span class="p">:</span> <span class="mi">5</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">5</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span>
@@ -383,7 +394,7 @@ echo $?
         
         
         <div class="doc-sphinx-info">
-                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
                 Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>

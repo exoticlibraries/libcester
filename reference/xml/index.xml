@@ -1,11 +1,21 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.13">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
   <compound refid="structallocated__memory" kind="struct"><name>allocated_memory</name>
     <member refid="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" kind="variable"><name>line_num</name></member>
     <member refid="structallocated__memory_1a33709bd01b1258dc735d1546d9c4974a" kind="variable"><name>allocated_bytes</name></member>
     <member refid="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" kind="variable"><name>address</name></member>
     <member refid="structallocated__memory_1a39adabacc0245837f6e9d1c26cb3e953" kind="variable"><name>function_name</name></member>
     <member refid="structallocated__memory_1a0461a06bf32054523f24c0e7534cd330" kind="variable"><name>file_name</name></member>
+  </compound>
+  <compound refid="structcaptured__stream" kind="struct"><name>captured_stream</name>
+    <member refid="structcaptured__stream_1a1d49f9efeee7a573d46762f7fd43970d" kind="variable"><name>line_num</name></member>
+    <member refid="structcaptured__stream_1ab65336b316cf25ad5bd9d0cf88443591" kind="variable"><name>function_name</name></member>
+    <member refid="structcaptured__stream_1abd004f8e2ce81822eb2738484a4f2208" kind="variable"><name>original_stream_ptr_str</name></member>
+    <member refid="structcaptured__stream_1a65aa699cfcba12dd5ab64a8702c1fd1d" kind="variable"><name>replaced_stream_ptr_str</name></member>
+    <member refid="structcaptured__stream_1a44daa60245f0ddbe499961b9da8f6715" kind="variable"><name>replaced_stream_file_path</name></member>
+    <member refid="structcaptured__stream_1afd52bf259c9f23c7e57174dbc99cb3ef" kind="variable"><name>original_stream</name></member>
+    <member refid="structcaptured__stream_1afbd7d75a6a7601a1619eac2c7e9f96b6" kind="variable"><name>original_stream_handle</name></member>
+    <member refid="structcaptured__stream_1a3c32ce7ce37977e58baf590c8621529b" kind="variable"><name>replaced_stream_handle</name></member>
   </compound>
   <compound refid="structcester__array__struct" kind="struct"><name>cester_array_struct</name>
     <member refid="structcester__array__struct_1ae754b1474dc0daf8fd50194dd26398ee" kind="variable"><name>size</name></member>
@@ -20,6 +30,7 @@
     <member refid="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" kind="variable"><name>total_passed_tests_count</name></member>
     <member refid="structsuper__test__instance_1aff5d1a7b9ae163407bdd8512e1611c65" kind="variable"><name>total_test_errors_count</name></member>
     <member refid="structsuper__test__instance_1a6f1317eff9e036c5b7bf43fce37df196" kind="variable"><name>verbose_level</name></member>
+    <member refid="structsuper__test__instance_1ac2bf5d70c87873e60377028e652f5e1c" kind="variable"><name>print_error_only</name></member>
     <member refid="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" kind="variable"><name>print_version</name></member>
     <member refid="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" kind="variable"><name>selected_test_cases_size</name></member>
     <member refid="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" kind="variable"><name>selected_test_cases_found</name></member>
@@ -38,11 +49,15 @@
     <member refid="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" kind="variable"><name>flattened_cmd_argv</name></member>
     <member refid="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" kind="variable"><name>test_file_path</name></member>
     <member refid="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" kind="variable"><name>output_format</name></member>
+    <member refid="structsuper__test__instance_1a449ade9c924abf0849f593c7a2694414" kind="variable"><name>output_stream_str</name></member>
+    <member refid="structsuper__test__instance_1aad3b5126aaf12e96722b2eeb6c9c1e1b" kind="variable"><name>captured_streams_tmp_folder</name></member>
     <member refid="structsuper__test__instance_1a81cbca2fadde792ea218afbc2f8131fe" kind="variable"><name>test_instance</name></member>
+    <member refid="structsuper__test__instance_1a109667e9ff55fd6c7eec60babff7dff2" kind="variable"><name>output_stream_address</name></member>
     <member refid="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" kind="variable"><name>output_stream</name></member>
     <member refid="structsuper__test__instance_1acefe9ae1d777e134e6ea99a5cc9ced7f" kind="variable"><name>selected_test_cases_names</name></member>
     <member refid="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" kind="variable"><name>current_test_case</name></member>
     <member refid="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" kind="variable"><name>registered_test_cases</name></member>
+    <member refid="structsuper__test__instance_1a15a1a93f399ce1199e22e319dcfc1757" kind="variable"><name>captured_streams</name></member>
     <member refid="structsuper__test__instance_1a8339cc5c1db8285e7abebb1837d02aa1" kind="variable"><name>mem_alloc_manager</name></member>
   </compound>
   <compound refid="structtest__case" kind="struct"><name>test_case</name>
@@ -106,8 +121,10 @@
     <member refid="cester_8h_1aa1b5cc06a9706b0c69bdcc60bfa691bb" kind="define"><name>cester_sprintf3</name></member>
     <member refid="cester_8h_1a43b56645cdbea2af8c809747bdabde73" kind="define"><name>CESTER_CHANGE_STREAM</name></member>
     <member refid="cester_8h_1a46998535966dad5778d6c8112bc58345" kind="define"><name>CESTER_NOCOLOR</name></member>
+    <member refid="cester_8h_1aaed2c65d64d03910ed226580b5c515c6" kind="define"><name>CESTER_PRINT_ERROR_ONLY</name></member>
     <member refid="cester_8h_1a8951bf8368f048537813fb14375e9ef0" kind="define"><name>CESTER_MINIMAL</name></member>
     <member refid="cester_8h_1a6fa58ee11340e1315ba71ffe53c325f5" kind="define"><name>CESTER_VERBOSE</name></member>
+    <member refid="cester_8h_1a63debfde0acda095ae197c45e44ad88d" kind="define"><name>CESTER_DEBUG_LEVEL</name></member>
     <member refid="cester_8h_1a961b9bdc64463c82465b5eda8f0cbb99" kind="define"><name>CESTER_VERBOSE_LEVEL</name></member>
     <member refid="cester_8h_1aaf35825f7303bc525aa18046af827f01" kind="define"><name>CESTER_PRINT_VERSION</name></member>
     <member refid="cester_8h_1aabbe067a2ed2679ca1c60ab7b4008959" kind="define"><name>CESTER_SINGLE_OUPUT_ONLY</name></member>
@@ -134,11 +151,13 @@
     <member refid="cester_8h_1ab550ea2f5b51069a052158993e14d357" kind="define"><name>CESTER_GET_RESULT_AGGR</name></member>
     <member refid="cester_8h_1a2cd3160101fb7fd13d8f12b83100ff3f" kind="define"><name>CESTER_GET_RESULT_AGGR_COLOR</name></member>
     <member refid="cester_8h_1aa2f0945a8d64168b5bb52c074e58988c" kind="define"><name>CESTER_DELEGATE_FPRINT_STR</name></member>
+    <member refid="cester_8h_1a2e02025b2b7c9313f94dbc5cda03b2bc" kind="define"><name>CESTER_DELEGATE_FPRINT_PTR</name></member>
     <member refid="cester_8h_1a0a222f2a133e690a489906efaa23da10" kind="define"><name>CESTER_DELEGATE_FPRINT_INT</name></member>
     <member refid="cester_8h_1a734daca33a1103d378d0e5af53309b40" kind="define"><name>CESTER_DELEGATE_FPRINT_UINT</name></member>
     <member refid="cester_8h_1aacfc421541ab63b03ad7dcb104c97871" kind="define"><name>CESTER_DELEGATE_FPRINT_DOUBLE</name></member>
     <member refid="cester_8h_1af18ebe2433a89fe2d9908ee1c9f19e7e" kind="define"><name>CESTER_DELEGATE_FPRINT_DOUBLE_2</name></member>
     <member refid="cester_8h_1a886a892eaa15f1f8316d8bac10b47892" kind="define"><name>cester_assert_nothing</name></member>
+    <member refid="cester_8h_1ac6c8e73b43138aed3030cd434e069c74" kind="define"><name>cester_swallow</name></member>
     <member refid="cester_8h_1a668c72299b1bb7748dc502a6b073ad7f" kind="define"><name>cester_assert_cmp_msg</name></member>
     <member refid="cester_8h_1a51ca2f11f7def928a95a0b3cdd5c7ec0" kind="define"><name>cester_assert_cmp</name></member>
     <member refid="cester_8h_1ae04382401adcf49e05bcca467774fb8f" kind="define"><name>cester_assert_true</name></member>
@@ -251,6 +270,7 @@
     <member refid="cester_8h_1aa8f260074ddd738f9a3cb38f7a135a22" kind="define"><name>cester_assert_ldouble_ge</name></member>
     <member refid="cester_8h_1a34c763f93991f0f9b552e4e0214d33e2" kind="define"><name>cester_assert_ldouble_lt</name></member>
     <member refid="cester_8h_1af5fe0fc17f2db97d8d077f3e7fa06e75" kind="define"><name>cester_assert_ldouble_le</name></member>
+    <member refid="cester_8h_1a0794aebaa5c09f548cf3ba0e5284de71" kind="define"><name>CESTER_INTERNAL_EVALUATE</name></member>
     <member refid="cester_8h_1a4681c51ac1793cf49a7d90fac6eabe74" kind="define"><name>CESTER_TEST</name></member>
     <member refid="cester_8h_1a640ae0718e58ff4acc98c439dddf0add" kind="define"><name>CESTER_TODO_TEST</name></member>
     <member refid="cester_8h_1acbfb07e5d4ec3ad1e02f558eefe57e18" kind="define"><name>CESTER_SKIP_TEST</name></member>
@@ -300,14 +320,61 @@
     <member refid="cester_8h_1a4bbf495dfab6f7d245bdab8ba08bc57c" kind="define"><name>CESTER_TEST_SHOULD_SEGFAULT</name></member>
     <member refid="cester_8h_1a4a9cafebfe3c5620b1d4151b01ff14fa" kind="define"><name>CESTER_TEST_SHOULD_FAIL</name></member>
     <member refid="cester_8h_1a898ac0546eb74e031ab91423d1f39499" kind="define"><name>CESTER_TEST_SHOULD_BE_TERMINATED</name></member>
+    <member refid="cester_8h_1a053a5d92534a1d927ce732e495544877" kind="define"><name>CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</name></member>
     <member refid="cester_8h_1a81648a37951861ef9886ad9b21a4a31f" kind="define"><name>CESTER_TEST_SHOULD_LEAK_MEMORY</name></member>
+    <member refid="cester_8h_1ab90b824b9be34e7d6ff8abeb1c79489a" kind="define"><name>CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER</name></member>
+    <member refid="cester_8h_1ab4ffda8313aabdf26cbf7ec52649ceed" kind="define"><name>CESTER_CAPTURE_STREAM</name></member>
+    <member refid="cester_8h_1a6b0f75f1e1da4280671bc9f9a57197a1" kind="define"><name>CESTER_STREAM_CONTENT</name></member>
+    <member refid="cester_8h_1acd56b83e7b75af27ee0f8ffe017c474e" kind="define"><name>CESTER_RESET_STREAM</name></member>
+    <member refid="cester_8h_1a5e0b88a721291eb05ab4791e5c83fc4a" kind="define"><name>CESTER_RELEASE_STREAM</name></member>
+    <member refid="cester_8h_1af25c46c9cf1de2fe74f1ea9045efad34" kind="define"><name>CESTER_CAPTURE_STDIN</name></member>
+    <member refid="cester_8h_1a82942873b356c48ce2a9cc07ca62937e" kind="define"><name>CESTER_STDIN_CONTENT</name></member>
+    <member refid="cester_8h_1a0f1d54af5c33271c443ce996bed4e304" kind="define"><name>CESTER_RESET_STDIN</name></member>
+    <member refid="cester_8h_1a5f5e083a3c394b2c236299642cf9f704" kind="define"><name>CESTER_RELEASE_STDIN</name></member>
+    <member refid="cester_8h_1a9d43cbeed3c851be4b9f52bc28bf570e" kind="define"><name>CESTER_CAPTURE_STDOUT</name></member>
+    <member refid="cester_8h_1a79fd3c98884a9631dbdae1b5eef1b917" kind="define"><name>CESTER_STDOUT_CONTENT</name></member>
+    <member refid="cester_8h_1ac513d2340146b469c534380446b57f35" kind="define"><name>CESTER_RESET_STDOUT</name></member>
+    <member refid="cester_8h_1a1bf0233828f674fd88271508748a887c" kind="define"><name>CESTER_RELEASE_STDOUT</name></member>
+    <member refid="cester_8h_1a353ab2bf706b1c53737c4f620606d816" kind="define"><name>CESTER_CAPTURE_STDERR</name></member>
+    <member refid="cester_8h_1a78481b7afdba61bc41547ebb23ef38c6" kind="define"><name>CESTER_STDERR_CONTENT</name></member>
+    <member refid="cester_8h_1a748cd12731178097e54544e9a03a10c1" kind="define"><name>CESTER_RESET_STDERR</name></member>
+    <member refid="cester_8h_1a4c1980328bce9eac9c9e3d5720cbc10e" kind="define"><name>CESTER_RELEASE_STDERR</name></member>
+    <member refid="cester_8h_1a409003498a756424d6077b12a1a01526" kind="define"><name>cester_assert_stream_content_equal</name></member>
+    <member refid="cester_8h_1ae0f092d366c6b05cef31ceab4283e2fb" kind="define"><name>cester_assert_stream_content_contain</name></member>
+    <member refid="cester_8h_1a06a47f15fcc86fe58a1e5a0461ab89c0" kind="define"><name>cester_assert_stream_content_not_equal</name></member>
+    <member refid="cester_8h_1a83d2f337450b6773414c6bfc4622e8a3" kind="define"><name>cester_assert_stream_content_not_contain</name></member>
+    <member refid="cester_8h_1a8c5aed94f2d7a73f965e3b036b6b658e" kind="define"><name>cester_assert_stdin_stream_content_equal</name></member>
+    <member refid="cester_8h_1a76a64f4fa140714512c07ccb05db7814" kind="define"><name>cester_assert_stdin_stream_content_contain</name></member>
+    <member refid="cester_8h_1ac062fda0ff71d3c63f7c048b5f5d9ff6" kind="define"><name>cester_assert_stdin_stream_content_not_equal</name></member>
+    <member refid="cester_8h_1a1602e4b56cba5efd304fb1b50691a30b" kind="define"><name>cester_assert_stdin_stream_content_not_contain</name></member>
+    <member refid="cester_8h_1a980568c1affb8df8f18907f42464e7fb" kind="define"><name>cester_assert_stdout_stream_content_equal</name></member>
+    <member refid="cester_8h_1a6847f2fc90dfe23b42722f5cd92fc9b3" kind="define"><name>cester_assert_printf_equal</name></member>
+    <member refid="cester_8h_1a25e0f5d3cd7966ff9b2d81140760cedf" kind="define"><name>cester_assert_stdout_stream_content_contain</name></member>
+    <member refid="cester_8h_1a0bb248c2bacc1281b1960fca426229fa" kind="define"><name>cester_assert_printf_contain</name></member>
+    <member refid="cester_8h_1ab0d12b8639bb0c21942cb23417796fab" kind="define"><name>cester_assert_stdout_stream_content_not_equal</name></member>
+    <member refid="cester_8h_1a5d53f3fc6c538901e4a99f9f22ed58d6" kind="define"><name>cester_assert_printf_not_equal</name></member>
+    <member refid="cester_8h_1a2cfce50107f67c401d49a159e127693a" kind="define"><name>cester_assert_stdout_stream_content_not_contain</name></member>
+    <member refid="cester_8h_1a39910fc835c310c841f321fff9177eca" kind="define"><name>cester_assert_printf_not_contain</name></member>
+    <member refid="cester_8h_1ac76a44c3eebd9930b1e7e6bf5acbca16" kind="define"><name>cester_assert_stderr_stream_content_equal</name></member>
+    <member refid="cester_8h_1ae9d0302758f0fd7db7b3c7f050a5aca6" kind="define"><name>cester_assert_stderr_stream_content_contain</name></member>
+    <member refid="cester_8h_1a7257b780608838322bd26fb2884ca09d" kind="define"><name>cester_assert_stderr_stream_content_not_equal</name></member>
+    <member refid="cester_8h_1a7e9933bcd1aa78a56314899ad9040662" kind="define"><name>cester_assert_stderr_stream_content_not_contain</name></member>
     <member refid="cester_8h_1a5046e1cbf958143f3bf7aded35204202" kind="define"><name>malloc</name></member>
+    <member refid="cester_8h_1af06646f1b05f74c5286bc339172a54d9" kind="define"><name>calloc</name></member>
     <member refid="cester_8h_1affb9fc32698fab7f7b36e0cf8e64c83e" kind="define"><name>free</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fb" kind="enum"><name>cester_assertion_caparator</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847" kind="enumvalue"><name>CESTER_COMPARATOR_EQUAL</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29" kind="enumvalue"><name>CESTER_COMPARATOR_NOT_EQUAL</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228" kind="enumvalue"><name>CESTER_COMPARATOR_GREATER_THAN</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf" kind="enumvalue"><name>CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47" kind="enumvalue"><name>CESTER_COMPARATOR_LESSER_THAN</name></member>
+    <member refid="cester_8h_1ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e" kind="enumvalue"><name>CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345" kind="enum"><name>cester_test_status</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a2d2cd6b7d1d88a8d8e74cf5578ff128d" kind="enumvalue"><name>CESTER_RESULT_SUCCESS</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a8a305fd1411e09df8e1c1788964b17f7" kind="enumvalue"><name>CESTER_RESULT_FAILURE</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345ac35451ef21484398f5117ce05feec1a5" kind="enumvalue"><name>CESTER_RESULT_TERMINATED</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a3f9226d700d55073f12c68fccdfa5735" kind="enumvalue"><name>CESTER_RESULT_SEGFAULT</name></member>
+    <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a2b589cad2c69193fb31fac1319f34761" kind="enumvalue"><name>CESTER_RESULT_UNRELEASED_STREAM</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345add9c5fd7f94da616cd4399103aa087ff" kind="enumvalue"><name>CESTER_RESULT_MEMORY_LEAK</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a4bb5e03c6ff510be176a4148690ade14" kind="enumvalue"><name>CESTER_RESULT_TIMED_OUT</name></member>
     <member refid="cester_8h_1a79d2dcbdd3ffa0fb191935efec322345a64d06d0e4b203370998b22f6d5bf9b6c" kind="enumvalue"><name>CESTER_RESULT_UNKNOWN</name></member>
@@ -322,15 +389,16 @@
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f" kind="enumvalue"><name>CESTER_OPTIONS_FUNCTION</name></member>
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a" kind="enumvalue"><name>CESTER_TEST_FILE_COMMENT</name></member>
     <member refid="cester_8h_1a0d3b94e7c3af7e5d5e24eb90ef224c81a6becd1681a2bbf00951393da4c4f5fd4" kind="enumvalue"><name>CESTER_TESTS_TERMINATOR</name></member>
-    <member refid="cester_8h_1ae2b502c266a25e61afd49a92601e0200" kind="typedef"><name>TestType</name></member>
-    <member refid="cester_8h_1abfd2a6d8c09aa2c747f283a947084609" kind="typedef"><name>TestInstance</name></member>
+    <member refid="cester_8h_1a5d9988fccd173f2ebee324a8b800fd1d" kind="typedef"><name>TestType</name></member>
+    <member refid="cester_8h_1ac3d9dae8eb56b8821888f188bbf19fa6" kind="typedef"><name>CapturedStream</name></member>
+    <member refid="cester_8h_1a102088114e95fcf9270161db050ac719" kind="typedef"><name>TestInstance</name></member>
     <member refid="cester_8h_1a400de0160bf119dca9330f842ee9cc9f" kind="typedef"><name>cester_test</name></member>
     <member refid="cester_8h_1a3c85b40298baa6fe95cfe326ef321eca" kind="typedef"><name>cester_before_after_each</name></member>
     <member refid="cester_8h_1a0824f9d2bee725592bd334ff16d6bc47" kind="typedef"><name>cester_void</name></member>
-    <member refid="cester_8h_1a9fe713844062da45ba493e7ec829cbaf" kind="typedef"><name>TestCase</name></member>
-    <member refid="cester_8h_1a5d7bfb2ddb38f278d25e674dcd6cc347" kind="typedef"><name>AllocatedMemory</name></member>
-    <member refid="cester_8h_1a070259cacab7aadac6ed756f2565dc5e" kind="typedef"><name>CesterArray</name></member>
-    <member refid="cester_8h_1a4201385d22afbfdd009562909b03fb0f" kind="typedef"><name>SuperTestInstance</name></member>
+    <member refid="cester_8h_1a35d88e579b7ccac333a8515d4fd56f60" kind="typedef"><name>TestCase</name></member>
+    <member refid="cester_8h_1ab07f750f6fe00b0dfda13a324834405d" kind="typedef"><name>AllocatedMemory</name></member>
+    <member refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kind="typedef"><name>CesterArray</name></member>
+    <member refid="cester_8h_1ae5e2df972f5b311e319f5a16ab1035cc" kind="typedef"><name>SuperTestInstance</name></member>
     <member refid="cester_8h_1a02df3e2f0291bf06f3a685829975efec" kind="variable"><name>buf</name></member>
     <member refid="cester_8h_1a3fe6cc19b68201d2eb34b35f3667ebd7" kind="variable"><name>superTestInstance</name></member>
     <member refid="cester_8h_1af052f00f77d318e4ceb4c5240dabf2e8" kind="variable"><name>default_color</name></member>
@@ -349,12 +417,14 @@
     <member refid="cester_8h_1a1b18fc0fc447090febc5bd378ebd8265" kind="function"><name>cester_str_after_prefix</name></member>
     <member refid="cester_8h_1a6fd717d4c29095d4d4bc580177b95692" kind="function"><name>cester_str_replace</name></member>
     <member refid="cester_8h_1a00a1e3609f372c462a0408c16e3b2b0e" kind="function"><name>cester_string_equals</name></member>
+    <member refid="cester_8h_1ae7a78f13bd79c8cb911a8e15f5aeb609" kind="function"><name>cester_string_contains</name></member>
     <member refid="cester_8h_1a9d90fb92ddc3b49500adf79aea869744" kind="function"><name>cester_string_starts_with</name></member>
     <member refid="cester_8h_1a60e8c664d3517575bb0eb31e958d304a" kind="function"><name>unpack_selected_extra_args</name></member>
     <member refid="cester_8h_1aed4d3862625429ae77693e729ec27abb" kind="function"><name>cester_concat_ptr</name></member>
     <member refid="cester_8h_1a9adf548936e327b04ee947a49fd72c5d" kind="function"><name>cester_is_validate_output_option</name></member>
     <member refid="cester_8h_1a9aaeef94f525218c317d1297257b8745" kind="function"><name>cester_print_version</name></member>
     <member refid="cester_8h_1a57cb88de7613a2413db45aa79617e4ae" kind="function"><name>cester_print_help</name></member>
+    <member refid="cester_8h_1a5a14ed5e51c8cddb58a3d76bdc3b5331" kind="function"><name>cester_print_test_case_message</name></member>
     <member refid="cester_8h_1a67dc3239f2646c940c8e69963446bc9e" kind="function"><name>cester_print_assertion</name></member>
     <member refid="cester_8h_1ab6e25963e66704ba89a4406bb16fc7af" kind="function"><name>cester_print_expect_actual</name></member>
     <member refid="cester_8h_1a20679d125a6602841d7fded2fcfc8a27" kind="function"><name>print_test_result</name></member>
@@ -369,29 +439,49 @@
     <member refid="cester_8h_1ad205ac079eb12c9b6d1aa8ee6e4b8487" kind="function"><name>cester_evaluate_expect_actual</name></member>
     <member refid="cester_8h_1a98e3b045a3e960952f1a383941397ca4" kind="function"><name>cester_evaluate_expect_actual_str</name></member>
     <member refid="cester_8h_1a7f42a8bab4d2b431e6407d4e04be7389" kind="function"><name>cester_evaluate_expect_actual_ptr</name></member>
-    <member refid="cester_8h_1a09f618649526f0899751a231c8b042ef" kind="function"><name>cester_compare_char</name></member>
-    <member refid="cester_8h_1a8baad3b7278556a3908a36fbbcbc1d10" kind="function"><name>cester_compare_uchar</name></member>
-    <member refid="cester_8h_1aaeccf9eb329390fdd3a24f3dfaab3d74" kind="function"><name>cester_compare_int</name></member>
-    <member refid="cester_8h_1a79a171ca1cc4925dbca28dd937fc1e76" kind="function"><name>cester_compare_uint</name></member>
-    <member refid="cester_8h_1a8b8b644e97b8bd4db222d52656b167a1" kind="function"><name>cester_compare_short</name></member>
-    <member refid="cester_8h_1a3306c65e1c06e3e21f249e58cd00de69" kind="function"><name>cester_compare_ushort</name></member>
-    <member refid="cester_8h_1ad6107c442c028d35242bc82766a8242d" kind="function"><name>cester_compare_long</name></member>
-    <member refid="cester_8h_1a18d84fcd1f323cf4f0334839b9b81d14" kind="function"><name>cester_compare_ulong</name></member>
-    <member refid="cester_8h_1ab20d5f3dad0d79a98302f69aa24b151c" kind="function"><name>cester_compare_llong</name></member>
-    <member refid="cester_8h_1aae9877af71190c99a411fd68ca2779a4" kind="function"><name>cester_compare_ullong</name></member>
-    <member refid="cester_8h_1a895e7d3808c37a9b5fab80170d5868b5" kind="function"><name>cester_compare_float</name></member>
-    <member refid="cester_8h_1a8b3822f6e19bce1c53b97805f34861aa" kind="function"><name>cester_compare_double</name></member>
-    <member refid="cester_8h_1a9485a8283e3fa7162987b374200bf894" kind="function"><name>cester_compare_ldouble</name></member>
+    <member refid="cester_8h_1ab307ece40a53892052de232086588a7b" kind="function"><name>cester_compare_char_pre_evaluated</name></member>
+    <member refid="cester_8h_1a4c564d0aab559486cad9d2b9f85b4976" kind="function"><name>cester_compare_char</name></member>
+    <member refid="cester_8h_1a9a914f81ba165233d3e7e8351348ab28" kind="function"><name>cester_compare_uchar_pre_evaluated</name></member>
+    <member refid="cester_8h_1ace26bb7afebd87ccfd254bf29977360d" kind="function"><name>cester_compare_uchar</name></member>
+    <member refid="cester_8h_1a7fb9b19078796c6c59957c43488cf69f" kind="function"><name>cester_compare_int_pre_evaluated</name></member>
+    <member refid="cester_8h_1ac8f9f36d89ec5a7675cad87312cd5343" kind="function"><name>cester_compare_int</name></member>
+    <member refid="cester_8h_1a8be35156e9b71c642987919654d00422" kind="function"><name>cester_compare_uint_pre_evaluated</name></member>
+    <member refid="cester_8h_1a1d6e9e8f58d3660528604bd8d8002c99" kind="function"><name>cester_compare_uint</name></member>
+    <member refid="cester_8h_1a464e0b7f88fba69defc478e10ad74566" kind="function"><name>cester_compare_short_pre_evaluated</name></member>
+    <member refid="cester_8h_1a332c61395ceb1fe7776ee40cdef4c3b4" kind="function"><name>cester_compare_short</name></member>
+    <member refid="cester_8h_1a3994f800d5be8a000ccb2d28bcce18c3" kind="function"><name>cester_compare_ushort_pre_evaluated</name></member>
+    <member refid="cester_8h_1a46f4115d793ec1f9730d10e289375c8f" kind="function"><name>cester_compare_ushort</name></member>
+    <member refid="cester_8h_1a1142332ce83b68c81a35e059adf3626a" kind="function"><name>cester_compare_long_pre_evaluated</name></member>
+    <member refid="cester_8h_1ae832bbf4f2ad0b5adc213651c8d25987" kind="function"><name>cester_compare_long</name></member>
+    <member refid="cester_8h_1aab9cf49b5089c3fe45775301d653296a" kind="function"><name>cester_compare_ulong_pre_evaluated</name></member>
+    <member refid="cester_8h_1a18c810c57c46ab020ab0ceecbf16bb76" kind="function"><name>cester_compare_ulong</name></member>
+    <member refid="cester_8h_1a708b2dac56402ec75624f3f2cab9cd85" kind="function"><name>cester_compare_llong_pre_evaluated</name></member>
+    <member refid="cester_8h_1ae51243f9e2f481c88e97792549e28cd0" kind="function"><name>cester_compare_llong</name></member>
+    <member refid="cester_8h_1a63cf23dc4455f022ddfe4df2b8ab5690" kind="function"><name>cester_compare_ullong_pre_evaluated</name></member>
+    <member refid="cester_8h_1a65b1b4f59a7f329874dec859537bb1a8" kind="function"><name>cester_compare_ullong</name></member>
+    <member refid="cester_8h_1aa908e5e8a8faea2277d2e1aebcf94ded" kind="function"><name>cester_compare_float_pre_evaluated</name></member>
+    <member refid="cester_8h_1af4db59cbab7c08bf0198e1f6df2a711b" kind="function"><name>cester_compare_float</name></member>
+    <member refid="cester_8h_1a7070a3ef6d7d69a1341252df8b3ace55" kind="function"><name>cester_compare_double_pre_evaluated</name></member>
+    <member refid="cester_8h_1ae33b272bc359f459c676ccdd93e3867f" kind="function"><name>cester_compare_double</name></member>
+    <member refid="cester_8h_1acaee9c9d67564c8cb1be69a0ab9f3200" kind="function"><name>cester_compare_ldouble_pre_evaluated</name></member>
+    <member refid="cester_8h_1a1aab358670836d94484212b74ee43414" kind="function"><name>cester_compare_ldouble</name></member>
+    <member refid="cester_8h_1abc55c381fecfa4b4182aa743b093b58d" kind="function"><name>cester_set_captured_streams_tmp_folder</name></member>
+    <member refid="cester_8h_1a48014c049b5f465557a46388d8643084" kind="function"><name>cester_capture_stream</name></member>
+    <member refid="cester_8h_1a6046e4837f0762f07c1f5e8e6140a2cc" kind="function"><name>cester_release_captured_stream</name></member>
+    <member refid="cester_8h_1abb469d8add8067bb1b6073ef36c84921" kind="function"><name>cester_reset_stream</name></member>
+    <member refid="cester_8h_1ad500833accac836f34bfe7063175d04d" kind="function"><name>cester_stream_content</name></member>
+    <member refid="cester_8h_1a5f6fddaf5d0796df97e086c1cf563cb4" kind="function"><name>cester_release_stream</name></member>
+    <member refid="cester_8h_1afdff2eac43a6082d71a11145134ef5a3" kind="function"><name>release_forgotten_captured_streams</name></member>
     <member refid="cester_8h_1aa1d83078f03b42461ab078a4053a2430" kind="function"><name>cester_register_test</name></member>
     <member refid="cester_8h_1adee743749f2a51a744c42a595acd1fbd" kind="function"><name>cester_expected_test_result</name></member>
     <member refid="cester_8h_1a5336756fe764d6d2005cb35c7b03563f" kind="function"><name>cester_run_test_no_isolation</name></member>
     <member refid="cester_8h_1a27c2010d25d0bd1513cf977fb93d9f9a" kind="function"><name>cester_report_single_test_result</name></member>
     <member refid="cester_8h_1abacf7d7ece738b5b67ea240eee8e4656" kind="function"><name>cester_run_test</name></member>
-    <member refid="cester_8h_1aed7892372cdd63383cf15b5de50eb126" kind="function"><name>cester_claim_signals</name></member>
+    <member refid="cester_8h_1a5ccab518462e10c43bcd7b62b4ef8273" kind="function"><name>cester_capture_signals</name></member>
     <member refid="cester_8h_1a1a68fa19aaa51f8b3d7b3fc564751d62" kind="function"><name>cester_recover_on_signal</name></member>
     <member refid="cester_8h_1ae526b39cd608657444c4092a9d2fa338" kind="function"><name>cester_run_all_test_iterator</name></member>
     <member refid="cester_8h_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
-    <member refid="cester_8h_1a02a7792da51f3228121f21a5753818c7" kind="function"><name>cester_malloc</name></member>
+    <member refid="cester_8h_1aa5c7738f5048e6f7f527328de3b824da" kind="function"><name>cester_allocator</name></member>
     <member refid="cester_8h_1a419e9ee8a8b0331bec2fdf58b63bd2c9" kind="function"><name>cester_free</name></member>
   </compound>
   <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>

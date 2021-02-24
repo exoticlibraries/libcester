@@ -1,13 +1,14 @@
 digraph "super_test_instance"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="super_test_instance",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 [label="super_test_instance",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" test_instance" ,fontname="Helvetica"];
-  Node2 [label="test_instance",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtest__instance.html"];
-  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" registered_test_cases\nmem_alloc_manager" ,fontname="Helvetica"];
-  Node3 [label="cester_array_struct",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structcester__array__struct.html"];
+  Node2 [label="test_instance",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtest__instance.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" registered_test_cases\nmem_alloc_manager\ncaptured_streams" ,fontname="Helvetica"];
+  Node3 [label="cester_array_struct",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structcester__array__struct.html",tooltip=" "];
   Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" current_test_case" ,fontname="Helvetica"];
-  Node4 [label="test_case",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtest__case.html"];
+  Node4 [label="test_case",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structtest__case.html",tooltip=" "];
   Node2 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" test_ba_function\ntest_function" ,fontname="Helvetica"];
 }

@@ -1,0 +1,317 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Testing Output Streams &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How the assertion macros works" href="../how_it_works/how_assertion_macro.html" />
+    <link rel="prev" title="Helper Macros" href="macros.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/docs/testing_stream.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing Output Streams</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="testing-output-streams">
+<span id="index-0"></span><h1>Testing Output Streams<a class="headerlink" href="#testing-output-streams" title="Permalink to this headline">¶</a></h1>
+<p>libcester allows the testing of file stream without any intrusion in the code. With this feature you can simply
+output any value using <cite>printf</cite>, <cite>fprintf</cite>, <cite>puts</cite> or any other stream method and validate the output without
+actually writing to those streams. An example is writing some ansi code into the trminal using printf but in
+your unit test you want to actually validate what is written to the terminal without actually outputing
+it into the terminal.</p>
+<p>The following macros are used for testing file streams.</p>
+<ul class="simple">
+<li><a class="reference external" href="./macros.html#cester-capture-stream">CESTER_CAPTURE_STREAM</a></li>
+<li><a class="reference external" href="./macros.html#cester-release-stream">CESTER_RELEASE_STREAM</a></li>
+<li><a class="reference external" href="./macros.html#cester-reset-stream">CESTER_RESET_STREAM</a></li>
+<li><a class="reference external" href="./macros.html#cester-change-stream-capture-tm-folder">CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER</a></li>
+</ul>
+<p>Ensure a stream that was captured is freed after the assertion or at the end of a test case, it bad
+practice to capture a stream outside a test case at it might be impossible to track the stream and ensure
+it properly released.</p>
+<div class="section" id="stream-assertion-macros">
+<h2>Stream assertion macros<a class="headerlink" href="#stream-assertion-macros" title="Permalink to this headline">¶</a></h2>
+<p>Any of the following macros can be used to test the stream after it has been captured.</p>
+<ul class="simple">
+<li><a class="reference external" href="./assertions.html#cester-assert-stream-content-equal">cester_assert_stream_content_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stream-content-contain">cester_assert_stream_content_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stream-content-not-equal">cester_assert_stream_content_not_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stream-content-not-contain">cester_assert_stream_content_not_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdout-stream-content-equal">cester_assert_stdout_stream_content_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdout-stream-content-contain">cester_assert_stdout_stream_content_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdout-stream-content-not-equal">cester_assert_stdout_stream_content_not_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdout-stream-content-not-contain">cester_assert_stdout_stream_content_not_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stderr-stream-content-equal">cester_assert_stderr_stream_content_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stderr-stream-content-contain">cester_assert_stderr_stream_content_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stderr-stream-content-not-equal">cester_assert_stderr_stream_content_not_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stderr-stream-content-not-contain">cester_assert_stderr_stream_content_not_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdin-stream-content-equal">cester_assert_stdin_stream_content_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdin-stream-content-contain">cester_assert_stdin_stream_content_contain</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdin-stream-content-not-equal">cester_assert_stdin_stream_content_not_equal</a></li>
+<li><a class="reference external" href="./assertions.html#cester-assert-stdin-stream-content-not-contain">cester_assert_stdin_stream_content_not_contain</a></li>
+</ul>
+</div>
+<div class="section" id="standard-streams-helper-macros">
+<h2>Standard streams helper macros<a class="headerlink" href="#standard-streams-helper-macros" title="Permalink to this headline">¶</a></h2>
+<p>There are helpers macros to quickly works on the standard streams <cite>stdout</cite>, <cite>stderr</cite>, <cite>stdin</cite>.</p>
+<ul class="simple">
+<li><a class="reference external" href="./macros.html#cester-capture-stdout">CESTER_CAPTURE_STDOUT</a></li>
+<li><a class="reference external" href="./macros.html#cester-release-stdout">CESTER_RELEASE_STDOUT</a></li>
+<li><a class="reference external" href="./macros.html#cester-reset-stdout">CESTER_RESET_STDOUT</a></li>
+<li><a class="reference external" href="./macros.html#cester-capture-stderr">CESTER_CAPTURE_STDERR</a></li>
+<li><a class="reference external" href="./macros.html#cester-release-stderr">CESTER_RELEASE_STDERR</a></li>
+<li><a class="reference external" href="./macros.html#cester-reset-stderr">CESTER_RESET_STDERR</a></li>
+<li><a class="reference external" href="./macros.html#cester-capture-stdin">CESTER_CAPTURE_STDIN</a></li>
+<li><a class="reference external" href="./macros.html#cester-release-stdin">CESTER_RELEASE_STDIN</a></li>
+<li><a class="reference external" href="./macros.html#cester-reset-stdin">CESTER_RESET_STDIN</a></li>
+</ul>
+</div>
+<div class="section" id="testing-stdout-stream">
+<h2>Testing stdout stream<a class="headerlink" href="#testing-stdout-stream" title="Permalink to this headline">¶</a></h2>
+<p>The stdout stream is where data written to printf, puts is sent to by default, the data sent can be validated
+using the stream assertion functions.</p>
+<p>The example below tests the data written to stdout</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stdout</span><span class="p">,</span> <span class="n">test_inst</span><span class="p">,</span>
+        <span class="n">CESTER_CAPTURE_STDOUT</span><span class="p">();</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;This will not be shown in terminal</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+        <span class="n">puts</span><span class="p">(</span><span class="s2">&quot;Because it has been captured by libester&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_stdout_stream_content_equal</span><span class="p">(</span><span class="s2">&quot;This will not be shown in terminal</span><span class="se">\n</span><span class="s2">Because it has been captured by libester</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_stdout_stream_content_contain</span><span class="p">(</span><span class="s2">&quot;terminal&quot;</span><span class="p">);</span>
+
+        <span class="n">CESTER_RESET_STDOUT</span><span class="p">();</span>
+        <span class="n">puts</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_stdout_stream_content_equal</span><span class="p">(</span><span class="s2">&quot;Hello World</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+
+        <span class="n">CESTER_RELEASE_STDOUT</span><span class="p">();</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compiling the test above will give the following output</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="p">(</span><span class="mf">0.02</span><span class="n">s</span><span class="p">)</span> <span class="n">test</span> <span class="n">stdout</span>
+
+
+<span class="n">Ran</span> <span class="mi">1</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.02</span> <span class="n">Seconds</span>
+<span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tests</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>In the above test as seen in the code printf is used as it will be used in regular programs but because
+it been captured cester. the test case is able to make some assertion on the data written,
+the data will not be written to the terminal as stdout is not itself at that point.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="simple">
+<li>CESTER_CAPTURE_STDOUT() is alias for <cite>CESTER_CAPTURE_STREAM(stdout)</cite></li>
+<li>CESTER_RESET_STDOUT() is alias for <cite>CESTER_RESET_STREAM(stdout)</cite></li>
+<li>CESTER_RELEASE_STDOUT() is alias for <cite>CESTER_RELEASE_STREAM(stdout)</cite></li>
+</ul>
+<p class="last">It required to be explicit with the stream to capture if no helper macro is provider by cester.</p>
+</div>
+<p>Also the stream was reset with the macro <cite>CESTER_RESET_STDOUT</cite> so the old data is completely removed and fresh
+data can be written to the stream, else if the stream is not reset the new data will simply be appended to the
+existing data.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">if the system the test case is executed on does not have a file system, has very limited file system or
+does not allow read and/or write to the /tmp folder, libcester will not be able to capture the stream
+and the stream assertions will fail, and it even possible for the test case to segfault.</p>
+</div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/testing_stream.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="../how_it_works/how_assertion_macro.html">How the assertion macros works<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="macros.html"><i class="fa fa-arrow-left"></i>Helper Macros</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Testing Output Streams</a><ul>
+<li><a class="reference internal" href="#stream-assertion-macros">Stream assertion macros</a></li>
+<li><a class="reference internal" href="#standard-streams-helper-macros">Standard streams helper macros</a></li>
+<li><a class="reference internal" href="#testing-stdout-stream">Testing stdout stream</a></li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="macros.html">Helper Macros</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/testing_stream.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/testing_stream.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

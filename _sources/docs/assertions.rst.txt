@@ -1493,4 +1493,181 @@ values of the two double.
 	x - a long double |br|
 	y - another long double |br|
 
+
+cester_assert_stream_content_equal
+------------------------------------
+
+Check whether the content of a stream equals a value
+
+**Parameters**
+
+	x - the captured stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stream_content_contain
+----------------------------------------
+
+Check whether the content of a stream contains a value
+
+**Parameters**
+
+	x - the captured stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stream_content_not_equal
+---------------------------------------
+
+Check whether the content of a stream does not equal a value
+
+**Parameters**
+
+	x - the captured stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stream_content_not_contain
+------------------------------------------
+
+Check whether the content of a stream does not contains a value
+
+**Parameters**
+
+	x - the captured stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stdout_stream_content_equal
+-----------------------------------------
+
+Check whether the content of stdout stream equals a value
+
+**Parameters**
+
+	x - the captured stdout stream |br|
+	y - the string to check if it same as the stdout stream content |br|
+
+
+cester_assert_stdout_stream_content_contain
+--------------------------------------------
+
+Check whether the content of stdout stream contains a value
+
+**Parameters**
+
+	x - the captured stdout stream |br|
+	y - the string to check if it same as the stdout stream content |br|
+
+
+cester_assert_stdout_stream_content_not_equal
+-----------------------------------------------
+
+Check whether the content of stdout stream does not equals a value
+
+**Parameters**
+
+	x - the captured stdout stream |br|
+	y - the string to check if it same as the stdout stream content |br|
+
+
+cester_assert_stdout_stream_content_not_contain
+------------------------------------------------
+
+Check whether the content of stdout stream does not contains a value
+
+**Parameters**
+
+	x - the captured stdout stream |br|
+	y - the string to check if it same as the stdout stream content |br|
+
+
+cester_assert_stderr_stream_content_equal
+-----------------------------------------
+
+Check whether the content of stderr stream equals a value
+
+**Parameters**
+
+	x - the captured stderr stream |br|
+	y - the string to check if it same as the stderr stream content |br|
+
+
+cester_assert_stderr_stream_content_contain
+--------------------------------------------
+
+Check whether the content of stderr stream contains a value
+
+**Parameters**
+
+	x - the captured stderr stream |br|
+	y - the string to check if it same as the stderr stream content |br|
+
+
+cester_assert_stderr_stream_content_not_equal
+-----------------------------------------------
+
+Check whether the content of stderr stream does not equals a value
+
+**Parameters**
+
+	x - the captured stderr stream |br|
+	y - the string to check if it same as the stderr stream content |br|
+
+
+cester_assert_stderr_stream_content_not_contain
+------------------------------------------------
+
+Check whether the content of stderr stream does not contains a value
+
+**Parameters**
+
+	x - the captured stderr stream |br|
+	y - the string to check if it same as the stderr stream content |br|
+
+
+cester_assert_stdin_stream_content_equal
+-----------------------------------------
+
+Check whether the content of stdin stream equals a value
+
+**Parameters**
+
+	x - the captured stdin stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stdin_stream_content_contain
+--------------------------------------------
+
+Check whether the content of stdin stream contains a value
+
+**Parameters**
+
+	x - the captured stdin stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stdin_stream_content_not_equal
+-----------------------------------------------
+
+Check whether the content of stdin stream does not equals a value
+
+**Parameters**
+
+	x - the captured stdin stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
+cester_assert_stdin_stream_content_not_contain
+------------------------------------------------
+
+Check whether the content of stdin stream does not contains a value
+
+**Parameters**
+
+	x - the captured stdin stream |br|
+	y - the string to check if it same as the stream content |br|
+
+
 	

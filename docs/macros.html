@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How the assertion macros works" href="../how_it_works/how_assertion_macro.html" />
+    <link rel="next" title="Testing Output Streams" href="testing_stream.html" />
     <link rel="prev" title="Output Formats" href="output_formats.html" />
    
   
@@ -101,18 +101,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
 </ul>
@@ -472,6 +474,7 @@ enum types</p>
 <li>CESTER_RESULT_TERMINATED</li>
 <li>CESTER_RESULT_SEGFAULT</li>
 <li>CESTER_RESULT_MEMORY_LEAK</li>
+<li>CESTER_RESULT_UNRELEASED_STREAM</li>
 </ul>
 <div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
 
@@ -546,6 +549,24 @@ test case is marked as failure. It accept the test case name as paramater.</p>
 <p class="last">This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
 </div>
 </div>
+<div class="section" id="cester-test-should-not-release-stream">
+<h2>CESTER_TEST_SHOULD_NOT_RELEASE_STREAM<a class="headerlink" href="#cester-test-should-not-release-stream" title="Permalink to this headline">¶</a></h2>
+<p>Change the expected test case result. If the test case does not have any unreleased stream
+or no stream was captured the test case is marked as failure. It accept the test case name as paramater.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">CESTER_CAPTURE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
+</div>
+</div>
 <div class="section" id="define-cester-no-mock">
 <h2>#define CESTER_NO_MOCK<a class="headerlink" href="#define-cester-no-mock" title="Permalink to this headline">¶</a></h2>
 <p>Define the macro CESTER_NO_MOCK to prevent mocking functions in the test. Even if mocked
@@ -608,6 +629,79 @@ body. For example the function below does not return the correct power of value 
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="cester-capture-stream">
+<h2>CESTER_CAPTURE_STREAM<a class="headerlink" href="#cester-capture-stream" title="Permalink to this headline">¶</a></h2>
+<p>Use this macro to prepare a file stream to be captured by libcester, if a stream is not captured all
+assertion will fail for that stream. This simply make the stream address to point to another stream
+that is accessible and can be freely modified by cester.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">CESTER_CAPTURE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+    <span class="o">//...</span>
+    <span class="n">CESTER_RELEASE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If the stream that the output is written into <strong>(stdout by default)</strong> is captured if it not released
+at the end of the test case it will be forcefully released to libcester can continue writing the to the
+stream to see the test results.</p>
+</div>
+<div class="section" id="cester-release-stream">
+<h2>CESTER_RELEASE_STREAM<a class="headerlink" href="#cester-release-stream" title="Permalink to this headline">¶</a></h2>
+<p>Release a stream that has been captured by cester, this simply change the address of the stream to point
+to the original stream value, and the temporary stream used for testing is deleted from the file system.
+It very important to release a captured stream else stream might not give expected output if used in
+other test case, and if recaptured the original stream is lost forever in memory.</p>
+<p>Always write the release statement at the point o capture and place the code in between. If you fail to
+release captured stream the test case will fail with <cite>CESTER_RESULT_UNRELEASED_STREAM</cite> error.</p>
+</div>
+<div class="section" id="cester-reset-stream">
+<h2>CESTER_RESET_STREAM<a class="headerlink" href="#cester-reset-stream" title="Permalink to this headline">¶</a></h2>
+<p>Remove all the existing data written to a stream so new data is not appended.</p>
+</div>
+<div class="section" id="cester-change-stream-capture-tm-folder">
+<h2>CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER<a class="headerlink" href="#cester-change-stream-capture-tm-folder" title="Permalink to this headline">¶</a></h2>
+<p>Change the folder used to hold the temporary files used for the streams captured. It accept the folder
+as the only parameter, the folder must exist on the file system and must be readable and writable.</p>
+<p>The default location on windows is determined by the return value of <cite>getenv(“TEMP”)</cite> if not set the
+folder <em>“C:/libcester_tmp/”</em> is used. On other platforms the value of <cite>getenv(“TMPDIR”)</cite> is used and
+if not set the fallback folder is <em>“/tmp/libcester_tmp/”</em>.</p>
+</div>
+<div class="section" id="cester-capture-stdout">
+<h2>CESTER_CAPTURE_STDOUT<a class="headerlink" href="#cester-capture-stdout" title="Permalink to this headline">¶</a></h2>
+<p>Capture the stdout stream, alias for <cite>CESTER_CAPTURE_STREAM(stdout)</cite>.</p>
+</div>
+<div class="section" id="cester-release-stdout">
+<h2>CESTER_RELEASE_STDOUT<a class="headerlink" href="#cester-release-stdout" title="Permalink to this headline">¶</a></h2>
+<p>Release the stdout stream, alias for <cite>CESTER_RELEASE_STREAM(stdout)</cite>.</p>
+</div>
+<div class="section" id="cester-reset-stdout">
+<h2>CESTER_RESET_STDOUT<a class="headerlink" href="#cester-reset-stdout" title="Permalink to this headline">¶</a></h2>
+<p>Reset the stdout stream, alias for <cite>CESTER_RESET_STREAM(stdout)</cite>.</p>
+</div>
+<div class="section" id="cester-capture-stderr">
+<h2>CESTER_CAPTURE_STDERR<a class="headerlink" href="#cester-capture-stderr" title="Permalink to this headline">¶</a></h2>
+<p>Capture the stderr stream, alias for <cite>CESTER_CAPTURE_STREAM(stderr)</cite>.</p>
+</div>
+<div class="section" id="cester-release-stderr">
+<h2>CESTER_RELEASE_STDERR<a class="headerlink" href="#cester-release-stderr" title="Permalink to this headline">¶</a></h2>
+<p>Release the stderr stream, alias for <cite>CESTER_RELEASE_STREAM(stderr)</cite>.</p>
+</div>
+<div class="section" id="cester-reset-stderr">
+<h2>CESTER_RESET_STDERR<a class="headerlink" href="#cester-reset-stderr" title="Permalink to this headline">¶</a></h2>
+<p>Reset the stderr stream, alias for <cite>CESTER_RESET_STREAM(stderr)</cite>.</p>
+</div>
+<div class="section" id="cester-capture-stdin">
+<h2>CESTER_CAPTURE_STDIN<a class="headerlink" href="#cester-capture-stdin" title="Permalink to this headline">¶</a></h2>
+<p>Capture the stdin stream, alias for <cite>CESTER_CAPTURE_STREAM(stdin)</cite>.</p>
+</div>
+<div class="section" id="cester-release-stdin">
+<h2>CESTER_RELEASE_STDIN<a class="headerlink" href="#cester-release-stdin" title="Permalink to this headline">¶</a></h2>
+<p>Release the stdin stream, alias for <cite>CESTER_RELEASE_STREAM(stdin)</cite>.</p>
+</div>
+<div class="section" id="cester-reset-stdin">
+<h2>CESTER_RESET_STDIN<a class="headerlink" href="#cester-reset-stdin" title="Permalink to this headline">¶</a></h2>
+<p>Reset the stdin stream, alias for <cite>CESTER_RESET_STREAM(stdin)</cite>.</p>
 </div>
 <div class="section" id="define-cester-no-main">
 <h2>#define CESTER_NO_MAIN<a class="headerlink" href="#define-cester-no-main" title="Permalink to this headline">¶</a></h2>
@@ -916,7 +1010,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                             <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
                             
                             
-                                <a class="reference navigator" style="float:right;" href="../how_it_works/how_assertion_macro.html">How the assertion macros works<i class="fa fa-arrow-right"></i></a> 
+                                <a class="reference navigator" style="float:right;" href="testing_stream.html">Testing Output Streams<i class="fa fa-arrow-right"></i></a> 
                             
                             
                                 <a class="reference navigator" style="float:right;" href="output_formats.html"><i class="fa fa-arrow-left"></i>Output Formats</a>
@@ -957,9 +1051,23 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-test-should-fail">CESTER_TEST_SHOULD_FAIL</a></li>
 <li><a class="reference internal" href="#cester-test-should-be-terminated">CESTER_TEST_SHOULD_BE_TERMINATED</a></li>
 <li><a class="reference internal" href="#cester-test-should-leak-memory">CESTER_TEST_SHOULD_LEAK_MEMORY</a></li>
+<li><a class="reference internal" href="#cester-test-should-not-release-stream">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</a></li>
 <li><a class="reference internal" href="#define-cester-no-mock">#define CESTER_NO_MOCK</a></li>
 <li><a class="reference internal" href="#cester-mock-simple-function">CESTER_MOCK_SIMPLE_FUNCTION</a></li>
 <li><a class="reference internal" href="#cester-mock-function">CESTER_MOCK_FUNCTION</a></li>
+<li><a class="reference internal" href="#cester-capture-stream">CESTER_CAPTURE_STREAM</a></li>
+<li><a class="reference internal" href="#cester-release-stream">CESTER_RELEASE_STREAM</a></li>
+<li><a class="reference internal" href="#cester-reset-stream">CESTER_RESET_STREAM</a></li>
+<li><a class="reference internal" href="#cester-change-stream-capture-tm-folder">CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER</a></li>
+<li><a class="reference internal" href="#cester-capture-stdout">CESTER_CAPTURE_STDOUT</a></li>
+<li><a class="reference internal" href="#cester-release-stdout">CESTER_RELEASE_STDOUT</a></li>
+<li><a class="reference internal" href="#cester-reset-stdout">CESTER_RESET_STDOUT</a></li>
+<li><a class="reference internal" href="#cester-capture-stderr">CESTER_CAPTURE_STDERR</a></li>
+<li><a class="reference internal" href="#cester-release-stderr">CESTER_RELEASE_STDERR</a></li>
+<li><a class="reference internal" href="#cester-reset-stderr">CESTER_RESET_STDERR</a></li>
+<li><a class="reference internal" href="#cester-capture-stdin">CESTER_CAPTURE_STDIN</a></li>
+<li><a class="reference internal" href="#cester-release-stdin">CESTER_RELEASE_STDIN</a></li>
+<li><a class="reference internal" href="#cester-reset-stdin">CESTER_RESET_STDIN</a></li>
 <li><a class="reference internal" href="#define-cester-no-main">#define CESTER_NO_MAIN</a></li>
 <li><a class="reference internal" href="#cester-body">CESTER_BODY</a></li>
 <li><a class="reference internal" href="#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
@@ -1001,7 +1109,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                         
                         
                             <h2>Next topic</h2>
-                            <a href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a>
+                            <a href="testing_stream.html">Testing Output Streams</a>
                         
                         <h2>This Page</h2>
                         <a href="../_sources/docs/macros.rst.txt">Show source</a>
@@ -1031,7 +1139,7 @@ If specific test cases is selected, if any of the selected test cases does not e
         
         
         <div class="doc-sphinx-info">
-                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
                 Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>

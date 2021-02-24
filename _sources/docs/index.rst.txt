@@ -17,3 +17,4 @@ Documentation
    macros
    fixtures
    assertions
+   testing_stream

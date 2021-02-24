@@ -108,11 +108,13 @@
 <li class="toctree-l1"><a class="reference internal" href="docs/options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how_it_works/how_test_registration_works.html">How test registration works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how_it_works/index.html">How it works</a></li>
 </ul>
@@ -132,7 +134,7 @@
 <p>Install the library using powershell. It auto detect your insalled C and C++ compilers
 include directory and install libcester into the include folder. Execute the command in
 powershell as admin to install cester for compiler like Visual C++.</p>
-<div class="code powershell highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span><span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">Bypass</span> <span class="o">-</span><span class="n">Scope</span> <span class="n">Process</span> <span class="o">-</span><span class="n">Force</span><span class="p">;</span> <span class="n">iex</span> <span class="p">((</span><span class="n">New</span><span class="o">-</span><span class="n">Object</span> <span class="n">System</span><span class="o">.</span><span class="n">Net</span><span class="o">.</span><span class="n">WebClient</span><span class="p">)</span><span class="o">.</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://exoticlibraries.github.io/libcester/cester.ps1&#39;</span><span class="p">))</span>
+<div class="code powershell highlight-default notranslate"><div class="highlight"><pre><span></span>&amp; $([scriptblock]::Create((New-Object Net.WebClient).DownloadString(&quot;https://exoticlibraries.github.io/magic/install.ps1&quot;))) libcester
 </pre></div>
 </div>
 <p>If you have one of the following compilers in your system the library will be installed for each
@@ -147,9 +149,12 @@ and can be moved into your include path or used directly in your project.</p>
 </div>
 <div class="section" id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-<p>Use the remote installation script to install libcester with bash. Before running this
-command ensure you are root <cite>su</cite> so it can move cester.h to the /usr/include/ folder.</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">exoticlibraries</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">libcester</span><span class="o">/</span><span class="n">cester</span><span class="o">.</span><span class="n">sh</span><span class="p">)</span>
+<p>Use the remote installation script to install libcester with bash.
+If the command is executes with super user priviledge (sudo) it will be
+installed in the folder /usr/include else it will be installed in the
+folder /usr/local/include. Or you can specify where to install it using
+the option <cite>–installfolder=./</cite></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">exoticlibraries</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">magic</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span><span class="p">)</span> <span class="n">libcester</span>
 </pre></div>
 </div>
 <p>The command above also works for installing libcester on Android using the Termux application.</p>
@@ -162,27 +167,9 @@ folder and include it in your project. Download the file from
 relatively like <cite>#include “cester.h”</cite>.</p>
 </div>
 </div>
-<div class="section" id="using-irorun">
-<h2>Using irorun<a class="headerlink" href="#using-irorun" title="Permalink to this headline">¶</a></h2>
-<p>Install irorun from <a class="reference external" href="https://exoticlibraries.github.io/irorun">https://exoticlibraries.github.io/irorun</a></p>
-<p>Installing directly from the repo</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">irorun</span> <span class="n">install</span> <span class="n">libcester</span> <span class="o">--</span><span class="n">github</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exoticlibraries</span><span class="o">/</span><span class="n">libcester</span>
-</pre></div>
-</div>
-<p>Installing from vcpkg directory</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">irorun</span> <span class="n">install</span> <span class="n">libcester</span>
-</pre></div>
-</div>
-<p>The library will be installed for the following compilers and others installed compilers recognized by irorun.</p>
-<ul class="simple">
-<li>GCC</li>
-<li>CMAKE</li>
-<li>Visual C++</li>
-</ul>
-</div>
 <div class="section" id="using-microsoft-vcpkg">
 <h2>Using Microsoft vcpkg<a class="headerlink" href="#using-microsoft-vcpkg" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">irorun</span> <span class="n">install</span> <span class="n">libcester</span>
+<div class="code powershell highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>\<span class="n">vcpkg</span> <span class="n">install</span> <span class="n">libcester</span>
 </pre></div>
 </div>
 <p>To use the library after installation with vcpkg with your build system,
@@ -231,7 +218,6 @@ option <strong>-I.</strong> so it can detect the base file where the test case a
 <li><a class="reference internal" href="#other-platforms">Other Platforms</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-irorun">Using irorun</a></li>
 <li><a class="reference internal" href="#using-microsoft-vcpkg">Using Microsoft vcpkg</a></li>
 </ul>
 </li>
@@ -273,7 +259,7 @@ option <strong>-I.</strong> so it can detect the base file where the test case a
         
         
         <div class="doc-sphinx-info">
-                    &copy; Copyright 2020, Exotic Libraries - MIT License.
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
                 Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>

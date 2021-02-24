@@ -58,9 +58,9 @@ relatively like `#include "cester.h"`.
 Using Microsoft vcpkg
 -----------------------
 
-.. code::  
+.. code:: powershell
 
-	irorun install libcester
+	.\vcpkg install libcester
 
 To use the library after installation with vcpkg with your build system, 
 continue with `vcpkg documentation <https://github.com/microsoft/vcpkg/blob/master/docs/index.md>`_ and 

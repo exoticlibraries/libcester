@@ -424,6 +424,7 @@ enum types
 - CESTER_RESULT_TERMINATED
 - CESTER_RESULT_SEGFAULT
 - CESTER_RESULT_MEMORY_LEAK
+- CESTER_RESULT_UNRELEASED_STREAM
 
 .. code:: text 
 
@@ -511,6 +512,27 @@ test case is marked as failure. It accept the test case name as paramater.
     This macro is not available if the macro CESTER_NO_MEM_TEST is defined
 
 
+CESTER_TEST_SHOULD_NOT_RELEASE_STREAM
+--------------------------------------
+
+Change the expected test case result. If the test case does not have any unreleased stream 
+or no stream was captured the test case is marked as failure. It accept the test case name as paramater.
+
+.. code:: text 
+
+    CESTER_TEST(test_stream_capture, test_instance, 
+        CESTER_CAPTURE_STREAM(stdout);
+    )
+
+    CESTER_OPTIONS(
+        CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(test_case_name);
+    )
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_MEM_TEST is defined
+
+
 #define CESTER_NO_MOCK
 -----------------------
 
@@ -591,6 +613,96 @@ The macro above expands to the following code
         }
         return return_val;
     }
+
+CESTER_CAPTURE_STREAM
+-----------------------
+
+Use this macro to prepare a file stream to be captured by libcester, if a stream is not captured all 
+assertion will fail for that stream. This simply make the stream address to point to another stream 
+that is accessible and can be freely modified by cester.
+
+.. code:: text
+
+    CESTER_TEST(test_stream_capture, test_instance, 
+        CESTER_CAPTURE_STREAM(stdout);
+        //...
+        CESTER_RELEASE_STREAM(stdout);
+    )
+
+If the stream that the output is written into **(stdout by default)** is captured if it not released 
+at the end of the test case it will be forcefully released to libcester can continue writing the to the 
+stream to see the test results.
+
+CESTER_RELEASE_STREAM
+-----------------------
+
+Release a stream that has been captured by cester, this simply change the address of the stream to point 
+to the original stream value, and the temporary stream used for testing is deleted from the file system.
+It very important to release a captured stream else stream might not give expected output if used in 
+other test case, and if recaptured the original stream is lost forever in memory.
+
+Always write the release statement at the point o capture and place the code in between. If you fail to 
+release captured stream the test case will fail with `CESTER_RESULT_UNRELEASED_STREAM` error.
+
+CESTER_RESET_STREAM
+-----------------------
+
+Remove all the existing data written to a stream so new data is not appended.
+
+CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER
+---------------------------------------
+
+Change the folder used to hold the temporary files used for the streams captured. It accept the folder 
+as the only parameter, the folder must exist on the file system and must be readable and writable.
+
+The default location on windows is determined by the return value of `getenv("TEMP")` if not set the 
+folder *"C:/libcester_tmp/"* is used. On other platforms the value of `getenv("TMPDIR")` is used and 
+if not set the fallback folder is *"/tmp/libcester_tmp/"*.
+
+CESTER_CAPTURE_STDOUT
+-------------------------
+
+Capture the stdout stream, alias for `CESTER_CAPTURE_STREAM(stdout)`.
+
+CESTER_RELEASE_STDOUT
+-------------------------
+
+Release the stdout stream, alias for `CESTER_RELEASE_STREAM(stdout)`.
+
+CESTER_RESET_STDOUT
+-------------------------
+
+Reset the stdout stream, alias for `CESTER_RESET_STREAM(stdout)`.
+
+CESTER_CAPTURE_STDERR
+-------------------------
+
+Capture the stderr stream, alias for `CESTER_CAPTURE_STREAM(stderr)`.
+
+CESTER_RELEASE_STDERR
+-------------------------
+
+Release the stderr stream, alias for `CESTER_RELEASE_STREAM(stderr)`.
+
+CESTER_RESET_STDERR
+-------------------------
+
+Reset the stderr stream, alias for `CESTER_RESET_STREAM(stderr)`.
+
+CESTER_CAPTURE_STDIN
+-------------------------
+
+Capture the stdin stream, alias for `CESTER_CAPTURE_STREAM(stdin)`.
+
+CESTER_RELEASE_STDIN
+-------------------------
+
+Release the stdin stream, alias for `CESTER_RELEASE_STREAM(stdin)`.
+
+CESTER_RESET_STDIN
+-------------------------
+
+Reset the stdin stream, alias for `CESTER_RESET_STREAM(stdin)`.
 
 #define CESTER_NO_MAIN
 -----------------------

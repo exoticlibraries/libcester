@@ -1,11 +1,6 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=2 */
 
 #include <exotic/cester.h>
-
-CESTER_BEFORE_EACH(test_instance, _t, _i,
-    short number = 21;
-    test_instance->arg = &number;
-)
 
 CESTER_TEST(test_assert_cmp_short, test_instance, 
     cester_assert_cmp_short(1, ==, 1, "%d %s %d");
@@ -18,7 +13,7 @@ CESTER_TEST(test_short_assertion, test_instance,
 )
 
 CESTER_TEST(test_short_assertion_literal, test_instance, 
-    short number = *((short*)test_instance->arg);
+    short number = 21;
     cester_assert_short_eq(21, number);
     cester_assert_short_ne(30, number);
     cester_assert_short_gt(number, 10);

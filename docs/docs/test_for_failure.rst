@@ -16,6 +16,7 @@ to set a test case result:
 - `CESTER_TEST_SHOULD_LEAK_MEMORY <./macros.html#cester-test-should-leak-memory>`_
 - `CESTER_REPORT_SUCCESS_REGARDLESS <./macros.html#cester-report-success-regardless>`_
 - `CESTER_REPORT_FAILURE_REGARDLESS <./macros.html#cester-report-failure-regardless>`_
+- `CESTER_TEST_SHOULD_NOT_RELEASE_STREAM <./macros.html#cester-test-should-not-release-stream>`_
 
 The macro CESTER_TEST_SHOULD accepts the test case name as the first parameter and the expected 
 result as the second parameter. By default the expected result for the test cases is 
@@ -29,6 +30,7 @@ The following are the possible expected result value:
 - CESTER_RESULT_TERMINATED
 - CESTER_RESULT_SEGFAULT
 - CESTER_RESULT_MEMORY_LEAK
+- CESTER_RESULT_UNRELEASED_STREAM
 
 Example 1
 '''''''''' 
@@ -97,11 +99,16 @@ are expected to fail.
 		char* str = malloc(sizeof(char) * 12);
 	)
 
+	CESTER_TEST(test_stream_capture, test_instance, 
+		CESTER_CAPTURE_STREAM(stdout);
+	)
+
 	CESTER_OPTIONS(
 		CESTER_TEST_SHOULD_SEGFAULT(this_should_segfault);
 		CESTER_TEST_SHOULD_FAIL(this_should_fail);
 		CESTER_TEST_SHOULD_LEAK_MEMORY(this_should_leak_memory);
 		CESTER_TEST_SHOULD(this_should_segfault_also_fail, CESTER_RESULT_FAILURE);
+		CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(test_stream_capture);
 	)
 
 .. code:: bash
@@ -114,6 +121,7 @@ are expected to fail.
 		+ (0.00s) this should pass
 		+ (0.00s) this should segfault also fail
 		+ (0.01s) this should leak memory
+		+ (0.00s) test stream capture
 
 	Passed crash_test.c:5: in 'this_should_segfault' => Segfault as expected
 	AssertionError crash_test.c:10: in 'this_should_fail' => not expecting 'NULL', received '((void*)0)'
@@ -121,6 +129,7 @@ are expected to fail.
 	Passed crash_test.c:17: in 'this_should_segfault_also_fail' => Failed as expected
 	MemoryLeakError crash_test.c:22: in 'this_should_leak_memory' => Memory allocated in line '22' not freed. Leaking '12' Bytes
 	Passed crash_test.c:21: in 'this_should_leak_memory' => Leaked memory as expected
+	Passed crash_test.c:25: in 'test_stream_capture' => Have unreleased stream as expected
 
 	Ran 5 test(s) in 0.02 Seconds
 	Synthesis: SUCCESS Tests: 5 | Passing: 5 | Failing: 0

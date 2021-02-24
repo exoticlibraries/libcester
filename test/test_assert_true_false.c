@@ -3,6 +3,7 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_true, test_instance, 
+    printf("Ended\n");
     cester_assert_true(2 > 1); 
     cester_assert_true(test_instance != NULL); 
     cester_assert_true(test_instance->argc > 0);

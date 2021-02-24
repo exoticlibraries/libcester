@@ -258,6 +258,7 @@ typedef struct captured_stream {
     char *replaced_stream_ptr_str;          /**< The stream to replace the captured stream pointer address as string. For internal use only.*/
     const char *replaced_stream_file_path;  /**< The file path to the temporary file that replaces the stream. For internal use only.*/
     FILE original_stream;                   /**< The actual address of the captured stream. For internal use only.*/
+    FILE *original_stream_handle;           /**< The actual variable of the captured stream. For internal use only.*/
     FILE *replaced_stream_handle;           /**< The opened file handle that replaces the captured stream. For internal use only.*/
 } CapturedStream;
 
@@ -3666,6 +3667,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
     }
     captured_stream->line_num = line_num;
     captured_stream->original_stream = *stream;
+    captured_stream->original_stream_handle = stream;
     captured_stream->replaced_stream_handle = replaced_stream;
     captured_stream->replaced_stream_file_path = replaced_stream_file_path;
     captured_stream->function_name = superTestInstance.current_test_case->name;
@@ -3876,6 +3878,9 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
     }
     CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
         CapturedStream *captured_stream = (CapturedStream *) captured_stream_;
+        if (captured_stream == NULL) {
+            continue;
+        }
         if (cester_string_equals(captured_stream->original_stream_ptr_str, superTestInstance.output_stream_str) == 1) {
             fflush(superTestInstance.output_stream);
             *(superTestInstance.output_stream) = superTestInstance.output_stream_address;
@@ -3889,6 +3894,16 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
             cester_concat_int(&test_case->execution_output, captured_stream->line_num);
             cester_concat_str(&test_case->execution_output, "\n");
         };
+        if (cester_array_remove_at(superTestInstance.captured_streams, index) == NULL) {
+            cester_print_test_case_message("StreamCaptureCleanupWarning", "", superTestInstance.test_file_path, captured_stream->line_num);
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, "Failed to remove captured stream with pointer address '");
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->original_stream_ptr_str);
+            cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
+        } else {
+            index--;
+        }
+	cester_release_captured_stream(captured_stream->original_stream_handle, captured_stream, superTestInstance.test_file_path, captured_stream->line_num);
+        captured_stream = NULL;
     })
     release_forgotten_captured_streams_cleanup:
         return unreleased_stream_count;
@@ -4229,8 +4244,9 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
         cester_concat_str(&a_test_case->execution_output, ":");
         cester_concat_str(&a_test_case->execution_output, " in '");
         cester_concat_str(&a_test_case->execution_output, a_test_case->name);
+        cester_concat_str(&a_test_case->execution_output, "'");
         if (superTestInstance.verbose_level >= 2) {
-            cester_concat_str(&a_test_case->execution_output, "' => ");
+            cester_concat_str(&a_test_case->execution_output, " => ");
             switch (a_test_case->expected_result) {
                 case CESTER_RESULT_FAILURE:
                     cester_concat_str(&a_test_case->execution_output, "Expected to Fail but passed");

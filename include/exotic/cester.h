@@ -256,6 +256,7 @@ typedef struct captured_stream {
     char *function_name;                    /**< The function name (test case) where the stream was catured. For internal use only.*/
     char *original_stream_ptr_str;          /**< The captured stream pointer address as string. For internal use only.*/
     char *replaced_stream_ptr_str;          /**< The stream to replace the captured stream pointer address as string. For internal use only.*/
+    char *stream_buffer;                    /**< The stream content. This is needed so we can peoperly free allocated memory. For internal use only.*/
     const char *replaced_stream_file_path;  /**< The file path to the temporary file that replaces the stream. For internal use only.*/
     FILE original_stream;                   /**< The actual address of the captured stream. For internal use only.*/
     FILE *original_stream_handle;           /**< The actual variable of the captured stream. For internal use only.*/
@@ -682,6 +683,16 @@ SuperTestInstance superTestInstance = {
     const char* default_color = CESTER_RESET_TERMINAL;
 #endif
 
+static char *cester_copy_str(char *src, char *dest, int size)
+{
+    int index = 0;
+    while (index < size) {
+        dest[index] = src[index];
+        index++;
+    }
+    dest[index] = '\0';
+}
+
 static __CESTER_INLINE__ char *cester_extract_name(char const* const file_path) {
     unsigned i = 0, j = 0;
     char *file_name_only = (char*) malloc (sizeof (char) * 200);
@@ -735,8 +746,9 @@ static __CESTER_INLINE__ void cester_ptr_to_str(char **out, void* extra) {
 }
 
 static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char* prefix, unsigned prefix_size, char** out) {
-    unsigned i = 0;
-    *out = (char*) malloc (sizeof (char) * 200);
+    unsigned i = 0, index = 0;
+    char *remain;
+    *out = (char*) malloc (sizeof (char) * 1000);
     
     while (1) {
         if (arg[i] == '\0') {
@@ -747,7 +759,7 @@ static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char*
                 break;
             }
         }
-        if (arg[i] != prefix[i] && i < prefix_size) {
+        if (i < prefix_size && arg[i] != prefix[i]) {
             free(*out);
             return 0;
         }
@@ -756,7 +768,11 @@ static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char*
         }
         ++i;
     }
-    (*out)[i-prefix_size] = '\0';
+    i = i-prefix_size;
+    remain = (char*) malloc (i+1);
+    cester_copy_str(remain, *out, i);
+    free(*out);
+    *out = remain;
     return 1;
 }
 
@@ -3671,6 +3687,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
     captured_stream->replaced_stream_handle = replaced_stream;
     captured_stream->replaced_stream_file_path = replaced_stream_file_path;
     captured_stream->function_name = superTestInstance.current_test_case->name;
+    captured_stream->stream_buffer = NULL;
     cester_ptr_to_str(&(captured_stream->original_stream_ptr_str), stream);
     cester_ptr_to_str(&(captured_stream->replaced_stream_ptr_str), replaced_stream);
     if (cester_array_add(superTestInstance.captured_streams, captured_stream) == 0) {
@@ -3725,6 +3742,9 @@ static void cester_release_captured_stream(FILE *stream, CapturedStream *capture
             cester_concat_str(&superTestInstance.current_test_case->execution_output, "' manually delete it from your file system.\n");
         }
         *stream = captured_stream->original_stream;
+    }
+    if (captured_stream->stream_buffer != NULL) {
+        free(captured_stream->stream_buffer);
     }
     free(captured_stream);
 }
@@ -3783,7 +3803,6 @@ static char *cester_stream_content(FILE *stream, char const* const file_path, un
     size_t index;
     long length;
     char *stream_ptr_str;
-    char *buffer = 0;
 
     if (superTestInstance.captured_streams == NULL) {
         return (char *) "";
@@ -3800,12 +3819,15 @@ static char *cester_stream_content(FILE *stream, char const* const file_path, un
                         fseek(captured_stream->replaced_stream_handle, 0, SEEK_END);
                         length = ftell(captured_stream->replaced_stream_handle);
                         fseek(captured_stream->replaced_stream_handle, 0, SEEK_SET);
-                        buffer = (char *) malloc(length);
-                        if (buffer) {
-                            length = fread(buffer, 1, length, captured_stream->replaced_stream_handle);
-                            buffer[length] = '\0';
+                        if (captured_stream->stream_buffer != NULL) {
+                            free(captured_stream->stream_buffer);
                         }
-                        return buffer;
+                        captured_stream->stream_buffer = (char *) malloc(length+1);
+                        if (captured_stream->stream_buffer) {
+                            length = fread(captured_stream->stream_buffer, 1, length, captured_stream->replaced_stream_handle);
+                            captured_stream->stream_buffer[length] = '\0';
+                        }
+                        return captured_stream->stream_buffer;
                     }
                     return (char *) "";
                 }

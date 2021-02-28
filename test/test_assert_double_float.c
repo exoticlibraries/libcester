@@ -1,12 +1,23 @@
 /*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #include <exotic/cester.h>
+#include <stdint.h>
+
+#if UINTPTR_MAX == 0xffffffff
+    #define UNIT_TEST_LONG_DOUBLE double
+    #define UNIT_TEST_ASSERT_LONG_DOUBLE(type) cester_assert_double_##type
+    #define UNIT_TEST_CMP_LONG_DOUBLE cester_assert_cmp_double
+#elif UINTPTR_MAX == 0xffffffffffffffff
+    #define UNIT_TEST_LONG_DOUBLE long double
+    #define UNIT_TEST_ASSERT_LONG_DOUBLE(type) cester_assert_ldouble_##type
+    #define UNIT_TEST_CMP_LONG_DOUBLE cester_assert_cmp_ldouble
+#endif
 
 CESTER_BODY(
 typedef struct param_arg {
     float f;
     double d;
-    long double ld;
+    UNIT_TEST_LONG_DOUBLE ld;
 } Param;
 )
 
@@ -14,7 +25,7 @@ CESTER_BEFORE_ALL(test_instance,
     Param* param = (Param*) malloc(sizeof(Param));
     param->f = 121.898000f;
     param->d = 121.898000;
-    param->ld = 12453564564641.898002340;
+    param->ld = 12453541.8982340;
     test_instance->arg = param;
 )
 
@@ -59,23 +70,23 @@ CESTER_TEST(test_double_assertion_literal, test_instance,
 )
 
 CESTER_TEST(test_assert_cmp_long_double, test_instance, 
-    cester_assert_cmp_ldouble(1.12, ==, 1.12, "%e %s %e");
-    cester_assert_cmp_ldouble(2.13, !=, 2.131, "%e %s %e");
+    UNIT_TEST_CMP_LONG_DOUBLE(1.12, ==, 1.12, "%e %s %e");
+    UNIT_TEST_CMP_LONG_DOUBLE(2.13, !=, 2.131, "%e %s %e");
 )
 
 CESTER_TEST(test_long_double_assertion, test_instance, 
-    cester_assert_cmp_ldouble(133.545348, <, 3452.12353, "%e %s %e");
-    cester_assert_cmp_ldouble(343541.35312, >, 343351.345411, "%e %s %e");
+    UNIT_TEST_CMP_LONG_DOUBLE(133.545348, <, 3452.12353, "%e %s %e");
+    UNIT_TEST_CMP_LONG_DOUBLE(343541.35312, >, 343351.345411, "%e %s %e");
 )
 
 CESTER_TEST(test_long_double_assertion_literal, test_instance, 
-    long double number = ((Param*)test_instance->arg)->ld;
-    cester_assert_ldouble_eq(12453564564641.898002340, number);
-    cester_assert_ldouble_ne(3234340.7424676, number);
-    cester_assert_ldouble_gt(number, 1434320.334231);
-    cester_assert_ldouble_ge(number, 1223431.01133);
-    cester_assert_ldouble_lt(92340.2324324, number);
-    cester_assert_ldouble_le(number, number);
+    UNIT_TEST_LONG_DOUBLE number = ((Param*)test_instance->arg)->ld;
+    UNIT_TEST_ASSERT_LONG_DOUBLE(eq)(12453541.8982340, number);
+    UNIT_TEST_ASSERT_LONG_DOUBLE(ne)(3234340.7424676, number);
+    UNIT_TEST_ASSERT_LONG_DOUBLE(gt)(number, 1434320.334231);
+    UNIT_TEST_ASSERT_LONG_DOUBLE(ge)(number, 1223431.01133);
+    UNIT_TEST_ASSERT_LONG_DOUBLE(lt)(92340.2324324, number);
+    UNIT_TEST_ASSERT_LONG_DOUBLE(le)(number, number);
 )
 
 CESTER_AFTER_ALL(test_instance,

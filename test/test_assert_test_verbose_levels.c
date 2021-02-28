@@ -3,7 +3,7 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_equal, test_instance,
-    cester_assert_ptr_equal(NULL, ((void*)0));
+    cester_assert_ptr_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(test_assert_equal_one, test_instance,
@@ -18,7 +18,7 @@ CESTER_TEST(test_assert_equal_two, test_instance,
 )
 
 CESTER_TEST(test_assert_not_equal, test_instance, 
-    cester_assert_not_equal(NULL, "NotEqual");
+    cester_assert_not_equal(CESTER_NULL, "NotEqual");
     cester_assert_true(1);
 )
 

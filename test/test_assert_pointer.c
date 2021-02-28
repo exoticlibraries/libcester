@@ -6,7 +6,7 @@ CESTER_TEST(test_pointer_address, test_instance,
     char* addr1;
     char* null_addr;
     cester_ptr_to_str(&addr1, test_instance);
-    cester_ptr_to_str(&null_addr, NULL);
+    cester_ptr_to_str(&null_addr, CESTER_NULL);
     
     cester_assert_str_equal(addr1, addr1);
     cester_assert_str_not_equal(null_addr, addr1);

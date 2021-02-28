@@ -7,11 +7,11 @@ CESTER_TEST(this_should_segfault, test_instance,
 )
 
 CESTER_TEST(this_should_fail, test_instance,
-   cester_assert_not_equal(NULL, ((void*)0));
+   cester_assert_not_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(this_should_pass, test_instance,
-   cester_assert_equal(NULL, ((void*)0));
+   cester_assert_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(this_should_segfault_also_fail, test_instance,

@@ -3,7 +3,7 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_null, test_instance, 
-    cester_assert_null(NULL);
+    cester_assert_null(CESTER_NULL);
 )
 
 CESTER_TEST(test_assert_false, test_instance, 

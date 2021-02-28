@@ -1,16 +1,22 @@
-/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!gcc -m32 {0} -I. -I../include/ -o out.exe; ./out.exe --cester-verbose */
 
 #include <exotic/cester.h>
 #include <stdint.h>
 
+#ifndef __CESTER_STDC_VERSION__
+    #define UNIT_TEST_LONG_DOUBLE double
+    #define UNIT_TEST_ASSERT_LONG_DOUBLE(type) cester_assert_double_##type
+    #define UNIT_TEST_CMP_LONG_DOUBLE cester_assert_cmp_double
+#else
 #if UINTPTR_MAX == 0xffffffff
     #define UNIT_TEST_LONG_DOUBLE double
     #define UNIT_TEST_ASSERT_LONG_DOUBLE(type) cester_assert_double_##type
     #define UNIT_TEST_CMP_LONG_DOUBLE cester_assert_cmp_double
-#elif UINTPTR_MAX == 0xffffffffffffffff
+#else /* UINTPTR_MAX == 0xffffffffffffffff*/
     #define UNIT_TEST_LONG_DOUBLE long double
     #define UNIT_TEST_ASSERT_LONG_DOUBLE(type) cester_assert_ldouble_##type
     #define UNIT_TEST_CMP_LONG_DOUBLE cester_assert_cmp_ldouble
+#endif
 #endif
 
 CESTER_BODY(

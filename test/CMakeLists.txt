@@ -3,13 +3,26 @@ cmake_minimum_required(VERSION 3.17)
 project(libcester_tests VERSION 1.0)
 
 set(FILE_EXT "")
+set(CL_32 "echo cl")
+set(VISUAL_STUDION_BAT_CMD "")
 set(INCLUDE_PATHS -I${PWD}/../../include/ -I${PWD}/../include/ -I../../include/ -I../include/)
+set(CL_INCLUDE_PATHS /I${PWD}/../../include/ /I${PWD}/../include/ /I../../include/ /I../include/)
 include_directories(${PWD}/../../include/ ${PWD}/../include/ ../../include/ ../include/)
 add_executable(cester_test ./empty_c_file.c)
+add_executable(vs_cester_test ./empty_c_file.c)
 set_target_properties(cester_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY ./build/ )
+set_target_properties(vs_cester_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY ./build/ )
 
 IF (WIN32)
     set(FILE_EXT ".exe")
+    file(GLOB visual_studio_bats "C:/Program Files (x86)/Microsoft Visual Studio/*/BuildTools/*/Tools/VsDevCmd.bat")
+    foreach(vs_filepath ${visual_studio_bats})
+        message(STATUS "PATH VS: " ${vs_filepath}  )
+        set(VISUAL_STUDION_BAT_CMD call ${vs_filepath})
+        set(CL_32 "cl")
+        break()
+    endforeach()
+    
 ENDIF()
 
 # build and run the tests
@@ -23,9 +36,13 @@ foreach(filepath ${files})
     set(mock_arg "")
     set(echo_var "")
     set(address_sanitizer "")
+    set(clang_m32 "-m32")
     if(UNIX)
         set(address_sanitizer "-fsanitize=address")
     endif (UNIX)
+    if(WIN32)
+        set(clang_m32 "")
+    endif (WIN32)
     if("${filenameonly}" MATCHES "mock")
         set(mock_arg "-Wl,--wrap=multiply_by" "-Wl,--wrap=power_of")
         set(echo_var "echo")
@@ -37,24 +54,31 @@ foreach(filepath ${files})
     add_custom_target(${filenameonly}__
         
         COMMAND echo -------------------------------------------
-        COMMAND echo Compiling ${filenameonly} 
+        COMMAND echo Compiling ${filenameonly}
         COMMAND echo -------------------------------------------
         
         # clang 
-        COMMAND ${echo_var} clang -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang${FILE_EXT}
-        COMMAND ${echo_var} clang -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi${FILE_EXT}
-        COMMAND ${echo_var} clang++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp${FILE_EXT}
-        COMMAND ${echo_var} clang -m32 -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_32${FILE_EXT}
-        COMMAND ${echo_var} clang -m32 -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi_32${FILE_EXT}
-        COMMAND ${echo_var} clang++ -m32 -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} clang -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang${FILE_EXT}
+        #COMMAND ${echo_var} clang -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi${FILE_EXT}
+        #COMMAND ${echo_var} clang++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp${FILE_EXT}
+        #COMMAND ${echo_var} clang++ -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
+        #COMMAND ${echo_var} clang ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_32${FILE_EXT}
+        #COMMAND ${echo_var} clang ${clang_m32} -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi_32${FILE_EXT}
+        #COMMAND ${echo_var} clang++ ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} clang++ -ansi -pedantic-errors ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT}
     
         # gcc
-        COMMAND gcc -I. ${address_sanitizer} ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
-        COMMAND gcc -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
-        COMMAND ${echo_var} g++ ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
-        COMMAND gcc -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_32${FILE_EXT}
-        COMMAND gcc -m32 -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi_32${FILE_EXT}
-        COMMAND ${echo_var} g++ -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
+        #COMMAND gcc -I. ${address_sanitizer} ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
+        #COMMAND gcc -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi${FILE_EXT}
+        #COMMAND ${echo_var} g++ ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp${FILE_EXT}
+        #COMMAND ${echo_var} g++ -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT}
+        #COMMAND gcc -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_32${FILE_EXT}
+        #COMMAND gcc -m32 -ansi -pedantic-errors ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_ansi_32${FILE_EXT}
+        #COMMAND ${echo_var} g++ -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} g++ -ansi -pedantic-errors -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT}
+
+        # cl
+        COMMAND ${echo_var} ${VISUAL_STUDION_BAT_CMD} && ${echo_var} ${CL_32} /D__BASE_FILE__=\\\"${filepath}\\\" /I. ${CL_INCLUDE_PATHS} ${filepath} /Fe./build/${filenameonly}_cl${FILE_EXT}
     )
     
     add_custom_command(TARGET cester_test
@@ -65,20 +89,27 @@ foreach(filepath ${files})
         COMMAND echo -------------------------------------------
         
         # clang
-        COMMAND ${echo_var} ./build/${filenameonly}_clang${FILE_EXT}
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_32${FILE_EXT} --cester-output=tapV13
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_ansi_32${FILE_EXT} --cester-output=text
-        COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_32${FILE_EXT} --cester-output=tapV13
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_ansi_32${FILE_EXT} --cester-output=text
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT}
         
         # gcc
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc${FILE_EXT}
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tapV13
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_32${FILE_EXT} --cester-output=tapV13
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi_32${FILE_EXT} --cester-output=text
-        COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tap
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT} --cester-output=tapV13
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_32${FILE_EXT} --cester-output=tapV13
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_ansi_32${FILE_EXT} --cester-output=text
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT}
+
+        # cl
+        COMMAND ${echo_var} ./build/${filenameonly}_cl${FILE_EXT}
     )
     
     add_dependencies(cester_test ${filenameonly}__)

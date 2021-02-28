@@ -13,11 +13,11 @@ CESTER_BEFORE_EACH(test_instance, test_name, index,
 )
 
 CESTER_TEST(test1, test_instance,
-	cester_assert_equal(NULL, NULL);
+	cester_assert_equal(CESTER_NULL, CESTER_NULL);
 )
 
 CESTER_TEST(test2, test_instance,
-	cester_assert_not_equal(NULL, NULL);
+	cester_assert_not_equal(CESTER_NULL, CESTER_NULL);
 )
 
 CESTER_AFTER_EACH(test_instance, test_name, index,

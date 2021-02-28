@@ -24,7 +24,7 @@ CESTER_BEFORE_ALL(test_instance,
 CESTER_TEST(modify_test_instance, test_instance,
     AStruct* arg_value = ((AStruct*)test_instance->arg);
     cester_assert_equal(arg_value->index++, 20);
-    cester_assert_equal(arg_value->value, "A string");
+    cester_assert_str_equal(arg_value->value, "A string");
     arg_value->value = "Unknown";
 )
 

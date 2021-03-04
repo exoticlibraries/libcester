@@ -176,12 +176,12 @@ jmp_buf buf;
 /**
     Cester current version
 */
-#define CESTER_VERSION "0.3"
+#define CESTER_VERSION "0.4"
 
 /**
     Cester current version
 */
-#define CESTER_VERSION_NUM 0.3
+#define CESTER_VERSION_NUM 0.4
 
 /**
     Cester License
@@ -402,6 +402,7 @@ typedef struct super_test_instance {
 static __CESTER_INLINE__ unsigned cester_array_init(CesterArray**);
 static __CESTER_INLINE__ unsigned cester_array_add(CesterArray*, void*);
 static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray*, unsigned);
+static __CESTER_INLINE__ void cester_array_destroy(CesterArray*);
 
 static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned, char **);
 static __CESTER_INLINE__ void cester_str_value_after_first(char *, char, char**);
@@ -1570,6 +1571,12 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
 }
 #endif
 
+/**
+   Clean up all the super instance date and free 
+   all the allocated memories used by libcester super instance
+*/
+static void cester_cleanup_super_instance();
+
 static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], TestInstance* test_instance) {
     unsigned index_sub, ret_val;
     unsigned i, index4, index5, index6, index7;
@@ -1835,6 +1842,7 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     }
     
     CESTER_RESET_TERMINAL_ATTR();
+    cester_cleanup_super_instance();
     if (CESTER_TOTAL_FAILED_TESTS_COUNT != 0 && superTestInstance.current_execution_status == CESTER_RESULT_SUCCESS) {
         free(file_name);
         return CESTER_RESULT_FAILURE;
@@ -4696,7 +4704,7 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
         CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index2, test_case, {
             if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TEST && ((TestCase*)test_case)->execution_status == CESTER_RESULT_UNKNOWN) {
                 cester_run_test(superTestInstance.test_instance, ((TestCase*)test_case), ++test_index);
-
+                
             } else if (((TestCase*)test_case)->test_type == CESTER_NORMAL_TODO_TEST) {
                 ++superTestInstance.todo_tests_count;
 
@@ -4763,6 +4771,51 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
                 }
             }
         }
+    }
+}
+
+static void cester_cleanup_super_instance()
+{
+    unsigned index;
+    
+#ifndef CESTER_NO_MEM_TEST
+	if (superTestInstance.mem_alloc_manager != CESTER_NULL) {
+        CESTER_ARRAY_FOREACH(superTestInstance.mem_alloc_manager, index, alloc_mem, {
+            if (alloc_mem != CESTER_NULL) {
+                free(alloc_mem);
+            }
+            if (cester_array_remove_at(superTestInstance.mem_alloc_manager, index) != CESTER_NULL) {
+                index--;
+            }
+        });
+        cester_array_destroy(superTestInstance.mem_alloc_manager);
+    }
+#endif
+    if (superTestInstance.registered_test_cases != CESTER_NULL) {
+        index = 0;
+        CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
+            if (strlen(((TestCase *)test_case)->execution_output) > 0) {
+                free(((TestCase *)test_case)->execution_output);
+            }
+            free(test_case);
+            if (cester_array_remove_at(superTestInstance.registered_test_cases, index) != CESTER_NULL) {
+                index--;
+            }
+        })
+        cester_array_destroy(superTestInstance.registered_test_cases);
+    }
+    if (superTestInstance.selected_test_cases_size > 0) {
+        index = 0;
+        for (; index < superTestInstance.selected_test_cases_size; ++index) {
+            free(superTestInstance.selected_test_cases_names[index]);
+        }
+        free(superTestInstance.selected_test_cases_names);
+    }
+    if (superTestInstance.output_stream_str != CESTER_NULL) {
+        free(superTestInstance.output_stream_str);
+    }
+    if (superTestInstance.test_instance != CESTER_NULL) {
+        free(superTestInstance.test_instance);
     }
 }
 
@@ -4842,6 +4895,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                 CESTER_NOCOLOR();
                 cester_print_version();
                 free(cester_option);
+                cester_cleanup_super_instance();
                 return EXIT_SUCCESS;
 
             } else if (cester_string_equals(cester_option, (char*) "help") == 1) {
@@ -4849,6 +4903,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                 cester_print_version();
                 cester_print_help();
                 free(cester_option);
+                cester_cleanup_super_instance();
                 return EXIT_SUCCESS;
 
             } else if (cester_string_starts_with(cester_option, (char*) "test=") == 1) {
@@ -5073,6 +5128,11 @@ static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, unsign
     }
     array->size--;
     return item;
+}
+
+static __CESTER_INLINE__ void cester_array_destroy(CesterArray* array) {
+    free(array->buffer);
+    free(array);
 }
 
 /* Memory leak Detection procedures */

@@ -42,8 +42,10 @@ foreach(filepath ${files})
     set(clang_m32 "-m32")
     set(ms_cl_echo "echo")
     set(mac_comment_32 "")
+    set(skip_cpp_ansi "")
     if(UNIX)
         set(address_sanitizer "-fsanitize=address")
+        set(skip_cpp_ansi "--cester-test=")
     endif (UNIX)
     if(WIN32)
         set(clang_m32 "")
@@ -108,21 +110,21 @@ foreach(filepath ${files})
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang${FILE_EXT}
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
+        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT} ${skip_cpp_ansi}
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_32${FILE_EXT} --cester-output=tapV13
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_ansi_32${FILE_EXT} --cester-output=text
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT}
+        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT} ${skip_cpp_ansi}
         
         # gcc
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc${FILE_EXT}
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc_ansi${FILE_EXT} --cester-output=junitxml
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT} --cester-output=tapV13
+        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc_cpp_ansi${FILE_EXT} --cester-output=tapV13 ${skip_cpp_ansi}
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_32${FILE_EXT} --cester-output=tapV13
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_ansi_32${FILE_EXT} --cester-output=text
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_cpp_32${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT}
+        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT} ${skip_cpp_ansi}
 
         # cl
         COMMAND ${ms_cl_echo} ${echo_var} ./build/${filenameonly}_cl${FILE_EXT}

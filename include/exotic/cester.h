@@ -96,6 +96,7 @@ jmp_buf buf;
 #endif
 
 #ifdef _WIN32
+#define NOMINMAX 
 #include <windows.h>
 #include <direct.h>
 

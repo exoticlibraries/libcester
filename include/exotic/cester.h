@@ -326,7 +326,7 @@ typedef struct allocated_memory {
     size_t allocated_bytes;          /**< the number of allocated bytes. For internal use only.                    */
     unsigned function_name_allocated;  /**< check whether the vallue was set using malloc. For internal use only.                    */
     char* address;                   /**< the allocated pointer address. For internal use only.                    */
-    const char* function_name;       /**< the function where the memory is allocated in. For internal use only.    */
+    char* function_name;       /**< the function where the memory is allocated in. For internal use only.    */
     const char* file_name;           /**< the file name where the memory is allocated. For internal use only.      */
 } AllocatedMemory;
 

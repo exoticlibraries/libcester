@@ -45,11 +45,15 @@ extern "C" {
 #ifndef __CESTER_STDC_VERSION__
     #define __CESTER_INLINE__ 
     #define __CESTER_LONG_LONG__ long
-    #define __FUNCTION__ "<unknown>"
+    #ifdef __FUNCTION__ 
+        #define __CESTER_FUNCTION__ __FUNCTION__
+    #else
+        #define __CESTER_FUNCTION__ "<unknown>"
+    #endif
 #else 
     #define __CESTER_INLINE__ inline
     #define __CESTER_LONG_LONG__ long long
-    #define __FUNCTION__ __func__
+    #define __CESTER_FUNCTION__ __func__
 #endif
 
 #ifdef __cplusplus
@@ -5038,9 +5042,9 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
     free(pointer);
 }
 
-#define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
-#define calloc(x,y) cester_allocator( x, y, 1, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
-#define free(x) cester_free( x, __FILE__, __LINE__, __FUNCTION__)     /**< Override the default free function for mem test   */
+#define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __CESTER_FUNCTION__) /**< Override the default malloc function for mem test */
+#define calloc(x,y) cester_allocator( x, y, 1, __FILE__, __LINE__, __CESTER_FUNCTION__) /**< Override the default malloc function for mem test */
+#define free(x) cester_free( x, __FILE__, __LINE__, __CESTER_FUNCTION__)     /**< Override the default free function for mem test   */
 #endif
 
 #ifdef __cplusplus

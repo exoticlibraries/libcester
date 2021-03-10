@@ -45,12 +45,18 @@ extern "C" {
 #ifndef __CESTER_STDC_VERSION__
     #define __CESTER_INLINE__ 
     #define __CESTER_LONG_LONG__ long
-    #define __FUNCTION__ "<unknown>"
+    #define __CESTER_LONG_LONG_FORMAT__ "%ld"
+    #ifdef __FUNCTION__ 
+        #define __CESTER_FUNCTION__ __FUNCTION__
+    #else
+        #define __CESTER_FUNCTION__ "<unknown>"
+    #endif
     #define CESTER_NULL 0L
 #else 
     #define __CESTER_INLINE__ inline
     #define __CESTER_LONG_LONG__ long long
-    #define __FUNCTION__ __func__
+    #define __CESTER_LONG_LONG_FORMAT__ "%lld"
+    #define __CESTER_FUNCTION__ __func__
     #define CESTER_NULL NULL
 #endif
 
@@ -92,6 +98,7 @@ jmp_buf buf;
 #endif
 
 #ifdef _WIN32
+#define NOMINMAX 
 #include <windows.h>
 #include <direct.h>
 
@@ -315,12 +322,12 @@ typedef struct test_case {
 #ifndef CESTER_NO_MEM_TEST
 
 typedef struct allocated_memory {
-    unsigned line_num;                 /**< the line number where the memory was allocated. For internal use only.   */
-    unsigned allocated_bytes;          /**< the number of allocated bytes. For internal use only.                    */
+    unsigned line_num;               /**< the line number where the memory was allocated. For internal use only.   */
+    size_t allocated_bytes;          /**< the number of allocated bytes. For internal use only.                    */
     unsigned function_name_allocated;  /**< check whether the vallue was set using malloc. For internal use only.                    */
-    char* address;                     /**< the allocated pointer address. For internal use only.                    */
-    char* function_name;               /**< the function where the memory is allocated in. For internal use only.    */
-    const char* file_name;             /**< the file name where the memory is allocated. For internal use only.      */
+    char* address;                   /**< the allocated pointer address. For internal use only.                    */
+    const char* function_name;       /**< the function where the memory is allocated in. For internal use only.    */
+    const char* file_name;           /**< the file name where the memory is allocated. For internal use only.      */
 } AllocatedMemory;
 
 #endif
@@ -401,7 +408,7 @@ typedef struct super_test_instance {
 /* CesterArray */
 static __CESTER_INLINE__ unsigned cester_array_init(CesterArray**);
 static __CESTER_INLINE__ unsigned cester_array_add(CesterArray*, void*);
-static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray*, unsigned);
+static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray*, size_t);
 static __CESTER_INLINE__ void cester_array_destroy(CesterArray*);
 
 static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned, char **);
@@ -747,6 +754,12 @@ static __CESTER_INLINE__ void cester_concat_char(char **out, char extra) {
 static __CESTER_INLINE__ void cester_concat_int(char **out, int extra) {
     char tmp[30];
     cester_sprintf1(tmp, 30, "%d", extra);
+    cester_concat_str(out, tmp);
+}
+
+static __CESTER_INLINE__ void cester_concat_sizet(char ** out, size_t extra) {
+    char tmp[30];
+    cester_sprintf1(tmp, 30, __CESTER_LONG_LONG_FORMAT__, (__CESTER_LONG_LONG__)extra);
     cester_concat_str(out, tmp);
 }
 
@@ -1556,7 +1569,7 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
                         cester_concat_str(write_string, "' => Memory allocated in line '");
                         cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->line_num);
                         cester_concat_str(write_string, "' not freed. Leaking '");
-                        cester_concat_int(write_string, ((AllocatedMemory*)alloc_mem)->allocated_bytes);
+                        cester_concat_sizet(write_string, ((AllocatedMemory *)alloc_mem)->allocated_bytes);
                         cester_concat_str(write_string, "' Bytes ");
                     }
                     cester_concat_str(write_string, "\n");
@@ -3899,7 +3912,7 @@ static void cester_reset_stream(FILE *stream, char const* const file_path, unsig
 */
 static char *cester_stream_content(FILE *stream, char const* const file_path, unsigned const line_num) {
     size_t index;
-    long length;
+    size_t length;
     char *stream_ptr_str;
 
     if (superTestInstance.captured_streams == CESTER_NULL) {
@@ -5114,14 +5127,14 @@ static __CESTER_INLINE__ unsigned cester_array_add(CesterArray* array, void* ite
     return 1;
 }
 
-static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, unsigned index) {
+static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, size_t index) {
     void* item;
     if (index >= array->size) {
         return CESTER_NULL;
     }
     item = array->buffer[index];
     if (index != array->size - 1) {
-        unsigned block_size = (array->size - 1 - index) * sizeof(void*);
+        size_t block_size = (array->size - 1 - index) * sizeof(void*);
         memmove(&(array->buffer[index]),
                 &(array->buffer[index + 1]),
                 block_size);
@@ -5249,9 +5262,9 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
     free(pointer);
 }
 
-#define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
-#define calloc(x,y) cester_allocator( x, y, 1, __FILE__, __LINE__, __FUNCTION__) /**< Override the default malloc function for mem test */
-#define free(x) cester_free( x, __FILE__, __LINE__, __FUNCTION__)     /**< Override the default free function for mem test   */
+#define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __CESTER_FUNCTION__) /**< Override the default malloc function for mem test */
+#define calloc(x,y) cester_allocator( x, y, 1, __FILE__, __LINE__, __CESTER_FUNCTION__) /**< Override the default malloc function for mem test */
+#define free(x) cester_free( x, __FILE__, __LINE__, __CESTER_FUNCTION__)     /**< Override the default free function for mem test   */
 #endif
 
 #ifdef __cplusplus

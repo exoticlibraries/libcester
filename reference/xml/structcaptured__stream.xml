@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="255" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="255" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="262" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="262" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1ab65336b316cf25ad5bd9d0cf88443591" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="256" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="256" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="263" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="263" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1abd004f8e2ce81822eb2738484a4f2208" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="257" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="257" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="264" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="264" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1a65aa699cfcba12dd5ab64a8702c1fd1d" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="258" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="258" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="265" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="265" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1a44daa60245f0ddbe499961b9da8f6715" prot="public" static="no" mutable="no">
         <type>const char *</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="259" column="16" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="259" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="266" column="16" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="266" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1afd52bf259c9f23c7e57174dbc99cb3ef" prot="public" static="no" mutable="no">
         <type>FILE</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="260" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="260" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="267" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="267" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1afbd7d75a6a7601a1619eac2c7e9f96b6" prot="public" static="no" mutable="no">
         <type>FILE *</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="261" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="261" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="268" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="268" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcaptured__stream_1a3c32ce7ce37977e58baf590c8621529b" prot="public" static="no" mutable="no">
         <type>FILE *</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="262" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="262" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="269" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="269" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -122,7 +122,7 @@
     <detaileddescription>
 <para>The structure that manages the stream that has been captured by cester. It keeps record of the original stream and also of the stream that replaces the original, this way when a stream is to be released by cester it can simly set the original stream to it original state with no consequences and the extrac stream can be properlly freed. </para>
     </detaileddescription>
-    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="254" column="30" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="254" bodyend="263"/>
+    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="261" column="30" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="261" bodyend="270"/>
     <listofallmembers>
       <member refid="structcaptured__stream_1ab65336b316cf25ad5bd9d0cf88443591" prot="public" virt="non-virtual"><scope>captured_stream</scope><name>function_name</name></member>
       <member refid="structcaptured__stream_1a1d49f9efeee7a573d46762f7fd43970d" prot="public" virt="non-virtual"><scope>captured_stream</scope><name>line_num</name></member>

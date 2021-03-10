@@ -113,8 +113,10 @@ Macros</h2></td></tr>
 <tr class="separator:ab5b83a0b9327495ccb1df5cfb348d91c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6405ac2e364bfb49385d93f50c1ea3e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a6405ac2e364bfb49385d93f50c1ea3e9">__CESTER_LONG_LONG__</a>&#160;&#160;&#160;long</td></tr>
 <tr class="separator:a6405ac2e364bfb49385d93f50c1ea3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a828bb1dfda1afd67ca795075903d227d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>&#160;&#160;&#160;&quot;&lt;unknown&gt;&quot;</td></tr>
-<tr class="separator:a828bb1dfda1afd67ca795075903d227d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69268215f78ef16bfc64c526455009fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a69268215f78ef16bfc64c526455009fa">__CESTER_LONG_LONG_FORMAT__</a>&#160;&#160;&#160;&quot;%ld&quot;</td></tr>
+<tr class="separator:a69268215f78ef16bfc64c526455009fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a974c26d92e0c48938fe74ba16db02545"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>&#160;&#160;&#160;&quot;&lt;unknown&gt;&quot;</td></tr>
+<tr class="separator:a974c26d92e0c48938fe74ba16db02545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab84f56f39c77569225b79823a1cce112"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ab84f56f39c77569225b79823a1cce112">__CESTER_CAST_CHAR_ARRAY__</a></td></tr>
 <tr class="separator:ab84f56f39c77569225b79823a1cce112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07fa1c9bc563510fa197df308772b4b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a07fa1c9bc563510fa197df308772b4b3">EXOTICTYPES_WINDLLEXPORT</a>&#160;&#160;&#160;0</td></tr>
@@ -669,11 +671,11 @@ Macros</h2></td></tr>
 <tr class="separator:a7257b780608838322bd26fb2884ca09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e9933bcd1aa78a56314899ad9040662"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a7e9933bcd1aa78a56314899ad9040662">cester_assert_stderr_stream_content_not_contain</a>(y)&#160;&#160;&#160;<a class="el" href="cester_8h.html#aad8a6cbab6a3d0963e7eb389a65cebfc">cester_assert_false</a>(cester_string_contains(<a class="el" href="cester_8h.html#a78481b7afdba61bc41547ebb23ef38c6">CESTER_STDERR_CONTENT</a>(), y))</td></tr>
 <tr class="separator:a7e9933bcd1aa78a56314899ad9040662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5046e1cbf958143f3bf7aded35204202"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a5046e1cbf958143f3bf7aded35204202">malloc</a>(x)&#160;&#160;&#160;cester_allocator( 0, x, 0, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td></tr>
+<tr class="memitem:a5046e1cbf958143f3bf7aded35204202"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a5046e1cbf958143f3bf7aded35204202">malloc</a>(x)&#160;&#160;&#160;cester_allocator( 0, x, 0, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td></tr>
 <tr class="separator:a5046e1cbf958143f3bf7aded35204202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af06646f1b05f74c5286bc339172a54d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af06646f1b05f74c5286bc339172a54d9">calloc</a>(x,  y)&#160;&#160;&#160;cester_allocator( x, y, 1, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td></tr>
+<tr class="memitem:af06646f1b05f74c5286bc339172a54d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af06646f1b05f74c5286bc339172a54d9">calloc</a>(x,  y)&#160;&#160;&#160;cester_allocator( x, y, 1, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td></tr>
 <tr class="separator:af06646f1b05f74c5286bc339172a54d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affb9fc32698fab7f7b36e0cf8e64c83e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#affb9fc32698fab7f7b36e0cf8e64c83e">free</a>(x)&#160;&#160;&#160;cester_free( x, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td></tr>
+<tr class="memitem:affb9fc32698fab7f7b36e0cf8e64c83e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#affb9fc32698fab7f7b36e0cf8e64c83e">free</a>(x)&#160;&#160;&#160;cester_free( x, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td></tr>
 <tr class="separator:affb9fc32698fab7f7b36e0cf8e64c83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -781,6 +783,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a974c26d92e0c48938fe74ba16db02545"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a974c26d92e0c48938fe74ba16db02545">&#9670;&nbsp;</a></span>__CESTER_FUNCTION__</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __CESTER_FUNCTION__&#160;&#160;&#160;&quot;&lt;unknown&gt;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab5b83a0b9327495ccb1df5cfb348d91c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5b83a0b9327495ccb1df5cfb348d91c">&#9670;&nbsp;</a></span>__CESTER_INLINE__</h2>
 
@@ -810,14 +826,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a828bb1dfda1afd67ca795075903d227d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a828bb1dfda1afd67ca795075903d227d">&#9670;&nbsp;</a></span>__FUNCTION__</h2>
+<a id="a69268215f78ef16bfc64c526455009fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69268215f78ef16bfc64c526455009fa">&#9670;&nbsp;</a></span>__CESTER_LONG_LONG_FORMAT__</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define __FUNCTION__&#160;&#160;&#160;&quot;&lt;unknown&gt;&quot;</td>
+          <td class="memname">#define __CESTER_LONG_LONG_FORMAT__&#160;&#160;&#160;&quot;%ld&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1089,7 +1105,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;cester_allocator( x, y, 1, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td>
+          <td></td><td>&#160;&#160;&#160;cester_allocator( x, y, 1, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -8813,7 +8829,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;cester_free( x, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td>
+          <td>&#160;&#160;&#160;cester_free( x, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -8833,7 +8849,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;cester_allocator( 0, x, 0, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a828bb1dfda1afd67ca795075903d227d">__FUNCTION__</a>)</td>
+          <td>&#160;&#160;&#160;cester_allocator( 0, x, 0, __FILE__, __LINE__, <a class="el" href="cester_8h.html#a974c26d92e0c48938fe74ba16db02545">__CESTER_FUNCTION__</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9206,13 +9222,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228">CESTER_COMPARATOR_GREATER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:209</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf">CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:210</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29">CESTER_COMPARATOR_NOT_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_NOT_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:208</div></div>
-<div class="ttc" id="acester_8h_html_a43b56645cdbea2af8c809747bdabde73"><div class="ttname"><a href="cester_8h.html#a43b56645cdbea2af8c809747bdabde73">CESTER_CHANGE_STREAM</a></div><div class="ttdeci">#define CESTER_CHANGE_STREAM(x)</div><div class="ttdef"><b>Definition:</b> cester.h:476</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847">CESTER_COMPARATOR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:207</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e">CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:212</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47">CESTER_COMPARATOR_LESSER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:211</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228">CESTER_COMPARATOR_GREATER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:216</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf">CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:217</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29">CESTER_COMPARATOR_NOT_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_NOT_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:215</div></div>
+<div class="ttc" id="acester_8h_html_a43b56645cdbea2af8c809747bdabde73"><div class="ttname"><a href="cester_8h.html#a43b56645cdbea2af8c809747bdabde73">CESTER_CHANGE_STREAM</a></div><div class="ttdeci">#define CESTER_CHANGE_STREAM(x)</div><div class="ttdef"><b>Definition:</b> cester.h:483</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847">CESTER_COMPARATOR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:214</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e">CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:219</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47">CESTER_COMPARATOR_LESSER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:218</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="271" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="271" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="278" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="278" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1ae7ca9a9df9fffcbae0e183eec60c59ca" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="272" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="272" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="279" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="279" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="273" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="273" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="280" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="280" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -55,7 +55,7 @@
     <detaileddescription>
 <para>The test instance that contains the command line argument length and values, with void* pointer that can be used to share data between unit tests. </para>
     </detaileddescription>
-    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="270" column="28" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="270" bodyend="274"/>
+    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="277" column="28" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="277" bodyend="281"/>
     <listofallmembers>
       <member refid="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" virt="non-virtual"><scope>test_instance</scope><name>arg</name></member>
       <member refid="structtest__instance_1ab0cfc2d5ca1218d74a73fe412640bdad" prot="public" virt="non-virtual"><scope>test_instance</scope><name>argc</name></member>

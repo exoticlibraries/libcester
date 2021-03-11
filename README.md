@@ -24,7 +24,7 @@ ___
 - [Installation](#installation)
     - [Install](#install)
         - [Windows](#windows)
-        - [Linux](#linux)
+        - [Unix, Linux, Mac](#unix-linux-mac)
         - [Other platforms](#other-platforms)
 - [Documentation](#documentation)
 - [Usage](#usage)
@@ -51,6 +51,7 @@ ___
 - Does not produce any warnings even with strict warning options turned on.
 - Test for failures such as segfault, memory leak, premature termination e.t.c.
 - Rich collection of assertions for various type with proper reporting.
+- Modular, excluded un-used features from your test, [selective_compilation](https://exoticlibraries.github.io/libcester/docs/selective_compilation.html).
 - No extra dependencies needed, once you have the C or C++ standard library available.
 - Support test fixture to setup and tear down resources used by the test cases.
 - Detail docuentation with examples and API references.
@@ -75,7 +76,7 @@ Install the library using powershell. It auto detect your insalled C and C++ com
 & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://exoticlibraries.github.io/magic/install.ps1"))) libcester
 ```
 
-### Linux
+### Unix, Linux, Mac
 
 Use the remote installation script to install libcester with bash. If the command is executes with super user priviledge (sudo) it will be installed in the folder /usr/include else it will be installed in the folder /usr/local/include. Or you can specify where to install it using the option `--installfolder=./` 
 
@@ -103,6 +104,8 @@ Some of the documentation pages are listed below:
  - [Testing for failures](https://exoticlibraries.github.io/libcester/docs/test_for_failure.html)
  - [Testing Output Streams](https://exoticlibraries.github.io/libcester/docs/testing_stream.html)
  - [How it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html)
+
+ For some know unfixed issues see the page [known_issues](file:///C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/docs/build/html/docs/known_issues.html).
 
 ## Usage
 

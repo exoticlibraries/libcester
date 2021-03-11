@@ -98,10 +98,9 @@ jmp_buf buf;
 #endif
 
 #ifdef _WIN32
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
+#ifndef CESTER_EXCLUDE_WINDOWS_H
 #include <windows.h>
+#endif
 #include <direct.h>
 
 #define mkdir(x,y) _mkdir(x)
@@ -132,7 +131,7 @@ jmp_buf buf;
     #define EXOTIC_API
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
 
 #define CESTER_RESET_TERMINAL           15                                                /**< reset the terminal color //Nothing     */
 #define CESTER_BOLD                     15                                                /**< bold text                //Nothing     */
@@ -692,7 +691,7 @@ SuperTestInstance superTestInstance = {
 */
 #define CESTER_REPORT_FAILURE_REGARDLESS() (superTestInstance.report_success_regardless = 0); (superTestInstance.report_failure_regardless = 1)
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
     int default_color = CESTER_RESET_TERMINAL;
     HANDLE hConsole;
 #else
@@ -1002,7 +1001,7 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #define CESTER_GET_RESULT_AGGR (superTestInstance.total_failed_tests_count == 0 ? "SUCCESS" : "FAILURE")
 #define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? (CESTER_FOREGROUND_GREEN) : (CESTER_FOREGROUND_RED))
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
 #define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
 #define CESTER_DELEGATE_FPRINT_PTR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%p", y)
 #define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%d", y)
@@ -1212,7 +1211,7 @@ static __CESTER_INLINE__ void print_test_result() {
 
 static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
     char *cleaned_name = (superTestInstance.format_test_name == 1 ? cester_str_replace(test_case->name, '_', ' ') : test_case->name );
-    #ifdef _WIN32
+    #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
         unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GRAY;
     #else 
         char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GRAY;
@@ -1296,7 +1295,7 @@ static __CESTER_INLINE__ void print_test_case_outputs(TestCase* test_case) {
 
 static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* file_name, int index) {
     char *cleaned_name = (superTestInstance.format_test_name == 1 ? cester_str_replace(a_test_case->name, '_', ' ') : a_test_case->name );
-    #ifdef _WIN32
+    #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
         unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #else 
         char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
@@ -1363,7 +1362,7 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
 static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char* file_name, int index) {
     char *cleaned_name = (superTestInstance.format_test_name == 1 ? cester_str_replace(a_test_case->name, '_', ' ') : a_test_case->name );
     char *clean_file_path = (superTestInstance.verbose_level >= 4 ? superTestInstance.test_file_path : cester_extract_name(superTestInstance.test_file_path));
-    #ifdef _WIN32
+    #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
         unsigned print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
     #else 
         char* print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_YELLOW;
@@ -4451,7 +4450,7 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
 #endif
     if (superTestInstance.isolate_tests == 1 && last_status == CESTER_RESULT_UNKNOWN) {
 #ifdef __CESTER_STDC_VERSION__
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
         HANDLE stdout_pipe_read;
         HANDLE stdout_pipe_write;
         SECURITY_ATTRIBUTES sa;
@@ -4840,11 +4839,13 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
     unsigned i, j, index, index1;
     char *cester_option = CESTER_NULL;
 #ifdef _WIN32
+#ifndef CESTER_EXCLUDE_WINDOWS_H
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
 	    default_color = info.wAttributes;
 	}
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
     cester_set_captured_streams_tmp_folder(getenv("TEMP"), (char *)"C:/libcester_tmp/");
 #else
     cester_set_captured_streams_tmp_folder(getenv("TMPDIR"), (char *)"/tmp/libcester_tmp/");

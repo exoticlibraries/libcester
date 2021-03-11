@@ -22,7 +22,8 @@ not be included in the test.
 The main reason for including the windows.h in libcester is just for printing the text output format with 
 color as the windows terminal by default does not recognize the ASI escape code without changing 
 the mode. So this means that on windows terminal with the old mode the raw ansi code will be written 
-into the terminal else the option is set to no color.
+into the terminal else the option is set to no color. This will also disable the execution of test 
+case in independent processes and will rely on signal for recovery from critical error on windows.
 
 The issue related to this was first reported by `MarcelInTO <https://github.com/MarcelInTO>`_ in the pr 
 `47 <https://github.com/exoticlibraries/libcester/pull/47>`_.

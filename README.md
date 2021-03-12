@@ -19,11 +19,12 @@ The test results can be outputed as various format JunitXML, Test Anything Proto
 ___
 
 ## Table of content
+- [Features](#features)
 - [Standards Compliance and Portability](#standards-compliance-and-portability)
 - [Installation](#installation)
     - [Install](#install)
         - [Windows](#windows)
-        - [Linux](#linux)
+        - [Unix, Linux, Mac](#unix-linux-mac)
         - [Other platforms](#other-platforms)
 - [Documentation](#documentation)
 - [Usage](#usage)
@@ -37,6 +38,23 @@ ___
 - [Contributing](#contributing)
 - [References](#references)
 - [License](#license)
+
+## Features
+
+- Single header only, just download cester.h and you are good to go.
+- Automatic test detection, registration and execution, just write your test and run.
+- Isolated unit testing, each test case is executed in it own process so a crashed test can be properly reported.
+- Very portable, compatiple with ANSI C and C++98 without any trade off in functionalities.
+- A test instance object to share data between multiple test case to avoid the global scope pollution.
+- Provides simple API for mocking functions with gcc compiler options.
+- Generate report in various output formats, junitxml, text, tap, tapV13.
+- Does not produce any warnings even with strict warning options turned on.
+- Test for failures such as segfault, memory leak, premature termination e.t.c.
+- Rich collection of assertions for various type with proper reporting.
+- Modular, excluded un-used features from your test, [selective_compilation](https://exoticlibraries.github.io/libcester/docs/selective_compilation.html).
+- No extra dependencies needed, once you have the C or C++ standard library available.
+- Support test fixture to setup and tear down resources used by the test cases.
+- Detail docuentation with examples and API references.
 
 ## Standards Compliance and Portability
 
@@ -58,7 +76,7 @@ Install the library using powershell. It auto detect your insalled C and C++ com
 & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://exoticlibraries.github.io/magic/install.ps1"))) libcester
 ```
 
-### Linux
+### Unix, Linux, Mac
 
 Use the remote installation script to install libcester with bash. If the command is executes with super user priviledge (sudo) it will be installed in the folder /usr/include else it will be installed in the folder /usr/local/include. Or you can specify where to install it using the option `--installfolder=./` 
 
@@ -81,9 +99,13 @@ Some of the documentation pages are listed below:
  - [Helper Macros](https://exoticlibraries.github.io/libcester/docs/macros.html)
  - [Manual Tests Registration](https://exoticlibraries.github.io/libcester/docs/manual_test_registration.html)
  - [Cester Options](https://exoticlibraries.github.io/libcester/docs/options.html)
+ - [Test Fixtures](https://exoticlibraries.github.io/libcester/docs/fixtures.html)
  - [Output Formats](https://exoticlibraries.github.io/libcester/docs/output_formats.html)
  - [Testing for failures](https://exoticlibraries.github.io/libcester/docs/test_for_failure.html)
+ - [Testing Output Streams](https://exoticlibraries.github.io/libcester/docs/testing_stream.html)
  - [How it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html)
+
+ For some know unfixed issues see the page [known_issues](file:///C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/docs/build/html/docs/known_issues.html).
 
 ## Usage
 
@@ -203,7 +225,13 @@ If no test was ran or your test cases were not detected, in most cases it becaus
 e.g. in gcc 
 
 ```bash
-gcc -D__BASE_FILE__=\"/the/path/to/yout/testfile.c\" testfile.c -I.
+gcc -D__BASE_FILE__=\"/the/path/to/your/testfile.c\" testfile.c -I.
+```
+
+Setting for Visual C compiler
+
+```powershell
+cl /D__BASE_FILE__=\"/the/path/to/your/testfile.c\" testfile.c
 ```
 
 You can also define the `__BASE_FILE__` at the beginning of your test file with the absolute 

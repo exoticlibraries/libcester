@@ -1,13 +1,13 @@
-/*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out */
+/*!clang++ -ansi -pedantic-errors {0} -I. -I../include/ -o out.exe; ./out.exe --cester-verbose */
 
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_equal, test_instance, 
-    cester_assert_equal(NULL, ((void*)0));
+    cester_assert_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(test_assert_not_equal, test_instance, 
-    cester_assert_not_equal(NULL, "NotEqual");
+    cester_assert_not_equal(CESTER_NULL, "NotEqual");
 )
 
 CESTER_OPTIONS(

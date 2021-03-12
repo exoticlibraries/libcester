@@ -6,11 +6,11 @@
 #include <exotic/cester.h>
 
 CESTER_TODO_TEST(a_test_to_implement, test_instance,
-    void *p = NULL;
+    void *p = CESTER_NULL;
 )
 
 CESTER_TODO_TEST(write_test_after_implementation, test_instance,
-    void *p = NULL;
+    void *p = CESTER_NULL;
 )
 
 #ifndef __BASE_FILE__

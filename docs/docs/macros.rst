@@ -784,6 +784,12 @@ This macro was added in `PR 14 <https://github.com/exoticlibraries/libcester/pul
 `nicolasnoble <https://github.com/nicolasnoble>`_.
 
 
+#define CESTER_EXCLUDE_WINDOWS_H
+---------------------------------
+
+Define the macro CESTER_EXCLUDE_WINDOWS_H to prevent the inclusion of the `windows.h` header file.
+Use this to get around conflicts in the windows API and your test.
+
 CESTER_CHANGE_STREAM
 ---------------------
 

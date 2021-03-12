@@ -3,15 +3,17 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(this_should_segfault, test_instance,
+   int *p = CESTER_NULL;
+   *p=0xdead;
    cester_assert_char_eq(((char*)test_instance->arg)[12], ((char*)test_instance->arg)[2109]);
 )
 
 CESTER_TEST(this_should_fail, test_instance,
-   cester_assert_not_equal(NULL, ((void*)0));
+   cester_assert_not_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(this_should_pass, test_instance,
-   cester_assert_equal(NULL, ((void*)0));
+   cester_assert_equal(CESTER_NULL, ((void*)0));
 )
 
 CESTER_TEST(this_should_segfault_also_fail, test_instance,

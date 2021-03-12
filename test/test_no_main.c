@@ -6,7 +6,7 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test1, test_instance,
-	cester_assert_equal(NULL, NULL);
+	cester_assert_equal(CESTER_NULL, CESTER_NULL);
 )
 
 #ifndef __BASE_FILE__

@@ -3,8 +3,8 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_cmp_msg, test_instance, 
-    cester_assert_cmp_msg(NULL, ==, ((void*)0), "Check if NULL is same as ((void*)0)");
-    cester_assert_cmp_msg(NULL, !=, "String", "is NULL equal to 'String'");
+    cester_assert_cmp_msg(CESTER_NULL, ==, ((void*)0), "Check if CESTER_NULL is same as ((void*)0)");
+    cester_assert_cmp_msg(CESTER_NULL, !=, "String", "is CESTER_NULL equal to 'String'");
 )
 
 CESTER_TEST(test_assert_cmp_msg_arithmetic, test_instance, 

@@ -3,8 +3,8 @@
 #include <exotic/cester.h>
 
 CESTER_TEST(test_assert_cmp, test_instance, 
-    cester_assert_cmp(NULL, ==, ((void*)0));
-    cester_assert_cmp(NULL, !=, "String");
+    cester_assert_cmp(CESTER_NULL, ==, ((void*)0));
+    cester_assert_cmp(CESTER_NULL, !=, "String");
 )
 
 CESTER_TEST(test_assert_cmp_arithmetic, test_instance, 

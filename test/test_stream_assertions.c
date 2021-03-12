@@ -70,6 +70,7 @@ CESTER_TEST(stream_assertions, inst, {
 })
 
 CESTER_OPTIONS(
+    CESTER_NO_ISOLATION();
     CESTER_VERBOSE_LEVEL(2);
     /*CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER("./build/");*/
 )

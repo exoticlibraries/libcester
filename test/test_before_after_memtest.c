@@ -29,15 +29,11 @@ CESTER_BEFORE_EACH(inst, index, test_name,
 )
 
 CESTER_TEST(test_assert_false, test_instance,
-    char *str1 = (char *) malloc(2);
-    char *str2 = (char *) malloc(2);
-    free(str1);
-    free(str2);
+    cester_assert_nothing();
 )
 
 CESTER_TEST(test_number_2, test_instance,
-    char *str1 = (char *) malloc(6);
-    free(str1);
+    cester_assert_nothing();
 )
 
 CESTER_AFTER_EACH(inst, index, test_name,

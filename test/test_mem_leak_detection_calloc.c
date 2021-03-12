@@ -16,7 +16,7 @@ CESTER_TEST(skip_mem_test, test_instance,
     AStruct* arg_value;
     CESTER_NO_MEMTEST();
     arg_value = (AStruct*) calloc(1, sizeof(AStruct));
-    cester_assert_not_equal(arg_value, NULL);
+    cester_assert_not_equal(arg_value, CESTER_NULL);
     CESTER_DO_MEMTEST();
 )
 
@@ -28,8 +28,8 @@ CESTER_TEST(free_null_leak_byte, test_instance,
     char* str4 = (char*)calloc(40, sizeof(char));
     char* str5 = (char*)calloc(12, sizeof(char));
     char* str6 = (char*)calloc(21, sizeof(char));
-    cester_assert_not_equal(str, NULL);
-    str = NULL;
+    cester_assert_not_equal(str, CESTER_NULL);
+    str = CESTER_NULL;
     free(str);
     free(str1);
     free(str2);
@@ -44,7 +44,7 @@ CESTER_TEST(leak_chars_bytes, test_instance,
     void* str2 = (char*)calloc(1, sizeof(3));
     char* str3 = (char*)calloc(65, sizeof(char));
     void* str4 = (char*)calloc(1, sizeof(12));
-    cester_assert_not_equal(str, NULL);
+    cester_assert_not_equal(str, CESTER_NULL);
     free(str2);
     free(str4);
 )

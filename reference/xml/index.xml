@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.20" xml:lang="en-US">
   <compound refid="structallocated__memory" kind="struct"><name>allocated_memory</name>
     <member refid="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" kind="variable"><name>line_num</name></member>
     <member refid="structallocated__memory_1aa06ceb32a3534dcc26b2aa5949b8e191" kind="variable"><name>allocated_bytes</name></member>
+    <member refid="structallocated__memory_1af0663e8639058cd27f27d9e5f3a8ea26" kind="variable"><name>function_name_allocated</name></member>
     <member refid="structallocated__memory_1a80de33ba5ef7d125b1774066b6492009" kind="variable"><name>address</name></member>
-    <member refid="structallocated__memory_1a39adabacc0245837f6e9d1c26cb3e953" kind="variable"><name>function_name</name></member>
+    <member refid="structallocated__memory_1a020e048c98466e894d45aa4b70c3a61e" kind="variable"><name>function_name</name></member>
     <member refid="structallocated__memory_1a0461a06bf32054523f24c0e7534cd330" kind="variable"><name>file_name</name></member>
   </compound>
   <compound refid="structcaptured__stream" kind="struct"><name>captured_stream</name>
@@ -12,7 +13,8 @@
     <member refid="structcaptured__stream_1ab65336b316cf25ad5bd9d0cf88443591" kind="variable"><name>function_name</name></member>
     <member refid="structcaptured__stream_1abd004f8e2ce81822eb2738484a4f2208" kind="variable"><name>original_stream_ptr_str</name></member>
     <member refid="structcaptured__stream_1a65aa699cfcba12dd5ab64a8702c1fd1d" kind="variable"><name>replaced_stream_ptr_str</name></member>
-    <member refid="structcaptured__stream_1a44daa60245f0ddbe499961b9da8f6715" kind="variable"><name>replaced_stream_file_path</name></member>
+    <member refid="structcaptured__stream_1a8d0a3f455c6132011c56a7416ea5ba86" kind="variable"><name>stream_buffer</name></member>
+    <member refid="structcaptured__stream_1a588c60a7607f81faf11cf38bed955dcc" kind="variable"><name>replaced_stream_file_path</name></member>
     <member refid="structcaptured__stream_1afd52bf259c9f23c7e57174dbc99cb3ef" kind="variable"><name>original_stream</name></member>
     <member refid="structcaptured__stream_1afbd7d75a6a7601a1619eac2c7e9f96b6" kind="variable"><name>original_stream_handle</name></member>
     <member refid="structcaptured__stream_1a3c32ce7ce37977e58baf590c8621529b" kind="variable"><name>replaced_stream_handle</name></member>
@@ -83,6 +85,7 @@
     <member refid="cester_8h_1a6405ac2e364bfb49385d93f50c1ea3e9" kind="define"><name>__CESTER_LONG_LONG__</name></member>
     <member refid="cester_8h_1a69268215f78ef16bfc64c526455009fa" kind="define"><name>__CESTER_LONG_LONG_FORMAT__</name></member>
     <member refid="cester_8h_1a974c26d92e0c48938fe74ba16db02545" kind="define"><name>__CESTER_FUNCTION__</name></member>
+    <member refid="cester_8h_1a23ae61166739debbfbe676fc2f9fc5fd" kind="define"><name>CESTER_NULL</name></member>
     <member refid="cester_8h_1ab84f56f39c77569225b79823a1cce112" kind="define"><name>__CESTER_CAST_CHAR_ARRAY__</name></member>
     <member refid="cester_8h_1a07fa1c9bc563510fa197df308772b4b3" kind="define"><name>EXOTICTYPES_WINDLLEXPORT</name></member>
     <member refid="cester_8h_1adb89038ec025478b6b628899e7e7146f" kind="define"><name>EXOTIC_API</name></member>
@@ -407,8 +410,10 @@
     <member refid="cester_8h_1ada020c27350cdf742781f6dc56e6df87" kind="function"><name>cester_array_init</name></member>
     <member refid="cester_8h_1a89af02d2d2b853ef2eacc264142eae59" kind="function"><name>cester_array_add</name></member>
     <member refid="cester_8h_1ac44acaa735b55e4b3bcf2cf46bcea12c" kind="function"><name>cester_array_remove_at</name></member>
+    <member refid="cester_8h_1afd1124c6eba9ae076f72093d031fae08" kind="function"><name>cester_array_destroy</name></member>
     <member refid="cester_8h_1a940cdb335ac7818c70faada9d5d66bff" kind="function"><name>cester_run_all_test</name></member>
     <member refid="cester_8h_1a2bf65d12370ce2f91870d1c6b5d928bf" kind="function"><name>cester_str_value_after_first</name></member>
+    <member refid="cester_8h_1a38767c92e16ebe8feaa73d480596d842" kind="function"><name>cester_copy_str</name></member>
     <member refid="cester_8h_1a5bed9e5f772e262547db94f402a0c358" kind="function"><name>cester_extract_name</name></member>
     <member refid="cester_8h_1a48eddac0dcab1d922af1dddb6bfd6ca3" kind="function"><name>cester_extract_name_only</name></member>
     <member refid="cester_8h_1aec0fea252e301581102bd68ff522210f" kind="function"><name>cester_concat_str</name></member>
@@ -436,6 +441,7 @@
     <member refid="cester_8h_1a23b0dbf55300af1a3dead3a70cce6e39" kind="function"><name>write_testcase_tap_v13</name></member>
     <member refid="cester_8h_1a1c18fb94068931ec24757a214975b1df" kind="function"><name>write_testcase_junitxml</name></member>
     <member refid="cester_8h_1ac4ebdd71e35f5c81821679c8ab66c92e" kind="function"><name>check_memory_allocated_for_functions</name></member>
+    <member refid="cester_8h_1a8d63550348b3e691fb09f4bbff139524" kind="function"><name>cester_cleanup_super_instance</name></member>
     <member refid="cester_8h_1abffff1119ce46a44eee27d95ef6b974f" kind="function"><name>cester_print_result</name></member>
     <member refid="cester_8h_1ad5fefdda7fe2e21023a0c22a8291120a" kind="function"><name>cester_evaluate_expression</name></member>
     <member refid="cester_8h_1ad205ac079eb12c9b6d1aa8ee6e4b8487" kind="function"><name>cester_evaluate_expect_actual</name></member>
@@ -488,9 +494,9 @@
   </compound>
   <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
   </compound>
-  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>/home/runner/work/libcester/libcester/include/exotic</name>
+  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic</name>
   </compound>
-  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/runner/work/libcester/libcester/include</name>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

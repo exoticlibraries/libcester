@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selective Modular Features &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Known Unfixed Issues" href="known_issues.html" />
+    <link rel="prev" title="Testing Output Streams" href="testing_stream.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/docs/selective_compilation.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Unfixed Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Selective Modular Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="selective-modular-features">
+<span id="index-0"></span><h1>Selective Modular Features<a class="headerlink" href="#selective-modular-features" title="Permalink to this headline">¶</a></h1>
+<p>libcester is build in a very modular manner such that most of the component can be removed and
+the main feature which is running and reporting test still take place. By excluding some features
+the generated binary will be smaller compare to when all the features are left to
+be compiled, by excluding some features libcester is guaranteed to work on various platforms even
+with very minimal resources.</p>
+<div class="section" id="do-not-include-windows-h">
+<h2>Do not Include windows.h<a class="headerlink" href="#do-not-include-windows-h" title="Permalink to this headline">¶</a></h2>
+<p>Including the <strong>windows.h</strong> header causes problem in some test, so it important to provide
+solution in such case. By defining the macro <cite>CESTER_EXCLUDE_WINDOWS_H</cite> the windows.h file will
+not be included in the test.</p>
+<p>The main reason for including the windows.h in libcester is just for printing the text output format with
+color as the windows terminal by default does not recognize the ASI escape code without changing
+the mode. So this means that on windows terminal with the old mode the raw ansi code will be written
+into the terminal else the option is set to no color. This will also disable the execution of test
+case in independent processes and will rely on signal for recovery from critical error on windows.</p>
+<p>The issue related to this was first reported by <a class="reference external" href="https://github.com/MarcelInTO">MarcelInTO</a> in the pr
+<a class="reference external" href="https://github.com/exoticlibraries/libcester/pull/47">47</a>.</p>
+</div>
+<div class="section" id="exclude-time-report">
+<h2>Exclude time report<a class="headerlink" href="#exclude-time-report" title="Permalink to this headline">¶</a></h2>
+<p>Time keeping causes problem for test which are built for execution on a platform that does not have
+a proper time keeping mechanism or does not support floating point data types, example of such platform
+is the PlayStation 1.</p>
+<p>By defining the macro <cite>CESTER_NO_TIME</cite> before including cester.h all the time keeping feature will be
+disabled, this also reduce the generated binary by 3kb on Windows 10 64 bit compiled with GCC version 10
+with one test case. This feature was introduced by <a class="reference external" href="https://github.com/nicolasnoble">nicolasnoble</a> in
+the pr <a class="reference external" href="https://github.com/exoticlibraries/libcester/pull/14">14</a>.</p>
+<p>By removing this feature all time related feature such as keeping record of how long a test case
+execution take, specifying how long a test case should run will be disabled.</p>
+</div>
+<div class="section" id="remove-recovery-with-signal-h">
+<h2>Remove recovery with signal.h<a class="headerlink" href="#remove-recovery-with-signal-h" title="Permalink to this headline">¶</a></h2>
+<p>On a platform that does not support running test case on their seperate processes, libcester rely on
+signal.h to recover from critical faulure such as segfault. But in a situation when you are sure
+any of the test case will not crash you can disable signal.h recovery by defining the macro
+<cite>CESTER_NO_SIGNAL</cite>.</p>
+<p>By disabling signal revovery method the generated binary size reduce by 1kb on Windows 10 64 bit
+compiled with GCC version 10 with one test case.</p>
+</div>
+<div class="section" id="disable-memory-test">
+<h2>Disable memory test<a class="headerlink" href="#disable-memory-test" title="Permalink to this headline">¶</a></h2>
+<p>The framework has a very minimal memory test feature that track the amount of memory allocated,
+it lifecycle and report failure for the test case if it leak any memory, try to use freed memory or
+trying to free an already freed memory.</p>
+<p>This feature is optional as it might cause issues on some platform, this can also be diabled by
+defining the macro <cite>CESTER_NO_MEM_TEST</cite> before including cester.h this reduces the generated binary
+size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one test case.</p>
+</div>
+<div class="section" id="select-reporter-to-compile">
+<h2>Select Reporter To Compile<a class="headerlink" href="#select-reporter-to-compile" title="Permalink to this headline">¶</a></h2>
+<p>WIP</p>
+<div class="section" id="exclude-junitxml-report">
+<h3>Exclude JunitXml Report<a class="headerlink" href="#exclude-junitxml-report" title="Permalink to this headline">¶</a></h3>
+<p>WIP</p>
+</div>
+<div class="section" id="exclude-text-report">
+<h3>Exclude Text Report<a class="headerlink" href="#exclude-text-report" title="Permalink to this headline">¶</a></h3>
+<p>WIP</p>
+</div>
+<div class="section" id="exclude-tap-report">
+<h3>Exclude Tap Report<a class="headerlink" href="#exclude-tap-report" title="Permalink to this headline">¶</a></h3>
+<p>WIP</p>
+</div>
+<div class="section" id="exclude-tapv13-report">
+<h3>Exclude TapV13 Report<a class="headerlink" href="#exclude-tapv13-report" title="Permalink to this headline">¶</a></h3>
+<p>WIP</p>
+</div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/selective_compilation.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="known_issues.html">Known Unfixed Issues<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="testing_stream.html"><i class="fa fa-arrow-left"></i>Testing Output Streams</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Selective Modular Features</a><ul>
+<li><a class="reference internal" href="#do-not-include-windows-h">Do not Include windows.h</a></li>
+<li><a class="reference internal" href="#exclude-time-report">Exclude time report</a></li>
+<li><a class="reference internal" href="#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
+<li><a class="reference internal" href="#disable-memory-test">Disable memory test</a></li>
+<li><a class="reference internal" href="#select-reporter-to-compile">Select Reporter To Compile</a><ul>
+<li><a class="reference internal" href="#exclude-junitxml-report">Exclude JunitXml Report</a></li>
+<li><a class="reference internal" href="#exclude-text-report">Exclude Text Report</a></li>
+<li><a class="reference internal" href="#exclude-tap-report">Exclude Tap Report</a></li>
+<li><a class="reference internal" href="#exclude-tapv13-report">Exclude TapV13 Report</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="testing_stream.html">Testing Output Streams</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="known_issues.html">Known Unfixed Issues</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/selective_compilation.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/selective_compilation.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

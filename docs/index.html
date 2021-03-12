@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Documentation &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -102,11 +101,13 @@
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Unfixed Issues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
@@ -216,6 +217,7 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-time">#define CESTER_NO_TIME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-exclude-windows-h">#define CESTER_EXCLUDE_WINDOWS_H</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-change-stream">CESTER_CHANGE_STREAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-nocolor">CESTER_NOCOLOR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-verbose-level">CESTER_VERBOSE_LEVEL</a></li>
@@ -381,6 +383,24 @@
 <li class="toctree-l2"><a class="reference internal" href="testing_stream.html#testing-stdout-stream">Testing stdout stream</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#do-not-include-windows-h">Do not Include windows.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#exclude-time-report">Exclude time report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-memory-test">Disable memory test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#select-reporter-to-compile">Select Reporter To Compile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-junitxml-report">Exclude JunitXml Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-text-report">Exclude Text Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-tap-report">Exclude Tap Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-tapv13-report">Exclude TapV13 Report</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Unfixed Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="known_issues.html#c-dynamic-deallocation">C++ Dynamic Deallocation</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -453,7 +473,7 @@
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

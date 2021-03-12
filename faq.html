@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FAQ &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/css/libcester.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/libcester.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,11 +101,13 @@
 <li class="toctree-l1"><a class="reference internal" href="docs/assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/fixtures.html">Test Fixtures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/known_issues.html">Known Unfixed Issues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/macros.html">Helper Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/manual_test_registration.html">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/mocking.html">Mocking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/selective_compilation.html">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/test_for_failure.html">Testing for failures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs/testing_stream.html">Testing Output Streams</a></li>
 </ul>
@@ -135,32 +136,32 @@ the macro in <cite>Properties -&gt; C/C++ -&gt; Preprocessor -&gt; Preprocessor 
 as <cite>__BASE_FILE__=”%(Filename)%(Extension)”</cite>.</p>
 <p>Or you can define the macro at compile time as argument to your compiler using the macro option.
 e.g. in gcc</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">-</span><span class="n">D__BASE_FILE__</span><span class="o">=</span>\<span class="s2">&quot;/the/path/to/yout/testfile.c</span><span class="se">\&quot;</span><span class="s2"> testfile.c -I.</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -D__BASE_FILE__<span class="o">=</span><span class="se">\&quot;</span>/the/path/to/yout/testfile.c<span class="se">\&quot;</span> testfile.c -I.
 </pre></div>
 </div>
 <p>You can also define the __BASE_FILE__ at the beginning of your test file with the absolute
 path to the test file. E.g for the test file test.c:</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define __BASE_FILE__ &quot;/path/to/test.c&quot;</span>
-<span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define __BASE_FILE__ &quot;/path/to/test.c&quot;</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively the test cases should be manually registered in the main method, you will have to disable cester main function by defining the macro CESTER_NO_MAIN.</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
-<span class="c1">#define CESTER_NO_MAIN</span>
+<span class="cp">#define CESTER_NO_MAIN</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_BODY</span><span class="p">(</span>
-<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
@@ -170,21 +171,21 @@ path to the test file. E.g for the test file test.c:</p>
 <div class="section" id="q-what-is-the-best-practice-for-test-detection">
 <h2>Q: What is the best practice for test detection<a class="headerlink" href="#q-what-is-the-best-practice-for-test-detection" title="Permalink to this headline">¶</a></h2>
 <p>Include the guide for __BASE_FILE__</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#ifndef __BASE_FILE__</span>
-<span class="c1">#define CESTER_NO_MAIN</span>
-<span class="c1">#endif</span>
-<span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef __BASE_FILE__</span>
+<span class="cp">#define CESTER_NO_MAIN</span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
-<span class="o">//</span><span class="n">your</span> <span class="n">test</span> <span class="n">cases</span> <span class="n">here</span>
+<span class="c1">//your test cases here</span>
 
-<span class="c1">#ifndef __BASE_FILE__</span>
+<span class="cp">#ifndef __BASE_FILE__</span>
 <span class="n">CESTER_BODY</span><span class="p">(</span>
-<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-        <span class="o">//</span> <span class="n">register</span> <span class="n">your</span> <span class="n">test</span> <span class="n">cases</span> <span class="n">here</span>
-        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// register your test cases here</span>
+        <span class="k">return</span> <span class="nf">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="p">)</span>
-<span class="c1">#endif</span>
+<span class="cp">#endif</span>
 </pre></div>
 </div>
 <p>This ensure that if the directive __BASE_FILE__ is not defined by the compiler the test case will be registered
@@ -200,58 +201,58 @@ in CESTER_BEFORE_ALL and CESTER_AFTER_ALL functions. Or add the <cite>–cester-
 tests on a single process this way all data are shared. <em>argv</em> and <em>argc</em> values of the
 test_instance is shared between each test process in isolated test only <em>arg</em> data is not shared.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Using the <cite>–cester-noisolation</cite> cester will rely on signal to recover from critical
+<p class="admonition-title">Note</p>
+<p>Using the <cite>–cester-noisolation</cite> cester will rely on signal to recover from critical
 crash.</p>
 </div>
 <p>The example below recreates the problem and provides a solution.</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
 <span class="n">CESTER_BEFORE_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s2">&quot;test_one&quot;</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s">&quot;test_one&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">;</span>
         <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_one</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_two</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;Yahoo&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s">&quot;Yahoo&quot;</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_AFTER_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
-        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;Yahoo&quot;</span><span class="p">;</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s">&quot;Yahoo&quot;</span><span class="p">;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>Compiling and running test on seperate process.</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">./</span><span class="n">crash_test</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">out</span>
-<span class="o">./</span><span class="n">out</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc ./crash_test.c -I. -o out
+./out
 
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">)</span> <span class="n">test_one</span>
-<span class="o">-</span> <span class="p">(</span><span class="mf">0.00</span><span class="p">)</span> <span class="n">test_two</span>
++ <span class="o">(</span><span class="m">0</span>.01<span class="o">)</span> test_one
+- <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_two
 
-<span class="ne">AssertionError</span> <span class="n">crash_test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span> <span class="ow">in</span> <span class="n">test</span> <span class="n">case</span> <span class="s1">&#39;test_two&#39;</span> <span class="o">=&gt;</span> <span class="n">expected</span> <span class="s2">&quot;Yahoo&quot;</span><span class="p">,</span> <span class="n">found</span> <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span>
+AssertionError crash_test.c:14: in <span class="nb">test</span> <span class="k">case</span> <span class="s1">&#39;test_two&#39;</span> <span class="o">=</span>&gt; expected <span class="s2">&quot;Yahoo&quot;</span>, found test_instance-&gt;arg
 
-<span class="n">Ran</span> <span class="mi">2</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.01</span> <span class="n">Seconds</span>
-<span class="n">Synthesis</span><span class="p">:</span> <span class="n">FAILURE</span> <span class="n">Tested</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Skipped</span><span class="p">:</span> <span class="mi">0</span>
+Ran <span class="m">2</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.01 Seconds
+Synthesis: FAILURE Tested: <span class="m">2</span> <span class="p">|</span> Passing: <span class="m">1</span> <span class="p">|</span> Failing: <span class="m">1</span> <span class="p">|</span> Skipped: <span class="m">0</span>
 </pre></div>
 </div>
 <p>The test above wil fail because for test case <strong>test_two</strong> because the test_instance-&gt;arg value
 will still be <cite>“Hello World”</cite> as the CESTER_AFTER_EACH executed for <strong>test_one</strong> will be exclusive
 to test_one process only. The solution is to applly the option <cite>–cester-noisolation</cite> to the test
 to use a single process for all the tests.</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="o">./</span><span class="n">crash_test</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">out</span>
-<span class="o">./</span><span class="n">out</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">noisolation</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc ./crash_test.c -I. -o out
+./out --cester-noisolation
 
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="p">)</span> <span class="n">test_one</span>
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="p">)</span> <span class="n">test_two</span>
++ <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_one
++ <span class="o">(</span><span class="m">0</span>.00<span class="o">)</span> test_two
 
 
-<span class="n">Ran</span> <span class="mi">2</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.00</span> <span class="n">Seconds</span>
-<span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tested</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span> <span class="o">|</span> <span class="n">Skipped</span><span class="p">:</span> <span class="mi">0</span>
+Ran <span class="m">2</span> test<span class="o">(</span>s<span class="o">)</span> in <span class="m">0</span>.00 Seconds
+Synthesis: SUCCESS Tested: <span class="m">2</span> <span class="p">|</span> Passing: <span class="m">2</span> <span class="p">|</span> Failing: <span class="m">0</span> <span class="p">|</span> Skipped: <span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -330,7 +331,7 @@ to use a single process for all the tests.</p>
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

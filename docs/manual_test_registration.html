@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manual Tests Registration &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -102,11 +101,13 @@
 <li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Unfixed Issues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Manual Tests Registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
@@ -131,14 +132,14 @@
 detected test cases will be ignored. The macro CESTER_REGISTER_TEST and it variant is used for
 test registration. The following macros are used for test registration:</p>
 <ul class="simple">
-<li><a class="reference external" href="./macros.html#cester-register-test">CESTER_REGISTER_TEST</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-skip-test">CESTER_REGISTER_SKIP_TEST</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-todo-test">CESTER_REGISTER_TODO_TEST</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-before-all">CESTER_REGISTER_BEFORE_ALL</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-before-each">CESTER_REGISTER_BEFORE_EACH</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-after-all">CESTER_REGISTER_AFTER_ALL</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-after-each">CESTER_REGISTER_AFTER_EACH</a></li>
-<li><a class="reference external" href="./macros.html#cester-register-options">CESTER_REGISTER_OPTIONS</a></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-test">CESTER_REGISTER_TEST</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-skip-test">CESTER_REGISTER_SKIP_TEST</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-todo-test">CESTER_REGISTER_TODO_TEST</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-before-all">CESTER_REGISTER_BEFORE_ALL</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-before-each">CESTER_REGISTER_BEFORE_EACH</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-after-all">CESTER_REGISTER_AFTER_ALL</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-after-each">CESTER_REGISTER_AFTER_EACH</a></p></li>
+<li><p><a class="reference external" href="./macros.html#cester-register-options">CESTER_REGISTER_OPTIONS</a></p></li>
 </ul>
 <p>The main use of manual test registration is for compiler or platform that does not have the
 __BASE_FILE__ macro defined. The test cases had to be registered in the main method before the
@@ -148,30 +149,30 @@ call to start running the test cases.</p>
 <h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
 <p>The following test manually register the test cases incase the compiler does not have the
 __BASE_FILE__ defined.</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span>
-<span class="c1">#define CESTER_NO_MAIN</span>
-<span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// test.c</span>
+<span class="cp">#define CESTER_NO_MAIN</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_BODY</span><span class="p">(</span>
-<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
-<span class="o">./</span><span class="n">test</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">minimal</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gcc test.c -I. -o test
+./test --cester-minimal
 
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span><span class="n">s</span><span class="p">)</span> <span class="n">test1</span>
++ (0.01s) test1
 
 
-<span class="n">Ran</span> <span class="mi">1</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.01</span> <span class="n">Seconds</span>
-<span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tests</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span>
+Ran 1 test(s) in 0.01 Seconds
+Synthesis: SUCCESS Tests: 1 | Passing: 1 | Failing: 0
 </pre></div>
 </div>
 </div>
@@ -179,33 +180,33 @@ __BASE_FILE__ defined.</p>
 <h2>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h2>
 <p>The setup and teardown macros also have to be manually registered also. The test below manually
 register the CESTER_BEFORE and CESTER_AFTER macros</p>
-<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span>
-<span class="c1">#define CESTER_NO_MAIN</span>
-<span class="c1">#include &lt;exotic/cester.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// test.c</span>
+<span class="cp">#define CESTER_NO_MAIN</span>
+<span class="cp">#include</span> <span class="cpf">&lt;exotic/cester.h&gt;</span><span class="cp"></span>
 
 
 <span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Before All</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before All</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_BEFORE_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Before Each </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before Each %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test1</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+        <span class="n">cester_assert_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test2</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+        <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_AFTER_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;After Each </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;After Each %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_AFTER_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;After All</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;After All</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="p">)</span>
 
 <span class="n">CESTER_OPTIONS</span><span class="p">(</span>
@@ -213,7 +214,7 @@ register the CESTER_BEFORE and CESTER_AFTER macros</p>
 <span class="p">)</span>
 
 <span class="n">CESTER_BODY</span><span class="p">(</span>
-<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">CESTER_REGISTER_BEFORE_ALL</span><span class="p">();</span>
         <span class="n">CESTER_REGISTER_OPTIONS</span><span class="p">();</span>
         <span class="n">CESTER_REGISTER_BEFORE_EACH</span><span class="p">();</span>
@@ -222,28 +223,28 @@ register the CESTER_BEFORE and CESTER_AFTER macros</p>
         <span class="n">CESTER_REGISTER_AFTER_ALL</span><span class="p">();</span>
         <span class="n">CESTER_REGISTER_AFTER_EACH</span><span class="p">();</span>
         <span class="n">CESTER_TEST_SHOULD_FAIL</span><span class="p">(</span><span class="n">test2</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
-<span class="o">./</span><span class="n">test</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">minimal</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gcc test.c -I. -o test
+./test --cester-minimal
 
-<span class="n">Before</span> <span class="n">All</span>
-<span class="n">After</span> <span class="n">All</span>
+Before All
+After All
 
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span><span class="n">s</span><span class="p">)</span> <span class="n">test1</span>
-<span class="o">+</span> <span class="p">(</span><span class="mf">0.00</span><span class="n">s</span><span class="p">)</span> <span class="n">test2</span>
++ (0.01s) test1
++ (0.00s) test2
 
-<span class="n">Before</span> <span class="n">Each</span> <span class="n">test1</span>
-<span class="n">After</span> <span class="n">Each</span> <span class="n">test1</span>
-<span class="n">Before</span> <span class="n">Each</span> <span class="n">test2</span>
-<span class="n">After</span> <span class="n">Each</span> <span class="n">test2</span>
-<span class="ne">AssertionError</span> <span class="n">test</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span> <span class="ow">in</span> <span class="s1">&#39;test2&#39;</span> <span class="o">=&gt;</span> <span class="ow">not</span> <span class="n">expecting</span> <span class="s1">&#39;NULL&#39;</span><span class="p">,</span> <span class="n">received</span> <span class="s1">&#39;NULL&#39;</span>
+Before Each test1
+After Each test1
+Before Each test2
+After Each test2
+AssertionError test.c:20: in &#39;test2&#39; =&gt; not expecting &#39;NULL&#39;, received &#39;NULL&#39;
 
-<span class="n">Ran</span> <span class="mi">2</span> <span class="n">test</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">0.01</span> <span class="n">Seconds</span>
-<span class="n">Synthesis</span><span class="p">:</span> <span class="n">SUCCESS</span> <span class="n">Tests</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Passing</span><span class="p">:</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Failing</span><span class="p">:</span> <span class="mi">0</span>
+Ran 2 test(s) in 0.01 Seconds
+Synthesis: SUCCESS Tests: 2 | Passing: 2 | Failing: 0
 </pre></div>
 </div>
 </div>
@@ -321,7 +322,7 @@ register the CESTER_BEFORE and CESTER_AFTER macros</p>
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

@@ -18,3 +18,5 @@ Documentation
    fixtures
    assertions
    testing_stream
+   selective_compilation
+   known_issues

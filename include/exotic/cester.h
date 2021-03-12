@@ -61,7 +61,7 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
     #define __CESTER_CAST_CHAR_ARRAY__ (unsigned)
 #else
     #define __CESTER_CAST_CHAR_ARRAY__ (char*)
@@ -99,6 +99,9 @@ jmp_buf buf;
 
 #ifdef _WIN32
 #ifndef CESTER_EXCLUDE_WINDOWS_H
+#ifndef NOMINMAX
+    #define NOMINMAX
+#endif
 #include <windows.h>
 #endif
 #include <direct.h>

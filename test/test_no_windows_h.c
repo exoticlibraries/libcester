@@ -1,4 +1,4 @@
-/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
+/*!g++ {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #define CESTER_EXCLUDE_WINDOWS_H
 #include <exotic/cester.h>

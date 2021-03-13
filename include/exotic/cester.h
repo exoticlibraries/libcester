@@ -952,44 +952,44 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *arg, char from,
 
 static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra) {
 
-    // if nothing to concatenate - do nothing
+    size_t extra_length;
+    size_t original_length;
+    size_t new_length;
+    char * concatted;
+
     if (!extra) {
-        return;
+        extra_length = 0;
+    }
+    else {
+        extra_length = strlen(extra);
     }
 
-    // no point doing anything if being asked to concatenate empty extra string
-    size_t extra_length = strlen(extra);
-    if (extra_length == 0) {
-        return;
-    }
-
-    // get the length of the string being appended to
-    size_t original_length = 0;
     if (*out) {
         original_length = strlen(*out);
     }
+    else {
+        original_length = 0;
+    }
 
-    // allocate the correct length
-    size_t new_length = original_length + extra_length;
-    char * concatted = (char *)malloc(sizeof(char) * new_length + 1);
+    new_length = original_length + extra_length;
+    concatted = (char *)malloc(sizeof(char) * new_length + 1);
 
-    // put the original string in the target
     if (original_length > 0) {
-        strcpy(concatted, *out);
+        strncpy(concatted, *out, original_length);
+        concatted[original_length] = 0;
     }
     else {
         concatted[0] = 0;
     }
 
-    // append the extra string
-    strcat(concatted, extra);
+    if (extra_length > 0) {
+        strncpy(concatted + original_length, extra, extra_length);
+        concatted[original_length + extra_length] = 0;
+    }
 
-    // free the originals - if the string is empty, we assume
-    // that it is a non-malloced initializer and don't free it.
     if (*out && *out[0] != 0) {
         free(*out);
     }
-    // set the value
     *out = concatted;
 }
 

@@ -951,35 +951,46 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *arg, char from,
 }
 
 static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra) {
-    size_t concatted_pos = 0, index = 0;
-    char *concatted = (char*) malloc(sizeof(char) * 80000 );
-    if (extra == CESTER_NULL) {
-        extra = (char *) "(null)";
+
+    size_t extra_length;
+    size_t original_length;
+    size_t new_length;
+    char * concatted;
+
+    if (!extra) {
+        extra_length = 0;
     }
-    while (1) {
-        if ((*out) == CESTER_NULL || (*out)[index] == '\0') {
-            break;
-        }
-        concatted[concatted_pos] = (*out)[index];
-        concatted_pos++;
-        index++;
+    else {
+        extra_length = strlen(extra);
     }
-    index = 0;
-    while (1) {
-        if (extra[index] == '\0') {
-            break;
-        }
-        concatted[concatted_pos] = extra[index];
-        concatted_pos++;
-        index++;
+
+    if (*out) {
+        original_length = strlen(*out);
     }
-    concatted[concatted_pos] = '\0';
-    if (strlen(*out) > 0) {
+    else {
+        original_length = 0;
+    }
+
+    new_length = original_length + extra_length;
+    concatted = (char *)malloc(sizeof(char) * new_length + 1);
+
+    if (original_length > 0) {
+        strncpy(concatted, *out, original_length);
+        concatted[original_length] = 0;
+    }
+    else {
+        concatted[0] = 0;
+    }
+
+    if (extra_length > 0) {
+        strncpy(concatted + original_length, extra, extra_length);
+        concatted[original_length + extra_length] = 0;
+    }
+
+    if (*out && *out[0] != 0) {
         free(*out);
     }
-    *out = (char*) malloc(concatted_pos+1);
-    cester_copy_str(&concatted, out, concatted_pos);
-    free(concatted);
+    *out = concatted;
 }
 
 static __CESTER_INLINE__ void cester_concat_ptr(char **out, void *ptr) {

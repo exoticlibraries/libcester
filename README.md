@@ -105,7 +105,7 @@ Some of the documentation pages are listed below:
  - [Testing Output Streams](https://exoticlibraries.github.io/libcester/docs/testing_stream.html)
  - [How it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html)
 
- For some know unfixed issues see the page [known_issues](file:///C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/docs/build/html/docs/known_issues.html).
+ For some know unfixed issues see the page [known_issues](https://exoticlibraries.github.io/libcester/docs/known_issues.html).
 
 ## Usage
 

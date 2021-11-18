@@ -1,7 +1,7 @@
 
 /**
     \copyright MIT License Copyright (c) 2020, Adewale Azeez 
-    \author Adewale Azeez <azeezadewale98@gmail.com>
+    \author Adewale Azeez <iamthecarisma@gmail.com>
     \date 10 April 2020
     \file cester.h
 
@@ -2004,6 +2004,11 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 #define cester_assert_str_equal(x,y) cester_evaluate_expect_actual_str(x, y, #x, #y, 1, __FILE__, __LINE__)
 
 /**
+    alias for cester_assert_str_equal
+*/
+#define cester_assert_str_eq cester_assert_str_equal
+
+/**
     Compare two strings. If the comparison passes the test case 
     is marked as failed. The advantage of this macro is that it display 
     the actual values of the two strings.
@@ -2012,6 +2017,11 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param y another string to compare with the first string
 */
 #define cester_assert_str_not_equal(x,y) cester_evaluate_expect_actual_str(x, y, #x, #y, 0, __FILE__, __LINE__)
+
+/**
+    alias for cester_assert_ptr_not_equal
+*/
+#define cester_assert_str_ne cester_assert_str_not_equal
 
 /**
     Compare two pointers. If the comparison fails the test case 
@@ -2024,6 +2034,11 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
 #define cester_assert_ptr_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, #x, #y, 1, __FILE__, __LINE__)
 
 /**
+    alias for cester_assert_ptr_equal
+*/
+#define cester_assert_ptr_eq cester_assert_ptr_equal
+
+/**
     Compare two pointers. If the comparison passes the test case 
     is marked as failed. The advantage of this macro is that it display 
     the actual values of the two pointers.
@@ -2032,6 +2047,11 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     \param y another pointer to compare with the first pointer
 */
 #define cester_assert_ptr_not_equal(x,y) cester_evaluate_expect_actual_ptr(x, y, #x, #y, 0, __FILE__, __LINE__)
+
+/**
+    alias for cester_assert_ptr_not_equal
+*/
+#define cester_assert_ptr_ne cester_assert_ptr_not_equal
 
 /* document the following, add 'compile time only' */
 #define __internal_cester_assert_cmp(w,x,y,z) (w x y, z, w, y, #x, __FILE__, __LINE__)

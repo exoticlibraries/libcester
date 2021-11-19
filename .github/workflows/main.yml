@@ -33,7 +33,7 @@ jobs:
             test_assert_double_float+
             test_assert_long_long+
           test-exclude-file-pattern-msvc: |
-            +stream+
+            stream
           compiler-options-for-tests: |
             -I../include -I./include
           compiler-options-for-tests-msvc: |

@@ -11,6 +11,11 @@ CESTER_TEST(test_string, test_instance,
     cester_assert_str_not_equal((char*)test_instance->arg, CESTER_NULL);
 )
 
+CESTER_TEST(test_string_alias, test_instance, 
+    cester_assert_str_eq((char*)test_instance->arg, "exoticlibs");
+    cester_assert_str_ne((char*)test_instance->arg, CESTER_NULL);
+)
+
 CESTER_OPTIONS(
     CESTER_NO_ISOLATION();
 )

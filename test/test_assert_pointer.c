@@ -20,3 +20,9 @@ CESTER_TEST(test_pointer, test_instance,
     cester_assert_ptr_equal(test_instance, test_instance);
     cester_assert_ptr_not_equal(test_instance->arg, test_instance);
 )
+
+CESTER_TEST(test_pointer_alias, test_instance, 
+    cester_assert_ptr_eq(test_instance, test_instance);
+    cester_assert_ptr_ne(test_instance->arg, test_instance);
+)
+

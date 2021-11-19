@@ -14,14 +14,14 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         platform: [x86, x64]
-        compiler: [gnu, clang]
+        compiler: [gnu, clang, tcc, msvc]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         
       - name: Run Regression
-        uses: exoticlibraries/exotic-action@v1.1
+        uses: exoticlibraries/exotic-action@v1.3
         with:
           download-exotic-libraries: true
           run-regression: true
@@ -32,8 +32,12 @@ jobs:
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+
+          test-exclude-file-pattern-msvc: |
+            stream
           compiler-options-for-tests: |
             -I../include -I./include
+          compiler-options-for-tests-msvc: |
+            /I../include /I./include
           regression-cli-options: |
             --cester-printversion
             
@@ -74,6 +78,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          sudo apt-get upgrade && sudo apt-get update && sudo apt-get clean 
           sudo apt-get install -y python3 python3-setuptools python3-pip python3-sphinx
           python3 -m pip install --upgrade pip
           python3 -m pip install themata m2r2

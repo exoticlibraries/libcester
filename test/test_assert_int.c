@@ -17,7 +17,7 @@ CESTER_TEST(test_int_assertion, test_instance,
     cester_assert_cmp_int(7, >, 6, "check if 7 is for sure greater than 6");
 )
 
-CESTER_TEST(test_int_assertion_literal, test_instance, 
+CESTER_SKIP_TEST(test_int_assertion_literal, test_instance, 
     int number = *((int*)test_instance->arg);
     cester_assert_int_eq(21, number);
     cester_assert_int_ne(30, number);
@@ -37,7 +37,7 @@ CESTER_TEST(test_unsigned_int_assertion, test_instance,
     cester_assert_cmp_uint(7, >, 6, "%d %s %d");
 )
 
-CESTER_TEST(test_unsigned_int_assertion_literal, test_instance, 
+CESTER_SKIP_TEST(test_unsigned_int_assertion_literal, test_instance, 
     unsigned int number = *((unsigned int*)test_instance->arg);
     cester_assert_uint_eq(21, number);
     cester_assert_uint_ne(30, number);

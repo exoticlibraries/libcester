@@ -17,7 +17,7 @@ CESTER_TEST(test_long_assertion, test_instance,
     cester_assert_cmp_long(7, >, 6, "%li %s %li");
 )
 
-CESTER_TEST(test_long_assertion_literal, test_instance, 
+CESTER_SKIP_TEST(test_long_assertion_literal, test_instance, 
     long number = *((long*)test_instance->arg);
     cester_assert_long_eq(2147483647, number);
     cester_assert_long_ne(30, number);
@@ -37,7 +37,7 @@ CESTER_TEST(test_unsigned_long_assertion, test_instance,
     cester_assert_cmp_ulong(7, >, 6, "%lu %s %lu");
 )
 
-CESTER_TEST(test_unsigned_long_assertion_literal, test_instance, 
+CESTER_SKIP_TEST(test_unsigned_long_assertion_literal, test_instance, 
     unsigned long number = *((unsigned long*)test_instance->arg);
     cester_assert_ulong_eq(2147483647, number);
     cester_assert_ulong_ne(30, number);

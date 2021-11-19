@@ -1,19 +1,20 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Helper Macros &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -139,39 +140,39 @@ command line arguments and the third is the test case body.</p>
 declare the test case function, in the second expansion it registered the test case function
 in the static array and in the final expansion the test case function is initialized.</p>
 <p>For the test case below:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    cester_assert_nothing();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>First Expansion</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static void cester_test_test_case_name(TestInstance* test_instance);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">void</span> <span class="n">cester_test_test_case_name</span><span class="p">(</span><span class="n">TestInstance</span><span class="o">*</span> <span class="n">test_instance</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Second Expansion</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static TestCase cester_test_cases[] = {
-    { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) &quot;&quot;,
-    (char*) &quot;test_case_name&quot;, (cester_test_test_case_name), NULL, NULL, CESTER_NORMAL_TEST }
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">TestCase</span> <span class="n">cester_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;test_case_name&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">cester_test_test_case_name</span><span class="p">),</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">CESTER_NORMAL_TEST</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Final Expansion</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static void cester_test_test_case_name(TestInstance* test_instance) {
-    cester_assert_nothing();
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">void</span> <span class="n">cester_test_test_case_name</span><span class="p">(</span><span class="n">TestInstance</span><span class="o">*</span> <span class="n">test_instance</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Therefore after the final expansion the source code will have transformed to this</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static void cester_test_test_case_name(TestInstance* test_instance);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">void</span> <span class="n">cester_test_test_case_name</span><span class="p">(</span><span class="n">TestInstance</span><span class="o">*</span> <span class="n">test_instance</span><span class="p">);</span>
 
-static TestCase cester_test_cases[] = {
-    { CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) &quot;&quot;,
-    (char*) #x, (cester_test_test_case_name), NULL, NULL, CESTER_NORMAL_TEST }
-}
+<span class="n">static</span> <span class="n">TestCase</span> <span class="n">cester_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="c1">#x, (cester_test_test_case_name), NULL, NULL, CESTER_NORMAL_TEST }</span>
+<span class="p">}</span>
 
-static void cester_test_test_case_name(TestInstance* test_instance) {
-    cester_assert_nothing();
-}
+<span class="n">static</span> <span class="n">void</span> <span class="n">cester_test_test_case_name</span><span class="p">(</span><span class="n">TestInstance</span><span class="o">*</span> <span class="n">test_instance</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -179,9 +180,9 @@ static void cester_test_test_case_name(TestInstance* test_instance) {
 <h2>CESTER_TODO_TEST<a class="headerlink" href="#cester-todo-test" title="Permalink to this headline">¶</a></h2>
 <p>Work the same as the CESTER_TEST macro but the test type is CESTER_NORMAL_TODO_TEST.
 Test case declared with this macro is not executed but it reported as todo test.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TODO_TEST(a_test_to_implement, test_instance,
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TODO_TEST</span><span class="p">(</span><span class="n">a_test_to_implement</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
 
-)
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>This macro is most useful for Test Driven Development (TDD). It create test cases for
@@ -191,9 +192,9 @@ ops that has not been implemented yet.</p>
 <h2>CESTER_SKIP_TEST<a class="headerlink" href="#cester-skip-test" title="Permalink to this headline">¶</a></h2>
 <p>Work the same as the CESTER_TEST macro but the test type is CESTER_NORMAL_SKIP_TEST.
 Test case declared with this macro is not executed but it reported as skipped test.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_SKIP_TEST(a_test_to_implement, test_instance,
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_SKIP_TEST</span><span class="p">(</span><span class="n">a_test_to_implement</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
 
-)
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>There are various reason to creat a test with this macro, an example is running the test
@@ -204,18 +205,18 @@ file in an environment where the resources needed by the test case is not availa
 <p>The function to setup the test resources before running the test case. It accepts the
 TestInstance object as the first parameter. The TestInstance parameter can be used to share
 data and object between the test cases.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BEFORE_ALL(test_instance,
-    test_instance-&gt;arg = &quot;beforeall&quot;;
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;beforeall&quot;</span><span class="p">;</span>
+<span class="p">)</span>
 
-CESTER_TEST(test_case, test_instance,
-    cester_assert_str_equal((char*)(test_instance-&gt;arg), &quot;beforeall&quot;);
-)
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_str_equal</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">),</span> <span class="s2">&quot;beforeall&quot;</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
+<p class="first admonition-title">Note</p>
+<p class="last">If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
 CESTER_AFTER_EACH. Your test cases will be executed on a single process to allow
 shared objects.</p>
 </div>
@@ -225,20 +226,20 @@ shared objects.</p>
 <p>Use the macro to create a function that is invoked before each test case is executed.
 It accepts the TestInstance object as the first parameter, the current test name as the
 second parameter, the test case index as the third parameter.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BEFORE_EACH(test_instance, test_name, index,
-    if (test_name == &quot;test_xml&quot;) {
-        test_instance-&gt;arg = (void*) fopen(&quot;./result.xml&quot;, &quot;r&quot;);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BEFORE_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s2">&quot;test_xml&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&quot;./result.xml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">);</span>
 
-    } else if (test_name == &quot;test_json&quot;) {
-        test_instance-&gt;arg = (void*) fopen(&quot;./result.json&quot;, &quot;r&quot;);
-    }
-)
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s2">&quot;test_json&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&quot;./result.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>This macro can be used to setup resources according to the test case.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
+<p class="first admonition-title">Note</p>
+<p class="last">If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
 CESTER_AFTER_EACH. Your test cases will be executed on a single process to allow
 shared objects.</p>
 </div>
@@ -248,17 +249,17 @@ shared objects.</p>
 <p>Use the macro to create a function that is invoked after each test case is executed.
 It accepts the TestInstance object as the first parameter, the current test name as the
 second parameter, the test case index as the third parameter.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_AFTER_EACH(test_instance, test_name, index,
-    if (test_name == &quot;test_xml&quot; || test_name == &quot;test_json&quot;) {
-        fclose((FILE*)(test_instance-&gt;arg));
-    }
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_AFTER_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">test_name</span> <span class="o">==</span> <span class="s2">&quot;test_xml&quot;</span> <span class="o">||</span> <span class="n">test_name</span> <span class="o">==</span> <span class="s2">&quot;test_json&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fclose</span><span class="p">((</span><span class="n">FILE</span><span class="o">*</span><span class="p">)(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>This macro can be used to tear down resources according to the test case.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
+<p class="first admonition-title">Note</p>
+<p class="last">If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
 CESTER_AFTER_EACH. Your test cases will be executed on a single process to allow
 shared objects.</p>
 </div>
@@ -268,14 +269,14 @@ shared objects.</p>
 <p>The function to tear down the test resources after running the test case. It accepts the
 TestInstance object as the first parameter. This macro should be used to clean up shared
 object and close opened resources.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_AFTER_ALL(test_instance,
-    free(test_instance-&gt;arg);
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_AFTER_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
+<p class="first admonition-title">Note</p>
+<p class="last">If you have any of CESTER_BEFORE_ALL, CESTER_BEFORE_EACH, CESTER_AFTER_ALL and
 CESTER_AFTER_EACH. Your test cases will be executed on a single process to allow
 shared objects.</p>
 </div>
@@ -284,11 +285,11 @@ shared objects.</p>
 <h2>CESTER_OPTIONS<a class="headerlink" href="#cester-options" title="Permalink to this headline">¶</a></h2>
 <p>This macro should be used to set the options accepted by cester. The function is executed
 before any of the setup functions and the test case.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_OPTIONS(
-    CESTER_NOCOLOR();
-    CESTER_NO_ISOLATION();
-    CESTER_OUTPUT_JUNITXML();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_NOCOLOR</span><span class="p">();</span>
+    <span class="n">CESTER_NO_ISOLATION</span><span class="p">();</span>
+    <span class="n">CESTER_OUTPUT_JUNITXML</span><span class="p">();</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -297,18 +298,18 @@ before any of the setup functions and the test case.</p>
 <p>A multiline comment macro everything in the macro is printed out at the beginning of the test.
 Comma in the content will cause issue in the macro expansion when the code is compiled with C version less than C99.
 It should not begin or end in quote, escape characters is expanded when printed out</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_COMMENT(
-    This is a multiline comment in \n
-    the source code this text is printed out \n
-    before any test cases is executed.
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_COMMENT</span><span class="p">(</span>
+    <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">multiline</span> <span class="n">comment</span> <span class="ow">in</span> \<span class="n">n</span>
+    <span class="n">the</span> <span class="n">source</span> <span class="n">code</span> <span class="n">this</span> <span class="n">text</span> <span class="ow">is</span> <span class="n">printed</span> <span class="n">out</span> \<span class="n">n</span>
+    <span class="n">before</span> <span class="nb">any</span> <span class="n">test</span> <span class="n">cases</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cester-report-success-regardless">
 <h2>CESTER_REPORT_SUCCESS_REGARDLESS<a class="headerlink" href="#cester-report-success-regardless" title="Permalink to this headline">¶</a></h2>
 <p>Always mark the test as success even if the test cases failed or an error occur while running the test.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
     <span class="n">CESTER_REPORT_SUCCESS_REGARDLESS</span><span class="p">();</span>
 <span class="p">)</span>
 </pre></div>
@@ -317,7 +318,7 @@ It should not begin or end in quote, escape characters is expanded when printed 
 <div class="section" id="cester-report-failure-regardless">
 <h2>CESTER_REPORT_FAILURE_REGARDLESS<a class="headerlink" href="#cester-report-failure-regardless" title="Permalink to this headline">¶</a></h2>
 <p>Always mark the test as failure even if the test cases passes and no error occur.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OPTIONS</span><span class="p">(</span>
     <span class="n">CESTER_REPORT_FAILURE_REGARDLESS</span><span class="p">();</span>
 <span class="p">)</span>
 </pre></div>
@@ -328,16 +329,16 @@ It should not begin or end in quote, escape characters is expanded when printed 
 <p>Manually register a test case. For a compiler that does not have the __BASE_FILE__ macro
 defined the test case won’t be registered at compile time, the test cases can be registered
 at runtime using this macro.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    cester_assert_nothing();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 
-CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_TEST(test_case_name);
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -345,16 +346,16 @@ int main(int argc, char** argv) {
 <h2>CESTER_REGISTER_SKIP_TEST<a class="headerlink" href="#cester-register-skip-test" title="Permalink to this headline">¶</a></h2>
 <p>Manually register a test case as a skip test which cases the test case not to run but it
 will be reported in result and logged under skipped tests.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_SKIP_TEST(test_case_name, test_instance,
-    cester_assert_nothing();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_SKIP_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 
-CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_SKIP_TEST(test_case_name);
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_SKIP_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -362,16 +363,16 @@ int main(int argc, char** argv) {
 <h2>CESTER_REGISTER_TODO_TEST<a class="headerlink" href="#cester-register-todo-test" title="Permalink to this headline">¶</a></h2>
 <p>Manually register a test case that is yet to be implemented so it will be skipped but it
 will be reported in result and logged under todo tests.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TODO_TEST(test_case_name, test_instance,
-    cester_assert_nothing();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TODO_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 
-CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_TODO_TEST(test_case_name);
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_TODO_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -379,17 +380,17 @@ int main(int argc, char** argv) {
 <h2>CESTER_REGISTER_BEFORE_ALL<a class="headerlink" href="#cester-register-before-all" title="Permalink to this headline">¶</a></h2>
 <p>Manually notify cester to execute the CESTER_BEFORE_ALL function before all the test
 case are run.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_BEFORE_ALL();
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_BEFORE_ALL</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The test cases registered at compile time are ignored if at least one test case
+<p class="first admonition-title">Warning</p>
+<p class="last">The test cases registered at compile time are ignored if at least one test case
 is registered at run time with this macro.</p>
 </div>
 </div>
@@ -397,17 +398,17 @@ is registered at run time with this macro.</p>
 <h2>CESTER_REGISTER_AFTER_ALL<a class="headerlink" href="#cester-register-after-all" title="Permalink to this headline">¶</a></h2>
 <p>Manually notify cester to execute the CESTER_AFTER_ALL function after all the test
 case are run.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_AFTER_ALL();
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_AFTER_ALL</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The test cases registered at compile time are ignored if at least one test case
+<p class="first admonition-title">Warning</p>
+<p class="last">The test cases registered at compile time are ignored if at least one test case
 is registered at run time with this macro.</p>
 </div>
 </div>
@@ -415,17 +416,17 @@ is registered at run time with this macro.</p>
 <h2>CESTER_REGISTER_BEFORE_EACH<a class="headerlink" href="#cester-register-before-each" title="Permalink to this headline">¶</a></h2>
 <p>Manually notify cester to execute the CESTER_BEFORE_EACH function before each of the test
 case are run.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_BEFORE_EACH();
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_BEFORE_EACH</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The test cases registered at compile time are ignored if at least one test case
+<p class="first admonition-title">Warning</p>
+<p class="last">The test cases registered at compile time are ignored if at least one test case
 is registered at run time with this macro.</p>
 </div>
 </div>
@@ -433,34 +434,34 @@ is registered at run time with this macro.</p>
 <h2>CESTER_REGISTER_AFTER_EACH<a class="headerlink" href="#cester-register-after-each" title="Permalink to this headline">¶</a></h2>
 <p>Manually notify cester to execute the CESTER_AFTER_EACH function after each of the test
 case are run.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_AFTER_EACH();
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_AFTER_EACH</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The test cases registered at compile time are ignored if at least one test case
+<p class="first admonition-title">Warning</p>
+<p class="last">The test cases registered at compile time are ignored if at least one test case
 is registered at run time with this macro.</p>
 </div>
 </div>
 <div class="section" id="cester-register-options">
 <h2>CESTER_REGISTER_OPTIONS<a class="headerlink" href="#cester-register-options" title="Permalink to this headline">¶</a></h2>
 <p>Manually notify cester to execute the CESTER_OPTIONS function before running any test cases.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BODY(
-int main(int argc, char** argv) {
-    CESTER_REGISTER_OPTIONS();
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CESTER_REGISTER_OPTIONS</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The test cases registered at compile time are ignored if at least one test case
+<p class="first admonition-title">Warning</p>
+<p class="last">The test cases registered at compile time are ignored if at least one test case
 is registered at run time with this macro.</p>
 </div>
 </div>
@@ -470,20 +471,20 @@ is registered at run time with this macro.</p>
 it accepts the expected result as the second parameter. The expected result mush be one of the
 enum types</p>
 <ul class="simple">
-<li><p>CESTER_RESULT_SUCCESS</p></li>
-<li><p>CESTER_RESULT_FAILURE</p></li>
-<li><p>CESTER_RESULT_TERMINATED</p></li>
-<li><p>CESTER_RESULT_SEGFAULT</p></li>
-<li><p>CESTER_RESULT_MEMORY_LEAK</p></li>
-<li><p>CESTER_RESULT_UNRELEASED_STREAM</p></li>
+<li>CESTER_RESULT_SUCCESS</li>
+<li>CESTER_RESULT_FAILURE</li>
+<li>CESTER_RESULT_TERMINATED</li>
+<li>CESTER_RESULT_SEGFAULT</li>
+<li>CESTER_RESULT_MEMORY_LEAK</li>
+<li>CESTER_RESULT_UNRELEASED_STREAM</li>
 </ul>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
 
-)
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD(test_case_name, CESTER_RESULT_SUCCESS);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -491,14 +492,14 @@ CESTER_OPTIONS(
 <h2>CESTER_TEST_SHOULD_SEGFAULT<a class="headerlink" href="#cester-test-should-segfault" title="Permalink to this headline">¶</a></h2>
 <p>Change the expected result of a test case to Segfault. If the test segfault then it passes.
 If it does not segfault it is marked as failed. It accept the test case name as paramater.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    int *p = NULL;
-    *p=0xdead;
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="nb">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">p</span><span class="o">=</span><span class="mh">0xdead</span><span class="p">;</span>
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_SEGFAULT(test_case_name);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_SEGFAULT</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -506,13 +507,13 @@ CESTER_OPTIONS(
 <h2>CESTER_TEST_SHOULD_FAIL<a class="headerlink" href="#cester-test-should-fail" title="Permalink to this headline">¶</a></h2>
 <p>Change the expected result of a test case to failure. If the test case passed then it marked
 as failure. If it failed then it consider as passed. It accept the test case name as paramater.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    cester_assert_not_equal(NULL, ((void*)0));
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_not_equal</span><span class="p">(</span><span class="n">NULL</span><span class="p">,</span> <span class="p">((</span><span class="n">void</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_FAIL(test_case_name);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_FAIL</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -520,15 +521,15 @@ CESTER_OPTIONS(
 <h2>CESTER_TEST_SHOULD_BE_TERMINATED<a class="headerlink" href="#cester-test-should-be-terminated" title="Permalink to this headline">¶</a></h2>
 <p>Change the expected test case result. If the test case is terminated by user or another
 program then it passes ortherwise it fails. It accept the test case name as paramater.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    while (1) {
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 
-    }
-)
+    <span class="p">}</span>
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_BE_TERMINATED(test_case_name);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_BE_TERMINATED</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -536,36 +537,36 @@ CESTER_OPTIONS(
 <h2>CESTER_TEST_SHOULD_LEAK_MEMORY<a class="headerlink" href="#cester-test-should-leak-memory" title="Permalink to this headline">¶</a></h2>
 <p>Change the expected test case result. If the test case does not leak any memory then the
 test case is marked as failure. It accept the test case name as paramater.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_case_name, test_instance,
-    char* str = (char*) malloc(sizeof(char) * 12);
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">char</span><span class="o">*</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="n">sizeof</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span><span class="p">);</span>
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_LEAK_MEMORY(test_case_name);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_LEAK_MEMORY</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
 </div>
 </div>
 <div class="section" id="cester-test-should-not-release-stream">
 <h2>CESTER_TEST_SHOULD_NOT_RELEASE_STREAM<a class="headerlink" href="#cester-test-should-not-release-stream" title="Permalink to this headline">¶</a></h2>
 <p>Change the expected test case result. If the test case does not have any unreleased stream
 or no stream was captured the test case is marked as failure. It accept the test case name as paramater.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_stream_capture, test_instance,
-    CESTER_CAPTURE_STREAM(stdout);
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">CESTER_CAPTURE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<span class="p">)</span>
 
-CESTER_OPTIONS(
-    CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(test_case_name);
-)
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+    <span class="n">CESTER_TEST_SHOULD_NOT_RELEASE_STREAM</span><span class="p">(</span><span class="n">test_case_name</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_MEM_TEST is defined</p>
 </div>
 </div>
 <div class="section" id="define-cester-no-mock">
@@ -578,21 +579,21 @@ function are defined. This is not a predefined macro it has to be defined in the
 <p>Mock a function that simply return a value. The macro accepts three parameters, the function
 identifier and parameters, the return type and the value to return when the function is
 invoked. For example mocking a function that return an integer:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int multiply_by() {
-    return 2;
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">multiply_by</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>To function above returns 2, the macro CESTER_MOCK_SIMPLE_FUNCTION can mock this function to
 return 5 instead of two:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(), int, 5)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The macro above expands to the following code</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//...
-__attribute__((weak)) int multiply_by(); int __real_multiply_by();
-//...
-int __wrap_multiply_by() { return 5; }
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//...</span>
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">multiply_by</span><span class="p">();</span> <span class="nb">int</span> <span class="n">__real_multiply_by</span><span class="p">();</span>
+<span class="o">//...</span>
+<span class="nb">int</span> <span class="n">__wrap_multiply_by</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">5</span><span class="p">;</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -602,32 +603,32 @@ int __wrap_multiply_by() { return 5; }
 value it accepts function body as the third argument. It accepts three parameters, the first is
 the function name and parameters, the second is the return type and the thrid is the function
 body. For example the function below does not return the correct power of value of an integer:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int power_of(int* num1, int num2) {
-    return *num1 * num2;
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">num1</span> <span class="o">*</span> <span class="n">num2</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We then mock the function in the snippet below to properly calculate the power of an integer:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_MOCK_FUNCTION(power_of(int* num1, int num2), int,
-    int return_val = *num1;
-    while (num2--&gt;1) {
-        return_val *= *num1;
-    }
-    return return_val;
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>The macro above expands to the following code</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//...
-__attribute__((weak)) int power_of(int* num1, int num2); int __real_power_of(int* num1, int num2);
-//...
-int __wrap_power_of(int* num1, int num2) {
-    int return_val = *num1;
-    while (num2--&gt;1) {
-        return_val *= *num1;
-    }
-    return return_val;
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//...</span>
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span> <span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="o">//...</span>
+<span class="nb">int</span> <span class="n">__wrap_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -636,11 +637,11 @@ int __wrap_power_of(int* num1, int num2) {
 <p>Use this macro to prepare a file stream to be captured by libcester, if a stream is not captured all
 assertion will fail for that stream. This simply make the stream address to point to another stream
 that is accessible and can be freely modified by cester.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(test_stream_capture, test_instance,
-    CESTER_CAPTURE_STREAM(stdout);
-    //...
-    CESTER_RELEASE_STREAM(stdout);
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_stream_capture</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">CESTER_CAPTURE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+    <span class="o">//...</span>
+    <span class="n">CESTER_RELEASE_STREAM</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>If the stream that the output is written into <strong>(stdout by default)</strong> is captured if it not released
@@ -716,34 +717,34 @@ macro <cite>CESTER_RUN_ALL_TESTS(argc, argv)</cite> with the two main function p
 Any code block not in one of the test macros should be placed in this macro. Putting
 code in the file without wraping it with CESTER_BODY will cause issues during compilation.</p>
 <p>The following code will cause compilation issues.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#include &lt;exotic/cester.h&gt;
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
 
-int an_integer = 20;
+<span class="nb">int</span> <span class="n">an_integer</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The solution is to wrap the statement in CESTER_BODY</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#include &lt;exotic/cester.h&gt;
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
 
-CESTER_BODY(
-int an_integer = 20;
-)
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">an_integer</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Another good example is defining the entry point for the test instead of relying on cester
 main function. After defining the <cite>CESTER_NO_MAIN</cite> your main function must be wrapped
 inside <em>CESTER_BODY</em> macro to avoid error.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#define CESTER_NO_MAIN
-#include &lt;exotic/cester.h&gt;
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define CESTER_NO_MAIN</span>
+<span class="c1">#include &lt;exotic/cester.h&gt;</span>
 
-CESTER_BEFORE_ALL(test_instance,
-    cester_assert_equal(1, 1);
-)
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">cester_assert_equal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">)</span>
 
-CESTER_BODY(
-int main(int argc, char **argv) {
-    return CESTER_RUN_ALL_TESTS(argc, argv);
-}
-)
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Any code written inside the <em>CESTER_BODY</em> macro will be dumb in the file global scope. This macro
@@ -777,10 +778,10 @@ Use this to get around conflicts in the windows API and your test.</p>
 <p>Change the stream where the ouput is written to, the default value is the standard output
 <cite>stdout</cite>, the macro accepts one argument which is the stream to use. The example below shows
 how to write the test result to a file ‘result.txt’:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_BEFORE_ALL(test_instance,
-    FILE* output = fopen(&quot;./result.txt&quot;, &quot;w+&quot;);
-    CESTER_CHANGE_STREAM(output);
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+    <span class="n">FILE</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&quot;./result.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">);</span>
+    <span class="n">CESTER_CHANGE_STREAM</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>The result of the test will be written into the file ‘result.txt’. The ouput stream changes
@@ -789,7 +790,7 @@ remain and the new output will be written to the new stream.</p>
 </div>
 <div class="section" id="cester-nocolor">
 <h2>CESTER_NOCOLOR<a class="headerlink" href="#cester-nocolor" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_NO_COLOR()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_NO_COLOR</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Prevent displaying the output with colors. This option can prevent writing extra bytes into
@@ -798,7 +799,7 @@ an output file in place of the color values. The option can also be set from the
 </div>
 <div class="section" id="cester-verbose-level">
 <h2>CESTER_VERBOSE_LEVEL<a class="headerlink" href="#cester-verbose-level" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_VERBOSE_LEVEL(3)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_VERBOSE_LEVEL</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Change the verbose level of the output, the higher the velue the more the information
@@ -812,7 +813,7 @@ details.</p>
 </div>
 <div class="section" id="cester-minimal">
 <h2>CESTER_MINIMAL<a class="headerlink" href="#cester-minimal" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_MINIMAL()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MINIMAL</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Print minimal info into the output stream. With this option set the expression evaluated
@@ -823,7 +824,7 @@ will not be printed in the result output. The option can also be set from the cl
 </div>
 <div class="section" id="cester-verbose">
 <h2>CESTER_VERBOSE<a class="headerlink" href="#cester-verbose" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_VERBOSE()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_VERBOSE</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Print as much info as possible into the output stream. With this option set both passed
@@ -835,7 +836,7 @@ full path of the test file.</p>
 </div>
 <div class="section" id="cester-print-version">
 <h2>CESTER_PRINT_VERSION<a class="headerlink" href="#cester-print-version" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_PRINT_VERSION()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_PRINT_VERSION</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Print cester version before running any test. The option can also be set from the cli
@@ -843,7 +844,7 @@ using <cite>–cester-printversion</cite>.</p>
 </div>
 <div class="section" id="cester-single-ouput-only">
 <h2>CESTER_SINGLE_OUPUT_ONLY<a class="headerlink" href="#cester-single-ouput-only" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_SINGLE_OUPUT_ONLY()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_SINGLE_OUPUT_ONLY</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Display test for a single test case only, skip syntesis and summary. This option can also be
@@ -851,7 +852,7 @@ set from the command line with <cite>–cester-singleoutput</cite></p>
 </div>
 <div class="section" id="cester-no-isolation">
 <h2>CESTER_NO_ISOLATION<a class="headerlink" href="#cester-no-isolation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_NO_ISOLATION()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_NO_ISOLATION</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Do not isolate the tests, run each of the test cases in a single process. The drawback is
@@ -861,7 +862,7 @@ No isolation causes a crash one crash all scenerio.</p>
 </div>
 <div class="section" id="cester-no-memtest">
 <h2>CESTER_NO_MEMTEST<a class="headerlink" href="#cester-no-memtest" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_NO_MEMTEST()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_NO_MEMTEST</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Disable memory leak detection test. This option can also be set from the command line
@@ -869,7 +870,7 @@ with <cite>–cester-nomemtest</cite></p>
 </div>
 <div class="section" id="cester-do-memtest">
 <h2>CESTER_DO_MEMTEST<a class="headerlink" href="#cester-do-memtest" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_SINGLE_OUPUT_ONLY()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_SINGLE_OUPUT_ONLY</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Enable memory allocation. The combination of CESTER_NO_MEMTEST() and  CESTER_DO_MEMTEST()
@@ -881,7 +882,7 @@ test case will ensure memory allocation will be validated in all the other test 
 </div>
 <div class="section" id="cester-output-text">
 <h2>CESTER_OUTPUT_TEXT<a class="headerlink" href="#cester-output-text" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_OUTPUT_TEXT()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OUTPUT_TEXT</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Change the output format to text. This option can also be set from the command line
@@ -889,7 +890,7 @@ with <cite>–cester-format=text</cite></p>
 </div>
 <div class="section" id="cester-output-junitxml">
 <h2>CESTER_OUTPUT_JUNITXML<a class="headerlink" href="#cester-output-junitxml" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_OUTPUT_JUNITXML()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OUTPUT_JUNITXML</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Change the output format to junitxml. This option can also be set from the command line
@@ -897,7 +898,7 @@ with <cite>–cester-format=junitxml</cite></p>
 </div>
 <div class="section" id="cester-output-tap">
 <h2>CESTER_OUTPUT_TAP<a class="headerlink" href="#cester-output-tap" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_OUTPUT_TAP()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OUTPUT_TAP</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Change the output format to TAP (Test Anything Protocol). This option can also be set from
@@ -905,7 +906,7 @@ the command line with <cite>–cester-format=tap</cite></p>
 </div>
 <div class="section" id="cester-output-tapv13">
 <h2>CESTER_OUTPUT_TAPV13<a class="headerlink" href="#cester-output-tapv13" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_OUTPUT_TAPV13()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_OUTPUT_TAPV13</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Change the output format to TAP (Test Anything Protocol) Version 13. This option can also
@@ -913,7 +914,7 @@ be set from the command line with <cite>–cester-format=tapV13</cite></p>
 </div>
 <div class="section" id="cester-format-testname">
 <h2>CESTER_FORMAT_TESTNAME<a class="headerlink" href="#cester-format-testname" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_FORMAT_TESTNAME()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_FORMAT_TESTNAME</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Format the test case name for output. E.g the test name  <cite>modify_test_instance</cite> becomes
@@ -922,7 +923,7 @@ source.</p>
 </div>
 <div class="section" id="cester-dont-format-testname">
 <h2>CESTER_DONT_FORMAT_TESTNAME<a class="headerlink" href="#cester-dont-format-testname" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_DONT_FORMAT_TESTNAME()
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_DONT_FORMAT_TESTNAME</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Do not format the test case name, it remain the way it declared in the test source.
@@ -930,14 +931,14 @@ This option can also be set from the command line with <cite>–cester-dontforma
 </div>
 <div class="section" id="cester-total-tests-count">
 <h2>CESTER_TOTAL_TESTS_COUNT<a class="headerlink" href="#cester-total-tests-count" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Current Total Test %d&quot;, CESTER_TOTAL_TESTS_COUNT);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Current Total Test </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_TESTS_COUNT</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of test that is registered at the time.</p>
 </div>
 <div class="section" id="cester-total-test-errors-count">
 <h2>CESTER_TOTAL_TEST_ERRORS_COUNT<a class="headerlink" href="#cester-total-test-errors-count" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Total Test Error %d&quot;, CESTER_TOTAL_TEST_ERRORS_COUNT);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Total Test Error </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_TEST_ERRORS_COUNT</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of errors that occur during the test. The errors is not tied to the test
@@ -947,7 +948,7 @@ outside a test case.</p>
 </div>
 <div class="section" id="cester-total-tests-ran">
 <h2>CESTER_TOTAL_TESTS_RAN<a class="headerlink" href="#cester-total-tests-ran" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Current Total Test Ran %d&quot;, CESTER_TOTAL_TESTS_RAN);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Current Total Test Ran </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_TESTS_RAN</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of test that was executed. In cases where specific test cases is selected from the cli it value might not be equal the value of CESTER_TOTAL_TESTS_COUNT.
@@ -955,49 +956,49 @@ If specific test cases is selected, if any of the selected test cases does not e
 </div>
 <div class="section" id="cester-total-failed-tests-count">
 <h2>CESTER_TOTAL_FAILED_TESTS_COUNT<a class="headerlink" href="#cester-total-failed-tests-count" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Failed Test %d&quot;, CESTER_TOTAL_FAILED_TESTS_COUNT);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Failed Test </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_FAILED_TESTS_COUNT</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of test cases that fails from the total number of test cases at the time.</p>
 </div>
 <div class="section" id="cester-total-tests-skipped">
 <h2>CESTER_TOTAL_TESTS_SKIPPED<a class="headerlink" href="#cester-total-tests-skipped" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;Skipped %d tests\n&quot;, CESTER_TOTAL_TESTS_SKIPPED);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Skipped </span><span class="si">%d</span><span class="s2"> tests</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_TESTS_SKIPPED</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The number of test cases that was skipped at the time.</p>
 </div>
 <div class="section" id="cester-total-passed-tests-count">
 <h2>CESTER_TOTAL_PASSED_TESTS_COUNT<a class="headerlink" href="#cester-total-passed-tests-count" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;%d test are passing \n&quot;, CESTER_TOTAL_PASSED_TESTS_COUNT);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> test are passing </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_PASSED_TESTS_COUNT</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of test cases that passed from the total number of test cases at the time.</p>
 </div>
 <div class="section" id="cester-total-todo-tests">
 <h2>CESTER_TOTAL_TODO_TESTS<a class="headerlink" href="#cester-total-todo-tests" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;%d todo tests are skipped \n&quot;, CESTER_TOTAL_TODO_TESTS);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> todo tests are skipped </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_TOTAL_TODO_TESTS</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The total number of todo test case skipped at the time.</p>
 </div>
 <div class="section" id="cester-version">
 <h2>CESTER_VERSION<a class="headerlink" href="#cester-version" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;v%s&quot;, CESTER_VERSION);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;v</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_VERSION</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Current cester version</p>
 </div>
 <div class="section" id="cester-version-num">
 <h2>CESTER_VERSION_NUM<a class="headerlink" href="#cester-version-num" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;v%f&quot;, CESTER_VERSION_NUM);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;v</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_VERSION_NUM</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Current cester version in float format</p>
 </div>
 <div class="section" id="cester-license">
 <h2>CESTER_LICENSE<a class="headerlink" href="#cester-license" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>printf(&quot;%s&quot;, CESTER_LICENSE);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">CESTER_LICENSE</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>cester licence <strong>MIT License</strong></p>
@@ -1147,7 +1148,7 @@ If specific test cases is selected, if any of the selected test cases does not e
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

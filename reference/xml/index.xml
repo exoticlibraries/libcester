@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.20" xml:lang="en-US">
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
   <compound refid="structallocated__memory" kind="struct"><name>allocated_memory</name>
     <member refid="structallocated__memory_1a45b4e998fe52a8825d9e6f0c26f03b6e" kind="variable"><name>line_num</name></member>
     <member refid="structallocated__memory_1aa06ceb32a3534dcc26b2aa5949b8e191" kind="variable"><name>allocated_bytes</name></member>
@@ -173,9 +173,13 @@
     <member refid="cester_8h_1a46a752bc620dbdfbc4f5f851307b0d72" kind="define"><name>cester_assert_equal</name></member>
     <member refid="cester_8h_1a7ac762f8e6f156316ac7661a43bcb7e3" kind="define"><name>cester_assert_not_equal</name></member>
     <member refid="cester_8h_1acee182038754c26290a9296f4697df83" kind="define"><name>cester_assert_str_equal</name></member>
+    <member refid="cester_8h_1af0ca69e0beea8ada3b94388e77a3c55e" kind="define"><name>cester_assert_str_eq</name></member>
     <member refid="cester_8h_1a716d9b3574ff2d02881ea2118f312472" kind="define"><name>cester_assert_str_not_equal</name></member>
+    <member refid="cester_8h_1ad9a54a13969afd1365dfd98a24057811" kind="define"><name>cester_assert_str_ne</name></member>
     <member refid="cester_8h_1a4906d3f737b8653a5f79e3f6509433c3" kind="define"><name>cester_assert_ptr_equal</name></member>
+    <member refid="cester_8h_1ab9f1a19010d00727a99319253cb25a8b" kind="define"><name>cester_assert_ptr_eq</name></member>
     <member refid="cester_8h_1aba6f3878b6967a7764e22b9ac97f5b32" kind="define"><name>cester_assert_ptr_not_equal</name></member>
+    <member refid="cester_8h_1a25304eeb0ce93c5ad5ceac4a32dcb5e6" kind="define"><name>cester_assert_ptr_ne</name></member>
     <member refid="cester_8h_1a8b399ede50e1a5076e22eb94d6c0a4c7" kind="define"><name>__internal_cester_assert_cmp</name></member>
     <member refid="cester_8h_1a226f3f1f736c15413ea1ffd63c0f6a62" kind="define"><name>__internal_cester_assert_eq</name></member>
     <member refid="cester_8h_1aaf5de68fa3201fdd6dd999f120daba1b" kind="define"><name>__internal_cester_assert_ne</name></member>
@@ -494,9 +498,9 @@
   </compound>
   <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
   </compound>
-  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic</name>
+  <compound refid="dir_87ca12e6a78269c9869212930533a16e" kind="dir"><name>/home/runner/work/libcester/libcester/include/exotic</name>
   </compound>
-  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include</name>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/runner/work/libcester/libcester/include</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

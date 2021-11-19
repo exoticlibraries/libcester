@@ -1,19 +1,20 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>How the mocking works &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -132,41 +133,41 @@
 declares a __real_ function signature and at the last expansion stage declares and initialize
 a __weak_ wrapper function.</p>
 <p>The following example mock a function</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_MOCK_FUNCTION(power_of(int* num1, int num2), int,
-        int return_val = *num1;
-        while (num2--&gt;1) {
-                return_val *= *num1;
-        }
-        return return_val;
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>First macro expansion we have</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__attribute__((weak)) int power_of(int* num1, int num2);
-extern int __real_power_of(int* num1, int num2);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="n">extern</span> <span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In the final expansion</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int __real_power_of(int* num1, int num2) {
-        int return_val = *num1;
-        while (num2--&gt;1) {
-                return_val *= *num1;
-        }
-        return return_val;
-}
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>At the end of the macro expansion we have</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__attribute__((weak)) int power_of(int* num1, int num2);
-extern int __real_power_of(int* num1, int num2);
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">weak</span><span class="p">))</span> <span class="nb">int</span> <span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
+<span class="n">extern</span> <span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">);</span>
 
-int __real_power_of(int* num1, int num2) {
-        int return_val = *num1;
-        while (num2--&gt;1) {
-                return_val *= *num1;
-        }
-        return return_val;
-}
+<span class="nb">int</span> <span class="n">__real_power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The function <strong>power_of</strong> will then be mocked if compiled with the <cite>-Wl,–wrap=power_of</cite>
@@ -243,7 +244,7 @@ parameter.</p>
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

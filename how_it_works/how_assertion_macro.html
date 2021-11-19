@@ -1,19 +1,20 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>How the assertion macros works &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -129,24 +130,24 @@
   <div class="section" id="how-the-assertion-macros-works">
 <span id="index-0"></span><h1>How the assertion macros works<a class="headerlink" href="#how-the-assertion-macros-works" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This describe internal working of some of the APIs only</p>
+<p class="first admonition-title">Note</p>
+<p class="last">This describe internal working of some of the APIs only</p>
 </div>
 <p>The CESTER_CONCAT is used to combine various function with the same parameter signature
 enabling re-use of same code.</p>
 <p>The macro <strong>__internal_cester_assert_cmp</strong> is used to create the parameter signature for the
 compare asert functions. For the sample macro below</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__internal_cester_assert_cmp(1,==,2,&quot;Check if 1 is equal to 2&quot;)
-//expands to
-(1 == 2, &quot;Check if 1 is equal to 2&quot;, 1, 2, &quot;==&quot;, __FILE__, __LINE__)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__internal_cester_assert_cmp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">==</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The parameter signature above is then concatenated with the proper assert function e.g to
 assert if 1 equal to 2 the function <cite>cester_compare_int</cite> is concatenated with the macro
 above.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_CONCAT(cester_compare_int, __internal_cester_assert_cmp(1,==,2,&quot;Check if 1 is equal to 2&quot;))
-//expands to the function call
-cester_compare_int (1 == 2, &quot;Check if 1 is equal to 2&quot;, 1, 2, &quot;==&quot;, __FILE__, __LINE__)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_cmp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">==</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Check if 1 is equal to 2&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The combination of the __internal_cester_assert_cmp with various type assert function reduces
@@ -154,29 +155,29 @@ repeated code.</p>
 <p>The macro <cite>__internal_cester_assert_eq</cite> is used to generate the parameter signature and
 formated string for assertion. It accept the two values, the operator and the values
 format specifiers.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>__internal_cester_assert_eq(1,2,%d)
-//expands to
-(1 == 2, &quot;expected %d,%s received %d&quot;, 1, 2, &quot;&quot;, __FILE__, __LINE__)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Hence concating the parameter signature with the function name cester_compare_int result is</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_CONCAT(cester_compare_int, __internal_cester_assert_eq(1,2,%d))
-//expands to the function call
-cester_compare_int (1 == 2, &quot;expected %d,%s received %d&quot;, 1, 2, &quot;&quot;, __FILE__, __LINE__)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 
-CESTER_CONCAT(cester_compare_char, __internal_cester_assert_eq(&#39;a&#39;,&#39;a&#39;,%c))
-//expands to the function call
-cester_compare_char (&#39;a&#39; == &#39;a&#39;, &quot;expected %c,%s received %c&quot;, &#39;a&#39;, &#39;b&#39;, &quot;&quot;, __FILE__, __LINE__)
+<span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_char</span><span class="p">,</span> <span class="n">__internal_cester_assert_eq</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="o">%</span><span class="n">c</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_char</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s2">&quot;expected </span><span class="si">%c</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The macros __internal_cester_assert_ne, __internal_cester_assert_gt, __internal_cester_assert_ge,
 __internal_cester_assert_lt, and __internal_cester_assert_le works just like
 __internal_cester_assert_eq.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cester_assert_int_gt(3,4)
-//expands to
-CESTER_CONCAT(cester_compare_int, __internal_cester_assert_gt(3,4,%d))
-//expands to the function call
-cester_compare_int (3 &gt; 4, &quot;expected value to be greater than %d,%s received %d&quot;, 3, 4, &quot;&quot;, __FILE__, __LINE__)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cester_assert_int_gt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span>
+<span class="n">CESTER_CONCAT</span><span class="p">(</span><span class="n">cester_compare_int</span><span class="p">,</span> <span class="n">__internal_cester_assert_gt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">%</span><span class="n">d</span><span class="p">))</span>
+<span class="o">//</span><span class="n">expands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span>
+<span class="n">cester_compare_int</span> <span class="p">(</span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;expected value to be greater than </span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2"> received </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -249,7 +250,7 @@ cester_compare_int (3 &gt; 4, &quot;expected value to be greater than %d,%s rece
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

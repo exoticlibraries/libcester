@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
-    <compoundname>C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include</compoundname>
-    <innerdir refid="dir_87ca12e6a78269c9869212930533a16e">C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic</innerdir>
+    <compoundname>/home/runner/work/libcester/libcester/include</compoundname>
+    <innerdir refid="dir_87ca12e6a78269c9869212930533a16e">/home/runner/work/libcester/libcester/include/exotic</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/"/>
+    <location file="/home/runner/work/libcester/libcester/include/"/>
   </compounddef>
 </doxygen>

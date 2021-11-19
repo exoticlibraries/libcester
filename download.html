@@ -1,19 +1,20 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Download &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/css/libcester.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/libcester.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -135,15 +136,15 @@
 <p>Install the library using powershell. It auto detect your insalled C and C++ compilers
 include directory and install libcester into the include folder. Execute the command in
 powershell as admin to install cester for compiler like Visual C++.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span> <span class="p">$(</span><span class="no">[scriptblock]</span><span class="p">::</span><span class="n">Create</span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s2">&quot;https://exoticlibraries.github.io/magic/install.ps1&quot;</span><span class="p">)))</span> <span class="n">libcester</span>
+<div class="code powershell highlight-default notranslate"><div class="highlight"><pre><span></span>&amp; $([scriptblock]::Create((New-Object Net.WebClient).DownloadString(&quot;https://exoticlibraries.github.io/magic/install.ps1&quot;))) libcester
 </pre></div>
 </div>
 <p>If you have one of the following compilers in your system the library will be installed for each
 of them</p>
 <ul class="simple">
-<li><p>GCC</p></li>
-<li><p>Clang</p></li>
-<li><p>Visual C++</p></li>
+<li>GCC</li>
+<li>Clang</li>
+<li>Visual C++</li>
 </ul>
 <p>For other compilers the files cester.h will be downloaded into the current working directory
 and can be moved into your include path or used directly in your project.</p>
@@ -155,7 +156,7 @@ If the command is executes with super user priviledge (sudo) it will be
 installed in the folder /usr/include else it will be installed in the
 folder /usr/local/include. Or you can specify where to install it using
 the option <cite>–installfolder=./</cite></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash &lt;<span class="o">(</span>curl -s https://exoticlibraries.github.io/magic/install.sh<span class="o">)</span> libcester
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">exoticlibraries</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">magic</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span><span class="p">)</span> <span class="n">libcester</span>
 </pre></div>
 </div>
 <p>The command above also works for installing libcester on Android using the Termux application.</p>
@@ -170,15 +171,15 @@ relatively like <cite>#include “cester.h”</cite>.</p>
 </div>
 <div class="section" id="using-microsoft-vcpkg">
 <h2>Using Microsoft vcpkg<a class="headerlink" href="#using-microsoft-vcpkg" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">vcpkg</span> <span class="n">install</span> <span class="n">libcester</span>
+<div class="code powershell highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span>\<span class="n">vcpkg</span> <span class="n">install</span> <span class="n">libcester</span>
 </pre></div>
 </div>
 <p>To use the library after installation with vcpkg with your build system,
 continue with <a class="reference external" href="https://github.com/microsoft/vcpkg/blob/master/docs/index.md">vcpkg documentation</a> and
 <a class="reference external" href="https://github.com/microsoft/vcpkg/blob/master/docs/users/integration.md">integration with build systems</a></p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are compiling with a compiler with the macro __BASE_FILE__ defined always add the
+<p class="first admonition-title">Note</p>
+<p class="last">If you are compiling with a compiler with the macro __BASE_FILE__ defined always add the
 option <strong>-I.</strong> so it can detect the base file where the test case are declared.</p>
 </div>
 </div>
@@ -261,7 +262,7 @@ option <strong>-I.</strong> so it can detect the base file where the test case a
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

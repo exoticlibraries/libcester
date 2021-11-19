@@ -1,19 +1,20 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>How test registration works &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/libcester.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -132,33 +133,33 @@
 In the second iteration all the cester test cases macro are expanded to a static TestCase
 object and added to the static array <strong>cester_test_cases</strong>.</p>
 <p>The example below shows the procedure for the compile time test registration.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CESTER_TEST(do_nothing, inst,
-        cester_assert_nothing();
-)
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">do_nothing</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span>
+        <span class="n">cester_assert_nothing</span><span class="p">();</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>At the second iteration the macro above expands to</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{ CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) &quot;&quot;,
-  (char*) &quot;do_nothing&quot;, (cester_test_do_nothing), NULL, NULL, CESTER_NORMAL_TEST },
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;do_nothing&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">cester_test_do_nothing</span><span class="p">),</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">CESTER_NORMAL_TEST</span> <span class="p">},</span>
 </pre></div>
 </div>
 <p>In the source of cester.h the second include takes place inside the static array hence the
 macro above will be expanded into the array</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>// in cester.h
-static TestCase cester_test_cases[] = {
-#ifdef __BASE_FILE__
-        #include __BASE_FILE__
-#endif
-{ CESTER_RESULT_UNKNOWN, 0, CESTER_RESULT_SUCCESS, 0.000, 0.000, NULL, NULL, NULL, NULL, NULL, CESTER_TESTS_TERMINATOR }
-};
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="ow">in</span> <span class="n">cester</span><span class="o">.</span><span class="n">h</span>
+<span class="n">static</span> <span class="n">TestCase</span> <span class="n">cester_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">#ifdef __BASE_FILE__</span>
+        <span class="c1">#include __BASE_FILE__</span>
+<span class="c1">#endif</span>
+<span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">CESTER_TESTS_TERMINATOR</span> <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>Expands to</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static TestCase cester_test_cases[] = {
-{ CESTER_RESULT_UNKNOWN, __LINE__, CESTER_RESULT_SUCCESS, 0.000, 0.000, (char*) &quot;&quot;,
-   (char*) &quot;do_nothing&quot;, (cester_test_do_nothing), NULL, NULL, CESTER_NORMAL_TEST },
-{ CESTER_RESULT_UNKNOWN, 0, CESTER_RESULT_SUCCESS, 0.000, 0.000, NULL, NULL, NULL, NULL, NULL, CESTER_TESTS_TERMINATOR }
-};
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">TestCase</span> <span class="n">cester_test_cases</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;do_nothing&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">cester_test_do_nothing</span><span class="p">),</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">CESTER_NORMAL_TEST</span> <span class="p">},</span>
+<span class="p">{</span> <span class="n">CESTER_RESULT_UNKNOWN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">CESTER_RESULT_SUCCESS</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">CESTER_TESTS_TERMINATOR</span> <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>At runtime the array <strong>cester_test_cases</strong> is then iterated to get and run the test cases.</p>
@@ -232,7 +233,7 @@ static TestCase cester_test_cases[] = {
         
         <div class="doc-sphinx-info">
                     &copy; Copyright 2021, Exotic Libraries - MIT License.
-                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
                 with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
         </div>
     </div>

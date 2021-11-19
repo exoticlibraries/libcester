@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="structtest__instance" kind="struct" language="C++" prot="public">
     <compoundname>test_instance</compoundname>
     <includes refid="cester_8h" local="no">cester.h</includes>
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" line="288" column="14" bodyfile="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" bodystart="288" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="288" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="288" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1ae7ca9a9df9fffcbae0e183eec60c59ca" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" line="289" column="10" bodyfile="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" bodystart="289" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="289" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="289" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" line="290" column="10" bodyfile="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" bodystart="290" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="290" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="290" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -55,7 +55,7 @@
     <detaileddescription>
 <para>The test instance that contains the command line argument length and values, with void* pointer that can be used to share data between unit tests. </para>
     </detaileddescription>
-    <location file="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" line="287" column="1" bodyfile="C:/Users/thecarisma/Documents/OPEN_SOURCE/EXOTIC_LIBRARIES/libcester/include/exotic/cester.h" bodystart="287" bodyend="291"/>
+    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="287" column="28" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="287" bodyend="291"/>
     <listofallmembers>
       <member refid="structtest__instance_1a79f9622e3139e06f0c581f43f0dbd680" prot="public" virt="non-virtual"><scope>test_instance</scope><name>arg</name></member>
       <member refid="structtest__instance_1ab0cfc2d5ca1218d74a73fe412640bdad" prot="public" virt="non-virtual"><scope>test_instance</scope><name>argc</name></member>

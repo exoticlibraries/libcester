@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['default_5fcolor_308',['default_color',['../cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8',1,'cester.h']]]
+  ['default_5fcolor_312',['default_color',['../cester_8h.html#af052f00f77d318e4ceb4c5240dabf2e8',1,'cester.h']]]
 ];

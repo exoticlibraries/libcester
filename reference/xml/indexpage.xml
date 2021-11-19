@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="indexpage" kind="page">
     <compoundname>index</compoundname>
     <title>libcester</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><anchor id="index_1md_C__Users_thecarisma_Documents_OPEN_SOURCE_EXOTIC_LIBRARIES_libcester_README"/> <image type="html" name="https://github.com/exoticlibraries/libcester/raw/main/docs/libcester.png" inline="yes"></image>
+<para><image type="html" name="libcester.png" inline="yes"></image>
 </para>
 <sect1 id="index_1autotoc_md0">
 <title>libcester</title>

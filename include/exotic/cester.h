@@ -156,7 +156,7 @@ jmp_buf buf;
 #define CESTER_BACKGROUND_CYAN          176                                               /**< cyan terminal background color         */
 #define CESTER_BACKGROUND_GRAY          0                                                 /**< gray terminal background color         */
 #define CESTER_BACKGROUND_WHITE         10                                                /**< gray terminal background color         */
-#define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(hConsole, default_color); /**< reset the terminal color               */
+#define CESTER_RESET_TERMINAL_ATTR()    SetConsoleTextAttribute(cester_hConsole, cester_default_color); /**< reset the terminal color               */
 
 #else
     
@@ -695,10 +695,10 @@ SuperTestInstance superTestInstance = {
 #define CESTER_REPORT_FAILURE_REGARDLESS() (superTestInstance.report_success_regardless = 0); (superTestInstance.report_failure_regardless = 1)
 
 #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
-    int default_color = CESTER_RESET_TERMINAL;
-    HANDLE hConsole;
+    int cester_default_color = CESTER_RESET_TERMINAL;
+    HANDLE cester_hConsole;
 #else
-    const char* default_color = CESTER_RESET_TERMINAL;
+    const char* cester_default_color = CESTER_RESET_TERMINAL;
 #endif
 
 static void cester_copy_str(char **src_out, char **dest_out, int size)
@@ -1008,7 +1008,7 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 }
 
 #ifdef _WIN32
-#define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? default_color : x)
+#define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? cester_default_color : x)
 #else 
 #define CESTER_SELECTCOLOR(x) (superTestInstance.no_color == 1 ? "" : x)
 #endif
@@ -1016,13 +1016,13 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? (CESTER_FOREGROUND_GREEN) : (CESTER_FOREGROUND_RED))
 
 #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
-#define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
-#define CESTER_DELEGATE_FPRINT_PTR(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%p", y)
-#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%d", y)
-#define CESTER_DELEGATE_FPRINT_UINT(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%u", y)
+#define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
+#define CESTER_DELEGATE_FPRINT_PTR(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%p", y)
+#define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%d", y)
+#define CESTER_DELEGATE_FPRINT_UINT(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%u", y)
 #ifndef CESTER_NO_TIME
-#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%f", y)
-#define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) SetConsoleTextAttribute(hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%.2f", y)
+#define CESTER_DELEGATE_FPRINT_DOUBLE(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%f", y)
+#define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%.2f", y)
 #endif
 #else
 #define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
@@ -3580,7 +3580,7 @@ extern "C" {
 #define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
 #define CESTER_OPTIONS(...) void cester_options_before_main() { __VA_ARGS__ }
 #define CESTER_BODY(...) __VA_ARGS__
-#define CESTER_COMMENT(...) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((default_color), #__VA_ARGS__); CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); } }
+#define CESTER_COMMENT(...) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #__VA_ARGS__); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) y __wrap_##x { return __VA_ARGS__; }
 #define CESTER_MOCK_FUNCTION(x,y,...) y __wrap_##x { __VA_ARGS__ }
@@ -3600,7 +3600,7 @@ extern "C" {
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
 #define CESTER_OPTIONS(x) void cester_options_before_main() { x }
 #define CESTER_BODY(x) x
-#define CESTER_COMMENT(x) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((default_color), #x); CESTER_DELEGATE_FPRINT_STR((default_color), "\n"); } }
+#define CESTER_COMMENT(x) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #x); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) y __wrap_##x { return z; }
 #define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
@@ -4714,7 +4714,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
 
     ++superTestInstance.total_tests_ran;
     if (superTestInstance.single_output_only == 1) {
-        CESTER_DELEGATE_FPRINT_STR((default_color), a_test_case->execution_output);
+        CESTER_DELEGATE_FPRINT_STR((cester_default_color), a_test_case->execution_output);
     }
     return superTestInstance.current_execution_status;
 }
@@ -4876,9 +4876,9 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 #ifndef CESTER_EXCLUDE_WINDOWS_H
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info)) {
-	    default_color = info.wAttributes;
+	    cester_default_color = info.wAttributes;
 	}
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	cester_hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
     cester_set_captured_streams_tmp_folder(getenv("TEMP"), (char *)"C:/libcester_tmp/");
 #else

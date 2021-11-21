@@ -836,6 +836,15 @@ verbose level of zero no information is printed in the terminal, with 10 all pos
 information is printed in the terminal. 3 is the best value to print out meaningful 
 details.
 
+CESTER_PRINT_ERROR_ONLY
+-------------------------
+
+.. code:: text
+
+    CESTER_PRINT_ERROR_ONLY()
+
+Print only error in the terminal, ignore assertions, evaluation result.
+
 CESTER_MINIMAL
 ---------------
 

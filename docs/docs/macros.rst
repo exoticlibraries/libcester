@@ -711,6 +711,13 @@ Define this macro before including cester.h to use your own custom main function
 requires you to put your main function in the CESTER_BODY macro. To run the tests invoke the 
 macro `CESTER_RUN_ALL_TESTS(argc, argv)` with the two main function parameter. 
 
+#define CESTER_NO_PRINT_INFO
+--------------------------------
+
+Defining this macro will remove the printing test information feature during compilation step, 
+the flag `--cester-info=`, function `cester_str_size` will not be available at runtime. 
+This is not a predefined macro it has to be defined in the test source before including cester.h.
+
 CESTER_BODY
 ---------------
 

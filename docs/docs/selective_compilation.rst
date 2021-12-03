@@ -65,6 +65,17 @@ This feature is optional as it might cause issues on some platform, this can als
 defining the macro `CESTER_NO_MEM_TEST` before including cester.h this reduces the generated binary 
 size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one test case.
 
+Disable information printing
+-----------------------------
+
+Disable the ability of the framework to compile the functions required to print out the information 
+of the test executable. This will remove the flag `--cester-info=` at compile time and also remove 
+the coresponding help detail.
+
+To disable the information feature define the macro `CESTER_NO_PRINT_INFO` before including libcester.h.
+By disabling the information printing feature the binary size reduced by 31kb on Windows 11 64 Bits 
+compiled with GCC version 10.
+
 Select Reporter To Compile
 ----------------------------
 WIP

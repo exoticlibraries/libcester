@@ -865,6 +865,19 @@ static __CESTER_INLINE__ unsigned cester_string_contains(char* arg, char* arg1) 
     return 1;
 }
 
+#ifndef CESTER_NO_PRINT_INFO
+static __CESTER_INLINE__ unsigned cester_str_size(char* arg) {
+    unsigned size = 0;
+    while (1) {
+        if (arg[size] == '\0') {
+            break;
+        }
+        ++size;
+    }
+    return size;
+}
+#endif
+
 static __CESTER_INLINE__ unsigned cester_string_starts_with(char* arg, char* arg1) {
     unsigned i = 0;
     while (1) {
@@ -1016,6 +1029,7 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #define CESTER_GET_RESULT_AGGR_COLOR (superTestInstance.total_failed_tests_count == 0 ? (CESTER_FOREGROUND_GREEN) : (CESTER_FOREGROUND_RED))
 
 #if defined(_WIN32) && !defined(CESTER_EXCLUDE_WINDOWS_H)
+#define CESTER_DELEGATE_FPRINT(y) fprintf(superTestInstance.output_stream, "%s", y)
 #define CESTER_DELEGATE_FPRINT_STR(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%s", y)
 #define CESTER_DELEGATE_FPRINT_PTR(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%p", y)
 #define CESTER_DELEGATE_FPRINT_INT(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%d", y)
@@ -1025,6 +1039,7 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #define CESTER_DELEGATE_FPRINT_DOUBLE_2(x,y) SetConsoleTextAttribute(cester_hConsole, CESTER_SELECTCOLOR(x)); fprintf(superTestInstance.output_stream, "%.2f", y)
 #endif
 #else
+#define CESTER_DELEGATE_FPRINT(y) fprintf(superTestInstance.output_stream, "%s", y)
 #define CESTER_DELEGATE_FPRINT_STR(x,y) fprintf(superTestInstance.output_stream, "%s%s%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
 #define CESTER_DELEGATE_FPRINT_PTR(x,y) fprintf(superTestInstance.output_stream, "%s%p%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
 #define CESTER_DELEGATE_FPRINT_INT(x,y) fprintf(superTestInstance.output_stream, "%s%d%s", CESTER_SELECTCOLOR(x), y, CESTER_SELECTCOLOR(CESTER_RESET_TERMINAL))
@@ -1048,8 +1063,8 @@ static __CESTER_INLINE__ void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nUsage: ./");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), file_name);
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " [-options] [args...]\n");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nwhere options include:\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " [--FLAGS] [ARGS...]\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nwhere --FLAGS include:\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose-level=[LEVEL]  change how much information is printed in the terminal\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal                print minimal info into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose                print as much info as possible into the output stream\n");
@@ -1065,6 +1080,9 @@ static __CESTER_INLINE__ void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-dontformatname         leave the test case name as declared in the source file in the output\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-test=Test1,...         run only selected tests. Seperate the test cases by comma\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-output=[FORMAT]        change the format in which the test results are printed\n");
+#ifndef CESTER_NO_PRINT_INFO
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-info=[IOPTIONS],[IOPTIONS...] print out all or specific information about the test executablle\n");
+#endif
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-version                display cester version and exit\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-help                   display this help info version and exit\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "See https://exoticlibraries.github.io/libcester/docs/options.html for more details\n");
@@ -1073,6 +1091,20 @@ static __CESTER_INLINE__ void cester_print_help() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    junitxml\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tap\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    tapV13\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nSupported info options. [IOPTIONS]:\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    all\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    options\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    comments\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    before_all\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    before_each\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    before*\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    after_all\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    after_each\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    after*\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    test\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    test_skip\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    test_todo\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    test*\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nVerbose levels. [LEVEL]:\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    0 - No information alias of --cester-minimal\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    1,2\n");
@@ -1317,7 +1349,7 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
     if (a_test_case->execution_status == CESTER_RESULT_SUCCESS || 
         a_test_case->test_type == CESTER_NORMAL_SKIP_TEST || 
         a_test_case->test_type == CESTER_NORMAL_TODO_TEST) {
-            
+
         if (a_test_case->execution_status == CESTER_RESULT_SUCCESS) {
             print_color = __CESTER_CAST_CHAR_ARRAY__ CESTER_FOREGROUND_GREEN;
         }
@@ -4867,9 +4899,229 @@ static void cester_cleanup_super_instance()
     }
 }
 
+#ifndef CESTER_NO_PRINT_INFO
+
+/**
+    Get the string value of the test type
+*/
+#define CESTER_TEST_FUNTION_TYPE_TO_STRING(test_type) (test_type == CESTER_NORMAL_TEST ? "CESTER_NORMAL_TEST" :\
+	(test_type == CESTER_NORMAL_TODO_TEST ? "CESTER_NORMAL_TODO_TEST" :\
+	(test_type == CESTER_NORMAL_SKIP_TEST ? "CESTER_NORMAL_SKIP_TEST" :\
+	(test_type == CESTER_BEFORE_ALL_TEST ? "CESTER_BEFORE_ALL_TEST" :\
+	(test_type == CESTER_BEFORE_EACH_TEST ? "CESTER_BEFORE_EACH_TEST" :\
+	(test_type == CESTER_AFTER_ALL_TEST ? "CESTER_AFTER_ALL_TEST" :\
+	(test_type == CESTER_AFTER_EACH_TEST ? "CESTER_AFTER_EACH_TEST" :\
+	(test_type == CESTER_OPTIONS_FUNCTION ? "CESTER_OPTIONS_FUNCTION" :\
+	(test_type == CESTER_TEST_FILE_COMMENT ? "CESTER_TEST_FILE_COMMENT" : "CESTER_TESTS_TERMINATOR")))))))))
+
+/**
+    Print out the test case attribute in the output format
+*/
+#define CESTER_PRINT_TEST_FUNCTION(tab, text_prefix, test_case) if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "" tab "<function");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " name=");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), test_case.name);\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " line_number=");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_INT((CESTER_FOREGROUND_MAGENTA), test_case.line_num);\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " type=");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), CESTER_TEST_FUNTION_TYPE_TO_STRING(test_case.test_type));\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");\
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "/>\n");\
+	} else {\
+		CESTER_DELEGATE_FPRINT(text_prefix); CESTER_DELEGATE_FPRINT(test_case.name);\
+		if (!cester_string_equals(info_section, "all")) CESTER_DELEGATE_FPRINT("\n");\
+	}
+
+/*!
+	Prints out detail or specific information about the test esecutable. This is most 
+	useful for test managers and runner to manage test execution and also provide 
+	easy debugging.
+*/
+static __CESTER_INLINE__ unsigned int cester_print_tests_information(char *info_section) {
+	unsigned index;
+	char *file_name = cester_extract_name_only(superTestInstance.test_file_path);
+
+	if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "<?xml");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " version=");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"1.0\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " encoding=");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"UTF-8\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), " ?>\n");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "<testinfo");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " file_name=");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), file_name);
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), " file_path=");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), superTestInstance.test_file_path);
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_MAGENTA), "\"");
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+	}
+	if (cester_string_equals(info_section, "all")) {
+		if (cester_string_equals(superTestInstance.output_format, (char*) "text")) {
+			CESTER_DELEGATE_FPRINT("cester v");
+			CESTER_DELEGATE_FPRINT(CESTER_VERSION);
+			CESTER_DELEGATE_FPRINT(" by ");
+			CESTER_DELEGATE_FPRINT(CESTER_AUTHOR);
+			CESTER_DELEGATE_FPRINT(".\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <options_and_comments");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\nOptions and Comments");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_OPTIONS_FUNCTION || cester_test_cases[index].test_type == CESTER_TEST_FILE_COMMENT) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </options_and_comments>\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <fixture_before");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\nFixture - Before");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_BEFORE_ALL_TEST || cester_test_cases[index].test_type == CESTER_BEFORE_EACH_TEST) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </fixture_before>\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <fixture_after");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\n\nFixture - After");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_AFTER_ALL_TEST || cester_test_cases[index].test_type == CESTER_AFTER_EACH_TEST) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </fixture_after>\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <tests");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\n\nTests");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_NORMAL_TEST) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </tests>\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <skip_tests");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\n\nSkip Tests");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_NORMAL_SKIP_TEST) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </skip_tests>\n");
+		}
+
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    <todo_tests");
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), ">\n");
+		} else {
+			CESTER_DELEGATE_FPRINT("\n\nTodo Tests");
+		}
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_NORMAL_TODO_TEST) {
+				CESTER_PRINT_TEST_FUNCTION("        ", "\n - ", cester_test_cases[index])
+			}
+		}
+		if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+			CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "    </todo_tests>\n");
+		}
+	} else {
+		for (index = 0; cester_test_cases[index].test_type != CESTER_TESTS_TERMINATOR; ++index) {
+			if (cester_test_cases[index].test_type == CESTER_OPTIONS_FUNCTION && cester_string_contains(info_section, "options")) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_TEST_FILE_COMMENT && cester_string_contains(info_section, "comments")) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_BEFORE_ALL_TEST && (cester_string_contains(info_section, "before_all") || 
+				cester_string_contains(info_section, "before*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_BEFORE_EACH_TEST && (cester_string_contains(info_section, "before_each") || 
+				cester_string_contains(info_section, "before*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_AFTER_ALL_TEST && (cester_string_contains(info_section, "after_all") || 
+				cester_string_contains(info_section, "after*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_AFTER_EACH_TEST && (cester_string_contains(info_section, "after_each") || 
+				cester_string_contains(info_section, "after*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_NORMAL_TEST && (((cester_string_starts_with(info_section, "test") && 
+				cester_str_size(info_section) == 4) || cester_string_contains(info_section, "test,") || cester_string_contains(info_section, "test ")) || 
+				cester_string_contains(info_section, "test*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_NORMAL_SKIP_TEST && (cester_string_contains(info_section, "test_skip") || 
+				cester_string_contains(info_section, "test*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			} else if (cester_test_cases[index].test_type == CESTER_NORMAL_TODO_TEST && (cester_string_contains(info_section, "test_todo") || 
+				cester_string_contains(info_section, "test*"))) {
+				CESTER_PRINT_TEST_FUNCTION("    ", "", cester_test_cases[index])
+
+			}
+		}
+	}
+	if (cester_string_equals(superTestInstance.output_format, (char*) "junitxml")) {
+		CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_BLUE), "</testinfo>");
+	}
+	if (!cester_string_equals(superTestInstance.output_format, (char*) "text")) {
+		CESTER_RESET_TERMINAL_ATTR();
+	}
+	if (cester_string_equals(info_section, "all")) {
+		CESTER_DELEGATE_FPRINT("\n");
+	}
+
+	return CESTER_RESULT_SUCCESS;
+}
+#endif
+
 static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv) {
     char *arg;
     char *extra;
+#ifndef CESTER_NO_PRINT_INFO
+    char *info_section;
+#endif
     unsigned i, j, index, index1;
     char *cester_option = CESTER_NULL;
 #ifdef _WIN32
@@ -4891,6 +5143,9 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 
     i = 0; 
     j = 1;
+#ifndef CESTER_NO_PRINT_INFO
+	info_section = CESTER_NULL;
+#endif
     superTestInstance.output_format = CESTER_NULL;
     if (superTestInstance.output_stream==CESTER_NULL) {
         superTestInstance.output_stream = stdout;
@@ -4956,6 +5211,11 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                 cester_cleanup_super_instance();
                 return EXIT_SUCCESS;
 
+#ifndef CESTER_NO_PRINT_INFO
+            } else if (cester_string_starts_with(cester_option, (char*) "info=") == 1) {
+                cester_str_value_after_first(cester_option, '=', &info_section);
+#endif
+
             } else if (cester_string_starts_with(cester_option, (char*) "test=") == 1) {
                 unpack_selected_extra_args(cester_option, &superTestInstance.selected_test_cases_names, &superTestInstance.selected_test_cases_size);
 
@@ -5000,6 +5260,12 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
             }
         }
     }
+
+#ifndef CESTER_NO_PRINT_INFO
+	if (info_section != CESTER_NULL) {
+		return cester_print_tests_information(info_section);
+	}
+#endif
 
     if (superTestInstance.print_version == 1) {
         cester_print_version();

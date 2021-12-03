@@ -1,6 +1,6 @@
 /*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
-//#define CESTER_NO_PRINT_INFO
+/*#define CESTER_NO_PRINT_INFO*/
 #define CESTER_NO_MAIN
 #include <exotic/cester.h>
 #include "originals.c"

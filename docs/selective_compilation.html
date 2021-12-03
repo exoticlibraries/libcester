@@ -9,7 +9,7 @@
     <title>Selective Modular Features &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/libcester.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -110,6 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_information.html">Test Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
@@ -177,6 +178,15 @@ trying to free an already freed memory.</p>
 defining the macro <cite>CESTER_NO_MEM_TEST</cite> before including cester.h this reduces the generated binary
 size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one test case.</p>
 </div>
+<div class="section" id="disable-information-printing">
+<h2>Disable information printing<a class="headerlink" href="#disable-information-printing" title="Permalink to this headline">¶</a></h2>
+<p>Disable the ability of the framework to compile the functions required to print out the information
+of the test executable. This will remove the flag <cite>–cester-info=</cite> at compile time and also remove
+the coresponding help detail.</p>
+<p>To disable the information feature define the macro <cite>CESTER_NO_PRINT_INFO</cite> before including libcester.h.
+By disabling the information printing feature the binary size reduced by 31kb on Windows 11 64 Bits
+compiled with GCC version 10.</p>
+</div>
 <div class="section" id="select-reporter-to-compile">
 <h2>Select Reporter To Compile<a class="headerlink" href="#select-reporter-to-compile" title="Permalink to this headline">¶</a></h2>
 <p>WIP</p>
@@ -232,6 +242,7 @@ size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one te
 <li><a class="reference internal" href="#exclude-time-report">Exclude time report</a></li>
 <li><a class="reference internal" href="#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
 <li><a class="reference internal" href="#disable-memory-test">Disable memory test</a></li>
+<li><a class="reference internal" href="#disable-information-printing">Disable information printing</a></li>
 <li><a class="reference internal" href="#select-reporter-to-compile">Select Reporter To Compile</a><ul>
 <li><a class="reference internal" href="#exclude-junitxml-report">Exclude JunitXml Report</a></li>
 <li><a class="reference internal" href="#exclude-text-report">Exclude Text Report</a></li>

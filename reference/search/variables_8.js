@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['main_5fexecution_5foutput_413',['main_execution_output',['../structsuper__test__instance.html#aa613428bf93a5e95766e6b2163083ffd',1,'super_test_instance']]],
-  ['mem_5falloc_5fmanager_414',['mem_alloc_manager',['../structsuper__test__instance.html#a8339cc5c1db8285e7abebb1837d02aa1',1,'super_test_instance']]],
-  ['mem_5ftest_5factive_415',['mem_test_active',['../structsuper__test__instance.html#a31b4b2b5eb8a9436fe8c669037f736ee',1,'super_test_instance']]]
+  ['name_419',['name',['../structtest__case.html#a206e39b0afd5e7c8bb4e2ed93cc9444b',1,'test_case']]],
+  ['no_5fcolor_420',['no_color',['../structsuper__test__instance.html#a63061bc69c9d2d4429bb9b2d7ebf206e',1,'super_test_instance']]]
 ];

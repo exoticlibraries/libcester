@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['name_416',['name',['../structtest__case.html#a206e39b0afd5e7c8bb4e2ed93cc9444b',1,'test_case']]],
-  ['no_5fcolor_417',['no_color',['../structsuper__test__instance.html#a63061bc69c9d2d4429bb9b2d7ebf206e',1,'super_test_instance']]]
+  ['original_5fstream_421',['original_stream',['../structcaptured__stream.html#afd52bf259c9f23c7e57174dbc99cb3ef',1,'captured_stream']]],
+  ['original_5fstream_5fhandle_422',['original_stream_handle',['../structcaptured__stream.html#afbd7d75a6a7601a1619eac2c7e9f96b6',1,'captured_stream']]],
+  ['original_5fstream_5fptr_5fstr_423',['original_stream_ptr_str',['../structcaptured__stream.html#abd004f8e2ce81822eb2738484a4f2208',1,'captured_stream']]],
+  ['output_5fformat_424',['output_format',['../structsuper__test__instance.html#a9da79b40419d21d4e97b85df370085e0',1,'super_test_instance']]],
+  ['output_5fstream_425',['output_stream',['../structsuper__test__instance.html#a604b6cf59d5c8d9eedf80dbb8ad70507',1,'super_test_instance']]],
+  ['output_5fstream_5faddress_426',['output_stream_address',['../structsuper__test__instance.html#a109667e9ff55fd6c7eec60babff7dff2',1,'super_test_instance']]],
+  ['output_5fstream_5fstr_427',['output_stream_str',['../structsuper__test__instance.html#a449ade9c924abf0849f593c7a2694414',1,'super_test_instance']]]
 ];

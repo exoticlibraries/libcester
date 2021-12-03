@@ -1,0 +1,411 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Test Information &#8212; libcester  documentation</title>
+    <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/libcester.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/libcester.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How the assertion macros works" href="../how_it_works/how_assertion_macro.html" />
+    <link rel="prev" title="Known Unfixed Issues" href="known_issues.html" />
+   
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+    
+    <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
+    <meta name="keywords" content="thecarisma, c, cpp, c++, unit testing, framework, exoticlibraries, exotic, libraries, regression, test">
+    <meta name="author" content="Adewale Azeez">
+    <meta property="og:url" content="https://exoticlibraries.github.io/libcester/docs/test_information.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A robust header only unit testing framework for C programming language." />
+    <meta property="og:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+  
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@exoticlibs" />
+    <meta name="twitter:creator" content="@iamthecarisma" />
+    <meta name="twitter:title" content="A robust header only unit testing framework for C programming language." />
+    <meta name="twitter:description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
+    
+  
+
+  </head><body>
+
+    <div class="document">
+    <header>
+        <div class="topnavbar">
+            
+                <img class="icon" src="../_static/libcester.png"></img>
+            
+            <a href="../index.html" class="title">libcester</a> <!-- class="active" -->
+            
+                
+                    <a href="index.html">Doc</a>
+                
+            
+                
+                    <a href="../reference/index.html">Reference</a>
+                
+            
+                
+                    <a href="https://github.com/exoticlibraries/libcester/">Contribute</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/">Exotic Libraries</a> 
+                
+            
+                
+                    <a href="https://exoticlibraries.github.io/pages/support.html">Support</a> 
+                
+            
+            <div class="search-container">
+                <form class="search" action="../search.html" method="get">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="" name="q">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="documentwrapper">
+        
+            
+                
+                <div class="sidebar-left">
+                    </br>
+                    <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../screenshots.html">Screenshots</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assertions.html">Assertion Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fixtures.html">Test Fixtures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Unfixed Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macros.html">Helper Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual_test_registration.html">Manual Tests Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking.html">Mocking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Cester Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Test Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How it works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_mocking.html">How the mocking works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_stream_capture_works.html">How the stream capture is implemented</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/how_test_registration_works.html">How test registration works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_it_works/index.html">How it works</a></li>
+</ul>
+
+                </div>
+                
+            
+        
+        <div class="bodywrapper">
+                
+  <div class="section" id="test-information">
+<span id="index-0"></span><h1>Test Information<a class="headerlink" href="#test-information" title="Permalink to this headline">¶</a></h1>
+<p>The test information can be printed out in various output format. This feature is most
+useful for test managers and for test debugging. By passing the flag <cite>–cester-info=</cite>
+along with it value, the specified information section will be printed.</p>
+<p>The supported sections are</p>
+<ul class="simple">
+<li>all</li>
+<li>options</li>
+<li>comments</li>
+<li>before_all</li>
+<li>before_each</li>
+<li>before*</li>
+<li>after_all</li>
+<li>after_each</li>
+<li>after*</li>
+<li>test</li>
+<li>test_skip</li>
+<li>test_todo</li>
+<li>test*</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the test is compiled with the macro CESTER_NO_PRINT_INFO defined before including
+libcester, the information printing feature will be disabled</p>
+</div>
+<p>Various Section data can be generated for the snippet below.</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">test_info</span><span class="o">.</span><span class="n">c</span>
+<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num2</span><span class="o">--&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">return_val</span> <span class="o">*=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+        <span class="n">static</span> <span class="nb">int</span> <span class="n">index__</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_COMMENT</span><span class="p">(</span>
+        <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">multiline</span> <span class="n">comment</span> <span class="ow">in</span> \<span class="n">n</span>
+        <span class="n">the</span> <span class="n">source</span> <span class="n">code</span> <span class="n">this</span> <span class="n">text</span> <span class="ow">is</span> <span class="n">printed</span> <span class="n">out</span> \<span class="n">n</span>
+        <span class="n">before</span> <span class="nb">any</span> <span class="n">test</span> <span class="n">cases</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span> <span class="s2">&quot;exoticlibs&quot;</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BEFORE_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Before Each test, Test </span><span class="si">%s</span><span class="s2">, index </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_string</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_str_equal</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;exoticlibs&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_str_not_equal</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="n">CESTER_NULL</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">test_string_alias</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">cester_assert_str_eq</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="s2">&quot;exoticlibs&quot;</span><span class="p">);</span>
+        <span class="n">cester_assert_str_ne</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span><span class="p">,</span> <span class="n">CESTER_NULL</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_TODO_TEST</span><span class="p">(</span><span class="n">write_test_after_implementation</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">CESTER_NULL</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_SKIP_TEST</span><span class="p">(</span><span class="n">this_test_will_fail</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">CESTER_NULL</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_SKIP_TEST</span><span class="p">(</span><span class="n">works_only_on_linux</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">CESTER_NULL</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_AFTER_EACH</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;After Each test, Test </span><span class="si">%s</span><span class="s2">, index </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;==============================================================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_AFTER_ALL</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span>
+        <span class="n">test_instance</span><span class="o">-&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="n">CESTER_NULL</span><span class="p">;</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_OPTIONS</span><span class="p">(</span>
+        <span class="n">CESTER_NO_ISOLATION</span><span class="p">();</span>
+<span class="p">)</span>
+
+<span class="n">CESTER_BODY</span><span class="p">(</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CESTER_REGISTER_OPTIONS</span><span class="p">();</span>
+        <span class="n">CESTER_REGISTER_BEFORE_ALL</span><span class="p">();</span>
+        <span class="n">CESTER_REGISTER_BEFORE_EACH</span><span class="p">();</span>
+        <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test_string</span><span class="p">);</span>
+        <span class="n">CESTER_REGISTER_TEST</span><span class="p">(</span><span class="n">test_string_alias</span><span class="p">);</span>
+        <span class="n">CESTER_REGISTER_SKIP_TEST</span><span class="p">(</span><span class="n">this_test_will_fail</span><span class="p">);</span>
+        <span class="n">CESTER_REGISTER_SKIP_TEST</span><span class="p">(</span><span class="n">works_only_on_linux</span><span class="p">);</span>
+        <span class="n">CESTER_REGISTER_TODO_TEST</span><span class="p">(</span><span class="n">write_test_after_implementation</span><span class="p">);</span>
+        <span class="n">CESTER_REGISTER_AFTER_ALL</span><span class="p">();</span>
+        <span class="n">CESTER_REGISTER_AFTER_EACH</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">CESTER_RUN_ALL_TESTS</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile the test with the command below:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcc</span> <span class="n">test_info</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span><span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>Instead of printing to the terminal the output can be redirected to a file using the redirection
+character <strong>&gt;</strong> or changing the output stream using the macro CESTER_CHANGE_STREAM before the
+test cases start running. E.g.</p>
+<div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//...</span>
+<span class="n">CESTER_BEFORE_ALL</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span>
+        <span class="n">FILE</span><span class="o">*</span> <span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&quot;./result.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">);</span>
+        <span class="n">CESTER_CHANGE_STREAM</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+<span class="p">)</span>
+<span class="o">//...</span>
+</pre></div>
+</div>
+<p>To print all the sections, add the flag <cite>–cester-info=all</cite></p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">test</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">info</span><span class="o">=</span><span class="nb">all</span>
+
+<span class="n">Options</span> <span class="ow">and</span> <span class="n">Comments</span>
+<span class="o">-</span> <span class="n">cester_test_file_comment_function</span>
+<span class="o">-</span> <span class="n">cester_options_before_main</span>
+<span class="n">Fixture</span> <span class="o">-</span> <span class="n">Before</span>
+<span class="o">-</span> <span class="n">cester_before_all_test</span>
+<span class="o">-</span> <span class="n">cester_before_each_test</span>
+
+<span class="n">Fixture</span> <span class="o">-</span> <span class="n">After</span>
+<span class="o">-</span> <span class="n">cester_after_each_test</span>
+<span class="o">-</span> <span class="n">cester_after_all_test</span>
+
+<span class="n">Tests</span>
+<span class="o">-</span> <span class="n">test_string</span>
+<span class="o">-</span> <span class="n">test_string_alias</span>
+
+<span class="n">Skip</span> <span class="n">Tests</span>
+<span class="o">-</span> <span class="n">this_test_will_fail</span>
+<span class="o">-</span> <span class="n">works_only_on_linux</span>
+
+<span class="n">Todo</span> <span class="n">Tests</span>
+<span class="o">-</span> <span class="n">write_test_after_implementation</span>
+</pre></div>
+</div>
+<p>To print only the tests section, add the flag <cite>–cester-info=test</cite></p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">test</span> <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">info</span><span class="o">=</span><span class="n">test</span>
+
+<span class="n">test_string</span>
+<span class="n">test_string_alias</span>
+</pre></div>
+</div>
+<p>Combining the –cester-info flag with –cester-output flag will print out the information in the
+selected output format. If an output format has not been implemented it defaults to the text output
+fornat, to see the currently implemented formats see <a class="reference external" href="https://github.com/exoticlibraries/libcester/issues/58">issue 58</a></p>
+<p>To print all the sections with junitxml format, add the flags <cite>–cester-info=all –cester-output=junitxml</cite></p>
+<div class="code xml highlight-default notranslate"><div class="highlight"><pre><span></span>./test --cester-info=all --cester-output=junitxml
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;testinfo file_name=&quot;test_info&quot; file_path=&quot;test_info.c&quot;&gt;
+        &lt;options_and_comments&gt;
+                &lt;function name=&quot;cester_test_file_comment_function&quot; line_number=&quot;22&quot; type=&quot;CESTER_TEST_FILE_COMMENT&quot;/&gt;
+                &lt;function name=&quot;cester_options_before_main&quot; line_number=&quot;67&quot; type=&quot;CESTER_OPTIONS_FUNCTION&quot;/&gt;
+        &lt;/options_and_comments&gt;
+        &lt;fixture_before&gt;
+                &lt;function name=&quot;cester_before_all_test&quot; line_number=&quot;28&quot; type=&quot;CESTER_BEFORE_ALL_TEST&quot;/&gt;
+                &lt;function name=&quot;cester_before_each_test&quot; line_number=&quot;32&quot; type=&quot;CESTER_BEFORE_EACH_TEST&quot;/&gt;
+        &lt;/fixture_before&gt;
+        &lt;fixture_after&gt;
+                &lt;function name=&quot;cester_after_each_test&quot; line_number=&quot;58&quot; type=&quot;CESTER_AFTER_EACH_TEST&quot;/&gt;
+                &lt;function name=&quot;cester_after_all_test&quot; line_number=&quot;63&quot; type=&quot;CESTER_AFTER_ALL_TEST&quot;/&gt;
+        &lt;/fixture_after&gt;
+        &lt;tests&gt;
+                &lt;function name=&quot;test_string&quot; line_number=&quot;36&quot; type=&quot;CESTER_NORMAL_TEST&quot;/&gt;
+                &lt;function name=&quot;test_string_alias&quot; line_number=&quot;41&quot; type=&quot;CESTER_NORMAL_TEST&quot;/&gt;
+        &lt;/tests&gt;
+        &lt;skip_tests&gt;
+                &lt;function name=&quot;this_test_will_fail&quot; line_number=&quot;50&quot; type=&quot;CESTER_NORMAL_SKIP_TEST&quot;/&gt;
+                &lt;function name=&quot;works_only_on_linux&quot; line_number=&quot;54&quot; type=&quot;CESTER_NORMAL_SKIP_TEST&quot;/&gt;
+        &lt;/skip_tests&gt;
+        &lt;todo_tests&gt;
+                &lt;function name=&quot;write_test_after_implementation&quot; line_number=&quot;46&quot; type=&quot;CESTER_NORMAL_TODO_TEST&quot;/&gt;
+        &lt;/todo_tests&gt;
+&lt;/testinfo&gt;
+</pre></div>
+</div>
+<p>To print only the tests, todo_test, skip_test section with junitxml format, add the flags <cite>–cester-info=test –cester-output=junitxml</cite></p>
+<div class="code xml highlight-default notranslate"><div class="highlight"><pre><span></span>./test --cester-info=test --cester-output=junitxml
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;testinfo file_name=&quot;test_info&quot; file_path=&quot;test_info.c&quot;&gt;
+        &lt;function name=&quot;test_string&quot; line_number=&quot;36&quot; type=&quot;CESTER_NORMAL_TEST&quot;/&gt;
+        &lt;function name=&quot;test_string_alias&quot; line_number=&quot;41&quot; type=&quot;CESTER_NORMAL_TEST&quot;/&gt;
+        &lt;function name=&quot;write_test_after_implementation&quot; line_number=&quot;46&quot; type=&quot;CESTER_NORMAL_TODO_TEST&quot;/&gt;
+        &lt;function name=&quot;this_test_will_fail&quot; line_number=&quot;50&quot; type=&quot;CESTER_NORMAL_SKIP_TEST&quot;/&gt;
+        &lt;function name=&quot;works_only_on_linux&quot; line_number=&quot;54&quot; type=&quot;CESTER_NORMAL_SKIP_TEST&quot;/&gt;
+&lt;/testinfo&gt;
+</pre></div>
+</div>
+</div>
+
+
+                
+                </br>
+                 
+                    
+                        <div class="navigation">
+                            
+                                <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/test_information.rst"><i class="fa fa-pen"></i>Edit this page</a>    
+                            
+                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="../how_it_works/how_assertion_macro.html">How the assertion macros works<i class="fa fa-arrow-right"></i></a> 
+                            
+                            
+                                <a class="reference navigator" style="float:right;" href="known_issues.html"><i class="fa fa-arrow-left"></i>Known Unfixed Issues</a>
+                            
+                        </div>
+                    
+                
+        </div>
+        
+            
+                
+                <div class="sidebar-right">
+                    
+                        <h2>Page Contents</h2>
+                        <ul>
+<li><a class="reference internal" href="#">Test Information</a></li>
+</ul>
+
+                        
+                            <h2>Previous topic</h2>
+                            <a href="known_issues.html">Known Unfixed Issues</a>
+                        
+                        
+                            <h2>Next topic</h2>
+                            <a href="../how_it_works/how_assertion_macro.html">How the assertion macros works</a>
+                        
+                        <h2>This Page</h2>
+                        <a href="../_sources/docs/test_information.rst.txt">Show source</a>
+                        
+                            <br/><a style="line-height: 25px;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/test_information.rst">Edit this page</a>
+                        
+                    
+                </div>
+                
+            
+        
+        <div style="clear:both"></div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+        <div class="social">
+            
+                <a href="https://twitter.com/exoticlibs"><i class="fab fa-twitter"></i></a>
+            
+                <a href="https://github.com/exoticlibraries/libcester/"><i class="fab fa-github"></i></a>
+            
+        </div>
+        <div class="footer-col1">
+            
+        </div>
+        
+        
+        <div class="doc-sphinx-info">
+                    &copy; Copyright 2021, Exotic Libraries - MIT License.
+                Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5
+                with <a href="https://thecarisma.github.io/themata/milkish/index.html">milkish</a> theme.
+        </div>
+    </div>
+    
+
+  </body>
+</html>

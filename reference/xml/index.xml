@@ -154,6 +154,7 @@
     <member refid="cester_8h_1afe4bfd863665d2636d28b13afaf1f43e" kind="define"><name>CESTER_SELECTCOLOR</name></member>
     <member refid="cester_8h_1ab550ea2f5b51069a052158993e14d357" kind="define"><name>CESTER_GET_RESULT_AGGR</name></member>
     <member refid="cester_8h_1a2cd3160101fb7fd13d8f12b83100ff3f" kind="define"><name>CESTER_GET_RESULT_AGGR_COLOR</name></member>
+    <member refid="cester_8h_1ae3049b4607eb48da098c6f9163f227bc" kind="define"><name>CESTER_DELEGATE_FPRINT</name></member>
     <member refid="cester_8h_1aa2f0945a8d64168b5bb52c074e58988c" kind="define"><name>CESTER_DELEGATE_FPRINT_STR</name></member>
     <member refid="cester_8h_1a2e02025b2b7c9313f94dbc5cda03b2bc" kind="define"><name>CESTER_DELEGATE_FPRINT_PTR</name></member>
     <member refid="cester_8h_1a0a222f2a133e690a489906efaa23da10" kind="define"><name>CESTER_DELEGATE_FPRINT_INT</name></member>
@@ -367,6 +368,8 @@
     <member refid="cester_8h_1ae9d0302758f0fd7db7b3c7f050a5aca6" kind="define"><name>cester_assert_stderr_stream_content_contain</name></member>
     <member refid="cester_8h_1a7257b780608838322bd26fb2884ca09d" kind="define"><name>cester_assert_stderr_stream_content_not_equal</name></member>
     <member refid="cester_8h_1a7e9933bcd1aa78a56314899ad9040662" kind="define"><name>cester_assert_stderr_stream_content_not_contain</name></member>
+    <member refid="cester_8h_1af3569b73a780cf2eb9279664ed16c5a3" kind="define"><name>CESTER_TEST_FUNTION_TYPE_TO_STRING</name></member>
+    <member refid="cester_8h_1a17752c5c04902f818fbc573eb18b0a86" kind="define"><name>CESTER_PRINT_TEST_FUNCTION</name></member>
     <member refid="cester_8h_1a5046e1cbf958143f3bf7aded35204202" kind="define"><name>malloc</name></member>
     <member refid="cester_8h_1af06646f1b05f74c5286bc339172a54d9" kind="define"><name>calloc</name></member>
     <member refid="cester_8h_1affb9fc32698fab7f7b36e0cf8e64c83e" kind="define"><name>free</name></member>
@@ -409,7 +412,7 @@
     <member refid="cester_8h_1ae5e2df972f5b311e319f5a16ab1035cc" kind="typedef"><name>SuperTestInstance</name></member>
     <member refid="cester_8h_1a02df3e2f0291bf06f3a685829975efec" kind="variable"><name>buf</name></member>
     <member refid="cester_8h_1a3fe6cc19b68201d2eb34b35f3667ebd7" kind="variable"><name>superTestInstance</name></member>
-    <member refid="cester_8h_1af052f00f77d318e4ceb4c5240dabf2e8" kind="variable"><name>default_color</name></member>
+    <member refid="cester_8h_1ae913dca46060ebc43a8f6e11c500a5f9" kind="variable"><name>cester_default_color</name></member>
     <member refid="cester_8h_1a8b63902b13dfba286b05aac61490ab0c" kind="variable"><name>cester_test_cases</name></member>
     <member refid="cester_8h_1ada020c27350cdf742781f6dc56e6df87" kind="function"><name>cester_array_init</name></member>
     <member refid="cester_8h_1a89af02d2d2b853ef2eacc264142eae59" kind="function"><name>cester_array_add</name></member>
@@ -429,6 +432,7 @@
     <member refid="cester_8h_1a6fd717d4c29095d4d4bc580177b95692" kind="function"><name>cester_str_replace</name></member>
     <member refid="cester_8h_1a00a1e3609f372c462a0408c16e3b2b0e" kind="function"><name>cester_string_equals</name></member>
     <member refid="cester_8h_1ae7a78f13bd79c8cb911a8e15f5aeb609" kind="function"><name>cester_string_contains</name></member>
+    <member refid="cester_8h_1abed2ba1663129a1ebcba9f716cc9efe6" kind="function"><name>cester_str_size</name></member>
     <member refid="cester_8h_1a9d90fb92ddc3b49500adf79aea869744" kind="function"><name>cester_string_starts_with</name></member>
     <member refid="cester_8h_1a60e8c664d3517575bb0eb31e958d304a" kind="function"><name>unpack_selected_extra_args</name></member>
     <member refid="cester_8h_1aed4d3862625429ae77693e729ec27abb" kind="function"><name>cester_concat_ptr</name></member>
@@ -492,6 +496,7 @@
     <member refid="cester_8h_1a5ccab518462e10c43bcd7b62b4ef8273" kind="function"><name>cester_capture_signals</name></member>
     <member refid="cester_8h_1a1a68fa19aaa51f8b3d7b3fc564751d62" kind="function"><name>cester_recover_on_signal</name></member>
     <member refid="cester_8h_1ae526b39cd608657444c4092a9d2fa338" kind="function"><name>cester_run_all_test_iterator</name></member>
+    <member refid="cester_8h_1ad8f9fe175ee3cb39b85ef08bfbe5f38a" kind="function"><name>cester_print_tests_information</name></member>
     <member refid="cester_8h_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
     <member refid="cester_8h_1aa5c7738f5048e6f7f527328de3b824da" kind="function"><name>cester_allocator</name></member>
     <member refid="cester_8h_1a419e9ee8a8b0331bec2fdf58b63bd2c9" kind="function"><name>cester_free</name></member>

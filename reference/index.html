@@ -157,6 +157,7 @@ Documentation</h2>
 <li><a href="https://exoticlibraries.github.io/libcester/docs/options.html">Cester Options</a></li>
 <li><a href="https://exoticlibraries.github.io/libcester/docs/fixtures.html">Test Fixtures</a></li>
 <li><a href="https://exoticlibraries.github.io/libcester/docs/output_formats.html">Output Formats</a></li>
+<li><a href="https://exoticlibraries.github.io/libcester/docs/test_information.html">Test Information</a></li>
 <li><a href="https://exoticlibraries.github.io/libcester/docs/test_for_failure.html">Testing for failures</a></li>
 <li><a href="https://exoticlibraries.github.io/libcester/docs/testing_stream.html">Testing Output Streams</a></li>
 <li><a href="https://exoticlibraries.github.io/libcester/how_it_works/index.html">How it works</a></li>
@@ -234,9 +235,11 @@ Cester options</h3>
 <p>The following options performs important task:</p>
 <ul>
 <li><b>&ndash;cester-noisolation</b>: instruct cester to run all the test in one single process. With this option signal will be used for crash reporting but if the test is compiled with the macro <code>CESTER_NO_SIGNAL</code> defined, cester will not be able to recover from critical crash therefore if a test case segfault the tests will terminate immediately.<ul>
-<li><b>&ndash;cester-output</b>: Change the format in which the outpout is generated. Various format is supported, all the supported format can be viewed <a href="https://exoticlibraries.github.io/libcester/docs/output_formats.html">here</a>. E.g. to print the output in JunitXML format you supply the option <code>--cester-output=junitxml</code>.</li>
+<li><b>&ndash;cester-output=?</b>: Change the format in which the outpout is generated. Various format is supported, all the supported format can be viewed <a href="https://exoticlibraries.github.io/libcester/docs/output_formats.html">here</a>. E.g. to print the output in JunitXML format you supply the option <code>--cester-output=junitxml</code>.</li>
 <li><b>&ndash;cester-nomemtest</b>: instruct cester to skip memory leak detection and test. Alternatively the test can be compiled with the macro <code>CESTER_NO_MEM_TEST</code> defined at the beginning of the source file.</li>
 <li><b>&ndash;cester-verbose</b>: printf as much output as possible including passed test expression, output to the stdout from within the test case. This option combined with <b>&ndash;cester-minimal</b> prints out the output in a very sane format.</li>
+<li><b>&ndash;cester-test=?</b>: Select whiich test case to execute, this flag accept CSV of the test case, all other testcase will be ignred. E.g. To execute the two test <em>test_string</em> and <em>test_int</em> supply the flag <code>--cester-test=test_string,test_int</code>.</li>
+<li><b>&ndash;cester-info=?</b>: Prints the tests information printing feature. This feature can be disable at compile time by deining the macro <code>CESTER_NO_PRINT_DETAIL</code> before including <a class="el" href="cester_8h.html">cester.h</a>. All possible value can be viewed <a href="https://exoticlibraries.github.io/libcester/docs/test_information.html">here</a>. E.g. to print all trhe test executable information supply the flag <code>--cester-info=all</code>.</li>
 <li><b>&ndash;cester-help</b>: to view all the options accepted by cester.</li>
 </ul>
 </li>
@@ -296,14 +299,14 @@ License</h2>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <div class="ttc" id="acester_8h_html_ae1c1f1eb8354492276bdbf70d8875f92"><div class="ttname"><a href="cester_8h.html#ae1c1f1eb8354492276bdbf70d8875f92">CESTER_RUN_ALL_TESTS</a></div><div class="ttdeci">#define CESTER_RUN_ALL_TESTS(x, y)</div><div class="ttdef"><b>Definition:</b> cester.h:683</div></div>
-<div class="ttc" id="acester_8h_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="cester_8h.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> cester.h:5070</div></div>
+<div class="ttc" id="acester_8h_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="cester_8h.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> cester.h:5336</div></div>
 <div class="ttc" id="astructtest__instance_html"><div class="ttname"><a href="structtest__instance.html">test_instance</a></div><div class="ttdef"><b>Definition:</b> cester.h:287</div></div>
-<div class="ttc" id="acester_8h_html_a4906d3f737b8653a5f79e3f6509433c3"><div class="ttname"><a href="cester_8h.html#a4906d3f737b8653a5f79e3f6509433c3">cester_assert_ptr_equal</a></div><div class="ttdeci">#define cester_assert_ptr_equal(x, y)</div><div class="ttdef"><b>Definition:</b> cester.h:2034</div></div>
-<div class="ttc" id="acester_8h_html_af6fdfc1a7963f6b2bf1196a5d75ceeec"><div class="ttname"><a href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a></div><div class="ttdeci">#define CESTER_BODY(x)</div><div class="ttdef"><b>Definition:</b> cester.h:3602</div></div>
-<div class="ttc" id="acester_8h_html_a46a752bc620dbdfbc4f5f851307b0d72"><div class="ttname"><a href="cester_8h.html#a46a752bc620dbdfbc4f5f851307b0d72">cester_assert_equal</a></div><div class="ttdeci">#define cester_assert_equal(x, y)</div><div class="ttdef"><b>Definition:</b> cester.h:1985</div></div>
-<div class="ttc" id="acester_8h_html_a8a6a76440950a47f00c288af35260b8f"><div class="ttname"><a href="cester_8h.html#a8a6a76440950a47f00c288af35260b8f">CESTER_MOCK_FUNCTION</a></div><div class="ttdeci">#define CESTER_MOCK_FUNCTION(x, y, z)</div><div class="ttdef"><b>Definition:</b> cester.h:3606</div></div>
-<div class="ttc" id="acester_8h_html_a4681c51ac1793cf49a7d90fac6eabe74"><div class="ttname"><a href="cester_8h.html#a4681c51ac1793cf49a7d90fac6eabe74">CESTER_TEST</a></div><div class="ttdeci">#define CESTER_TEST(x, y, z)</div><div class="ttdef"><b>Definition:</b> cester.h:3594</div></div>
-<div class="ttc" id="acester_8h_html_a5d12fa79c77dfe56918e813950e1b96e"><div class="ttname"><a href="cester_8h.html#a5d12fa79c77dfe56918e813950e1b96e">CESTER_REGISTER_TEST</a></div><div class="ttdeci">#define CESTER_REGISTER_TEST(x)</div><div class="ttdef"><b>Definition:</b> cester.h:3620</div></div>
+<div class="ttc" id="acester_8h_html_a4906d3f737b8653a5f79e3f6509433c3"><div class="ttname"><a href="cester_8h.html#a4906d3f737b8653a5f79e3f6509433c3">cester_assert_ptr_equal</a></div><div class="ttdeci">#define cester_assert_ptr_equal(x, y)</div><div class="ttdef"><b>Definition:</b> cester.h:2066</div></div>
+<div class="ttc" id="acester_8h_html_af6fdfc1a7963f6b2bf1196a5d75ceeec"><div class="ttname"><a href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a></div><div class="ttdeci">#define CESTER_BODY(x)</div><div class="ttdef"><b>Definition:</b> cester.h:3634</div></div>
+<div class="ttc" id="acester_8h_html_a46a752bc620dbdfbc4f5f851307b0d72"><div class="ttname"><a href="cester_8h.html#a46a752bc620dbdfbc4f5f851307b0d72">cester_assert_equal</a></div><div class="ttdeci">#define cester_assert_equal(x, y)</div><div class="ttdef"><b>Definition:</b> cester.h:2017</div></div>
+<div class="ttc" id="acester_8h_html_a8a6a76440950a47f00c288af35260b8f"><div class="ttname"><a href="cester_8h.html#a8a6a76440950a47f00c288af35260b8f">CESTER_MOCK_FUNCTION</a></div><div class="ttdeci">#define CESTER_MOCK_FUNCTION(x, y, z)</div><div class="ttdef"><b>Definition:</b> cester.h:3638</div></div>
+<div class="ttc" id="acester_8h_html_a4681c51ac1793cf49a7d90fac6eabe74"><div class="ttname"><a href="cester_8h.html#a4681c51ac1793cf49a7d90fac6eabe74">CESTER_TEST</a></div><div class="ttdeci">#define CESTER_TEST(x, y, z)</div><div class="ttdef"><b>Definition:</b> cester.h:3626</div></div>
+<div class="ttc" id="acester_8h_html_a5d12fa79c77dfe56918e813950e1b96e"><div class="ttname"><a href="cester_8h.html#a5d12fa79c77dfe56918e813950e1b96e">CESTER_REGISTER_TEST</a></div><div class="ttdeci">#define CESTER_REGISTER_TEST(x)</div><div class="ttdef"><b>Definition:</b> cester.h:3652</div></div>
 <div class="ttc" id="acester_8h_html"><div class="ttname"><a href="cester_8h.html">cester.h</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

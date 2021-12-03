@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['execution_5foutput_313',['execution_output',['../structtest__case.html#ac7262cf2814fda9c7bf154de5ce0d6ba',1,'test_case']]],
-  ['execution_5fstatus_314',['execution_status',['../structtest__case.html#a994234332a7abb41ecbaa299a1b573e5',1,'test_case']]],
-  ['execution_5ftime_315',['execution_time',['../structtest__case.html#ac2aa175fa3efd20971c2be05a30e9586',1,'test_case']]],
-  ['exotic_5fapi_316',['EXOTIC_API',['../cester_8h.html#adb89038ec025478b6b628899e7e7146f',1,'cester.h']]],
-  ['exotictypes_5fwindllexport_317',['EXOTICTYPES_WINDLLEXPORT',['../cester_8h.html#a07fa1c9bc563510fa197df308772b4b3',1,'cester.h']]],
-  ['expected_5fresult_318',['expected_result',['../structtest__case.html#a9c3fac97789112c1487d64183070c960',1,'test_case']]]
+  ['file_5fname_322',['file_name',['../structallocated__memory.html#a0461a06bf32054523f24c0e7534cd330',1,'allocated_memory']]],
+  ['flattened_5fcmd_5fargv_323',['flattened_cmd_argv',['../structsuper__test__instance.html#a85b477773dbc90ae3ba9d2435fe56948',1,'super_test_instance']]],
+  ['format_5ftest_5fname_324',['format_test_name',['../structsuper__test__instance.html#aec18d447f7671387a7d904f64796fc97',1,'super_test_instance']]],
+  ['free_325',['free',['../cester_8h.html#affb9fc32698fab7f7b36e0cf8e64c83e',1,'cester.h']]],
+  ['function_5fname_326',['function_name',['../structcaptured__stream.html#ab65336b316cf25ad5bd9d0cf88443591',1,'captured_stream::function_name()'],['../structallocated__memory.html#a020e048c98466e894d45aa4b70c3a61e',1,'allocated_memory::function_name()']]],
+  ['function_5fname_5fallocated_327',['function_name_allocated',['../structallocated__memory.html#af0663e8639058cd27f27d9e5f3a8ea26',1,'allocated_memory']]]
 ];

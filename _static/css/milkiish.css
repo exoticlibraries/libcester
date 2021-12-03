@@ -486,5 +486,8 @@ div.viewcode-block:target {
     color: #34aeeb !important; /* theme_highlight_color */
 }
 
+.highlighted {
+	background-color: yellow;
+}
 
 

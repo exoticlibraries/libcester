@@ -1,10 +1,13 @@
 var searchData=
 [
-  ['readme_2emd_343',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
-  ['registered_5ftest_5fcases_344',['registered_test_cases',['../structsuper__test__instance.html#ac2340a4d3b1e6a24354de0615e952a16',1,'super_test_instance']]],
-  ['replaced_5fstream_5ffile_5fpath_345',['replaced_stream_file_path',['../structcaptured__stream.html#a588c60a7607f81faf11cf38bed955dcc',1,'captured_stream']]],
-  ['replaced_5fstream_5fhandle_346',['replaced_stream_handle',['../structcaptured__stream.html#a3c32ce7ce37977e58baf590c8621529b',1,'captured_stream']]],
-  ['replaced_5fstream_5fptr_5fstr_347',['replaced_stream_ptr_str',['../structcaptured__stream.html#a65aa699cfcba12dd5ab64a8702c1fd1d',1,'captured_stream']]],
-  ['report_5ffailure_5fregardless_348',['report_failure_regardless',['../structsuper__test__instance.html#ab5d77df6a5cfaac7f7b0a11210607888',1,'super_test_instance']]],
-  ['report_5fsuccess_5fregardless_349',['report_success_regardless',['../structsuper__test__instance.html#aaed1bcb6fee26f079d626522b5f728c0',1,'super_test_instance']]]
+  ['selected_5ftest_5fcases_5ffound_353',['selected_test_cases_found',['../structsuper__test__instance.html#aa29ec99f02330228855474a8d93edb33',1,'super_test_instance']]],
+  ['selected_5ftest_5fcases_5fnames_354',['selected_test_cases_names',['../structsuper__test__instance.html#acefe9ae1d777e134e6ea99a5cc9ced7f',1,'super_test_instance']]],
+  ['selected_5ftest_5fcases_5fsize_355',['selected_test_cases_size',['../structsuper__test__instance.html#ad4f3871744486147563bfa5dcf108be9',1,'super_test_instance']]],
+  ['single_5foutput_5fonly_356',['single_output_only',['../structsuper__test__instance.html#a20c6f80a327f4898508e0ef68900d490',1,'super_test_instance']]],
+  ['size_357',['size',['../structcester__array__struct.html#ae754b1474dc0daf8fd50194dd26398ee',1,'cester_array_struct']]],
+  ['skipped_5ftest_5fcount_358',['skipped_test_count',['../structsuper__test__instance.html#a07f27c3cd0b7054c700a148013876922',1,'super_test_instance']]],
+  ['start_5ftic_359',['start_tic',['../structtest__case.html#adcf1da5ed10b099d309884affbb04d5d',1,'test_case::start_tic()'],['../structsuper__test__instance.html#a4e5c74b3d8053fea28beab23f4ebacfd',1,'super_test_instance::start_tic()']]],
+  ['stream_5fbuffer_360',['stream_buffer',['../structcaptured__stream.html#a8d0a3f455c6132011c56a7416ea5ba86',1,'captured_stream']]],
+  ['super_5ftest_5finstance_361',['super_test_instance',['../structsuper__test__instance.html',1,'']]],
+  ['supertestinstance_362',['SuperTestInstance',['../cester_8h.html#ae5e2df972f5b311e319f5a16ab1035cc',1,'SuperTestInstance():&#160;cester.h'],['../cester_8h.html#a3fe6cc19b68201d2eb34b35f3667ebd7',1,'superTestInstance():&#160;cester.h']]]
 ];

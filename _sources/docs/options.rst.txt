@@ -10,11 +10,11 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 
 .. code:: text
 
-	cester v0.3 by Adewale Azeez and other contributors.
+	cester v0.4 by Adewale Azeez and other contributors.
 	MIT License
-	Usage: ./test_assert_string [-options] [args...]
+	Usage: ./test_info [--FLAGS] [ARGS...]
 
-	where options include:
+	where --FLAGS include:
 		--cester-verbose-level=[LEVEL]  change how much information is printed in the terminal
 		--cester-minimal                print minimal info into the output stream
 		--cester-verbose                print as much info as possible into the output stream
@@ -26,6 +26,7 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 		--cester-dontformatname         leave the test case name as declared in the source file in the output
 		--cester-test=Test1,...         run only selected tests. Seperate the test cases by comma
 		--cester-output=[FORMAT]        change the format in which the test results are printed
+		--cester-info=[IOPTIONS],[IOPTIONS...] print out all or specific information about the test executablle
 		--cester-version                display cester version and exit
 		--cester-help                   display this help info version and exit
 	See https://exoticlibraries.github.io/libcester/docs/options.html for more details
@@ -35,6 +36,21 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 		junitxml
 		tap
 		tapV13
+
+	Supported info options. [IOPTIONS]:
+		all
+		options
+		comments
+		before_all
+		before_each
+		before*
+		after_all
+		after_each
+		after*
+		test
+		test_skip
+		test_todo
+		test*
 
 	Verbose levels. [LEVEL]:
 		0 - No information alias of --cester-minimal
@@ -118,6 +134,14 @@ to select the two test cases we can supply this option `--cester-test=test_asser
 Change the format in which the outpout is generated. Various format is supported, all the 
 supported format can be viewed at `output_formats <./output_formats.html>`_. E.g. to print the 
 output in JunitXML format you supply the option `--cester-output=junitxml`. 
+
+--cester-info=?
+---------------------
+
+Specify which specific information is to be printed out, the supported information sections can be 
+view at `test_information <./test_information.html>`_. With the combination of `--cester-output=?` flag 
+The information can be printed out in different formats. E.g. to print out al the test information in 
+junitxml format `--cester-info=all --cester-output=junitxml`
 
 --cester-verbose-level=?
 --------------------------

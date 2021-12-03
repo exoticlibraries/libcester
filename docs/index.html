@@ -9,7 +9,7 @@
     <title>Documentation &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/libcester.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -110,6 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_information.html">Test Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
@@ -143,6 +144,7 @@
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-noisolation">–cester-noisolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-test">–cester-test=</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-output">–cester-output=?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#cester-info">–cester-info=?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-verbose-level">–cester-verbose-level=?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-minimal">–cester-minimal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-verbose">–cester-verbose</a></li>
@@ -214,6 +216,7 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-release-stdin">CESTER_RELEASE_STDIN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-reset-stdin">CESTER_RESET_STDIN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-main">#define CESTER_NO_MAIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-print-info">#define CESTER_NO_PRINT_INFO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-body">CESTER_BODY</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
@@ -222,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-change-stream">CESTER_CHANGE_STREAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-nocolor">CESTER_NOCOLOR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-verbose-level">CESTER_VERBOSE_LEVEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-print-error-only">CESTER_PRINT_ERROR_ONLY</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-minimal">CESTER_MINIMAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-verbose">CESTER_VERBOSE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-print-version">CESTER_PRINT_VERSION</a></li>
@@ -389,6 +393,7 @@
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#exclude-time-report">Exclude time report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-memory-test">Disable memory test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-information-printing">Disable information printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#select-reporter-to-compile">Select Reporter To Compile</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-junitxml-report">Exclude JunitXml Report</a></li>
 <li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-text-report">Exclude Text Report</a></li>
@@ -402,6 +407,7 @@
 <li class="toctree-l2"><a class="reference internal" href="known_issues.html#c-dynamic-deallocation">C++ Dynamic Deallocation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="test_information.html">Test Information</a></li>
 </ul>
 </div>
 </div>

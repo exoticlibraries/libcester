@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['line_5fnum_412',['line_num',['../structcaptured__stream.html#a1d49f9efeee7a573d46762f7fd43970d',1,'captured_stream::line_num()'],['../structtest__case.html#ae8cb1680656e536386976c71ec2e2caa',1,'test_case::line_num()'],['../structallocated__memory.html#a45b4e998fe52a8825d9e6f0c26f03b6e',1,'allocated_memory::line_num()']]]
+  ['main_5fexecution_5foutput_416',['main_execution_output',['../structsuper__test__instance.html#aa613428bf93a5e95766e6b2163083ffd',1,'super_test_instance']]],
+  ['mem_5falloc_5fmanager_417',['mem_alloc_manager',['../structsuper__test__instance.html#a8339cc5c1db8285e7abebb1837d02aa1',1,'super_test_instance']]],
+  ['mem_5ftest_5factive_418',['mem_test_active',['../structsuper__test__instance.html#a31b4b2b5eb8a9436fe8c669037f736ee',1,'super_test_instance']]]
 ];

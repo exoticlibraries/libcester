@@ -9,7 +9,7 @@
     <title>Helper Macros &#8212; libcester  documentation</title>
     <link rel="stylesheet" href="../_static/css/milkiish.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/css/libcester.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/libcester.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -110,6 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="output_formats.html">Output Formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selective_compilation.html">Selective Modular Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_for_failure.html">Testing for failures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_information.html">Test Information</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_stream.html">Testing Output Streams</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How it works</span></p>
@@ -711,6 +712,12 @@ if not set the fallback folder is <em>“/tmp/libcester_tmp/”</em>.</p>
 requires you to put your main function in the CESTER_BODY macro. To run the tests invoke the
 macro <cite>CESTER_RUN_ALL_TESTS(argc, argv)</cite> with the two main function parameter.</p>
 </div>
+<div class="section" id="define-cester-no-print-info">
+<h2>#define CESTER_NO_PRINT_INFO<a class="headerlink" href="#define-cester-no-print-info" title="Permalink to this headline">¶</a></h2>
+<p>Defining this macro will remove the printing test information feature during compilation step,
+the flag <cite>–cester-info=</cite>, function <cite>cester_str_size</cite> will not be available at runtime.
+This is not a predefined macro it has to be defined in the test source before including cester.h.</p>
+</div>
 <div class="section" id="cester-body">
 <h2>CESTER_BODY<a class="headerlink" href="#cester-body" title="Permalink to this headline">¶</a></h2>
 <p>This macro wraps codes in test file to prevent generating the codes more than once.
@@ -810,6 +817,13 @@ cli using <cite>–cester-verbose-level=3</cite>.</p>
 verbose level of zero no information is printed in the terminal, with 10 all possible
 information is printed in the terminal. 3 is the best value to print out meaningful
 details.</p>
+</div>
+<div class="section" id="cester-print-error-only">
+<h2>CESTER_PRINT_ERROR_ONLY<a class="headerlink" href="#cester-print-error-only" title="Permalink to this headline">¶</a></h2>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_PRINT_ERROR_ONLY</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Print only error in the terminal, ignore assertions, evaluation result.</p>
 </div>
 <div class="section" id="cester-minimal">
 <h2>CESTER_MINIMAL<a class="headerlink" href="#cester-minimal" title="Permalink to this headline">¶</a></h2>
@@ -1076,6 +1090,7 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-release-stdin">CESTER_RELEASE_STDIN</a></li>
 <li><a class="reference internal" href="#cester-reset-stdin">CESTER_RESET_STDIN</a></li>
 <li><a class="reference internal" href="#define-cester-no-main">#define CESTER_NO_MAIN</a></li>
+<li><a class="reference internal" href="#define-cester-no-print-info">#define CESTER_NO_PRINT_INFO</a></li>
 <li><a class="reference internal" href="#cester-body">CESTER_BODY</a></li>
 <li><a class="reference internal" href="#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
 <li><a class="reference internal" href="#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
@@ -1084,6 +1099,7 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-change-stream">CESTER_CHANGE_STREAM</a></li>
 <li><a class="reference internal" href="#cester-nocolor">CESTER_NOCOLOR</a></li>
 <li><a class="reference internal" href="#cester-verbose-level">CESTER_VERBOSE_LEVEL</a></li>
+<li><a class="reference internal" href="#cester-print-error-only">CESTER_PRINT_ERROR_ONLY</a></li>
 <li><a class="reference internal" href="#cester-minimal">CESTER_MINIMAL</a></li>
 <li><a class="reference internal" href="#cester-verbose">CESTER_VERBOSE</a></li>
 <li><a class="reference internal" href="#cester-print-version">CESTER_PRINT_VERSION</a></li>

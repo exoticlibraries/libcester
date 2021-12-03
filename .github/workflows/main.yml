@@ -29,6 +29,7 @@ jobs:
             test/
           test-exclude-file-pattern: |
             mock+
+            test_info
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+

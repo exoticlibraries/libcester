@@ -101,6 +101,7 @@ Some of the documentation pages are listed below:
  - [Cester Options](https://exoticlibraries.github.io/libcester/docs/options.html)
  - [Test Fixtures](https://exoticlibraries.github.io/libcester/docs/fixtures.html)
  - [Output Formats](https://exoticlibraries.github.io/libcester/docs/output_formats.html)
+ - [Test Information](https://exoticlibraries.github.io/libcester/docs/test_information.html)
  - [Testing for failures](https://exoticlibraries.github.io/libcester/docs/test_for_failure.html)
  - [Testing Output Streams](https://exoticlibraries.github.io/libcester/docs/testing_stream.html)
  - [How it works](https://exoticlibraries.github.io/libcester/how_it_works/index.html)
@@ -208,11 +209,15 @@ The following options performs important task:
 
 - **--cester-noisolation**: instruct cester to run all the test in one single process. With this option signal will be used for crash reporting but if the test is compiled with the macro `CESTER_NO_SIGNAL` defined, cester will not be able to recover from critical crash therefore if a test case segfault the tests will terminate immediately.
 
- - **--cester-output**: Change the format in which the outpout is generated. Various format is supported, all the supported format can be viewed [here](https://exoticlibraries.github.io/libcester/docs/output_formats.html). E.g. to print the output in JunitXML format you supply the option `--cester-output=junitxml`.
+ - **--cester-output=?**: Change the format in which the outpout is generated. Various format is supported, all the supported format can be viewed [here](https://exoticlibraries.github.io/libcester/docs/output_formats.html). E.g. to print the output in JunitXML format you supply the option `--cester-output=junitxml`.
 
  - **--cester-nomemtest**: instruct cester to skip memory leak detection and test. Alternatively the test can be compiled with the macro `CESTER_NO_MEM_TEST` defined at the beginning of the source file.
 
  - **--cester-verbose**: printf as much output as possible including passed test expression, output to the stdout from within the test case. This option combined with **--cester-minimal** prints out the output in a very sane format.
+
+ - **--cester-test=?**: Select whiich test case to execute, this flag accept CSV of the test case, all other testcase will be ignred. E.g. To execute the two test *test_string* and *test_int* supply the flag `--cester-test=test_string,test_int`.
+
+ - **--cester-info=?**: Prints the tests information printing feature. This feature can be disable at compile time by deining the macro `CESTER_NO_PRINT_DETAIL` before including cester.h. All possible value can be viewed [here](https://exoticlibraries.github.io/libcester/docs/test_information.html). E.g. to print all trhe test executable information supply the flag `--cester-info=all`.
 
  - **--cester-help**: to view all the options accepted by cester.
 

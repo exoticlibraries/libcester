@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Run Regression
-        uses: exoticlibraries/exotic-action@v1.3
+        uses: exoticlibraries/exotic-action@v1.4
         with:
           download-exotic-libraries: true
           run-regression: true
@@ -29,10 +29,11 @@ jobs:
             test/
           test-exclude-file-pattern: |
             mock+
+            test_info
             crash_test.c
             test_assert_double_float+
             test_assert_long_long+
-          test-exclude-file-pattern-msvc: |
+          test-exclude-file-pattern-windows: |
             stream
           compiler-options-for-tests: |
             -I../include -I./include

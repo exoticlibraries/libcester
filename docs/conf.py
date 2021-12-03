@@ -10,8 +10,9 @@ master_doc = 'index'
 html_favicon = 'libcester.png'
 main_doc = 'index'
 html_static_path = ['_static']
-html_context = {
-    'css_files': ['_static/css/libcester.css'],
+
+html_css_files = {
+    'css/libcester.css'
 }
 
 html_theme_options = {

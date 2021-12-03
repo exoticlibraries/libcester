@@ -20,3 +20,4 @@ Documentation
    testing_stream
    selective_compilation
    known_issues
+   test_information

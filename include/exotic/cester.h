@@ -52,6 +52,7 @@ extern "C" {
         #define __CESTER_FUNCTION__ "<unknown>"
     #endif
     #define CESTER_NULL 0L
+    #define inline 
 #else 
     #define __CESTER_INLINE__ inline
     #define __CESTER_LONG_LONG__ long long

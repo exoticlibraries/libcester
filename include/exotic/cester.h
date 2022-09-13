@@ -274,7 +274,7 @@ typedef struct captured_stream {
     char *replaced_stream_ptr_str;          /**< The stream to replace the captured stream pointer address as string. For internal use only.*/
     char *stream_buffer;                    /**< The stream content. This is needed so we can peoperly free allocated memory. For internal use only.*/
     char *replaced_stream_file_path;  /**< The file path to the temporary file that replaces the stream. For internal use only.*/
-    FILE original_stream;                   /**< The actual address of the captured stream. For internal use only.*/
+    FILE *original_stream;                   /**< The actual address of the captured stream. For internal use only.*/
     FILE *original_stream_handle;           /**< The actual variable of the captured stream. For internal use only.*/
     FILE *replaced_stream_handle;           /**< The opened file handle that replaces the captured stream. For internal use only.*/
 } CapturedStream;
@@ -398,7 +398,7 @@ typedef struct super_test_instance {
     char *output_stream_str;                            /**< The string value of the output stream pointer. For internal use only. */
     char *captured_streams_tmp_folder;                  /**< The folder to store temporary file for captured streams. For internal use only. */
     TestInstance *test_instance ;                       /**< The test instance for sharing datas. For internal use only. */
-    FILE output_stream_address;                         /**< Output stream address. incase the output stream was captured in test it state can be reset. For internal use only. */
+    FILE *output_stream_address;                         /**< Output stream address. incase the output stream was captured in test it state can be reset. For internal use only. */
     FILE *output_stream;                                /**< Output stream to write message to, stdout by default. For internal use only. */
     char **selected_test_cases_names;                   /**< selected test cases from command line. For internal use only. e.g. --cester-test=Test2,Test1 */
     TestCase *current_test_case;                        /**< The currently running test case. For internal use only. */
@@ -3820,7 +3820,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
             if (superTestInstance.output_stream==CESTER_NULL) {
                 superTestInstance.output_stream = stdout;
                 cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
-                superTestInstance.output_stream_address = *stdout;
+                superTestInstance.output_stream_address = stdout;
             }
             CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the captured stream array. Input and Output Stream test disabled.\n");
             return;
@@ -3855,7 +3855,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
         return;
     }
     captured_stream->line_num = line_num;
-    captured_stream->original_stream = *stream;
+    captured_stream->original_stream = stream;
     captured_stream->original_stream_handle = stream;
     captured_stream->replaced_stream_handle = replaced_stream;
     captured_stream->replaced_stream_file_path = replaced_stream_file_path;
@@ -3871,7 +3871,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
         goto cester_capture_stream_cleanup;
         return;
     }
-    *stream = *(captured_stream->replaced_stream_handle);
+    stream = (captured_stream->replaced_stream_handle);
     return;
 
     cester_capture_stream_cleanup:
@@ -3914,7 +3914,7 @@ static void cester_release_captured_stream(FILE *stream, CapturedStream *capture
             cester_concat_str(&superTestInstance.current_test_case->execution_output, captured_stream->replaced_stream_file_path);
             cester_concat_str(&superTestInstance.current_test_case->execution_output, "' manually delete it from your file system.\n");
         }
-        *stream = captured_stream->original_stream;
+        stream = captured_stream->original_stream;
     }
     if (captured_stream->stream_buffer != CESTER_NULL) {
         free(captured_stream->stream_buffer);
@@ -3950,7 +3950,7 @@ static void cester_reset_stream(FILE *stream, char const* const file_path, unsig
                     if (stream != CESTER_NULL) {
                         fclose(captured_stream->replaced_stream_handle);
                         captured_stream->replaced_stream_handle = fopen(captured_stream->replaced_stream_file_path, "w+");
-                        *stream = *(captured_stream->replaced_stream_handle);
+                        stream = (captured_stream->replaced_stream_handle);
                         captured_stream->line_num = line_num;
                     }
                     free(stream_ptr_str);
@@ -4088,7 +4088,7 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
         }
         if (cester_string_equals(captured_stream->original_stream_ptr_str, superTestInstance.output_stream_str) == 1) {
             fflush(superTestInstance.output_stream);
-            *(superTestInstance.output_stream) = superTestInstance.output_stream_address;
+            (superTestInstance.output_stream) = superTestInstance.output_stream_address;
         }
         if (captured_stream != CESTER_NULL && cester_string_equals(captured_stream->function_name, test_case->name) == 1) {
             unreleased_stream_count++;
@@ -4320,7 +4320,7 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
 	    if (superTestInstance.output_stream==CESTER_NULL) {
             superTestInstance.output_stream = stdout;
             cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
-            superTestInstance.output_stream_address = *stdout;
+            superTestInstance.output_stream_address = stdout;
 	    }
 	    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the test cases array. Cannot run manually registered tests.\n");
 	    CESTER_RESET_TERMINAL_ATTR();
@@ -4352,7 +4352,7 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
         if (superTestInstance.output_stream==CESTER_NULL) {
             superTestInstance.output_stream = stdout;
             cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
-            superTestInstance.output_stream_address = *stdout;
+            superTestInstance.output_stream_address = stdout;
         }
         free(test_case);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to register '");
@@ -5150,7 +5150,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
     if (superTestInstance.output_stream==CESTER_NULL) {
         superTestInstance.output_stream = stdout;
         cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
-        superTestInstance.output_stream_address = *stdout;
+        superTestInstance.output_stream_address = stdout;
     }
 #ifndef CESTER_NO_MEM_TEST
 	if (superTestInstance.mem_alloc_manager == CESTER_NULL) {
@@ -5483,7 +5483,7 @@ static __CESTER_INLINE__ void* cester_allocator(size_t nitems, size_t size, unsi
                 if (superTestInstance.output_stream==CESTER_NULL) {
                     superTestInstance.output_stream = stdout;
                     cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
-                    superTestInstance.output_stream_address = *stdout;
+                    superTestInstance.output_stream_address = stdout;
                 }
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Unable to initialize the memory management array. Memory test disabled.\n");
                 superTestInstance.mem_test_active = 0;

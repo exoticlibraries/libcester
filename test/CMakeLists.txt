@@ -20,7 +20,8 @@ IF (WIN32)
     file(GLOB visual_studio_bats "C:/Program Files (x86)/Microsoft Visual Studio/*/BuildTools/*/Tools/VsDevCmd.bat")
     foreach(vs_filepath ${visual_studio_bats})
         message(STATUS "PATH VS: " ${vs_filepath}  )
-        set(VISUAL_STUDIO_BAT_CMD call ${vs_filepath})
+        set(VISUAL_STUDIO_BAT_CMD "call \\\"\"${vs_filepath}\\\"\"")
+        message(STATUS "PATH VS1: " ${VISUAL_STUDIO_BAT_CMD}  )
         set(CL_32 "cl")
         break()
     endforeach()
@@ -77,14 +78,14 @@ foreach(filepath ${files})
         COMMAND echo -------------------------------------------
         
         # clang 
-        COMMAND ${echo_var} ${echo_var2} clang -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} clang -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} clang++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} clang++ -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} clang -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} clang -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} clang++ -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} clang++ -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT}
         COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_32${FILE_EXT}
         COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang ${clang_m32} -ansi -pedantic-errors -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_ansi_32${FILE_EXT}
-        COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang++ ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
-        COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang++ -ansi -pedantic-errors ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT}
+        #COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang++ ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ${mac_comment_32} ${echo_var2} clang++ -ansi -pedantic-errors ${clang_m32} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT}
     
         # gcc
         COMMAND ${echo_var2} gcc -I. ${address_sanitizer} ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc${FILE_EXT}
@@ -97,7 +98,9 @@ foreach(filepath ${files})
         COMMAND ${mac_comment_32} ${echo_var} ${echo_var2} g++ -ansi -pedantic-errors -m32 ${address_sanitizer} -I. ${INCLUDE_PATHS} ${filepath} ${mock_arg} -o ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT}
 
         # cl
-        COMMAND ${ms_cl_echo} ${echo_var} ${VISUAL_STUDIO_BAT_CMD} ${WINDOWS_CMD_AND} ${ms_cl_echo} ${echo_var} ${CL_32} /D__BASE_FILE__=\\\"${filepath}\\\" /I. ${CL_INCLUDE_PATHS} ${filepath} /Fe./build/${filenameonly}_cl${FILE_EXT}
+        #COMMAND ${ms_cl_echo} ${echo_var} echo ${VISUAL_STUDIO_BAT_CMD} > build/cl.compile.script.tmp.bat
+        #COMMAND ${ms_cl_echo} ${echo_var} echo ${CL_32} /D__BASE_FILE__=\\\\\\"${filepath}\\\\\\" /I. ${CL_INCLUDE_PATHS} ${filepath} /Fe./build/${filenameonly}_cl${FILE_EXT} >> build/cl.compile.script.tmp.bat
+        #COMMAND ${ms_cl_echo} ${echo_var} cmd /c build\\cl.compile.script.tmp.bat
     )
     
     add_custom_command(TARGET cester_test
@@ -108,14 +111,14 @@ foreach(filepath ${files})
         COMMAND echo -------------------------------------------
         
         # clang
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
-        COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT} ${skip_cpp_ansi}
+        #COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_ansi${FILE_EXT} --cester-output=junitxml
+        #COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp${FILE_EXT} --cester-output=tap
+        #COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_clang_cpp_ansi${FILE_EXT} ${skip_cpp_ansi}
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_32${FILE_EXT} --cester-output=tapV13
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_ansi_32${FILE_EXT} --cester-output=text
-        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
-        COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT} ${skip_cpp_ansi}
+        #COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_32${FILE_EXT}
+        #COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_clang_cpp_ansi_32${FILE_EXT} ${skip_cpp_ansi}
         
         # gcc
         COMMAND ${echo_var} ${echo_var2} ./build/${filenameonly}_gcc${FILE_EXT}
@@ -128,7 +131,7 @@ foreach(filepath ${files})
         COMMAND ${echo_var} ${echo_var2} ${mac_comment_32} ./build/${filenameonly}_gcc_cpp_ansi_32${FILE_EXT} ${skip_cpp_ansi}
 
         # cl
-        COMMAND ${ms_cl_echo} ${echo_var} ./build/${filenameonly}_cl${FILE_EXT}
+        #COMMAND ${ms_cl_echo} ${echo_var} ./build/${filenameonly}_cl${FILE_EXT}
     )
     
     add_dependencies(cester_test ${filenameonly}__)

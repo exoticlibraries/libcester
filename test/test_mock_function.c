@@ -3,7 +3,7 @@
 #include <exotic/cester.h>
 #include "originals.c"
 
-CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(), int, 5)
+CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(void), int, 5)
 
 CESTER_MOCK_FUNCTION(power_of(int* num1, int num2), int, 
     int return_val = *num1;

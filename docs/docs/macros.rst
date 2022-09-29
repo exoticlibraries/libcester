@@ -558,7 +558,7 @@ return 5 instead of two:
 
 .. code:: text
 
-    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(), int, 5)
+    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(void), int, 5)
 
 
 The macro above expands to the following code 

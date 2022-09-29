@@ -306,7 +306,7 @@ typedef void (*cester_before_after_each)(TestInstance*, char * const, unsigned);
 /**
     A void function signature with no return type and no parameters.
 */
-typedef void (*cester_void)();
+typedef void (*cester_void)(void);
 
 typedef struct test_case {
     unsigned execution_status;                      /**< the test execution result status. For internal use only. */
@@ -421,49 +421,49 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *, char, char**)
 
 
 SuperTestInstance superTestInstance = { 
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    1,
-    CESTER_RESULT_SUCCESS,
-    1,
-    0,
-    0,
-    1,
-    0,
-    0,
-    CESTER_TESTS_TERMINATOR,
+    0,                                               /* no_color */
+    0,                                               /* total_tests_count */
+    0,                                               /* total_tests_ran */
+    0,                                               /* total_failed_tests_count */
+    0,                                               /* total_passed_tests_count */
+    0,                                               /* total_test_errors_count */
+    0,                                               /* verbose_level */
+    1,                                               /* print_error_only */
+    0,                                               /* print_version */
+    0,                                               /* selected_test_cases_size */
+    0,                                               /* selected_test_cases_found */
+    0,                                               /* single_output_only */
+    1,                                               /* mem_test_active */
+    CESTER_RESULT_SUCCESS,                           /* current_execution_status */
+    1,                                               /* isolate_tests */
+    0,                                               /* skipped_test_count */
+    0,                                               /* todo_tests_count */
+    1,                                               /* format_test_name */
+    0,                                               /* report_success_regardless */
+    0,                                               /* report_failure_regardless */
+    CESTER_TESTS_TERMINATOR,                         /* current_cester_function_type */
 #ifndef CESTER_NO_TIME
-    0.0,
+    0.0,                                             /* start_tic */
 #endif
-    (char*)"",
-    (char*)"",
+    (char*)"",                                       /* main_execution_output */
+    (char*)"",                                       /* flattened_cmd_argv */
 #ifdef __BASE_FILE__
-    (char*)__BASE_FILE__,
+    (char*)__BASE_FILE__,                            /* test_file_path */
 #else
-    (char*)__FILE__,
+    (char*)__FILE__,                                 /* test_file_path */
 #endif
-    (char*)"text",
-    (char*)"",
-    (char*)"./build/libcester/captured_streams/",
-    0,
-    0,
-    0,
-    CESTER_NULL,
-    0,
-    0,
-    0,
+    (char*)"text",                                   /* output_format */
+    (char*)"",                                       /* output_stream_str */
+    (char*)"./build/libcester/captured_streams/",    /* captured_streams_tmp_folder */
+    0,                                               /* test_instance */
+    0,                                               /* output_stream_address */
+    0,                                               /* output_stream */
+    CESTER_NULL,                                     /* selected_test_cases_names */
+    0,                                               /* current_test_case */
+    0,                                               /* registered_test_cases */
+    0,                                               /* captured_streams */
 #ifndef CESTER_NO_MEM_TEST
-    0
+    0                                                /* mem_alloc_manager */
 #endif
 };
 
@@ -1051,7 +1051,7 @@ static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_
 #endif
 #endif
 
-static __CESTER_INLINE__ void cester_print_version() {
+static __CESTER_INLINE__ void cester_print_version(void) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "cester v");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_VERSION);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), " by ");
@@ -1059,7 +1059,7 @@ static __CESTER_INLINE__ void cester_print_version() {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ".\n");
 }
 
-static __CESTER_INLINE__ void cester_print_help() {
+static __CESTER_INLINE__ void cester_print_help(void) {
     char *file_name = cester_extract_name_only(superTestInstance.test_file_path);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), CESTER_LICENSE);
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nUsage: ./");
@@ -1208,7 +1208,7 @@ static __CESTER_INLINE__ void cester_print_expect_actual(unsigned expecting, cha
 #ifndef CESTER_NO_TIME
 static __CESTER_INLINE__ void print_test_result(double time_spent) {
 #else
-static __CESTER_INLINE__ void print_test_result() {
+static __CESTER_INLINE__ void print_test_result(void) {
 #endif
     unsigned cached_total_failed_tests_count = superTestInstance.total_failed_tests_count;
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "\nRan ");
@@ -1636,7 +1636,7 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
    Clean up all the super instance date and free 
    all the allocated memories used by libcester super instance
 */
-static void cester_cleanup_super_instance();
+static void cester_cleanup_super_instance(void);
 
 static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], TestInstance* test_instance) {
     unsigned index_sub, ret_val;
@@ -3426,7 +3426,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(enum cester_assertion_capar
     Set the options for cester, anything in this macro will be executed before 
     the tests starts running.
 */
-#define CESTER_OPTIONS(x) void cester_options_before_main();
+#define CESTER_OPTIONS(x) void cester_options_before_main(void);
 
 /**
     Absorb the statements and logic in a test file before re including 
@@ -3448,7 +3448,7 @@ static __CESTER_INLINE__ void cester_compare_ldouble(enum cester_assertion_capar
     It should not begin or end in quote, escape characters is 
     expanded when printed out
 */
-#define CESTER_COMMENT(x) void cester_test_file_comment_function();
+#define CESTER_COMMENT(x) void cester_test_file_comment_function(void);
 
 #ifndef CESTER_NO_MOCK
 /**
@@ -3484,9 +3484,9 @@ static __CESTER_INLINE__ void cester_compare_ldouble(enum cester_assertion_capar
 #define CESTER_BEFORE_EACH(w,x,y,...) void cester_before_each_test(TestInstance* w, char * const x, unsigned y);
 #define CESTER_AFTER_ALL(x,...) void cester_after_all_test(TestInstance* x);
 #define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y);
-#define CESTER_OPTIONS(...) void cester_options_before_main();
+#define CESTER_OPTIONS(...) void cester_options_before_main(void);
 #define CESTER_BODY(...)
-#define CESTER_COMMENT(...) void cester_test_file_comment_function();
+#define CESTER_COMMENT(...) void cester_test_file_comment_function(void);
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...)  __attribute__((weak)) y x; y __real_##x;
 #define CESTER_MOCK_FUNCTION(x,y,...) __attribute__((weak)) y x; extern y __real_##x;
@@ -3611,9 +3611,9 @@ extern "C" {
 #define CESTER_BEFORE_EACH(w,x,y,...) void cester_before_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
 #define CESTER_AFTER_ALL(x,...) void cester_after_all_test(TestInstance* x) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
 #define CESTER_AFTER_EACH(w,x,y,...) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { __VA_ARGS__ CESTER_NO_ISOLATION(); }
-#define CESTER_OPTIONS(...) void cester_options_before_main() { __VA_ARGS__ }
+#define CESTER_OPTIONS(...) void cester_options_before_main(void) { __VA_ARGS__ }
 #define CESTER_BODY(...) __VA_ARGS__
-#define CESTER_COMMENT(...) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #__VA_ARGS__); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
+#define CESTER_COMMENT(...) void cester_test_file_comment_function(void) { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #__VA_ARGS__); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,...) y __wrap_##x { return __VA_ARGS__; }
 #define CESTER_MOCK_FUNCTION(x,y,...) y __wrap_##x { __VA_ARGS__ }
@@ -3631,9 +3631,9 @@ extern "C" {
 #define CESTER_BEFORE_EACH(w,x,y,z) void cester_before_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
 #define CESTER_AFTER_ALL(x,y) void cester_after_all_test(TestInstance* x) { y CESTER_NO_ISOLATION(); }
 #define CESTER_AFTER_EACH(w,x,y,z) void cester_after_each_test(TestInstance* w, char * const x, unsigned y) { z CESTER_NO_ISOLATION(); }
-#define CESTER_OPTIONS(x) void cester_options_before_main() { x }
+#define CESTER_OPTIONS(x) void cester_options_before_main(void) { x }
 #define CESTER_BODY(x) x
-#define CESTER_COMMENT(x) void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #x); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
+#define CESTER_COMMENT(x) void cester_test_file_comment_function(void) { if (cester_string_equals(superTestInstance.output_format, (char*) "text") == 1) { CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); CESTER_DELEGATE_FPRINT_STR((cester_default_color), #x); CESTER_DELEGATE_FPRINT_STR((cester_default_color), "\n"); } }
 #ifndef CESTER_NO_MOCK
 #define CESTER_MOCK_SIMPLE_FUNCTION(x,y,z) y __wrap_##x { return z; }
 #define CESTER_MOCK_FUNCTION(x,y,z) y __wrap_##x { z }
@@ -4754,7 +4754,7 @@ static __CESTER_INLINE__ unsigned cester_run_test_no_isolation(TestInstance *tes
 
 #ifndef CESTER_NO_SIGNAL  
 /*void (*signal(int , void (*)(int)))(int);*/
-void cester_capture_signals();
+void cester_capture_signals(void);
 void cester_recover_on_signal(int sig_num);
 #endif
 
@@ -4855,7 +4855,7 @@ static __CESTER_INLINE__ void cester_run_all_test_iterator(int start) {
     }
 }
 
-static void cester_cleanup_super_instance()
+static void cester_cleanup_super_instance(void)
 {
     unsigned index;
     
@@ -5147,7 +5147,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 #ifndef CESTER_NO_PRINT_INFO
 	info_section = CESTER_NULL;
 #endif
-    superTestInstance.output_format = CESTER_NULL;
+    /* superTestInstance.output_format = CESTER_NULL; */
     if (superTestInstance.output_stream==CESTER_NULL) {
         superTestInstance.output_stream = stdout;
         cester_ptr_to_str(&(superTestInstance.output_stream_str), stdout); 
@@ -5340,7 +5340,7 @@ int main(int argc, char **argv) {
 #endif
 
 #ifndef CESTER_NO_SIGNAL
-void cester_capture_signals() {
+void cester_capture_signals(void) {
     signal(SIGINT , cester_recover_on_signal);
     signal(SIGABRT , cester_recover_on_signal);
     signal(SIGILL , cester_recover_on_signal);

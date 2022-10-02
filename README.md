@@ -213,6 +213,8 @@ The following options performs important task:
 
  - **--cester-nomemtest**: instruct cester to skip memory leak detection and test. Alternatively the test can be compiled with the macro `CESTER_NO_MEM_TEST` defined at the beginning of the source file.
 
+ - **--cester-nostreamcapture**: instruct cester to skip stream capture, assertion and test. Alternatively the test can be compiled with the macro `CESTER_NO_STREAM_CAPTURE` defined at the beginning of the source file.
+
  - **--cester-verbose**: printf as much output as possible including passed test expression, output to the stdout from within the test case. This option combined with **--cester-minimal** prints out the output in a very sane format.
 
  - **--cester-test=?**: Select whiich test case to execute, this flag accept CSV of the test case, all other testcase will be ignred. E.g. To execute the two test *test_string* and *test_int* supply the flag `--cester-test=test_string,test_int`.

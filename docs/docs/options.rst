@@ -89,7 +89,7 @@ at runtime. This can also be set within the code using the macro CESTER_NO_MEMTE
 Disable stream capturing and assertions in tests. This option is available if the test source 
 does not define the CESTER_NO_STREAM_CAPTURE macro.  If the macro CESTER_NO_STREAM_CAPTURE is defined in the 
 test source stream capture features are disabled at compile time and this option is not available 
-at runtime. This can also be set within the code using the macro CESTER_NO_STREAM_CAPTURE().
+at runtime. This can also be set within the code using the macro CESTER_NOSTREAMCAPTURE().
 
 --cester-noisolation
 --------------------------

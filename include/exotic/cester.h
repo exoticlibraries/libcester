@@ -391,6 +391,7 @@ typedef struct super_test_instance {
     unsigned selected_test_cases_found;                   /**< the number of selected test casses from command line that is found in the test file. For internal use only. */
     unsigned single_output_only;                          /**< display the output for a single test only no summary and syntesis. For internal use only. */
     unsigned mem_test_active;                             /**< Enable or disable memory test at runtime. Enabled by default. For internal use only. */
+    unsigned stream_capture_active;                       /**< Enable or disable memory test at runtime. Enabled by default. For internal use only. */
     unsigned current_execution_status;                    /**< the current test case status. This is used when the test cases run on a single process. For internal use only. */
     unsigned isolate_tests;                               /**< Isolate each test case to run in different process to prevent a crashing test case from crahsing others. For internal use only. */
     unsigned skipped_test_count;                          /**< The number of test cases to be skipped. For internal use only. */
@@ -448,6 +449,7 @@ SuperTestInstance superTestInstance = {
     0,                                               /* selected_test_cases_found */
     0,                                               /* single_output_only */
     1,                                               /* mem_test_active */
+    1,                                               /* stream_capture_active */
     CESTER_RESULT_SUCCESS,                           /* current_execution_status */
     1,                                               /* isolate_tests */
     0,                                               /* skipped_test_count */
@@ -605,6 +607,25 @@ SuperTestInstance superTestInstance = {
     allocation will be validated in all the other test case that follows.
 **/
 #define CESTER_DO_MEMTEST() (superTestInstance.mem_test_active = 1)
+
+/**
+    Disable stream capture features.
+    
+    This option can also be set from the command line with `--cester-nostreamcapture`
+**/
+#define CESTER_NO_STREAMCAPTURE() (superTestInstance.stream_capture_active = 0)
+
+/**
+    Enable stream capture features. The combination of CESTER_NO_STREAMCAPTURE() and 
+    CESTER_DO_STREAMCAPTURE() is valid only in non isolated tests. 
+    
+    This togle combined with `CESTER_NO_STREAMCAPTURE()` can be used to selectively 
+    test stream capture and content in a test e.g. Calling CESTER_NO_STREAMCAPTURE() before 
+    a test case will prevent stream capturing from the beginning of that function and 
+    calling CESTER_DO_STREAMCAPTURE() at the end of the test case will ensure stream capturing
+    will be enabled in all the other test case that follows.
+**/
+#define CESTER_DO_STREAMCAPTURE() (superTestInstance.stream_capture_active = 1)
 
 /**
     Change the output format to text
@@ -1091,6 +1112,9 @@ static __CESTER_INLINE__ void cester_print_help(void) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput           display cester version and exit\n");
 #ifndef CESTER_NO_MEM_TEST
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest              disable memory leak detection in the tests\n");
+#endif
+#ifndef CESTER_NO_STREAM_CAPTURE
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nostreamcapture        disable stream capture and assertions in the tests\n");
 #endif
 #ifdef __CESTER_STDC_VERSION__
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-noisolation            run all the test on a single process. Prevents recovery from crash.\n");
@@ -3835,6 +3859,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
     FILE *replaced_stream = CESTER_NULL;
     struct stat st = {0};
 
+    if (superTestInstance.stream_capture_active == 0) return;
     if (superTestInstance.captured_streams == CESTER_NULL) {
 	    if (cester_array_init(&superTestInstance.captured_streams) == 0) {
             if (superTestInstance.output_stream==CESTER_NULL) {
@@ -3925,6 +3950,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
     \param line_num the line number where the stream is being released
 */
 static void cester_release_captured_stream(FILE *stream, CapturedStream *captured_stream, char const* const file_path, unsigned const line_num) {
+    if (superTestInstance.stream_capture_active == 0) return;
     if (stream != CESTER_NULL) {
         fflush(stream);
         fclose(captured_stream->replaced_stream_handle);
@@ -3957,6 +3983,7 @@ static void cester_reset_stream(FILE *stream, char const* const file_path, unsig
     size_t index;
     char *stream_ptr_str;
 
+    if (superTestInstance.stream_capture_active == 0) return;
     if (superTestInstance.captured_streams == CESTER_NULL) {
         goto cester_reset_stream_cleanup;
     }
@@ -4002,7 +4029,7 @@ static char *cester_stream_content(FILE *stream, char const* const file_path, un
     size_t length;
     char *stream_ptr_str;
 
-    if (superTestInstance.captured_streams == CESTER_NULL) {
+    if (superTestInstance.captured_streams == CESTER_NULL || superTestInstance.stream_capture_active == 0) {
         return (char *) "";
     }
     cester_ptr_to_str(&stream_ptr_str, stream);
@@ -4053,6 +4080,7 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
     size_t index;
     char *stream_ptr_str;
 
+    if (superTestInstance.stream_capture_active == 0) return;
     if (superTestInstance.captured_streams == CESTER_NULL) {
         goto cester_release_stream_cleanup;
     }
@@ -4098,7 +4126,7 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
     size_t index;
     unsigned unreleased_stream_count = 0;
 
-    if (superTestInstance.captured_streams == CESTER_NULL) {
+    if (superTestInstance.captured_streams == CESTER_NULL || superTestInstance.stream_capture_active == 0) {
         goto release_forgotten_captured_streams_cleanup;
     }
     CESTER_ARRAY_FOREACH(superTestInstance.captured_streams, index, captured_stream_, {
@@ -4335,9 +4363,6 @@ static unsigned release_forgotten_captured_streams(TestCase *test_case) {
 /* Empty Shells for the stream capturing feature to keep the 
  test file valid still */
 
-/**
-    Alias for cester_capture_stream function
-*/
 #define CESTER_CAPTURE_STREAM(x)
 #define CESTER_STREAM_CONTENT(x)
 #define CESTER_RESET_STREAM(x)
@@ -4617,12 +4642,13 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
         
 
         CHAR command[1500];
-        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation --cester-verbose-level=%d %s %s %s %s %s",
+        snprintf(command, 1500, "%s --cester-test=%s  --cester-singleoutput --cester-noisolation --cester-verbose-level=%d %s %s %s %s %s %s",
                     test_instance->argv[0],
                     a_test_case->name,
                     (superTestInstance.verbose_level),
-                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
-                    (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.mem_test_active == 1 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.format_test_name == 1 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.stream_capture_active == 1 ? "--cester-nostreamcapture" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                     superTestInstance.flattened_cmd_argv);
@@ -4699,8 +4725,9 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     "--cester-singleoutput",
                     "--cester-noisolation",
                     verbose_level_str,
-                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
-                    (superTestInstance.format_test_name == 0 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.mem_test_active == 1 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.format_test_name == 1 ? "--cester-dontformatname" : ""),
+                    (superTestInstance.stream_capture_active == 1 ? "--cester-nostreamcapture" : ""),
                     (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
@@ -5275,6 +5302,10 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
 #ifndef CESTER_NO_MEM_TEST
             } else if (cester_string_equals(cester_option, (char*) "nomemtest") == 1) {
                 superTestInstance.mem_test_active = 0;
+#endif
+#ifndef CESTER_NO_STREAM_CAPTURE
+            } else if (cester_string_equals(cester_option, (char*) "nostreamcapture") == 1) {
+                superTestInstance.stream_capture_active = 0;
 #endif
             } else if (cester_string_equals(cester_option, (char*) "version") == 1) {
                 CESTER_NOCOLOR();

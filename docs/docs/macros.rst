@@ -989,7 +989,7 @@ CESTER_DO_MEMTEST
 
 .. code:: text
 
-    CESTER_SINGLE_OUPUT_ONLY()
+    CESTER_DO_MEMTEST()
 
 Enable memory allocation. The combination of CESTER_NO_MEMTEST() and  CESTER_DO_MEMTEST() 
 is valid only in non isolated tests. 
@@ -998,6 +998,32 @@ This togle combined with `CESTER_NO_MEMTEST()` can be used to selectively test m
 allocation in a test e.g. Calling CESTER_NO_MEMTEST() before a test case will prevent memory 
 test from the beginning of that function and calling CESTER_DO_MEMTEST() at the end of the 
 test case will ensure memory allocation will be validated in all the other test case that follows.
+
+CESTER_NO_STREAMCAPTURE
+--------------------------
+
+.. code:: text
+
+    CESTER_NO_STREAMCAPTURE()
+
+Disable memory leak detection test. This option can also be set from the command line 
+with `--cester-nomemtest`
+
+CESTER_DO_STREAMCAPTURE
+-------------------------
+
+.. code:: text
+
+    CESTER_DO_STREAMCAPTURE()
+
+Enable stream capture features. The combination of CESTER_NO_STREAMCAPTURE() and 
+CESTER_DO_STREAMCAPTURE() is valid only in both isolated and non isolated tests. 
+    
+This togle combined with `CESTER_NO_STREAMCAPTURE()` can be used to selectively 
+test stream capture and content in a test e.g. Calling CESTER_NO_STREAMCAPTURE() before 
+a test case will prevent stream capturing from the beginning of that function and 
+calling CESTER_DO_STREAMCAPTURE() at the end of the test case will ensure stream capturing
+will be enabled in all the other test case that follows.
 
 CESTER_OUTPUT_TEXT
 ---------------------

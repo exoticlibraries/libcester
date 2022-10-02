@@ -98,6 +98,12 @@ jmp_buf buf;
 #endif
 #endif
 
+#if defined __has_include
+    #if !__has_include (__BASE_FILE__)
+        #pragma message("__BASE_FILE__ is not in include directory. Add the option '-I.' for your compiler so it can find the file.")
+    #endif
+#endif
+
 #ifdef _WIN32
 #ifndef CESTER_EXCLUDE_WINDOWS_H
 #ifndef NOMINMAX

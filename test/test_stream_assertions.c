@@ -1,7 +1,8 @@
-/*!cls; g++ -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=2 */
+/*!clang {0} -I. -I../include/ -o out.exe; ./out */
 
 #include <exotic/cester.h>
 
+#ifndef __clang__
 CESTER_TEST(stdin_assertions, inst, {
     CESTER_CAPTURE_STDIN();
 
@@ -74,3 +75,4 @@ CESTER_OPTIONS(
     CESTER_VERBOSE_LEVEL(2);
     /*CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER("./build/");*/
 )
+#endif

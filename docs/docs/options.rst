@@ -19,7 +19,7 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 		--cester-minimal                print minimal info into the output stream
 		--cester-verbose                print as much info as possible into the output stream
 		--cester-nocolor                do not print info with coloring
-		--cester-singleoutput           display cester version and exit
+		--cester-singleoutput           display cester version and exit. Does not report flag error
 		--cester-nomemtest              disable memory leak detection in the tests
 		--cester-nostreamcapture        disable stream capture and assertions in the tests
 		--cester-noisolation            run all the test on a single process. Prevents recovery from crash.

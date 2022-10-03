@@ -468,7 +468,7 @@ SuperTestInstance superTestInstance = {
 #else
     (char*)__FILE__,                                 /* test_file_path */
 #endif
-    (char*)"text",                                   /* output_format */
+    CESTER_NULL,                                     /* output_format */
 #ifndef CESTER_NO_STREAM_CAPTURE
     (char*)"",                                       /* output_stream_str */
     (char*)"./build/libcester/captured_streams/",    /* captured_streams_tmp_folder */
@@ -477,7 +477,7 @@ SuperTestInstance superTestInstance = {
 #ifndef CESTER_NO_STREAM_CAPTURE
     CESTER_NULL,                                     /* output_stream_address */
 #endif
-    CESTER_NULL,                                     /* output_stream */
+    0,                                               /* output_stream */
     CESTER_NULL,                                     /* selected_test_cases_names */
     0,                                               /* current_test_case */
     0,                                               /* registered_test_cases */
@@ -996,7 +996,7 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *arg, char from,
             ++index;
         }
         continue_loop:
-                      ++i;
+            ++i;
     }
     (*out) = (char*) malloc(index+1);
     cester_copy_str(&value, out, index);
@@ -1109,7 +1109,7 @@ static __CESTER_INLINE__ void cester_print_help(void) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-minimal                print minimal info into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-verbose                print as much info as possible into the output stream\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nocolor                do not print info with coloring\n");
-    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput           display cester version and exit\n");
+    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-singleoutput           display cester version and exit. Does not report flag error\n");
 #ifndef CESTER_NO_MEM_TEST
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    --cester-nomemtest              disable memory leak detection in the tests\n");
 #endif
@@ -4646,9 +4646,9 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     test_instance->argv[0],
                     a_test_case->name,
                     (superTestInstance.verbose_level),
-                    (superTestInstance.mem_test_active == 1 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
                     (superTestInstance.format_test_name == 1 ? "--cester-dontformatname" : ""),
-                    (superTestInstance.stream_capture_active == 1 ? "--cester-nostreamcapture" : ""),
+                    (superTestInstance.stream_capture_active == 0 ? "--cester-nostreamcapture" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                     superTestInstance.flattened_cmd_argv);
@@ -4725,9 +4725,9 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     "--cester-singleoutput",
                     "--cester-noisolation",
                     verbose_level_str,
-                    (superTestInstance.mem_test_active == 1 ? "--cester-nomemtest" : ""),
+                    (superTestInstance.mem_test_active == 0 ? "--cester-nomemtest" : ""),
                     (superTestInstance.format_test_name == 1 ? "--cester-dontformatname" : ""),
-                    (superTestInstance.stream_capture_active == 1 ? "--cester-nostreamcapture" : ""),
+                    (superTestInstance.stream_capture_active == 0 ? "--cester-nostreamcapture" : ""),
                     (superTestInstance.no_color == 1 ? "--cester-nocolor" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tap") == 1 ? "--cester-output=tap" : ""),
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
@@ -5352,7 +5352,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                     return EXIT_FAILURE;
                 }
 
-            } else {
+            } else if (superTestInstance.single_output_only != 1) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), cester_option);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
@@ -5370,6 +5370,14 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                 cester_concat_str(&superTestInstance.flattened_cmd_argv, " ");
             }
         }
+    }
+    if (superTestInstance.output_format == CESTER_NULL) {
+        superTestInstance.output_format = (char*) malloc(sizeof(char) * 5);
+        superTestInstance.output_format[0] = 't';
+        superTestInstance.output_format[1] = 'e';
+        superTestInstance.output_format[2] = 'x';
+        superTestInstance.output_format[3] = 't';
+        superTestInstance.output_format[4] = '\n';
     }
 
 #ifndef CESTER_NO_PRINT_INFO

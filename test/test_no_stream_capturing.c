@@ -1,6 +1,6 @@
 /*!cls; gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=1 */
 
-/*#define CESTER_NO_STREAM_CAPTURE*/
+#define CESTER_NO_STREAM_CAPTURE
 #include <exotic/cester.h>
 
 CESTER_TEST(capture_release_stdin, inst, {

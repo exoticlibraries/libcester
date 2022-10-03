@@ -1,7 +1,8 @@
-/*!cls; gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose-level=1 */
+/*!cls; gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out.exe; ./out --cester-verbose-level=1 */
 
 #include <exotic/cester.h>
 
+#ifndef __clang__
 CESTER_TEST(capture_release_stdin, inst, {
     CESTER_CAPTURE_STDIN();
     fprintf(stdin, "This suppose to terminate the program but it been captured \n");
@@ -106,4 +107,5 @@ CESTER_OPTIONS(
     CESTER_TEST_SHOULD_NOT_RELEASE_STREAM(fail_unrelease_captured_stream);
     /*CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER("./build/");*/
 )
+#endif
 

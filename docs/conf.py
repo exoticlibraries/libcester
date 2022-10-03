@@ -19,6 +19,9 @@ html_theme_options = {
     'show_navigators_in_index': False,
     'collapsible_sidebar': False,
     'collapsible_sidebar_display': 'block',
+    'syntax_highlighter': 'syntaxy',
+    'code_block_editable': False,
+    'syntax_highlighter_theme': 'dark',
     'navbar_links': [
         ('Doc', 'docs/index'),
         ('Reference', 'reference/index'),

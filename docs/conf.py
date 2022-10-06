@@ -1,10 +1,9 @@
-import themata
+import themata.milkish
 
 project = 'libcester'
 copyright = '2021, Exotic Libraries - MIT License'
 author = 'Adewale Azeez and Other Contributors'
 
-html_theme_path = [themata.get_html_theme_path()]
 html_theme = 'milkish'
 master_doc = 'index'
 html_favicon = 'libcester.png'
@@ -20,6 +19,9 @@ html_theme_options = {
     'show_navigators_in_index': False,
     'collapsible_sidebar': False,
     'collapsible_sidebar_display': 'block',
+    'syntax_highlighter': 'syntaxy',
+    'code_block_editable': False,
+    'syntax_highlighter_theme': 'dark',
     'navbar_links': [
         ('Doc', 'docs/index'),
         ('Reference', 'reference/index'),

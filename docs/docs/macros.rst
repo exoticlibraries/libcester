@@ -558,7 +558,7 @@ return 5 instead of two:
 
 .. code:: text
 
-    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(), int, 5)
+    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(void), int, 5)
 
 
 The macro above expands to the following code 
@@ -633,6 +633,10 @@ If the stream that the output is written into **(stdout by default)** is capture
 at the end of the test case it will be forcefully released to libcester can continue writing the to the 
 stream to see the test results.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_RELEASE_STREAM
 -----------------------
 
@@ -644,10 +648,18 @@ other test case, and if recaptured the original stream is lost forever in memory
 Always write the release statement at the point o capture and place the code in between. If you fail to 
 release captured stream the test case will fail with `CESTER_RESULT_UNRELEASED_STREAM` error.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_RESET_STREAM
 -----------------------
 
 Remove all the existing data written to a stream so new data is not appended.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER
 ---------------------------------------
@@ -659,50 +671,90 @@ The default location on windows is determined by the return value of `getenv("TE
 folder *"C:/libcester_tmp/"* is used. On other platforms the value of `getenv("TMPDIR")` is used and 
 if not set the fallback folder is *"/tmp/libcester_tmp/"*.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_CAPTURE_STDOUT
 -------------------------
 
 Capture the stdout stream, alias for `CESTER_CAPTURE_STREAM(stdout)`.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 CESTER_RELEASE_STDOUT
 -------------------------
 
 Release the stdout stream, alias for `CESTER_RELEASE_STREAM(stdout)`.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_RESET_STDOUT
 -------------------------
 
 Reset the stdout stream, alias for `CESTER_RESET_STREAM(stdout)`.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 CESTER_CAPTURE_STDERR
 -------------------------
 
 Capture the stderr stream, alias for `CESTER_CAPTURE_STREAM(stderr)`.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_RELEASE_STDERR
 -------------------------
 
 Release the stderr stream, alias for `CESTER_RELEASE_STREAM(stderr)`.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 CESTER_RESET_STDERR
 -------------------------
 
 Reset the stderr stream, alias for `CESTER_RESET_STREAM(stderr)`.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_CAPTURE_STDIN
 -------------------------
 
 Capture the stdin stream, alias for `CESTER_CAPTURE_STREAM(stdin)`.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 CESTER_RELEASE_STDIN
 -------------------------
 
 Release the stdin stream, alias for `CESTER_RELEASE_STREAM(stdin)`.
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 CESTER_RESET_STDIN
 -------------------------
 
 Reset the stdin stream, alias for `CESTER_RESET_STREAM(stdin)`.
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 #define CESTER_NO_MAIN
 -----------------------
@@ -771,6 +823,14 @@ should not contain other `CESTER_` macros.
 
 Define the macro CESTER_NO_MEM_TEST to disable cester memory allocation test at compile time. 
 The option `--cester-nomemtest` can be applied to the command line to stop mem test at runtime. 
+This is not a predefined macro it has to be defined in the test source before including cester.h.
+
+
+#define CESTER_NO_STREAM_CAPTURE
+----------------------------------
+
+Define the macro CESTER_NO_STREAM_CAPTURE to disable cester stream capturing and assertion test at compile time. 
+The option `--cester-nostreamcapture` can be applied to the command line to stop stream captuing at runtime. 
 This is not a predefined macro it has to be defined in the test source before including cester.h.
 
 
@@ -929,7 +989,7 @@ CESTER_DO_MEMTEST
 
 .. code:: text
 
-    CESTER_SINGLE_OUPUT_ONLY()
+    CESTER_DO_MEMTEST()
 
 Enable memory allocation. The combination of CESTER_NO_MEMTEST() and  CESTER_DO_MEMTEST() 
 is valid only in non isolated tests. 
@@ -938,6 +998,32 @@ This togle combined with `CESTER_NO_MEMTEST()` can be used to selectively test m
 allocation in a test e.g. Calling CESTER_NO_MEMTEST() before a test case will prevent memory 
 test from the beginning of that function and calling CESTER_DO_MEMTEST() at the end of the 
 test case will ensure memory allocation will be validated in all the other test case that follows.
+
+CESTER_NO_STREAMCAPTURE
+--------------------------
+
+.. code:: text
+
+    CESTER_NO_STREAMCAPTURE()
+
+Disable memory leak detection test. This option can also be set from the command line 
+with `--cester-nomemtest`
+
+CESTER_DO_STREAMCAPTURE
+-------------------------
+
+.. code:: text
+
+    CESTER_DO_STREAMCAPTURE()
+
+Enable stream capture features. The combination of CESTER_NO_STREAMCAPTURE() and 
+CESTER_DO_STREAMCAPTURE() is valid only in both isolated and non isolated tests. 
+    
+This togle combined with `CESTER_NO_STREAMCAPTURE()` can be used to selectively 
+test stream capture and content in a test e.g. Calling CESTER_NO_STREAMCAPTURE() before 
+a test case will prevent stream capturing from the beginning of that function and 
+calling CESTER_DO_STREAMCAPTURE() at the end of the test case will ensure stream capturing
+will be enabled in all the other test case that follows.
 
 CESTER_OUTPUT_TEXT
 ---------------------

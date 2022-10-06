@@ -87,5 +87,6 @@ dist/
 *.xml
 *.tap
 *.tmp
+*.tmp.bat
 
 out

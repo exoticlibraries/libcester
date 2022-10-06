@@ -19,8 +19,9 @@ starts with --cester- is treated as cester option otherwise it is ignored.
 		--cester-minimal                print minimal info into the output stream
 		--cester-verbose                print as much info as possible into the output stream
 		--cester-nocolor                do not print info with coloring
-		--cester-singleoutput           display cester version and exit
+		--cester-singleoutput           display cester version and exit. Does not report flag error
 		--cester-nomemtest              disable memory leak detection in the tests
+		--cester-nostreamcapture        disable stream capture and assertions in the tests
 		--cester-noisolation            run all the test on a single process. Prevents recovery from crash.
 		--cester-printversion           display cester version before running the tests
 		--cester-dontformatname         leave the test case name as declared in the source file in the output
@@ -81,6 +82,14 @@ Disable memory leak detection and memory test. This option is available if the t
 does not define the CESTER_NO_MEM_TEST macro.  If the macro CESTER_NO_MEM_TEST is defined in the 
 test source memory leak detection is disabled at compile time and this option is not available 
 at runtime. This can also be set within the code using the macro CESTER_NO_MEMTEST().
+
+--cester-nostreamcapture
+--------------------------
+
+Disable stream capturing and assertions in tests. This option is available if the test source 
+does not define the CESTER_NO_STREAM_CAPTURE macro.  If the macro CESTER_NO_STREAM_CAPTURE is defined in the 
+test source stream capture features are disabled at compile time and this option is not available 
+at runtime. This can also be set within the code using the macro CESTER_NOSTREAMCAPTURE().
 
 --cester-noisolation
 --------------------------

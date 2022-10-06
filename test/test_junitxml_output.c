@@ -1,3 +1,4 @@
+/*!gcc {0} -I. -I../include/ -o out; ./out --cester-verbose */
 /*!gcc -ansi -pedantic-errors {0} -I. -I../include/ -o out; ./out --cester-verbose */
 
 #ifndef __BASE_FILE__
@@ -35,8 +36,8 @@ CESTER_TEST(test_direct_variables, test_instance,
 )
 
 CESTER_OPTIONS(
-    CESTER_OUTPUT_JUNITXML();
     CESTER_NO_ISOLATION();
+    CESTER_OUTPUT_JUNITXML();
 )
 
 CESTER_AFTER_ALL(test_instance,

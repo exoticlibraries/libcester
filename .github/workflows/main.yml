@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Run Regression
-        uses: exoticlibraries/exotic-action@v1.4
+        uses: exoticlibraries/exotic-action@v1.5
         with:
           download-exotic-libraries: true
           run-regression: true

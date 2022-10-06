@@ -65,6 +65,24 @@ This feature is optional as it might cause issues on some platform, this can als
 defining the macro `CESTER_NO_MEM_TEST` before including cester.h this reduces the generated binary 
 size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one test case.
 
+Disable stream capture
+------------------------
+
+For platforms that the FILE object is only accessible as opaque type e.g. Android, the FILE object throws 
+invalid type error at compilation hence the need to disable the stream capture test on that platform 
+or provide alternative way to make FILE expected type. 
+
+By defining the macro `CESTER_NO_STREAM_CAPTURE` before including cester.h all the stream capturing feature will be 
+disabled, this also reduce the generated binary by 3kb on Windows 10 64 bit compiled with GCC version 10
+with one test case. Issue with stream capture was reported by `Inkrementator <https://github.com/Inkrementator>`_ in 
+the pr `63 <https://github.com/exoticlibraries/libcester/pull/63>`_ and `chenyulue <https://github.com/chenyulue>`_ in 
+the issue `66 <https://github.com/exoticlibraries/libcester/issues/66>`_ for the Android platform.
+
+By removing this feature all the macro for stream capturing and testing such as CESTER_CAPTURE_STDERR, CESTER_STDIN_CONTENT, 
+e.t.c will just be empty macros, and asserting using CESTER_STDIN_CONTENT and like will causes compilation error. It advisable
+to either avoid stream testing in your tests totally or also adding the `CESTER_NO_STREAM_CAPTURE` guard in your test cases 
+also.
+
 Disable information printing
 -----------------------------
 

@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Test Information";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/test_information.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/test_information.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -156,7 +175,7 @@ libcester, the information printing feature will be disabled</p>
 </div>
 <p>Various Section data can be generated for the snippet below.</p>
 <div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">test_info</span><span class="o">.</span><span class="n">c</span>
-<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(</span><span class="n">void</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="n">CESTER_MOCK_FUNCTION</span><span class="p">(</span><span class="n">power_of</span><span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">num1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">num2</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span>
         <span class="nb">int</span> <span class="n">return_val</span> <span class="o">=</span> <span class="o">*</span><span class="n">num1</span><span class="p">;</span>
@@ -342,7 +361,7 @@ fornat, to see the currently implemented formats see <a class="reference externa
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/test_information.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="../how_it_works/how_assertion_macro.html">How the assertion macros works<i class="fa fa-arrow-right"></i></a> 
@@ -352,6 +371,7 @@ fornat, to see the currently implemented formats see <a class="reference externa
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -406,6 +426,15 @@ fornat, to see the currently implemented formats see <a class="reference externa
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

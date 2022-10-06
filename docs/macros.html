@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Helper Macros";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/macros.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/macros.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -587,7 +606,7 @@ invoked. For example mocking a function that return an integer:</p>
 </div>
 <p>To function above returns 2, the macro CESTER_MOCK_SIMPLE_FUNCTION can mock this function to
 return 5 instead of two:</p>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(</span><span class="n">void</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The macro above expands to the following code</p>
@@ -648,6 +667,10 @@ that is accessible and can be freely modified by cester.</p>
 <p>If the stream that the output is written into <strong>(stdout by default)</strong> is captured if it not released
 at the end of the test case it will be forcefully released to libcester can continue writing the to the
 stream to see the test results.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-release-stream">
 <h2>CESTER_RELEASE_STREAM<a class="headerlink" href="#cester-release-stream" title="Permalink to this headline">¶</a></h2>
@@ -657,10 +680,18 @@ It very important to release a captured stream else stream might not give expect
 other test case, and if recaptured the original stream is lost forever in memory.</p>
 <p>Always write the release statement at the point o capture and place the code in between. If you fail to
 release captured stream the test case will fail with <cite>CESTER_RESULT_UNRELEASED_STREAM</cite> error.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-reset-stream">
 <h2>CESTER_RESET_STREAM<a class="headerlink" href="#cester-reset-stream" title="Permalink to this headline">¶</a></h2>
 <p>Remove all the existing data written to a stream so new data is not appended.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-change-stream-capture-tm-folder">
 <h2>CESTER_CHANGE_STREAM_CAPTURE_TM_FOLDER<a class="headerlink" href="#cester-change-stream-capture-tm-folder" title="Permalink to this headline">¶</a></h2>
@@ -669,42 +700,82 @@ as the only parameter, the folder must exist on the file system and must be read
 <p>The default location on windows is determined by the return value of <cite>getenv(“TEMP”)</cite> if not set the
 folder <em>“C:/libcester_tmp/”</em> is used. On other platforms the value of <cite>getenv(“TMPDIR”)</cite> is used and
 if not set the fallback folder is <em>“/tmp/libcester_tmp/”</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-capture-stdout">
 <h2>CESTER_CAPTURE_STDOUT<a class="headerlink" href="#cester-capture-stdout" title="Permalink to this headline">¶</a></h2>
 <p>Capture the stdout stream, alias for <cite>CESTER_CAPTURE_STREAM(stdout)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-release-stdout">
 <h2>CESTER_RELEASE_STDOUT<a class="headerlink" href="#cester-release-stdout" title="Permalink to this headline">¶</a></h2>
 <p>Release the stdout stream, alias for <cite>CESTER_RELEASE_STREAM(stdout)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-reset-stdout">
 <h2>CESTER_RESET_STDOUT<a class="headerlink" href="#cester-reset-stdout" title="Permalink to this headline">¶</a></h2>
 <p>Reset the stdout stream, alias for <cite>CESTER_RESET_STREAM(stdout)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-capture-stderr">
 <h2>CESTER_CAPTURE_STDERR<a class="headerlink" href="#cester-capture-stderr" title="Permalink to this headline">¶</a></h2>
 <p>Capture the stderr stream, alias for <cite>CESTER_CAPTURE_STREAM(stderr)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-release-stderr">
 <h2>CESTER_RELEASE_STDERR<a class="headerlink" href="#cester-release-stderr" title="Permalink to this headline">¶</a></h2>
 <p>Release the stderr stream, alias for <cite>CESTER_RELEASE_STREAM(stderr)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-reset-stderr">
 <h2>CESTER_RESET_STDERR<a class="headerlink" href="#cester-reset-stderr" title="Permalink to this headline">¶</a></h2>
 <p>Reset the stderr stream, alias for <cite>CESTER_RESET_STREAM(stderr)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-capture-stdin">
 <h2>CESTER_CAPTURE_STDIN<a class="headerlink" href="#cester-capture-stdin" title="Permalink to this headline">¶</a></h2>
 <p>Capture the stdin stream, alias for <cite>CESTER_CAPTURE_STREAM(stdin)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-release-stdin">
 <h2>CESTER_RELEASE_STDIN<a class="headerlink" href="#cester-release-stdin" title="Permalink to this headline">¶</a></h2>
 <p>Release the stdin stream, alias for <cite>CESTER_RELEASE_STREAM(stdin)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="cester-reset-stdin">
 <h2>CESTER_RESET_STDIN<a class="headerlink" href="#cester-reset-stdin" title="Permalink to this headline">¶</a></h2>
 <p>Reset the stdin stream, alias for <cite>CESTER_RESET_STREAM(stdin)</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined</p>
+</div>
 </div>
 <div class="section" id="define-cester-no-main">
 <h2>#define CESTER_NO_MAIN<a class="headerlink" href="#define-cester-no-main" title="Permalink to this headline">¶</a></h2>
@@ -761,6 +832,12 @@ should not contain other <cite>CESTER_</cite> macros.</p>
 <h2>#define CESTER_NO_MEM_TEST<a class="headerlink" href="#define-cester-no-mem-test" title="Permalink to this headline">¶</a></h2>
 <p>Define the macro CESTER_NO_MEM_TEST to disable cester memory allocation test at compile time.
 The option <cite>–cester-nomemtest</cite> can be applied to the command line to stop mem test at runtime.
+This is not a predefined macro it has to be defined in the test source before including cester.h.</p>
+</div>
+<div class="section" id="define-cester-no-stream-capture">
+<h2>#define CESTER_NO_STREAM_CAPTURE<a class="headerlink" href="#define-cester-no-stream-capture" title="Permalink to this headline">¶</a></h2>
+<p>Define the macro CESTER_NO_STREAM_CAPTURE to disable cester stream capturing and assertion test at compile time.
+The option <cite>–cester-nostreamcapture</cite> can be applied to the command line to stop stream captuing at runtime.
 This is not a predefined macro it has to be defined in the test source before including cester.h.</p>
 </div>
 <div class="section" id="define-cester-no-signal">
@@ -884,7 +961,7 @@ with <cite>–cester-nomemtest</cite></p>
 </div>
 <div class="section" id="cester-do-memtest">
 <h2>CESTER_DO_MEMTEST<a class="headerlink" href="#cester-do-memtest" title="Permalink to this headline">¶</a></h2>
-<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_SINGLE_OUPUT_ONLY</span><span class="p">()</span>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_DO_MEMTEST</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Enable memory allocation. The combination of CESTER_NO_MEMTEST() and  CESTER_DO_MEMTEST()
@@ -893,6 +970,27 @@ is valid only in non isolated tests.</p>
 allocation in a test e.g. Calling CESTER_NO_MEMTEST() before a test case will prevent memory
 test from the beginning of that function and calling CESTER_DO_MEMTEST() at the end of the
 test case will ensure memory allocation will be validated in all the other test case that follows.</p>
+</div>
+<div class="section" id="cester-no-streamcapture">
+<h2>CESTER_NO_STREAMCAPTURE<a class="headerlink" href="#cester-no-streamcapture" title="Permalink to this headline">¶</a></h2>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_NO_STREAMCAPTURE</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Disable memory leak detection test. This option can also be set from the command line
+with <cite>–cester-nomemtest</cite></p>
+</div>
+<div class="section" id="cester-do-streamcapture">
+<h2>CESTER_DO_STREAMCAPTURE<a class="headerlink" href="#cester-do-streamcapture" title="Permalink to this headline">¶</a></h2>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CESTER_DO_STREAMCAPTURE</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Enable stream capture features. The combination of CESTER_NO_STREAMCAPTURE() and
+CESTER_DO_STREAMCAPTURE() is valid only in both isolated and non isolated tests.</p>
+<p>This togle combined with <cite>CESTER_NO_STREAMCAPTURE()</cite> can be used to selectively
+test stream capture and content in a test e.g. Calling CESTER_NO_STREAMCAPTURE() before
+a test case will prevent stream capturing from the beginning of that function and
+calling CESTER_DO_STREAMCAPTURE() at the end of the test case will ensure stream capturing
+will be enabled in all the other test case that follows.</p>
 </div>
 <div class="section" id="cester-output-text">
 <h2>CESTER_OUTPUT_TEXT<a class="headerlink" href="#cester-output-text" title="Permalink to this headline">¶</a></h2>
@@ -1028,7 +1126,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/macros.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="testing_stream.html">Testing Output Streams<i class="fa fa-arrow-right"></i></a> 
@@ -1038,6 +1136,7 @@ If specific test cases is selected, if any of the selected test cases does not e
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -1093,6 +1192,7 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#define-cester-no-print-info">#define CESTER_NO_PRINT_INFO</a></li>
 <li><a class="reference internal" href="#cester-body">CESTER_BODY</a></li>
 <li><a class="reference internal" href="#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
+<li><a class="reference internal" href="#define-cester-no-stream-capture">#define CESTER_NO_STREAM_CAPTURE</a></li>
 <li><a class="reference internal" href="#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
 <li><a class="reference internal" href="#define-cester-no-time">#define CESTER_NO_TIME</a></li>
 <li><a class="reference internal" href="#define-cester-exclude-windows-h">#define CESTER_EXCLUDE_WINDOWS_H</a></li>
@@ -1107,6 +1207,8 @@ If specific test cases is selected, if any of the selected test cases does not e
 <li><a class="reference internal" href="#cester-no-isolation">CESTER_NO_ISOLATION</a></li>
 <li><a class="reference internal" href="#cester-no-memtest">CESTER_NO_MEMTEST</a></li>
 <li><a class="reference internal" href="#cester-do-memtest">CESTER_DO_MEMTEST</a></li>
+<li><a class="reference internal" href="#cester-no-streamcapture">CESTER_NO_STREAMCAPTURE</a></li>
+<li><a class="reference internal" href="#cester-do-streamcapture">CESTER_DO_STREAMCAPTURE</a></li>
 <li><a class="reference internal" href="#cester-output-text">CESTER_OUTPUT_TEXT</a></li>
 <li><a class="reference internal" href="#cester-output-junitxml">CESTER_OUTPUT_JUNITXML</a></li>
 <li><a class="reference internal" href="#cester-output-tap">CESTER_OUTPUT_TAP</a></li>
@@ -1169,6 +1271,15 @@ If specific test cases is selected, if any of the selected test cases does not e
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

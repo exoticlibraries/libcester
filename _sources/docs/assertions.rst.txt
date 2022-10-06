@@ -1504,6 +1504,10 @@ Check whether the content of a stream equals a value
 	x - the captured stream |br|
 	y - the string to check if it same as the stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stream_content_contain
 ----------------------------------------
@@ -1514,6 +1518,10 @@ Check whether the content of a stream contains a value
 
 	x - the captured stream |br|
 	y - the string to check if it same as the stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stream_content_not_equal
@@ -1526,6 +1534,10 @@ Check whether the content of a stream does not equal a value
 	x - the captured stream |br|
 	y - the string to check if it same as the stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stream_content_not_contain
 ------------------------------------------
@@ -1536,6 +1548,10 @@ Check whether the content of a stream does not contains a value
 
 	x - the captured stream |br|
 	y - the string to check if it same as the stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stdout_stream_content_equal
@@ -1548,6 +1564,10 @@ Check whether the content of stdout stream equals a value
 	x - the captured stdout stream |br|
 	y - the string to check if it same as the stdout stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stdout_stream_content_contain
 --------------------------------------------
@@ -1558,6 +1578,10 @@ Check whether the content of stdout stream contains a value
 
 	x - the captured stdout stream |br|
 	y - the string to check if it same as the stdout stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stdout_stream_content_not_equal
@@ -1570,6 +1594,10 @@ Check whether the content of stdout stream does not equals a value
 	x - the captured stdout stream |br|
 	y - the string to check if it same as the stdout stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stdout_stream_content_not_contain
 ------------------------------------------------
@@ -1580,6 +1608,10 @@ Check whether the content of stdout stream does not contains a value
 
 	x - the captured stdout stream |br|
 	y - the string to check if it same as the stdout stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stderr_stream_content_equal
@@ -1592,6 +1624,10 @@ Check whether the content of stderr stream equals a value
 	x - the captured stderr stream |br|
 	y - the string to check if it same as the stderr stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stderr_stream_content_contain
 --------------------------------------------
@@ -1602,6 +1638,10 @@ Check whether the content of stderr stream contains a value
 
 	x - the captured stderr stream |br|
 	y - the string to check if it same as the stderr stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stderr_stream_content_not_equal
@@ -1614,6 +1654,10 @@ Check whether the content of stderr stream does not equals a value
 	x - the captured stderr stream |br|
 	y - the string to check if it same as the stderr stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stderr_stream_content_not_contain
 ------------------------------------------------
@@ -1624,6 +1668,10 @@ Check whether the content of stderr stream does not contains a value
 
 	x - the captured stderr stream |br|
 	y - the string to check if it same as the stderr stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stdin_stream_content_equal
@@ -1636,6 +1684,10 @@ Check whether the content of stdin stream equals a value
 	x - the captured stdin stream |br|
 	y - the string to check if it same as the stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stdin_stream_content_contain
 --------------------------------------------
@@ -1646,6 +1698,10 @@ Check whether the content of stdin stream contains a value
 
 	x - the captured stdin stream |br|
 	y - the string to check if it same as the stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 cester_assert_stdin_stream_content_not_equal
@@ -1658,6 +1714,10 @@ Check whether the content of stdin stream does not equals a value
 	x - the captured stdin stream |br|
 	y - the string to check if it same as the stream content |br|
 
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
+
 
 cester_assert_stdin_stream_content_not_contain
 ------------------------------------------------
@@ -1668,6 +1728,10 @@ Check whether the content of stdin stream does not contains a value
 
 	x - the captured stdin stream |br|
 	y - the string to check if it same as the stream content |br|
+
+.. note:: 
+    
+    This macro is not available if the macro CESTER_NO_STREAM_CAPTURE is defined
 
 
 	

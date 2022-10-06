@@ -43,7 +43,7 @@ The following test mock a function that accepts no parameter and return a value.
     #include <exotic/cester.h>
     #include "originals.c"
 
-    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(), int, 5)
+    CESTER_MOCK_SIMPLE_FUNCTION(multiply_by(void), int, 5)
 
     CESTER_TEST(check_mocked_function, test_instance,
         cester_assert_equal(multiply_a_number(2), 10);

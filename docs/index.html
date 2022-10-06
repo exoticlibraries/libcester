@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Documentation";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/index.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/index.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -141,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-nocolor">–cester-nocolor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-singleoutput">–cester-singleoutput</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-nomemtest">–cester-nomemtest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#cester-nostreamcapture">–cester-nostreamcapture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-noisolation">–cester-noisolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-test">–cester-test=</a></li>
 <li class="toctree-l2"><a class="reference internal" href="options.html#cester-output">–cester-output=?</a></li>
@@ -219,6 +239,7 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-print-info">#define CESTER_NO_PRINT_INFO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-body">CESTER_BODY</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-mem-test">#define CESTER_NO_MEM_TEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-stream-capture">#define CESTER_NO_STREAM_CAPTURE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-signal">#define CESTER_NO_SIGNAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-no-time">#define CESTER_NO_TIME</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#define-cester-exclude-windows-h">#define CESTER_EXCLUDE_WINDOWS_H</a></li>
@@ -233,6 +254,8 @@
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-no-isolation">CESTER_NO_ISOLATION</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-no-memtest">CESTER_NO_MEMTEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-do-memtest">CESTER_DO_MEMTEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-no-streamcapture">CESTER_NO_STREAMCAPTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macros.html#cester-do-streamcapture">CESTER_DO_STREAMCAPTURE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-text">CESTER_OUTPUT_TEXT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-junitxml">CESTER_OUTPUT_JUNITXML</a></li>
 <li class="toctree-l2"><a class="reference internal" href="macros.html#cester-output-tap">CESTER_OUTPUT_TAP</a></li>
@@ -393,6 +416,7 @@
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#exclude-time-report">Exclude time report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-memory-test">Disable memory test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-stream-capture">Disable stream capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#disable-information-printing">Disable information printing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selective_compilation.html#select-reporter-to-compile">Select Reporter To Compile</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="selective_compilation.html#exclude-junitxml-report">Exclude JunitXml Report</a></li>
@@ -421,7 +445,7 @@
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/index.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="mocking.html">Mocking<i class="fa fa-arrow-right"></i></a> 
@@ -431,6 +455,7 @@
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -485,6 +510,15 @@
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

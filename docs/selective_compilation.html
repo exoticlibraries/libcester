@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Selective Modular Features";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/selective_compilation.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/selective_compilation.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -178,6 +197,21 @@ trying to free an already freed memory.</p>
 defining the macro <cite>CESTER_NO_MEM_TEST</cite> before including cester.h this reduces the generated binary
 size reduce by 2kb on Windows 10 64 bit compiled with GCC version 10 with one test case.</p>
 </div>
+<div class="section" id="disable-stream-capture">
+<h2>Disable stream capture<a class="headerlink" href="#disable-stream-capture" title="Permalink to this headline">¶</a></h2>
+<p>For platforms that the FILE object is only accessible as opaque type e.g. Android, the FILE object throws
+invalid type error at compilation hence the need to disable the stream capture test on that platform
+or provide alternative way to make FILE expected type.</p>
+<p>By defining the macro <cite>CESTER_NO_STREAM_CAPTURE</cite> before including cester.h all the stream capturing feature will be
+disabled, this also reduce the generated binary by 3kb on Windows 10 64 bit compiled with GCC version 10
+with one test case. Issue with stream capture was reported by <a class="reference external" href="https://github.com/Inkrementator">Inkrementator</a> in
+the pr <a class="reference external" href="https://github.com/exoticlibraries/libcester/pull/63">63</a> and <a class="reference external" href="https://github.com/chenyulue">chenyulue</a> in
+the issue <a class="reference external" href="https://github.com/exoticlibraries/libcester/issues/66">66</a> for the Android platform.</p>
+<p>By removing this feature all the macro for stream capturing and testing such as CESTER_CAPTURE_STDERR, CESTER_STDIN_CONTENT,
+e.t.c will just be empty macros, and asserting using CESTER_STDIN_CONTENT and like will causes compilation error. It advisable
+to either avoid stream testing in your tests totally or also adding the <cite>CESTER_NO_STREAM_CAPTURE</cite> guard in your test cases
+also.</p>
+</div>
 <div class="section" id="disable-information-printing">
 <h2>Disable information printing<a class="headerlink" href="#disable-information-printing" title="Permalink to this headline">¶</a></h2>
 <p>Disable the ability of the framework to compile the functions required to print out the information
@@ -218,7 +252,7 @@ compiled with GCC version 10.</p>
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/selective_compilation.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="known_issues.html">Known Unfixed Issues<i class="fa fa-arrow-right"></i></a> 
@@ -228,6 +262,7 @@ compiled with GCC version 10.</p>
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -242,6 +277,7 @@ compiled with GCC version 10.</p>
 <li><a class="reference internal" href="#exclude-time-report">Exclude time report</a></li>
 <li><a class="reference internal" href="#remove-recovery-with-signal-h">Remove recovery with signal.h</a></li>
 <li><a class="reference internal" href="#disable-memory-test">Disable memory test</a></li>
+<li><a class="reference internal" href="#disable-stream-capture">Disable stream capture</a></li>
 <li><a class="reference internal" href="#disable-information-printing">Disable information printing</a></li>
 <li><a class="reference internal" href="#select-reporter-to-compile">Select Reporter To Compile</a><ul>
 <li><a class="reference internal" href="#exclude-junitxml-report">Exclude JunitXml Report</a></li>
@@ -296,6 +332,15 @@ compiled with GCC version 10.</p>
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

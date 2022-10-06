@@ -84,7 +84,7 @@ table tr:nth-child(even) {
 code,
 .highlight {
     border: none;
-    background-color: rgb(236, 240, 244) !important; /* theme_code_background_color */
+    
     border-radius: 6px;
     padding: 0px 0px 0px 0px;
     line-height: 1.7;
@@ -99,6 +99,7 @@ code {
 }
 
 pre {
+    
     padding: 16px;
     margin: 0px;
 }
@@ -296,8 +297,6 @@ pre {
 .bodywrapper h4,
 .bodywrapper h5,
 .bodywrapper h6 {
-    font-size: 150%;
-    font-weight: 500;
     margin: 15px 0px 5px 0px;
     padding: 1px 0 0px 0px;
     text-shadow: 0px 1px 0 white;
@@ -431,6 +430,14 @@ div.viewcode-block:target {
 .doc-sphinx-info {
     font-size: 75%;
     color: white !important; /* theme_menu_item_color */
+}
+
+.doc-sphinx-info > a {
+    
+}
+
+.doc-sphinx-info > a:hover {
+    
 }
 
 .footer-col1 {

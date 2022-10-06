@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['malloc_762',['malloc',['../cester_8h.html#a5046e1cbf958143f3bf7aded35204202',1,'cester.h']]]
+  ['inline_769',['inline',['../cester_8h.html#a00d24c7231be28dbaf71f5408f30e44c',1,'cester.h']]]
 ];

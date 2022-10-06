@@ -119,6 +119,8 @@ Macros</h2></td></tr>
 <tr class="separator:a974c26d92e0c48938fe74ba16db02545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ae61166739debbfbe676fc2f9fc5fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a23ae61166739debbfbe676fc2f9fc5fd">CESTER_NULL</a>&#160;&#160;&#160;0L</td></tr>
 <tr class="separator:a23ae61166739debbfbe676fc2f9fc5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d24c7231be28dbaf71f5408f30e44c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a00d24c7231be28dbaf71f5408f30e44c">inline</a></td></tr>
+<tr class="separator:a00d24c7231be28dbaf71f5408f30e44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab84f56f39c77569225b79823a1cce112"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ab84f56f39c77569225b79823a1cce112">__CESTER_CAST_CHAR_ARRAY__</a></td></tr>
 <tr class="separator:ab84f56f39c77569225b79823a1cce112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07fa1c9bc563510fa197df308772b4b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a07fa1c9bc563510fa197df308772b4b3">EXOTICTYPES_WINDLLEXPORT</a>&#160;&#160;&#160;0</td></tr>
@@ -217,6 +219,10 @@ Macros</h2></td></tr>
 <tr class="separator:ab7ef90a678593e6201e081636efb0a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad47b7331cfba39ae700c48388453b99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aad47b7331cfba39ae700c48388453b99">CESTER_DO_MEMTEST</a>()&#160;&#160;&#160;(superTestInstance.mem_test_active = 1)</td></tr>
 <tr class="separator:aad47b7331cfba39ae700c48388453b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab777b88a9c95c8c787fb4ba3758801d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ab777b88a9c95c8c787fb4ba3758801d9">CESTER_NO_STREAMCAPTURE</a>()&#160;&#160;&#160;(superTestInstance.stream_capture_active = 0)</td></tr>
+<tr class="separator:ab777b88a9c95c8c787fb4ba3758801d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51cda4cbf545912e8a6c7a6faf8f1c8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a51cda4cbf545912e8a6c7a6faf8f1c8a">CESTER_DO_STREAMCAPTURE</a>()&#160;&#160;&#160;(superTestInstance.stream_capture_active = 1)</td></tr>
+<tr class="separator:a51cda4cbf545912e8a6c7a6faf8f1c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53d284c2dbddbf88cab4db96de4688aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a53d284c2dbddbf88cab4db96de4688aa">CESTER_OUTPUT_TEXT</a>()&#160;&#160;&#160;{if (superTestInstance.output_format != <a class="el" href="cester_8h.html#a23ae61166739debbfbe676fc2f9fc5fd">CESTER_NULL</a>) { <a class="el" href="cester_8h.html#affb9fc32698fab7f7b36e0cf8e64c83e">free</a>(superTestInstance.output_format); }} superTestInstance.output_format = (char*) &quot;text&quot;</td></tr>
 <tr class="separator:a53d284c2dbddbf88cab4db96de4688aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87834179a3deff8e4a6971bd04c0a5b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a87834179a3deff8e4a6971bd04c0a5b7">CESTER_OUTPUT_JUNITXML</a>()&#160;&#160;&#160;{if (superTestInstance.output_format != <a class="el" href="cester_8h.html#a23ae61166739debbfbe676fc2f9fc5fd">CESTER_NULL</a>) { <a class="el" href="cester_8h.html#affb9fc32698fab7f7b36e0cf8e64c83e">free</a>(superTestInstance.output_format); }} superTestInstance.output_format = (char*) &quot;junitxml&quot;</td></tr>
@@ -521,11 +527,11 @@ Macros</h2></td></tr>
 <tr class="separator:a48332e850b348b1b1b5717a5da05eb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e5096c3c7b5f3dd5f853d3ee2d6b235"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a6e5096c3c7b5f3dd5f853d3ee2d6b235">CESTER_AFTER_EACH</a>(w,  x,  y,  z)&#160;&#160;&#160;void cester_after_each_test(<a class="el" href="cester_8h.html#a102088114e95fcf9270161db050ac719">TestInstance</a>* w, char * const x, unsigned y);</td></tr>
 <tr class="separator:a6e5096c3c7b5f3dd5f853d3ee2d6b235"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2920057513f349bbb4b5461a410d718"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ad2920057513f349bbb4b5461a410d718">CESTER_OPTIONS</a>(x)&#160;&#160;&#160;void cester_options_before_main();</td></tr>
+<tr class="memitem:ad2920057513f349bbb4b5461a410d718"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ad2920057513f349bbb4b5461a410d718">CESTER_OPTIONS</a>(x)&#160;&#160;&#160;void cester_options_before_main(void);</td></tr>
 <tr class="separator:ad2920057513f349bbb4b5461a410d718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a>(x)</td></tr>
 <tr class="separator:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function();</td></tr>
+<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function(void);</td></tr>
 <tr class="separator:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa498d9e9f601d5b584f702ee592e4d9">CESTER_MOCK_SIMPLE_FUNCTION</a>(x,  y,  z)&#160;&#160;&#160;__attribute__((weak)) y x; y __real_##x;</td></tr>
 <tr class="separator:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -569,11 +575,11 @@ Macros</h2></td></tr>
 <tr class="separator:a48332e850b348b1b1b5717a5da05eb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e5096c3c7b5f3dd5f853d3ee2d6b235"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a6e5096c3c7b5f3dd5f853d3ee2d6b235">CESTER_AFTER_EACH</a>(w,  x,  y,  z)&#160;&#160;&#160;void cester_after_each_test(<a class="el" href="cester_8h.html#a102088114e95fcf9270161db050ac719">TestInstance</a>* w, char * const x, unsigned y) { z <a class="el" href="cester_8h.html#a35fbc3061ecdc188a0d412b9dbb987ca">CESTER_NO_ISOLATION</a>(); }</td></tr>
 <tr class="separator:a6e5096c3c7b5f3dd5f853d3ee2d6b235"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2920057513f349bbb4b5461a410d718"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ad2920057513f349bbb4b5461a410d718">CESTER_OPTIONS</a>(x)&#160;&#160;&#160;void cester_options_before_main() { x }</td></tr>
+<tr class="memitem:ad2920057513f349bbb4b5461a410d718"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ad2920057513f349bbb4b5461a410d718">CESTER_OPTIONS</a>(x)&#160;&#160;&#160;void cester_options_before_main(void) { x }</td></tr>
 <tr class="separator:ad2920057513f349bbb4b5461a410d718"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#af6fdfc1a7963f6b2bf1196a5d75ceeec">CESTER_BODY</a>(x)&#160;&#160;&#160;x</td></tr>
 <tr class="separator:af6fdfc1a7963f6b2bf1196a5d75ceeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); } }</td></tr>
+<tr class="memitem:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aadb3f12517f4d0ec821ff3173a0b9d44">CESTER_COMMENT</a>(x)&#160;&#160;&#160;void cester_test_file_comment_function(void) { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); } }</td></tr>
 <tr class="separator:aadb3f12517f4d0ec821ff3173a0b9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#aaa498d9e9f601d5b584f702ee592e4d9">CESTER_MOCK_SIMPLE_FUNCTION</a>(x,  y,  z)&#160;&#160;&#160;y __wrap_##x { return z; }</td></tr>
 <tr class="separator:aaa498d9e9f601d5b584f702ee592e4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -706,8 +712,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a400de0160bf119dca9330f842ee9cc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c85b40298baa6fe95cfe326ef321eca"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a3c85b40298baa6fe95cfe326ef321eca">cester_before_after_each</a>) (<a class="el" href="cester_8h.html#a102088114e95fcf9270161db050ac719">TestInstance</a> *, char *const, unsigned)</td></tr>
 <tr class="separator:a3c85b40298baa6fe95cfe326ef321eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0824f9d2bee725592bd334ff16d6bc47"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a0824f9d2bee725592bd334ff16d6bc47">cester_void</a>) ()</td></tr>
-<tr class="separator:a0824f9d2bee725592bd334ff16d6bc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8513033aea021ca482d07ce33179b253"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a8513033aea021ca482d07ce33179b253">cester_void</a>) (void)</td></tr>
+<tr class="separator:a8513033aea021ca482d07ce33179b253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35d88e579b7ccac333a8515d4fd56f60"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtest__case.html">test_case</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a35d88e579b7ccac333a8515d4fd56f60">TestCase</a></td></tr>
 <tr class="separator:a35d88e579b7ccac333a8515d4fd56f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab07f750f6fe00b0dfda13a324834405d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structallocated__memory.html">allocated_memory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#ab07f750f6fe00b0dfda13a324834405d">AllocatedMemory</a></td></tr>
@@ -762,8 +768,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5ccab518462e10c43bcd7b62b4ef8273"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a5ccab518462e10c43bcd7b62b4ef8273">cester_capture_signals</a> ()</td></tr>
-<tr class="separator:a5ccab518462e10c43bcd7b62b4ef8273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d02ce342735b01d43f5fedb754a8c89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a9d02ce342735b01d43f5fedb754a8c89">cester_capture_signals</a> (void)</td></tr>
+<tr class="separator:a9d02ce342735b01d43f5fedb754a8c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a68fa19aaa51f8b3d7b3fc564751d62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a1a68fa19aaa51f8b3d7b3fc564751d62">cester_recover_on_signal</a> (int sig_num)</td></tr>
 <tr class="separator:a1a68fa19aaa51f8b3d7b3fc564751d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cester_8h.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
@@ -6437,7 +6443,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;void cester_test_file_comment_function();</td>
+          <td>&#160;&#160;&#160;void cester_test_file_comment_function(void);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -6479,7 +6485,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;void cester_test_file_comment_function() { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); } }</td>
+          <td>&#160;&#160;&#160;void cester_test_file_comment_function(void) { if (cester_string_equals(superTestInstance.output_format, (char*) &quot;text&quot;) == 1) { CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); CESTER_DELEGATE_FPRINT_STR((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), #x); <a class="el" href="cester_8h.html#aa2f0945a8d64168b5bb52c074e58988c">CESTER_DELEGATE_FPRINT_STR</a>((<a class="el" href="cester_8h.html#ae913dca46060ebc43a8f6e11c500a5f9">cester_default_color</a>), &quot;\n&quot;); } }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -6739,6 +6745,25 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Enable memory allocation. The combination of <a class="el" href="cester_8h.html#ab7ef90a678593e6201e081636efb0a26">CESTER_NO_MEMTEST()</a> and <a class="el" href="cester_8h.html#aad47b7331cfba39ae700c48388453b99">CESTER_DO_MEMTEST()</a> is valid only in non isolated tests.</p>
 <p>This togle combined with <code><a class="el" href="cester_8h.html#ab7ef90a678593e6201e081636efb0a26">CESTER_NO_MEMTEST()</a></code> can be used to selectively test memory allocation in a test e.g. Calling <a class="el" href="cester_8h.html#ab7ef90a678593e6201e081636efb0a26">CESTER_NO_MEMTEST()</a> before a test case will prevent memory test from the beginning of that function and calling <a class="el" href="cester_8h.html#aad47b7331cfba39ae700c48388453b99">CESTER_DO_MEMTEST()</a> at the end of the test case will ensure memory allocation will be validated in all the other test case that follows. </p>
+
+</div>
+</div>
+<a id="a51cda4cbf545912e8a6c7a6faf8f1c8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51cda4cbf545912e8a6c7a6faf8f1c8a">&#9670;&nbsp;</a></span>CESTER_DO_STREAMCAPTURE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_DO_STREAMCAPTURE</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;(superTestInstance.stream_capture_active = 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enable stream capture features. The combination of <a class="el" href="cester_8h.html#ab777b88a9c95c8c787fb4ba3758801d9">CESTER_NO_STREAMCAPTURE()</a> and <a class="el" href="cester_8h.html#a51cda4cbf545912e8a6c7a6faf8f1c8a">CESTER_DO_STREAMCAPTURE()</a> is valid only in non isolated tests.</p>
+<p>This togle combined with <code><a class="el" href="cester_8h.html#ab777b88a9c95c8c787fb4ba3758801d9">CESTER_NO_STREAMCAPTURE()</a></code> can be used to selectively test stream capture and content in a test e.g. Calling <a class="el" href="cester_8h.html#ab777b88a9c95c8c787fb4ba3758801d9">CESTER_NO_STREAMCAPTURE()</a> before a test case will prevent stream capturing from the beginning of that function and calling <a class="el" href="cester_8h.html#a51cda4cbf545912e8a6c7a6faf8f1c8a">CESTER_DO_STREAMCAPTURE()</a> at the end of the test case will ensure stream capturing will be enabled in all the other test case that follows. </p>
 
 </div>
 </div>
@@ -7307,6 +7332,25 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab777b88a9c95c8c787fb4ba3758801d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab777b88a9c95c8c787fb4ba3758801d9">&#9670;&nbsp;</a></span>CESTER_NO_STREAMCAPTURE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CESTER_NO_STREAMCAPTURE</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;(superTestInstance.stream_capture_active = 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disable stream capture features.</p>
+<p>This option can also be set from the command line with <code>--cester-nostreamcapture</code> </p>
+
+</div>
+</div>
 <a id="a46998535966dad5778d6c8112bc58345"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46998535966dad5778d6c8112bc58345">&#9670;&nbsp;</a></span>CESTER_NOCOLOR</h2>
 
@@ -7351,7 +7395,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;void cester_options_before_main();</td>
+          <td>&#160;&#160;&#160;void cester_options_before_main(void);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -7389,7 +7433,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td>&#160;&#160;&#160;void cester_options_before_main() { x }</td>
+          <td>&#160;&#160;&#160;void cester_options_before_main(void) { x }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9028,6 +9072,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a00d24c7231be28dbaf71f5408f30e44c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d24c7231be28dbaf71f5408f30e44c">&#9670;&nbsp;</a></span>inline</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define inline</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5046e1cbf958143f3bf7aded35204202"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5046e1cbf958143f3bf7aded35204202">&#9670;&nbsp;</a></span>malloc</h2>
 
@@ -9107,14 +9165,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0824f9d2bee725592bd334ff16d6bc47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0824f9d2bee725592bd334ff16d6bc47">&#9670;&nbsp;</a></span>cester_void</h2>
+<a id="a8513033aea021ca482d07ce33179b253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8513033aea021ca482d07ce33179b253">&#9670;&nbsp;</a></span>cester_void</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* cester_void) ()</td>
+          <td class="memname">typedef void(* cester_void) (void)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9305,8 +9363,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5ccab518462e10c43bcd7b62b4ef8273"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ccab518462e10c43bcd7b62b4ef8273">&#9670;&nbsp;</a></span>cester_capture_signals()</h2>
+<a id="a9d02ce342735b01d43f5fedb754a8c89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d02ce342735b01d43f5fedb754a8c89">&#9670;&nbsp;</a></span>cester_capture_signals()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9314,6 +9372,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void cester_capture_signals </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -9412,33 +9471,33 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4580ff0d5e0421e5314ba686ebfc6be5"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4580ff0d5e0421e5314ba686ebfc6be5">CESTER_NORMAL_TODO_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_TODO_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:251</div></div>
-<div class="ttc" id="acester_8h_html_af3569b73a780cf2eb9279664ed16c5a3"><div class="ttname"><a href="cester_8h.html#af3569b73a780cf2eb9279664ed16c5a3">CESTER_TEST_FUNTION_TYPE_TO_STRING</a></div><div class="ttdeci">#define CESTER_TEST_FUNTION_TYPE_TO_STRING(test_type)</div><div class="ttdef"><b>Definition:</b> cester.h:4907</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a></div><div class="ttdeci">@ CESTER_OPTIONS_FUNCTION</div><div class="ttdef"><b>Definition:</b> cester.h:257</div></div>
-<div class="ttc" id="astructtest__case_html_a206e39b0afd5e7c8bb4e2ed93cc9444b"><div class="ttname"><a href="structtest__case.html#a206e39b0afd5e7c8bb4e2ed93cc9444b">test_case::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition:</b> cester.h:319</div></div>
-<div class="ttc" id="acester_8h_html_ab0ed21eb2fa7f480b8eaf8ab2acf061d"><div class="ttname"><a href="cester_8h.html#ab0ed21eb2fa7f480b8eaf8ab2acf061d">CESTER_FOREGROUND_RED</a></div><div class="ttdeci">#define CESTER_FOREGROUND_RED</div><div class="ttdef"><b>Definition:</b> cester.h:166</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4c6ccc8da2c763d8adc49f909c036b21"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4c6ccc8da2c763d8adc49f909c036b21">CESTER_NORMAL_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:250</div></div>
-<div class="ttc" id="acester_8h_html_ad33c3114808732a9b8c1a8bf862db49e"><div class="ttname"><a href="cester_8h.html#ad33c3114808732a9b8c1a8bf862db49e">CESTER_FOREGROUND_BLUE</a></div><div class="ttdeci">#define CESTER_FOREGROUND_BLUE</div><div class="ttdef"><b>Definition:</b> cester.h:169</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228">CESTER_COMPARATOR_GREATER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:225</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf">CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:226</div></div>
-<div class="ttc" id="astructsuper__test__instance_html_a9da79b40419d21d4e97b85df370085e0"><div class="ttname"><a href="structsuper__test__instance.html#a9da79b40419d21d4e97b85df370085e0">super_test_instance::output_format</a></div><div class="ttdeci">char * output_format</div><div class="ttdef"><b>Definition:</b> cester.h:397</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a58ac3fc8c71100848235437bc1fb49d1"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a58ac3fc8c71100848235437bc1fb49d1">CESTER_AFTER_ALL_TEST</a></div><div class="ttdeci">@ CESTER_AFTER_ALL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:255</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984">CESTER_AFTER_EACH_TEST</a></div><div class="ttdeci">@ CESTER_AFTER_EACH_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:256</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4358176c383ca80e5b713687907633a6"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4358176c383ca80e5b713687907633a6">CESTER_BEFORE_ALL_TEST</a></div><div class="ttdeci">@ CESTER_BEFORE_ALL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:253</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81ad278ec99fbd7edd505e7c9c1eabd2419"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81ad278ec99fbd7edd505e7c9c1eabd2419">CESTER_BEFORE_EACH_TEST</a></div><div class="ttdeci">@ CESTER_BEFORE_EACH_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:254</div></div>
-<div class="ttc" id="astructtest__case_html_ae8cb1680656e536386976c71ec2e2caa"><div class="ttname"><a href="structtest__case.html#ae8cb1680656e536386976c71ec2e2caa">test_case::line_num</a></div><div class="ttdeci">unsigned line_num</div><div class="ttdef"><b>Definition:</b> cester.h:312</div></div>
-<div class="ttc" id="acester_8h_html_ae3049b4607eb48da098c6f9163f227bc"><div class="ttname"><a href="cester_8h.html#ae3049b4607eb48da098c6f9163f227bc">CESTER_DELEGATE_FPRINT</a></div><div class="ttdeci">#define CESTER_DELEGATE_FPRINT(y)</div><div class="ttdef"><b>Definition:</b> cester.h:1042</div></div>
-<div class="ttc" id="acester_8h_html_a1237e678a0b0c1d1b0316a5e363863ed"><div class="ttname"><a href="cester_8h.html#a1237e678a0b0c1d1b0316a5e363863ed">CESTER_FOREGROUND_MAGENTA</a></div><div class="ttdeci">#define CESTER_FOREGROUND_MAGENTA</div><div class="ttdef"><b>Definition:</b> cester.h:170</div></div>
-<div class="ttc" id="astructtest__case_html"><div class="ttname"><a href="structtest__case.html">test_case</a></div><div class="ttdef"><b>Definition:</b> cester.h:310</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a">CESTER_TEST_FILE_COMMENT</a></div><div class="ttdeci">@ CESTER_TEST_FILE_COMMENT</div><div class="ttdef"><b>Definition:</b> cester.h:258</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29">CESTER_COMPARATOR_NOT_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_NOT_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:224</div></div>
-<div class="ttc" id="acester_8h_html_a43b56645cdbea2af8c809747bdabde73"><div class="ttname"><a href="cester_8h.html#a43b56645cdbea2af8c809747bdabde73">CESTER_CHANGE_STREAM</a></div><div class="ttdeci">#define CESTER_CHANGE_STREAM(x)</div><div class="ttdef"><b>Definition:</b> cester.h:495</div></div>
-<div class="ttc" id="acester_8h_html_a3fe6cc19b68201d2eb34b35f3667ebd7"><div class="ttname"><a href="cester_8h.html#a3fe6cc19b68201d2eb34b35f3667ebd7">superTestInstance</a></div><div class="ttdeci">SuperTestInstance superTestInstance</div><div class="ttdef"><b>Definition:</b> cester.h:422</div></div>
-<div class="ttc" id="astructtest__case_html_aeb5f7c42572866e903a2b4343e4fd4d1"><div class="ttname"><a href="structtest__case.html#aeb5f7c42572866e903a2b4343e4fd4d1">test_case::test_type</a></div><div class="ttdeci">TestType test_type</div><div class="ttdef"><b>Definition:</b> cester.h:323</div></div>
-<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a6907852b88f43904379b31e0b21d9644"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a6907852b88f43904379b31e0b21d9644">CESTER_NORMAL_SKIP_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_SKIP_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:252</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847">CESTER_COMPARATOR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:223</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e">CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:228</div></div>
-<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47">CESTER_COMPARATOR_LESSER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:227</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4580ff0d5e0421e5314ba686ebfc6be5"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4580ff0d5e0421e5314ba686ebfc6be5">CESTER_NORMAL_TODO_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_TODO_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:258</div></div>
+<div class="ttc" id="acester_8h_html_af3569b73a780cf2eb9279664ed16c5a3"><div class="ttname"><a href="cester_8h.html#af3569b73a780cf2eb9279664ed16c5a3">CESTER_TEST_FUNTION_TYPE_TO_STRING</a></div><div class="ttdeci">#define CESTER_TEST_FUNTION_TYPE_TO_STRING(test_type)</div><div class="ttdef"><b>Definition:</b> cester.h:5009</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a486668eab9d218bdceb3ec4435d59d3f">CESTER_OPTIONS_FUNCTION</a></div><div class="ttdeci">@ CESTER_OPTIONS_FUNCTION</div><div class="ttdef"><b>Definition:</b> cester.h:264</div></div>
+<div class="ttc" id="astructtest__case_html_a206e39b0afd5e7c8bb4e2ed93cc9444b"><div class="ttname"><a href="structtest__case.html#a206e39b0afd5e7c8bb4e2ed93cc9444b">test_case::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition:</b> cester.h:330</div></div>
+<div class="ttc" id="acester_8h_html_ab0ed21eb2fa7f480b8eaf8ab2acf061d"><div class="ttname"><a href="cester_8h.html#ab0ed21eb2fa7f480b8eaf8ab2acf061d">CESTER_FOREGROUND_RED</a></div><div class="ttdeci">#define CESTER_FOREGROUND_RED</div><div class="ttdef"><b>Definition:</b> cester.h:173</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4c6ccc8da2c763d8adc49f909c036b21"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4c6ccc8da2c763d8adc49f909c036b21">CESTER_NORMAL_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:257</div></div>
+<div class="ttc" id="acester_8h_html_ad33c3114808732a9b8c1a8bf862db49e"><div class="ttname"><a href="cester_8h.html#ad33c3114808732a9b8c1a8bf862db49e">CESTER_FOREGROUND_BLUE</a></div><div class="ttdeci">#define CESTER_FOREGROUND_BLUE</div><div class="ttdef"><b>Definition:</b> cester.h:176</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba8a9704ff3ec85e2be5f429be921f5228">CESTER_COMPARATOR_GREATER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:232</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba01e547d3a893af4e8abae68d6095efcf">CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_GREATER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:233</div></div>
+<div class="ttc" id="astructsuper__test__instance_html_a9da79b40419d21d4e97b85df370085e0"><div class="ttname"><a href="structsuper__test__instance.html#a9da79b40419d21d4e97b85df370085e0">super_test_instance::output_format</a></div><div class="ttdeci">char * output_format</div><div class="ttdef"><b>Definition:</b> cester.h:409</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a58ac3fc8c71100848235437bc1fb49d1"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a58ac3fc8c71100848235437bc1fb49d1">CESTER_AFTER_ALL_TEST</a></div><div class="ttdeci">@ CESTER_AFTER_ALL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:262</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a3591c4344db24010356c4b68be130984">CESTER_AFTER_EACH_TEST</a></div><div class="ttdeci">@ CESTER_AFTER_EACH_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:263</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a4358176c383ca80e5b713687907633a6"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a4358176c383ca80e5b713687907633a6">CESTER_BEFORE_ALL_TEST</a></div><div class="ttdeci">@ CESTER_BEFORE_ALL_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:260</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81ad278ec99fbd7edd505e7c9c1eabd2419"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81ad278ec99fbd7edd505e7c9c1eabd2419">CESTER_BEFORE_EACH_TEST</a></div><div class="ttdeci">@ CESTER_BEFORE_EACH_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:261</div></div>
+<div class="ttc" id="astructtest__case_html_ae8cb1680656e536386976c71ec2e2caa"><div class="ttname"><a href="structtest__case.html#ae8cb1680656e536386976c71ec2e2caa">test_case::line_num</a></div><div class="ttdeci">unsigned line_num</div><div class="ttdef"><b>Definition:</b> cester.h:323</div></div>
+<div class="ttc" id="acester_8h_html_ae3049b4607eb48da098c6f9163f227bc"><div class="ttname"><a href="cester_8h.html#ae3049b4607eb48da098c6f9163f227bc">CESTER_DELEGATE_FPRINT</a></div><div class="ttdeci">#define CESTER_DELEGATE_FPRINT(y)</div><div class="ttdef"><b>Definition:</b> cester.h:1082</div></div>
+<div class="ttc" id="acester_8h_html_a1237e678a0b0c1d1b0316a5e363863ed"><div class="ttname"><a href="cester_8h.html#a1237e678a0b0c1d1b0316a5e363863ed">CESTER_FOREGROUND_MAGENTA</a></div><div class="ttdeci">#define CESTER_FOREGROUND_MAGENTA</div><div class="ttdef"><b>Definition:</b> cester.h:177</div></div>
+<div class="ttc" id="astructtest__case_html"><div class="ttname"><a href="structtest__case.html">test_case</a></div><div class="ttdef"><b>Definition:</b> cester.h:321</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81aab46343fb2c77645e1a80b7d5dc8166a">CESTER_TEST_FILE_COMMENT</a></div><div class="ttdeci">@ CESTER_TEST_FILE_COMMENT</div><div class="ttdef"><b>Definition:</b> cester.h:265</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba4690703d983c444cd2f19f426ec12a29">CESTER_COMPARATOR_NOT_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_NOT_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:231</div></div>
+<div class="ttc" id="acester_8h_html_a43b56645cdbea2af8c809747bdabde73"><div class="ttname"><a href="cester_8h.html#a43b56645cdbea2af8c809747bdabde73">CESTER_CHANGE_STREAM</a></div><div class="ttdeci">#define CESTER_CHANGE_STREAM(x)</div><div class="ttdef"><b>Definition:</b> cester.h:516</div></div>
+<div class="ttc" id="acester_8h_html_a3fe6cc19b68201d2eb34b35f3667ebd7"><div class="ttname"><a href="cester_8h.html#a3fe6cc19b68201d2eb34b35f3667ebd7">superTestInstance</a></div><div class="ttdeci">SuperTestInstance superTestInstance</div><div class="ttdef"><b>Definition:</b> cester.h:438</div></div>
+<div class="ttc" id="astructtest__case_html_aeb5f7c42572866e903a2b4343e4fd4d1"><div class="ttname"><a href="structtest__case.html#aeb5f7c42572866e903a2b4343e4fd4d1">test_case::test_type</a></div><div class="ttdeci">TestType test_type</div><div class="ttdef"><b>Definition:</b> cester.h:334</div></div>
+<div class="ttc" id="acester_8h_html_a0d3b94e7c3af7e5d5e24eb90ef224c81a6907852b88f43904379b31e0b21d9644"><div class="ttname"><a href="cester_8h.html#a0d3b94e7c3af7e5d5e24eb90ef224c81a6907852b88f43904379b31e0b21d9644">CESTER_NORMAL_SKIP_TEST</a></div><div class="ttdeci">@ CESTER_NORMAL_SKIP_TEST</div><div class="ttdef"><b>Definition:</b> cester.h:259</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba1b1bc3861818e88f600a3633ee61a847">CESTER_COMPARATOR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:230</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fba77b332e174216debd71c95b48c76990e">CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN_OR_EQUAL</div><div class="ttdef"><b>Definition:</b> cester.h:235</div></div>
+<div class="ttc" id="acester_8h_html_ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47"><div class="ttname"><a href="cester_8h.html#ac7cd128fbafe2863830f36ec274bb6fbabc6ab296d087f5862d568938e9215e47">CESTER_COMPARATOR_LESSER_THAN</a></div><div class="ttdeci">@ CESTER_COMPARATOR_LESSER_THAN</div><div class="ttdef"><b>Definition:</b> cester.h:234</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

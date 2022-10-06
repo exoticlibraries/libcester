@@ -38,6 +38,7 @@
     <member refid="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" kind="variable"><name>selected_test_cases_found</name></member>
     <member refid="structsuper__test__instance_1a20c6f80a327f4898508e0ef68900d490" kind="variable"><name>single_output_only</name></member>
     <member refid="structsuper__test__instance_1a31b4b2b5eb8a9436fe8c669037f736ee" kind="variable"><name>mem_test_active</name></member>
+    <member refid="structsuper__test__instance_1a80c139cd6cb47ba7eef9853d3bfb7d4d" kind="variable"><name>stream_capture_active</name></member>
     <member refid="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" kind="variable"><name>current_execution_status</name></member>
     <member refid="structsuper__test__instance_1a04956eaa3ef1041dffeee727a165414d" kind="variable"><name>isolate_tests</name></member>
     <member refid="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" kind="variable"><name>skipped_test_count</name></member>
@@ -86,6 +87,7 @@
     <member refid="cester_8h_1a69268215f78ef16bfc64c526455009fa" kind="define"><name>__CESTER_LONG_LONG_FORMAT__</name></member>
     <member refid="cester_8h_1a974c26d92e0c48938fe74ba16db02545" kind="define"><name>__CESTER_FUNCTION__</name></member>
     <member refid="cester_8h_1a23ae61166739debbfbe676fc2f9fc5fd" kind="define"><name>CESTER_NULL</name></member>
+    <member refid="cester_8h_1a00d24c7231be28dbaf71f5408f30e44c" kind="define"><name>inline</name></member>
     <member refid="cester_8h_1ab84f56f39c77569225b79823a1cce112" kind="define"><name>__CESTER_CAST_CHAR_ARRAY__</name></member>
     <member refid="cester_8h_1a07fa1c9bc563510fa197df308772b4b3" kind="define"><name>EXOTICTYPES_WINDLLEXPORT</name></member>
     <member refid="cester_8h_1adb89038ec025478b6b628899e7e7146f" kind="define"><name>EXOTIC_API</name></member>
@@ -135,6 +137,8 @@
     <member refid="cester_8h_1a35fbc3061ecdc188a0d412b9dbb987ca" kind="define"><name>CESTER_NO_ISOLATION</name></member>
     <member refid="cester_8h_1ab7ef90a678593e6201e081636efb0a26" kind="define"><name>CESTER_NO_MEMTEST</name></member>
     <member refid="cester_8h_1aad47b7331cfba39ae700c48388453b99" kind="define"><name>CESTER_DO_MEMTEST</name></member>
+    <member refid="cester_8h_1ab777b88a9c95c8c787fb4ba3758801d9" kind="define"><name>CESTER_NO_STREAMCAPTURE</name></member>
+    <member refid="cester_8h_1a51cda4cbf545912e8a6c7a6faf8f1c8a" kind="define"><name>CESTER_DO_STREAMCAPTURE</name></member>
     <member refid="cester_8h_1a53d284c2dbddbf88cab4db96de4688aa" kind="define"><name>CESTER_OUTPUT_TEXT</name></member>
     <member refid="cester_8h_1a87834179a3deff8e4a6971bd04c0a5b7" kind="define"><name>CESTER_OUTPUT_JUNITXML</name></member>
     <member refid="cester_8h_1acce408c90ddec5c901799c8123852013" kind="define"><name>CESTER_OUTPUT_TAP</name></member>
@@ -405,7 +409,7 @@
     <member refid="cester_8h_1a102088114e95fcf9270161db050ac719" kind="typedef"><name>TestInstance</name></member>
     <member refid="cester_8h_1a400de0160bf119dca9330f842ee9cc9f" kind="typedef"><name>cester_test</name></member>
     <member refid="cester_8h_1a3c85b40298baa6fe95cfe326ef321eca" kind="typedef"><name>cester_before_after_each</name></member>
-    <member refid="cester_8h_1a0824f9d2bee725592bd334ff16d6bc47" kind="typedef"><name>cester_void</name></member>
+    <member refid="cester_8h_1a8513033aea021ca482d07ce33179b253" kind="typedef"><name>cester_void</name></member>
     <member refid="cester_8h_1a35d88e579b7ccac333a8515d4fd56f60" kind="typedef"><name>TestCase</name></member>
     <member refid="cester_8h_1ab07f750f6fe00b0dfda13a324834405d" kind="typedef"><name>AllocatedMemory</name></member>
     <member refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kind="typedef"><name>CesterArray</name></member>
@@ -437,8 +441,8 @@
     <member refid="cester_8h_1a60e8c664d3517575bb0eb31e958d304a" kind="function"><name>unpack_selected_extra_args</name></member>
     <member refid="cester_8h_1aed4d3862625429ae77693e729ec27abb" kind="function"><name>cester_concat_ptr</name></member>
     <member refid="cester_8h_1a9adf548936e327b04ee947a49fd72c5d" kind="function"><name>cester_is_validate_output_option</name></member>
-    <member refid="cester_8h_1a9aaeef94f525218c317d1297257b8745" kind="function"><name>cester_print_version</name></member>
-    <member refid="cester_8h_1a57cb88de7613a2413db45aa79617e4ae" kind="function"><name>cester_print_help</name></member>
+    <member refid="cester_8h_1a7e9dda2985edd42e7c9721e0efdb5a27" kind="function"><name>cester_print_version</name></member>
+    <member refid="cester_8h_1a49f5806e03977bdee480f772c4ccfb47" kind="function"><name>cester_print_help</name></member>
     <member refid="cester_8h_1a5a14ed5e51c8cddb58a3d76bdc3b5331" kind="function"><name>cester_print_test_case_message</name></member>
     <member refid="cester_8h_1a67dc3239f2646c940c8e69963446bc9e" kind="function"><name>cester_print_assertion</name></member>
     <member refid="cester_8h_1ab6e25963e66704ba89a4406bb16fc7af" kind="function"><name>cester_print_expect_actual</name></member>
@@ -449,7 +453,7 @@
     <member refid="cester_8h_1a23b0dbf55300af1a3dead3a70cce6e39" kind="function"><name>write_testcase_tap_v13</name></member>
     <member refid="cester_8h_1a1c18fb94068931ec24757a214975b1df" kind="function"><name>write_testcase_junitxml</name></member>
     <member refid="cester_8h_1ac4ebdd71e35f5c81821679c8ab66c92e" kind="function"><name>check_memory_allocated_for_functions</name></member>
-    <member refid="cester_8h_1a8d63550348b3e691fb09f4bbff139524" kind="function"><name>cester_cleanup_super_instance</name></member>
+    <member refid="cester_8h_1a46bf5b80f7ef8f0fc2944dab20e66b16" kind="function"><name>cester_cleanup_super_instance</name></member>
     <member refid="cester_8h_1abffff1119ce46a44eee27d95ef6b974f" kind="function"><name>cester_print_result</name></member>
     <member refid="cester_8h_1ad5fefdda7fe2e21023a0c22a8291120a" kind="function"><name>cester_evaluate_expression</name></member>
     <member refid="cester_8h_1ad205ac079eb12c9b6d1aa8ee6e4b8487" kind="function"><name>cester_evaluate_expect_actual</name></member>
@@ -493,7 +497,7 @@
     <member refid="cester_8h_1a5336756fe764d6d2005cb35c7b03563f" kind="function"><name>cester_run_test_no_isolation</name></member>
     <member refid="cester_8h_1a27c2010d25d0bd1513cf977fb93d9f9a" kind="function"><name>cester_report_single_test_result</name></member>
     <member refid="cester_8h_1abacf7d7ece738b5b67ea240eee8e4656" kind="function"><name>cester_run_test</name></member>
-    <member refid="cester_8h_1a5ccab518462e10c43bcd7b62b4ef8273" kind="function"><name>cester_capture_signals</name></member>
+    <member refid="cester_8h_1a9d02ce342735b01d43f5fedb754a8c89" kind="function"><name>cester_capture_signals</name></member>
     <member refid="cester_8h_1a1a68fa19aaa51f8b3d7b3fc564751d62" kind="function"><name>cester_recover_on_signal</name></member>
     <member refid="cester_8h_1ae526b39cd608657444c4092a9d2fa338" kind="function"><name>cester_run_all_test_iterator</name></member>
     <member refid="cester_8h_1ad8f9fe175ee3cb39b85ef08bfbe5f38a" kind="function"><name>cester_print_tests_information</name></member>

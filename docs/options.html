@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Cester Options";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/options.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/options.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -141,8 +160,9 @@ starts with –cester- is treated as cester option otherwise it is ignored.</p>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">minimal</span>                <span class="nb">print</span> <span class="n">minimal</span> <span class="n">info</span> <span class="n">into</span> <span class="n">the</span> <span class="n">output</span> <span class="n">stream</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">verbose</span>                <span class="nb">print</span> <span class="k">as</span> <span class="n">much</span> <span class="n">info</span> <span class="k">as</span> <span class="n">possible</span> <span class="n">into</span> <span class="n">the</span> <span class="n">output</span> <span class="n">stream</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">nocolor</span>                <span class="n">do</span> <span class="ow">not</span> <span class="nb">print</span> <span class="n">info</span> <span class="k">with</span> <span class="n">coloring</span>
-        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">singleoutput</span>           <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">singleoutput</span>           <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span> <span class="n">Does</span> <span class="ow">not</span> <span class="n">report</span> <span class="n">flag</span> <span class="n">error</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">nomemtest</span>              <span class="n">disable</span> <span class="n">memory</span> <span class="n">leak</span> <span class="n">detection</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">tests</span>
+        <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">nostreamcapture</span>        <span class="n">disable</span> <span class="n">stream</span> <span class="n">capture</span> <span class="ow">and</span> <span class="n">assertions</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">tests</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">noisolation</span>            <span class="n">run</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">test</span> <span class="n">on</span> <span class="n">a</span> <span class="n">single</span> <span class="n">process</span><span class="o">.</span> <span class="n">Prevents</span> <span class="n">recovery</span> <span class="kn">from</span> <span class="nn">crash.</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">printversion</span>           <span class="n">display</span> <span class="n">cester</span> <span class="n">version</span> <span class="n">before</span> <span class="n">running</span> <span class="n">the</span> <span class="n">tests</span>
         <span class="o">--</span><span class="n">cester</span><span class="o">-</span><span class="n">dontformatname</span>         <span class="n">leave</span> <span class="n">the</span> <span class="n">test</span> <span class="n">case</span> <span class="n">name</span> <span class="k">as</span> <span class="n">declared</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">source</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">output</span>
@@ -200,6 +220,13 @@ code within the CESTER_OPTIONS block with the macro CESTER_SINGLE_OUPUT_ONLY().<
 does not define the CESTER_NO_MEM_TEST macro.  If the macro CESTER_NO_MEM_TEST is defined in the
 test source memory leak detection is disabled at compile time and this option is not available
 at runtime. This can also be set within the code using the macro CESTER_NO_MEMTEST().</p>
+</div>
+<div class="section" id="cester-nostreamcapture">
+<h2>–cester-nostreamcapture<a class="headerlink" href="#cester-nostreamcapture" title="Permalink to this headline">¶</a></h2>
+<p>Disable stream capturing and assertions in tests. This option is available if the test source
+does not define the CESTER_NO_STREAM_CAPTURE macro.  If the macro CESTER_NO_STREAM_CAPTURE is defined in the
+test source stream capture features are disabled at compile time and this option is not available
+at runtime. This can also be set within the code using the macro CESTER_NOSTREAMCAPTURE().</p>
 </div>
 <div class="section" id="cester-noisolation">
 <h2>–cester-noisolation<a class="headerlink" href="#cester-noisolation" title="Permalink to this headline">¶</a></h2>
@@ -311,7 +338,7 @@ CESTER_DONT_FORMAT_TESTNAME().</p>
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/options.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="manual_test_registration.html">Manual Tests Registration<i class="fa fa-arrow-right"></i></a> 
@@ -321,6 +348,7 @@ CESTER_DONT_FORMAT_TESTNAME().</p>
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -334,6 +362,7 @@ CESTER_DONT_FORMAT_TESTNAME().</p>
 <li><a class="reference internal" href="#cester-nocolor">–cester-nocolor</a></li>
 <li><a class="reference internal" href="#cester-singleoutput">–cester-singleoutput</a></li>
 <li><a class="reference internal" href="#cester-nomemtest">–cester-nomemtest</a></li>
+<li><a class="reference internal" href="#cester-nostreamcapture">–cester-nostreamcapture</a></li>
 <li><a class="reference internal" href="#cester-noisolation">–cester-noisolation</a></li>
 <li><a class="reference internal" href="#cester-test">–cester-test=</a></li>
 <li><a class="reference internal" href="#cester-output">–cester-output=?</a></li>
@@ -391,6 +420,15 @@ CESTER_DONT_FORMAT_TESTNAME().</p>
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

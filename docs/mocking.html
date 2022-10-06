@@ -24,6 +24,7 @@
   
   
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    
   
     
     <meta name="description" content="libcester is a header only automated testing framework for the C programming language, it requires no dependency and can be downloaded and used in a project immediately.">
@@ -46,6 +47,24 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/exoticlibraries/libcester/main/docs/libcester.png" />
     
   
+  
+  <script>
+        const __themataOnloadCallbacks = [];
+        const __themataJsLoadedCallbacks = [];
+        const themataCurrentPageTitle = "Mocking";
+        const themataCurrentProject = "libcester";
+        const themataCurrentProjectGithubLocation = "";
+        const themataCurrentPagePath = "docs/mocking.rst";
+        const themataCurrentPageLocation = "https://github.com/exoticlibraries/libcester/edit/main/docs/docs/mocking.rst".replace("/edit/", "/blob/");
+        const themataGithubFeedbackProjectTemplate = ``;
+        const themataGithubFeedbackPageTemplate = ``;
+        function themataRegisterOnloadCallback(cb) {
+            __themataJsLoadedCallbacks.push(cb);
+        }
+        function themataRegisterJsLoadedCallback(cb) {
+            __themataOnloadCallbacks.push(cb);
+        }
+    </script>
 
   </head><body>
 
@@ -158,7 +177,7 @@ The macro simply wrap the function to return the third parameter when invoked.</
 <div class="code c highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;exotic/cester.h&gt;</span>
 <span class="c1">#include &quot;originals.c&quot;</span>
 
-<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">CESTER_MOCK_SIMPLE_FUNCTION</span><span class="p">(</span><span class="n">multiply_by</span><span class="p">(</span><span class="n">void</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="n">CESTER_TEST</span><span class="p">(</span><span class="n">check_mocked_function</span><span class="p">,</span> <span class="n">test_instance</span><span class="p">,</span>
     <span class="n">cester_assert_equal</span><span class="p">(</span><span class="n">multiply_a_number</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
@@ -245,7 +264,7 @@ the test with the -Wl,–wrap option or you can define <cite>CESTER_NO_MOCK</cit
                             
                                 <a class="reference navigator" style="float:left;" href="https://github.com/exoticlibraries/libcester/edit/main/docs/docs/mocking.rst"><i class="fa fa-pen"></i>Edit this page</a>    
                             
-                            <a class="reference navigator" style="float:left;" href="../genindex.html"><i class="fa fa-book"></i>Index</a>
+                            
                             
                             
                                 <a class="reference navigator" style="float:right;" href="options.html">Cester Options<i class="fa fa-arrow-right"></i></a> 
@@ -255,6 +274,7 @@ the test with the -Wl,–wrap option or you can define <cite>CESTER_NO_MOCK</cit
                             
                         </div>
                     
+                
                 
         </div>
         
@@ -313,6 +333,15 @@ the test with the -Wl,–wrap option or you can define <cite>CESTER_NO_MOCK</cit
         </div>
     </div>
     
+    <script>
+                const themataSyntaxHighlighter = "syntaxy";
+                const themataCodeBlockIsEditable = false;
+                const themataSyntaxHighlighterTheme = "dark";
+                const themataStaticAssetsDir = "../_static/";
+                const themataSyntaxHighlighterIframeEmbed = false;
+                $("pre").parent().css("display", "none");
+            </script>
+    <script src="../_static/themata.js"></script>
 
   </body>
 </html>

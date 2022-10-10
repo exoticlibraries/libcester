@@ -630,22 +630,22 @@ SuperTestInstance superTestInstance = {
 /**
     Change the output format to text
 */
-#define CESTER_OUTPUT_TEXT() {if (superTestInstance.output_format != CESTER_NULL) { free(superTestInstance.output_format); }} superTestInstance.output_format = (char*) "text"
+#define CESTER_OUTPUT_TEXT() superTestInstance.output_format = (char*) "text"
 
 /**
     Change the output format to junitxml
 */
-#define CESTER_OUTPUT_JUNITXML() {if (superTestInstance.output_format != CESTER_NULL) { free(superTestInstance.output_format); }} superTestInstance.output_format = (char*) "junitxml"
+#define CESTER_OUTPUT_JUNITXML() superTestInstance.output_format = (char*) "junitxml"
 
 /**
     Change the output format to TAP (Test Anything Protocol)
 */
-#define CESTER_OUTPUT_TAP() {if (superTestInstance.output_format != CESTER_NULL) { free(superTestInstance.output_format); }} superTestInstance.output_format = (char*) "tap"
+#define CESTER_OUTPUT_TAP() superTestInstance.output_format = (char*) "tap"
 
 /**
     Change the output format to TAP (Test Anything Protocol) Version 13
 */
-#define CESTER_OUTPUT_TAPV13() {if (superTestInstance.output_format != CESTER_NULL) { free(superTestInstance.output_format); }} superTestInstance.output_format = (char*) "tapV13"
+#define CESTER_OUTPUT_TAPV13() superTestInstance.output_format = (char*) "tapV13"
 
 /**
     Format the test case name for output. E.g the test name 
@@ -5339,18 +5339,24 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                 }
 
             } else if (cester_string_starts_with(cester_option, (char*) "output=") == 1) {
-                cester_str_value_after_first(cester_option, '=', &superTestInstance.output_format);
-                if (cester_is_validate_output_option(superTestInstance.output_format) == 0) {
+                cester_str_value_after_first(cester_option, '=', &extra);
+                if (cester_is_validate_output_option(extra) == 0) {
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester output format: ");
-                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), superTestInstance.output_format);
+                    CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), extra);
                     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
-                    if (cester_string_starts_with(superTestInstance.output_format, (char*) "tap")) {
+                    if (cester_string_starts_with(extra, (char*) "tap")) {
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV13?'\n");
                     }
                     CESTER_RESET_TERMINAL_ATTR()
                     free(cester_option);
                     return EXIT_FAILURE;
+                } else {
+                    if (cester_string_equals(extra, (char*) "junitxml")) { superTestInstance.output_format = (char*) "junitxml"; }
+                    else if (cester_string_equals(extra, (char*) "tap")) { superTestInstance.output_format = (char*) "tap"; }
+                    else if (cester_string_equals(extra, (char*) "tapV13")) { superTestInstance.output_format = (char*) "tapV13"; }
+                    else { superTestInstance.output_format = (char*) "text"; }
                 }
+                free(extra);
 
             } else if (superTestInstance.single_output_only != 1) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
@@ -5372,12 +5378,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
         }
     }
     if (superTestInstance.output_format == CESTER_NULL) {
-        superTestInstance.output_format = (char*) malloc(sizeof(char) * 5);
-        superTestInstance.output_format[0] = 't';
-        superTestInstance.output_format[1] = 'e';
-        superTestInstance.output_format[2] = 'x';
-        superTestInstance.output_format[3] = 't';
-        superTestInstance.output_format[4] = '\n';
+        superTestInstance.output_format = "text";
     }
 
 #ifndef CESTER_NO_PRINT_INFO

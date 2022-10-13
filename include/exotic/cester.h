@@ -5348,6 +5348,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV13?'\n");
                     }
                     CESTER_RESET_TERMINAL_ATTR()
+                    free(extra);
                     free(cester_option);
                     return EXIT_FAILURE;
                 } else {

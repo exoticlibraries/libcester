@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="381" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="381" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="384" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="384" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a4a0c435b304ea1b2104c47f40e20bd3e" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="382" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="382" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="385" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="385" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1add7d34d6238df54c83d69a14a4c5d7f6" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="383" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="383" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="386" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="386" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab2b2a788a564c9de80a186c983cc65b7" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="384" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="384" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="387" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="387" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a0dd954b41085f997a48a1f0cf78b32f3" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="385" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="385" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="388" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="388" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aff5d1a7b9ae163407bdd8512e1611c65" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="386" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="386" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="389" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a6f1317eff9e036c5b7bf43fce37df196" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="387" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="387" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="390" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ac2bf5d70c87873e60377028e652f5e1c" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="388" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="388" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="391" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="391" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ad4005edbb25fac39798f379ab907ec6f" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="389" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="389" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="392" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="392" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ad4f3871744486147563bfa5dcf108be9" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="390" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="390" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="393" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="393" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa29ec99f02330228855474a8d93edb33" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="391" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="391" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="394" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="394" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a20c6f80a327f4898508e0ef68900d490" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="392" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="392" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="395" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="395" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a31b4b2b5eb8a9436fe8c669037f736ee" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="393" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="393" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="396" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="396" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a80c139cd6cb47ba7eef9853d3bfb7d4d" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="394" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="394" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="397" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="397" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a02a3da4e9e97171d902fc0e4e44e009f" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -212,7 +212,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="395" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="395" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="398" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="398" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a04956eaa3ef1041dffeee727a165414d" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -226,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="396" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="396" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="399" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="399" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a07f27c3cd0b7054c700a148013876922" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -240,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="397" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="397" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="400" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="400" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a89d96c1fc13f272ac790b4050b6feb64" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -254,7 +254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="398" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="398" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="401" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="401" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aec18d447f7671387a7d904f64796fc97" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -268,7 +268,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="399" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="399" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="402" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="402" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aaed1bcb6fee26f079d626522b5f728c0" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="400" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="400" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="403" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="403" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab5d77df6a5cfaac7f7b0a11210607888" prot="public" static="no" mutable="no">
         <type>unsigned</type>
@@ -296,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="401" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="401" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="404" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="404" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ab1edf511da96f9597431b46a2f34a709" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a5d9988fccd173f2ebee324a8b800fd1d" kindref="member">TestType</ref></type>
@@ -310,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="402" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="402" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="405" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="405" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a4e5c74b3d8053fea28beab23f4ebacfd" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -324,7 +324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="404" column="12" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="404" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="407" column="12" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="407" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa613428bf93a5e95766e6b2163083ffd" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -338,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="406" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="406" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="409" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="409" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a85b477773dbc90ae3ba9d2435fe56948" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -352,7 +352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="407" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="407" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="410" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="410" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aa824f269fe301da1f0ca1609328eddc8" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -366,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="408" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="408" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="411" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="411" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a9da79b40419d21d4e97b85df370085e0" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -380,7 +380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="409" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="409" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="412" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="412" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a449ade9c924abf0849f593c7a2694414" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -394,7 +394,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="411" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="411" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="414" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="414" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1aad3b5126aaf12e96722b2eeb6c9c1e1b" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -408,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="412" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="412" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="415" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="415" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a81cbca2fadde792ea218afbc2f8131fe" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a102088114e95fcf9270161db050ac719" kindref="member">TestInstance</ref> *</type>
@@ -422,7 +422,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="414" column="18" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="414" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="417" column="18" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="417" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a109667e9ff55fd6c7eec60babff7dff2" prot="public" static="no" mutable="no">
         <type>FILE</type>
@@ -436,7 +436,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="416" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="416" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="419" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="419" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a604b6cf59d5c8d9eedf80dbb8ad70507" prot="public" static="no" mutable="no">
         <type>FILE *</type>
@@ -450,7 +450,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="418" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="418" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="421" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="421" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1acefe9ae1d777e134e6ea99a5cc9ced7f" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -464,7 +464,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="419" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="419" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="422" column="10" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="422" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a6c24285c00df641bacb3b579928bf256" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a35d88e579b7ccac333a8515d4fd56f60" kindref="member">TestCase</ref> *</type>
@@ -478,7 +478,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="420" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="420" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="423" column="14" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="423" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1ac2340a4d3b1e6a24354de0615e952a16" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
@@ -492,7 +492,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="421" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="421" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="424" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="424" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a15a1a93f399ce1199e22e319dcfc1757" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
@@ -506,7 +506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="422" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="422" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="425" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="425" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsuper__test__instance_1a8339cc5c1db8285e7abebb1837d02aa1" prot="public" static="no" mutable="no">
         <type><ref refid="cester_8h_1a6e188ff1d9a59ccec802a2ef4e25abe5" kindref="member">CesterArray</ref> *</type>
@@ -520,7 +520,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="424" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="424" bodyend="-1"/>
+        <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="427" column="17" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="427" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -561,7 +561,7 @@
         <link refid="structcester__array__struct"/>
       </node>
     </collaborationgraph>
-    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="380" column="34" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="380" bodyend="426"/>
+    <location file="/home/runner/work/libcester/libcester/include/exotic/cester.h" line="383" column="34" bodyfile="/home/runner/work/libcester/libcester/include/exotic/cester.h" bodystart="383" bodyend="429"/>
     <listofallmembers>
       <member refid="structsuper__test__instance_1a15a1a93f399ce1199e22e319dcfc1757" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>captured_streams</name></member>
       <member refid="structsuper__test__instance_1aad3b5126aaf12e96722b2eeb6c9c1e1b" prot="public" virt="non-virtual"><scope>super_test_instance</scope><name>captured_streams_tmp_folder</name></member>

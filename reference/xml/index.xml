@@ -89,6 +89,7 @@
     <member refid="cester_8h_1a23ae61166739debbfbe676fc2f9fc5fd" kind="define"><name>CESTER_NULL</name></member>
     <member refid="cester_8h_1a00d24c7231be28dbaf71f5408f30e44c" kind="define"><name>inline</name></member>
     <member refid="cester_8h_1ab84f56f39c77569225b79823a1cce112" kind="define"><name>__CESTER_CAST_CHAR_ARRAY__</name></member>
+    <member refid="cester_8h_1ac1e225cec27e7b784e39ffb230e5ab82" kind="define"><name>cester_meta_free</name></member>
     <member refid="cester_8h_1a07fa1c9bc563510fa197df308772b4b3" kind="define"><name>EXOTICTYPES_WINDLLEXPORT</name></member>
     <member refid="cester_8h_1adb89038ec025478b6b628899e7e7146f" kind="define"><name>EXOTIC_API</name></member>
     <member refid="cester_8h_1a694ad0cd5307d272e3e3ca64612176fb" kind="define"><name>CESTER_RESET_TERMINAL</name></member>

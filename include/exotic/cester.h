@@ -98,6 +98,9 @@ jmp_buf buf;
 #endif
 #endif
 
+/** set pointer to null after free */
+#define cester_meta_free(x) free(x); x = CESTER_NULL
+
 #if defined __has_include
     #if !__has_include (__BASE_FILE__)
         #pragma message("__BASE_FILE__ is not in include directory. Add the option '-I.' for your compiler so it can find the file.")
@@ -766,7 +769,7 @@ static __CESTER_INLINE__ char *cester_extract_name(char const* const file_path) 
     }
     file_name_only_actual = (char*) malloc(j+1);
     cester_copy_str(&file_name_only, &file_name_only_actual, j);
-    free(file_name_only);
+    cester_meta_free(file_name_only);
     return file_name_only_actual;
 }
 
@@ -819,14 +822,14 @@ static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char*
     while (1) {
         if (arg[i] == '\0') {
             if (i < prefix_size) {
-                free(value);
+                cester_meta_free(value);
                 return 0;
             } else {
                 break;
             }
         }
         if (i < prefix_size && arg[i] != prefix[i]) {
-            free(value);
+            cester_meta_free(value);
             return 0;
         }
         if (i >= prefix_size) {
@@ -837,7 +840,7 @@ static __CESTER_INLINE__ unsigned cester_str_after_prefix(const char* arg, char*
     i = i-prefix_size;
     *out = (char*) malloc(i+1);
     cester_copy_str(&value, out, i);
-    free(value);
+    cester_meta_free(value);
     return 1;
 }
 
@@ -968,13 +971,20 @@ static __CESTER_INLINE__ void unpack_selected_extra_args(char *arg, char ***out,
     if (current_index > 0) {
         arr[size-1][current_index] = '\0';
     }
+    
+    if (current_index == 0) {
+        cester_meta_free(arr[0]);
+        cester_meta_free(arr);
+        return;
+    }
+
     current_index = 0;
     (*out) = (char**) malloc(size * sizeof(char*));
     while (current_index < size) {
         (*out)[current_index] = arr[current_index];
         current_index++;
     }
-    free(arr);
+    cester_meta_free(arr);
 
     *out_size = size;
 }
@@ -1000,7 +1010,7 @@ static __CESTER_INLINE__ void cester_str_value_after_first(char *arg, char from,
     }
     (*out) = (char*) malloc(index+1);
     cester_copy_str(&value, out, index);
-    free(value);
+    cester_meta_free(value);
 }
 
 static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra) {
@@ -1041,7 +1051,7 @@ static __CESTER_INLINE__ void cester_concat_str(char **out, const char * extra) 
     }
 
     if (*out && *out[0] != 0) {
-        free(*out);
+        cester_meta_free(*out);
     }
     *out = concatted;
 }
@@ -1050,7 +1060,7 @@ static __CESTER_INLINE__ void cester_concat_ptr(char **out, void *ptr) {
     char *extra;
     cester_ptr_to_str(&extra, ptr);
     cester_concat_str(out, extra);
-    free(extra);
+    cester_meta_free(extra);
 }
 
 static __CESTER_INLINE__ unsigned cester_is_validate_output_option(char *format_option) {
@@ -1154,7 +1164,7 @@ static __CESTER_INLINE__ void cester_print_help(void) {
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    3 - Meaningful information\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    4,5,6,7,8,9\n");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), "    10 - Meaningful informations + garbage alias of --cester-verbose\n");
-    free(file_name);
+    cester_meta_free(file_name);
 }
 
 static void cester_print_test_case_message(char const* const type, char const* const message, char const* const file_path, unsigned const line_num) {
@@ -1179,7 +1189,7 @@ static void cester_print_test_case_message(char const* const type, char const* c
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, message);
     }
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1198,7 +1208,7 @@ static __CESTER_INLINE__ void cester_print_assertion(char const* const expressio
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "'");
     }
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1243,7 +1253,7 @@ static __CESTER_INLINE__ void cester_print_expect_actual(unsigned expecting, cha
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), ", received ");
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), expect);*/
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1350,7 +1360,7 @@ static __CESTER_INLINE__ void print_test_case_result(TestCase* test_case) {
             CESTER_DELEGATE_FPRINT_STR((print_color), "\n");
     }
     if (superTestInstance.format_test_name == 1) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1378,7 +1388,7 @@ static __CESTER_INLINE__ void print_test_case_outputs(TestCase* test_case) {
     }
     CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_WHITE), test_case->execution_output);
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1444,7 +1454,7 @@ static __CESTER_INLINE__ void write_testcase_tap(TestCase *a_test_case, char* fi
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), a_test_case->execution_output);
     }
     if (superTestInstance.format_test_name == 1) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -1484,7 +1494,7 @@ static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char
         a_test_case->test_type != CESTER_NORMAL_TODO_TEST) {
         if (a_test_case->execution_status == CESTER_RESULT_SUCCESS && superTestInstance.verbose_level == 0) {
             if (superTestInstance.format_test_name == 1) {
-                free(cleaned_name);
+                cester_meta_free(cleaned_name);
             }
             return;
         }
@@ -1535,10 +1545,10 @@ static __CESTER_INLINE__ void write_testcase_tap_v13(TestCase *a_test_case, char
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_GRAY), "\n  ...\n");
     }
     if (superTestInstance.format_test_name == 1) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
     if (superTestInstance.verbose_level < 4) {
-        free(clean_file_path);
+        cester_meta_free(clean_file_path);
     }
 }
 
@@ -1630,7 +1640,7 @@ static __CESTER_INLINE__ void write_testcase_junitxml(TestCase *a_test_case, cha
             break;
     }
     if (superTestInstance.verbose_level < 4) {
-        free(clean_file_path);
+        cester_meta_free(clean_file_path);
     }
     
 }
@@ -1668,7 +1678,7 @@ static __CESTER_INLINE__ unsigned check_memory_allocated_for_functions(char *fun
         })
     }
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
     return leaked_memory_count;
 }
@@ -1947,17 +1957,17 @@ static __CESTER_INLINE__ int cester_print_result(TestCase cester_test_cases[], T
     CESTER_RESET_TERMINAL_ATTR();
     cester_cleanup_super_instance();
     if (CESTER_TOTAL_FAILED_TESTS_COUNT != 0 && superTestInstance.current_execution_status == CESTER_RESULT_SUCCESS) {
-        free(file_name);
+        cester_meta_free(file_name);
         return CESTER_RESULT_FAILURE;
     }
     if (superTestInstance.report_success_regardless == 1) {
-        free(file_name);
+        cester_meta_free(file_name);
         return CESTER_RESULT_SUCCESS;
     } else if (superTestInstance.report_failure_regardless == 1) {
-        free(file_name);
+        cester_meta_free(file_name);
         return CESTER_RESULT_FAILURE;
     }
-    free(file_name);
+    cester_meta_free(file_name);
     return superTestInstance.current_execution_status;
 }
 
@@ -3182,8 +3192,8 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_str(char const* cons
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
-    free(expected);
-    free(actual);
+    cester_meta_free(expected);
+    cester_meta_free(actual);
 }
 
 static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void* ptr2, char const* const expected_expr, char const* const actual_expr,
@@ -3231,8 +3241,8 @@ static __CESTER_INLINE__ void cester_evaluate_expect_actual_ptr(void* ptr1, void
         cester_print_expect_actual(expecting, expected, actual, file_path, line_num);
         cester_concat_str(&(superTestInstance.current_test_case)->execution_output, "\n");
     }
-    free(expected);
-    free(actual);
+    cester_meta_free(expected);
+    cester_meta_free(actual);
 }
 
 /*
@@ -3930,7 +3940,7 @@ static void cester_capture_stream(FILE *stream, char const* const file_path, uns
             }
         }
          if (captured_stream) {
-             free(captured_stream);
+             cester_meta_free(captured_stream);
          }
 }
 
@@ -3963,12 +3973,12 @@ static void cester_release_captured_stream(FILE *stream, CapturedStream *capture
         *stream = captured_stream->original_stream;
     }
     if (captured_stream->stream_buffer != CESTER_NULL) {
-        free(captured_stream->stream_buffer);
+        cester_meta_free(captured_stream->stream_buffer);
     }
-    free(captured_stream->original_stream_ptr_str);
-    free(captured_stream->replaced_stream_ptr_str);
-    free(captured_stream->replaced_stream_file_path);
-    free(captured_stream);
+    cester_meta_free(captured_stream->original_stream_ptr_str);
+    cester_meta_free(captured_stream->replaced_stream_ptr_str);
+    cester_meta_free(captured_stream->replaced_stream_file_path);
+    cester_meta_free(captured_stream);
 }
 
 /**
@@ -4000,7 +4010,7 @@ static void cester_reset_stream(FILE *stream, char const* const file_path, unsig
                         *stream = *(captured_stream->replaced_stream_handle);
                         captured_stream->line_num = line_num;
                     }
-                    free(stream_ptr_str);
+                    cester_meta_free(stream_ptr_str);
                     return;
                 }
             }
@@ -4011,7 +4021,7 @@ static void cester_reset_stream(FILE *stream, char const* const file_path, unsig
         cester_concat_str(&superTestInstance.current_test_case->execution_output, "No stream with the pointer address '");
         cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
         cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is reset \n");
-        free(stream_ptr_str);
+        cester_meta_free(stream_ptr_str);
 }
 
 /**
@@ -4045,23 +4055,23 @@ static char *cester_stream_content(FILE *stream, char const* const file_path, un
                         length = ftell(captured_stream->replaced_stream_handle);
                         fseek(captured_stream->replaced_stream_handle, 0, SEEK_SET);
                         if (captured_stream->stream_buffer != CESTER_NULL) {
-                            free(captured_stream->stream_buffer);
+                            cester_meta_free(captured_stream->stream_buffer);
                         }
                         captured_stream->stream_buffer = (char *) malloc(length+1);
                         if (captured_stream->stream_buffer) {
                             length = fread(captured_stream->stream_buffer, 1, length, captured_stream->replaced_stream_handle);
                             captured_stream->stream_buffer[length] = '\0';
                         }
-                        free(stream_ptr_str);
+                        cester_meta_free(stream_ptr_str);
                         return captured_stream->stream_buffer;
                     }
-                    free(stream_ptr_str);
+                    cester_meta_free(stream_ptr_str);
                     return (char *) "";
                 }
             }
         })
     }
-    free(stream_ptr_str);
+    cester_meta_free(stream_ptr_str);
     return (char *) "";
 }
 
@@ -4097,7 +4107,7 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
                         cester_concat_str(&superTestInstance.current_test_case->execution_output, "' from captured stream array, expect non breaking issues.\n");
                     }
-                    free(stream_ptr_str);
+                    cester_meta_free(stream_ptr_str);
                     cester_release_captured_stream(stream, captured_stream, file_path, line_num);
                     captured_stream = CESTER_NULL;
                     return;
@@ -4110,7 +4120,7 @@ static void cester_release_stream(FILE *stream, char const* const file_path, uns
         cester_concat_str(&superTestInstance.current_test_case->execution_output, "No stream with the pointer address '");
         cester_concat_str(&superTestInstance.current_test_case->execution_output, stream_ptr_str);
         cester_concat_str(&superTestInstance.current_test_case->execution_output, "' captured so nothing is realeased \n");
-        free(stream_ptr_str);
+        cester_meta_free(stream_ptr_str);
 }
 
 /**
@@ -4450,7 +4460,7 @@ static __CESTER_INLINE__ void cester_register_test(char *test_name, cester_test 
             superTestInstance.output_stream_address = *stdout;
 #endif
         }
-        free(test_case);
+        cester_meta_free(test_case);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Failed to register '");
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), test_name);
         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "' \n");
@@ -4590,7 +4600,7 @@ static __CESTER_INLINE__ void cester_report_single_test_result(unsigned last_sta
         superTestInstance.current_execution_status = a_test_case->execution_status;
     }
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
 }
 
@@ -4733,8 +4743,8 @@ static __CESTER_INLINE__ void cester_run_test(TestInstance *test_instance, TestC
                     (cester_string_equals(superTestInstance.output_format, (char*) "tapV13") == 1 ? "--cester-output=tapV13" : ""),
                     superTestInstance.flattened_cmd_argv,
                     (char*)CESTER_NULL);
-            free(selected_test_unix);
-            free(verbose_level_str);
+            cester_meta_free(selected_test_unix);
+            cester_meta_free(verbose_level_str);
             exit(CESTER_RESULT_FAILURE);
 
         } else {
@@ -4962,7 +4972,7 @@ static void cester_cleanup_super_instance(void)
 	if (superTestInstance.mem_alloc_manager != CESTER_NULL) {
         CESTER_ARRAY_FOREACH(superTestInstance.mem_alloc_manager, index, alloc_mem, {
             if (alloc_mem != CESTER_NULL) {
-                free(alloc_mem);
+                cester_meta_free(alloc_mem);
             }
             if (cester_array_remove_at(superTestInstance.mem_alloc_manager, index) != CESTER_NULL) {
                 index--;
@@ -4975,9 +4985,9 @@ static void cester_cleanup_super_instance(void)
         index = 0;
         CESTER_ARRAY_FOREACH(superTestInstance.registered_test_cases, index, test_case, {
             if (strlen(((TestCase *)test_case)->execution_output) > 0) {
-                free(((TestCase *)test_case)->execution_output);
+                cester_meta_free(((TestCase *)test_case)->execution_output);
             }
-            free(test_case);
+            cester_meta_free(test_case);
             if (cester_array_remove_at(superTestInstance.registered_test_cases, index) != CESTER_NULL) {
                 index--;
             }
@@ -4987,17 +4997,19 @@ static void cester_cleanup_super_instance(void)
     if (superTestInstance.selected_test_cases_size > 0) {
         index = 0;
         for (; index < superTestInstance.selected_test_cases_size; ++index) {
-            free(superTestInstance.selected_test_cases_names[index]);
+            cester_meta_free(superTestInstance.selected_test_cases_names[index]);
         }
-        free(superTestInstance.selected_test_cases_names);
+    }
+    if (superTestInstance.selected_test_cases_names != CESTER_NULL) {
+        cester_meta_free(superTestInstance.selected_test_cases_names);
     }
 #ifndef CESTER_NO_STREAM_CAPTURE
     if (superTestInstance.output_stream_str != CESTER_NULL) {
-        free(superTestInstance.output_stream_str);
+        cester_meta_free(superTestInstance.output_stream_str);
     }
 #endif
     if (superTestInstance.test_instance != CESTER_NULL) {
-        free(superTestInstance.test_instance);
+        cester_meta_free(superTestInstance.test_instance);
     }
 }
 
@@ -5213,6 +5225,8 @@ static __CESTER_INLINE__ unsigned int cester_print_tests_information(char *info_
 	if (cester_string_equals(info_section, "all")) {
 		CESTER_DELEGATE_FPRINT("\n");
 	}
+    cester_meta_free(file_name);
+    cester_meta_free(info_section);
 
 	return CESTER_RESULT_SUCCESS;
 }
@@ -5310,15 +5324,17 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
             } else if (cester_string_equals(cester_option, (char*) "version") == 1) {
                 CESTER_NOCOLOR();
                 cester_print_version();
-                free(cester_option);
+                cester_meta_free(cester_option);
                 cester_cleanup_super_instance();
+                if (info_section != CESTER_NULL) { cester_meta_free(info_section); }
                 return EXIT_SUCCESS;
 
             } else if (cester_string_equals(cester_option, (char*) "help") == 1) {
                 CESTER_NOCOLOR();
                 cester_print_version();
                 cester_print_help();
-                free(cester_option);
+                cester_meta_free(cester_option);
+                if (info_section != CESTER_NULL) { cester_meta_free(info_section); }
                 cester_cleanup_super_instance();
                 return EXIT_SUCCESS;
 
@@ -5333,7 +5349,7 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
             } else if (cester_string_starts_with(cester_option, (char*) "verbose-level=") == 1) {
                 cester_str_value_after_first(cester_option, '=', &extra);
                 superTestInstance.verbose_level = atoi(extra);
-                free(extra);
+                cester_meta_free(extra);
                 if (superTestInstance.verbose_level >= 10) {
                     superTestInstance.print_error_only = 0;
                 }
@@ -5348,8 +5364,8 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                         CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_YELLOW), "Did you mean 'tap' or 'tapV13?'\n");
                     }
                     CESTER_RESET_TERMINAL_ATTR()
-                    free(extra);
-                    free(cester_option);
+                    cester_meta_free(extra);
+                    cester_meta_free(cester_option);
                     return EXIT_FAILURE;
                 } else {
                     if (cester_string_equals(extra, (char*) "junitxml")) { superTestInstance.output_format = (char*) "junitxml"; }
@@ -5357,18 +5373,18 @@ static __CESTER_INLINE__ unsigned cester_run_all_test(unsigned argc, char **argv
                     else if (cester_string_equals(extra, (char*) "tapV13")) { superTestInstance.output_format = (char*) "tapV13"; }
                     else { superTestInstance.output_format = (char*) "text"; }
                 }
-                free(extra);
+                cester_meta_free(extra);
 
             } else if (superTestInstance.single_output_only != 1) {
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "Invalid cester option: --cester-");
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), cester_option);
                 CESTER_DELEGATE_FPRINT_STR((CESTER_FOREGROUND_RED), "\n");
                 CESTER_RESET_TERMINAL_ATTR()
-                free(cester_option);
+                cester_meta_free(cester_option);
                 return EXIT_FAILURE;
             }
             if (cester_option != CESTER_NULL) {
-                free(cester_option);
+                cester_meta_free(cester_option);
                 cester_option = CESTER_NULL;
             }
         } else {
@@ -5519,7 +5535,7 @@ static __CESTER_INLINE__ unsigned cester_array_init(CesterArray** out) {
     array_local->capacity = CESTER_ARRAY_INITIAL_CAPACITY;
     buffer = (void**) malloc(sizeof(void*) * array_local->capacity);
     if (!buffer) {
-        free(array_local);
+        cester_meta_free(array_local);
         return 0;
     }
     array_local->buffer = buffer;
@@ -5543,7 +5559,7 @@ static __CESTER_INLINE__ unsigned cester_array_add(CesterArray* array, void* ite
             return 0;
         }
         memcpy(new_buffer, array->buffer, array->size * sizeof(void*));
-        free(array->buffer);
+        cester_meta_free(array->buffer);
         array->buffer = new_buffer;
     }
     array->buffer[array->size] = item;
@@ -5568,8 +5584,8 @@ static __CESTER_INLINE__ void* cester_array_remove_at(CesterArray* array, size_t
 }
 
 static __CESTER_INLINE__ void cester_array_destroy(CesterArray* array) {
-    free(array->buffer);
-    free(array);
+    cester_meta_free(array->buffer);
+    cester_meta_free(array);
 }
 
 /* Memory leak Detection procedures */
@@ -5659,7 +5675,7 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
             superTestInstance.current_execution_status = CESTER_RESULT_MEMORY_LEAK;
         }
         if (superTestInstance.verbose_level < 4) {
-            free(cleaned_name);
+            cester_meta_free(cleaned_name);
         }
         return;
     }
@@ -5673,19 +5689,19 @@ static __CESTER_INLINE__ void cester_free(void *pointer, const char *file, unsig
                     superTestInstance.mem_test_active = 0;
                 }
                 if (((AllocatedMemory*)alloc_mem)->function_name_allocated == 1) {
-                    free(((AllocatedMemory*)alloc_mem)->function_name);
+                    cester_meta_free(((AllocatedMemory*)alloc_mem)->function_name);
                 }
-                free(((AllocatedMemory*)alloc_mem)->address);
-                free(alloc_mem);
+                cester_meta_free(((AllocatedMemory*)alloc_mem)->address);
+                cester_meta_free(alloc_mem);
                 break;
             }
         })
-        free(address);
+        cester_meta_free(address);
     }
     if (superTestInstance.verbose_level < 4) {
-        free(cleaned_name);
+        cester_meta_free(cleaned_name);
     }
-    free(pointer);
+    cester_meta_free(pointer);
 }
 
 #define malloc(x) cester_allocator( 0, x, 0, __FILE__, __LINE__, __CESTER_FUNCTION__) /**< Override the default malloc function for mem test */
